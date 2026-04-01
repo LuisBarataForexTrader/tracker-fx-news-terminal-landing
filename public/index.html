@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ── Primary SEO ── -->
+<title>Trading News Terminal — Real-Time Financial News for Traders</title>
+<meta name="description" content="Professional real-time financial news terminal. Monitor forex, stocks, crypto and macro events with zero-delay news feeds, economic calendar, and live squawk. The free alternative to Bloomberg and FinancialJuice.">
+<meta name="keywords" content="trading news terminal, real-time financial news, forex news, market news, economic calendar, squawk, trading alerts, bloomberg alternative, financialjuice alternative, live market news">
+<meta name="author" content="Trading News Terminal">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.tradingnewsterminal.com/">
+
+<!-- ── Open Graph ── -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.tradingnewsterminal.com/">
+<meta property="og:title" content="Trading News Terminal — Real-Time Financial News for Traders">
+<meta property="og:description" content="Professional real-time financial news terminal. Monitor forex, stocks, crypto and macro events with zero-delay news feeds, economic calendar, and live squawk.">
+<meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+<meta property="og:site_name" content="Trading News Terminal">
+<meta property="og:locale" content="en_US">
+
+<!-- ── Twitter Card ── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://www.tradingnewsterminal.com/">
+<meta name="twitter:title" content="Trading News Terminal — Real-Time Financial News for Traders">
+<meta name="twitter:description" content="Professional real-time financial news terminal. Monitor forex, stocks, crypto and macro events with zero-delay news feeds.">
+<meta name="twitter:image" content="https://www.tradingnewsterminal.com/og-image.png">
+
+<!-- ── Structured Data ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Trading News Terminal",
+  "url": "https://app.tradingnewsterminal.com",
+  "description": "Professional real-time financial news terminal for traders. Aggregates news from 40+ sources including Reuters, Bloomberg, CNBC, ForexLive with economic calendar and live squawk.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "312"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Trading News Terminal",
+  "url": "https://www.tradingnewsterminal.com",
+  "logo": "https://www.tradingnewsterminal.com/og-image.png",
+  "sameAs": []
+}
+</script>
+
+<!-- ── Fonts ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#0a0c0f; --bg2:#0f1217; --bg3:#141820; --bg4:#1a2030;
+  --border:#1e2530; --border2:#2a3444;
+  --text:#ffffff; --text-dim:#c8d8e8; --text-muted:#7a9ab0;
+  --accent:#00d4ff; --accent2:#0099cc;
+  --high:#ff3b5c; --high-bg:rgba(255,59,92,0.09); --high-border:rgba(255,59,92,0.25);
+  --medium:#f59e0b;
+  --low:#10b981; --low-bg:rgba(16,185,129,0.07); --low-border:rgba(16,185,129,0.2);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono','Courier New',monospace;
+  --max:1200px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+
+/* ── Scanlines ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.018) 2px,rgba(0,0,0,0.018) 4px);
+  pointer-events:none; z-index:1000;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:rgba(10,12,15,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+  height:68px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; gap:12px; }
+.nav-logo-icon {
+  width:32px; height:32px;
+  border:1.5px solid var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.nav-logo-icon::before {
+  content:'';
+  width:10px; height:10px;
+  background:var(--accent);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+.nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; }
+.nav-logo-text span { color:var(--accent); }
+.nav-logo-sub { font-size:9px; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; }
+.nav-links { display:flex; align-items:center; gap:28px; }
+.nav-links a { font-size:12px; font-weight:500; color:var(--text-dim); letter-spacing:0.04em; transition:color .15s; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta {
+  padding:9px 22px;
+  background:var(--accent);
+  color:#000;
+  font-family:var(--font);
+  font-size:12px; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase;
+  border:none; cursor:pointer;
+  border-radius:3px;
+  transition:all .15s;
+  white-space:nowrap;
+}
+.nav-cta:hover { background:var(--accent2); transform:translateY(-1px); }
+.nav-mobile-cta { display:none; }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+.hero-glow {
+  position:absolute;
+  width:700px; height:700px;
+  background:radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%);
+  top:50%; left:50%; transform:translate(-50%,-55%);
+  pointer-events:none;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:10px; font-weight:700; letter-spacing:0.25em; text-transform:uppercase;
+  color:var(--low);
+  border:1px solid var(--low-border);
+  background:var(--low-bg);
+  padding:6px 14px;
+  border-radius:2px;
+  margin-bottom:28px;
+  position:relative; z-index:1;
+}
+.hero-eyebrow::before {
+  content:'';
+  width:6px; height:6px; border-radius:50%;
+  background:var(--low);
+  animation:blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.hero h1 {
+  font-size:clamp(36px,6vw,72px);
+  font-weight:900;
+  line-height:1.08;
+  letter-spacing:-0.02em;
+  margin-bottom:24px;
+  position:relative; z-index:1;
+}
+.hero h1 .accent { color:var(--accent); }
+.hero h1 .dim { color:var(--text-dim); }
+.hero-sub {
+  font-size:clamp(15px,2vw,20px);
+  font-weight:400;
+  color:var(--text-dim);
+  line-height:1.7;
+  max-width:620px;
+  margin:0 auto 40px;
+  position:relative; z-index:1;
+}
+.hero-actions {
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center;
+  position:relative; z-index:1;
+  margin-bottom:64px;
+}
+.btn-primary {
+  padding:14px 32px;
+  background:var(--accent);
+  color:#000;
+  font-family:var(--font);
+  font-size:13px; font-weight:800;
+  letter-spacing:0.08em; text-transform:uppercase;
+  border:none; cursor:pointer; border-radius:3px;
+  transition:all .2s;
+  box-shadow:0 0 32px rgba(0,212,255,0.25);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 4px 40px rgba(0,212,255,0.4); }
+.btn-secondary {
+  padding:14px 28px;
+  background:transparent;
+  color:var(--text-dim);
+  font-family:var(--font);
+  font-size:13px; font-weight:600;
+  letter-spacing:0.06em;
+  border:1px solid var(--border2); cursor:pointer; border-radius:3px;
+  transition:all .2s;
+}
+.btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
+.hero-trust {
+  display:flex; align-items:center; gap:24px; flex-wrap:wrap; justify-content:center;
+  position:relative; z-index:1;
+}
+.hero-trust-item {
+  display:flex; align-items:center; gap:7px;
+  font-size:11px; color:var(--text-muted); font-weight:500;
+  letter-spacing:0.04em;
+}
+.hero-trust-item .check { color:var(--low); font-size:13px; }
+
+/* ── TERMINAL MOCKUP ── */
+.mockup-wrap {
+  width:100%; max-width:var(--max);
+  margin:80px auto 0;
+  padding:0 24px;
+  position:relative; z-index:1;
+}
+.mockup-window {
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,212,255,0.08), 0 0 80px rgba(0,212,255,0.06);
+}
+.mockup-bar {
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  padding:10px 16px;
+  display:flex; align-items:center; gap:8px;
+}
+.mockup-dot { width:10px; height:10px; border-radius:50%; }
+.mockup-dot.r { background:#ff5f57; }
+.mockup-dot.y { background:#ffbd2e; }
+.mockup-dot.g { background:#28c840; }
+.mockup-url {
+  flex:1; background:var(--bg2); border:1px solid var(--border);
+  border-radius:3px; padding:4px 12px;
+  font-family:var(--font-mono); font-size:11px; color:var(--text-muted);
+  margin:0 8px;
+}
+.mockup-live {
+  font-size:9px; font-weight:700; letter-spacing:0.15em;
+  color:var(--low); border:1px solid var(--low-border);
+  padding:3px 8px; border-radius:2px;
+  animation:blink 2s ease-in-out infinite;
+}
+.mockup-body { padding:0; }
+.mockup-ticker {
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex; gap:28px; overflow:hidden;
+  font-family:var(--font-mono); font-size:11px;
+}
+.tick { display:flex; align-items:center; gap:6px; white-space:nowrap; }
+.tick-sym { font-weight:600; color:var(--text); }
+.tick-val { color:var(--text-dim); }
+.tick-chg.up { color:var(--low); }
+.tick-chg.dn { color:var(--high); }
+.mockup-tabs {
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  display:flex; padding:0 12px; gap:2px;
+}
+.mockup-tab {
+  padding:12px 20px; font-size:11px; font-weight:600;
+  letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--text-muted); border-radius:4px; position:relative;
+}
+.mockup-tab.active {
+  color:var(--accent);
+  background:rgba(0,212,255,0.06);
+  box-shadow:0 0 0 1px rgba(0,212,255,0.3), 0 0 12px rgba(0,212,255,0.2);
+}
+.mockup-news { padding:0; }
+.mockup-item {
+  display:grid;
+  grid-template-columns:56px 1fr 70px;
+  gap:14px;
+  padding:13px 20px;
+  border-bottom:1px solid var(--border);
+  border-left:3px solid transparent;
+  align-items:start;
+}
+.mockup-item.high { border-left-color:var(--high); background:rgba(255,59,92,0.06); }
+.mockup-item.medium { border-left-color:var(--medium); background:rgba(245,158,11,0.05); }
+.mockup-item.low { border-left-color:var(--low); background:rgba(16,185,129,0.04); }
+.mi-time { font-family:var(--font-mono); font-size:11px; color:var(--text-muted); padding-top:2px; }
+.mi-headline { font-size:12px; line-height:1.5; color:var(--text); margin-bottom:4px; }
+.mi-meta { display:flex; gap:8px; align-items:center; }
+.mi-source { font-size:9px; font-weight:700; letter-spacing:0.08em; color:var(--text-muted); text-transform:uppercase; }
+.mi-tag { font-size:9px; font-weight:700; padding:2px 6px; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.2); color:var(--accent); border-radius:2px; }
+.mi-badge { text-align:right; }
+.mi-badge span {
+  font-size:8px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  padding:3px 7px; border-radius:2px;
+}
+.mi-badge.high span { background:rgba(255,59,92,0.1); border:1px solid rgba(255,59,92,0.3); color:var(--high); }
+.mi-badge.medium span { background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); color:var(--medium); }
+.mi-badge.low span { background:rgba(16,185,129,0.07); border:1px solid rgba(16,185,129,0.2); color:var(--low); }
+.mi-new { display:inline-flex; align-items:center; font-size:8px; font-weight:900; letter-spacing:0.18em; padding:2px 6px; background:var(--high); color:#fff; border-radius:2px; margin-left:8px; vertical-align:middle; animation:newp 1.2s ease-in-out infinite; }
+@keyframes newp { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+/* ── SECTIONS ── */
+section { padding:100px 24px; }
+.container { max-width:var(--max); margin:0 auto; }
+.section-eyebrow {
+  font-size:10px; font-weight:700; letter-spacing:0.25em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:14px;
+}
+.section-title {
+  font-size:clamp(28px,4vw,46px); font-weight:800;
+  letter-spacing:-0.02em; line-height:1.15;
+  margin-bottom:16px;
+}
+.section-sub {
+  font-size:17px; color:var(--text-dim); line-height:1.7;
+  max-width:560px;
+}
+
+/* ── STATS ── */
+.stats-bar {
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:40px 24px;
+}
+.stats-grid {
+  max-width:var(--max); margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.stat-item {
+  padding:10px 32px;
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.stat-item:last-child { border-right:none; }
+.stat-number {
+  font-size:clamp(32px,4vw,48px); font-weight:900;
+  font-family:var(--font-mono);
+  color:var(--accent); letter-spacing:-0.02em;
+  line-height:1;
+  margin-bottom:8px;
+}
+.stat-label { font-size:12px; color:var(--text-muted); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; }
+
+/* ── FEATURES ── */
+.features-section { background:var(--bg); }
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  margin-top:64px;
+  border:1px solid var(--border);
+}
+.feature-card {
+  background:var(--bg2);
+  padding:36px 32px;
+  border:none;
+  transition:background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.feature-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0; transition:opacity .2s;
+}
+.feature-card:hover { background:var(--bg3); }
+.feature-card:hover::before { opacity:1; }
+.feature-icon {
+  width:44px; height:44px;
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.18);
+  border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; margin-bottom:20px;
+}
+.feature-title {
+  font-size:16px; font-weight:700; margin-bottom:10px; line-height:1.3;
+}
+.feature-desc { font-size:13px; color:var(--text-dim); line-height:1.65; }
+.feature-tag {
+  display:inline-block; margin-top:14px;
+  font-size:9px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+  padding:3px 9px; border-radius:2px;
+}
+.tag-free { background:rgba(16,185,129,0.1); border:1px solid var(--low-border); color:var(--low); }
+.tag-pro { background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.25); color:#a78bfa; }
+.tag-new { background:rgba(255,59,92,0.1); border:1px solid rgba(255,59,92,0.25); color:var(--high); }
+
+/* ── SOURCES ── */
+.sources-section { background:var(--bg2); }
+.sources-grid {
+  display:flex; flex-wrap:wrap; gap:10px;
+  margin-top:48px;
+}
+.source-chip {
+  padding:8px 16px;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  color:var(--text-dim);
+  font-size:12px; font-weight:600;
+  letter-spacing:0.04em;
+  border-radius:3px;
+  transition:all .15s;
+}
+.source-chip:hover { border-color:var(--accent); color:var(--accent); }
+.source-chip.highlight { border-color:rgba(0,212,255,0.3); color:var(--accent); background:rgba(0,212,255,0.06); }
+
+/* ── HOW IT WORKS ── */
+.how-section { background:var(--bg); }
+.how-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:48px; margin-top:64px;
+  position:relative;
+}
+.how-grid::before {
+  content:'';
+  position:absolute; top:28px; left:16%; right:16%; height:1px;
+  background:linear-gradient(90deg,transparent,var(--border2),var(--border2),transparent);
+}
+.how-step { text-align:center; position:relative; z-index:1; }
+.how-num {
+  width:56px; height:56px;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px;
+  font-family:var(--font-mono); font-size:18px; font-weight:700; color:var(--accent);
+}
+.how-title { font-size:17px; font-weight:700; margin-bottom:10px; }
+.how-desc { font-size:13px; color:var(--text-dim); line-height:1.65; }
+
+/* ── VS TABLE ── */
+.vs-section { background:var(--bg2); }
+.vs-table-wrap { margin-top:56px; overflow-x:auto; }
+.vs-table {
+  width:100%; border-collapse:collapse;
+  border:1px solid var(--border);
+}
+.vs-table th {
+  padding:16px 24px; text-align:left;
+  font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+  background:var(--bg3); border-bottom:1px solid var(--border2);
+  color:var(--text-muted);
+}
+.vs-table th.ours { color:var(--accent); background:rgba(0,212,255,0.05); }
+.vs-table td {
+  padding:14px 24px; border-bottom:1px solid var(--border);
+  font-size:13px; color:var(--text-dim);
+}
+.vs-table td.feature-name { color:var(--text); font-weight:500; }
+.vs-table td.ours { background:rgba(0,212,255,0.03); color:var(--text); }
+.vs-table tr:last-child td { border-bottom:none; }
+.vs-table tr:hover td { background:rgba(255,255,255,0.02); }
+.check-yes { color:var(--low); font-size:16px; }
+.check-no { color:var(--high); font-size:14px; opacity:0.6; }
+.check-partial { color:var(--medium); font-size:14px; }
+
+/* ── FAQ ── */
+.faq-section { background:var(--bg); }
+.faq-grid { max-width:760px; margin:56px auto 0; display:flex; flex-direction:column; gap:2px; }
+.faq-item {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:3px;
+  overflow:hidden;
+}
+.faq-q {
+  padding:20px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:15px; font-weight:600; cursor:pointer;
+  transition:background .15s;
+  gap:16px;
+}
+.faq-q:hover { background:var(--bg3); }
+.faq-q .faq-icon { font-size:18px; color:var(--accent); flex-shrink:0; transition:transform .2s; }
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+.faq-a {
+  padding:0 24px; max-height:0; overflow:hidden;
+  transition:max-height .3s ease, padding .3s;
+  font-size:14px; color:var(--text-dim); line-height:1.7;
+}
+.faq-item.open .faq-a { max-height:400px; padding:0 24px 20px; }
+
+/* ── CTA BANNER ── */
+.cta-section {
+  background:linear-gradient(135deg, rgba(0,212,255,0.08) 0%, var(--bg2) 100%);
+  border-top:1px solid rgba(0,212,255,0.15);
+  border-bottom:1px solid rgba(0,212,255,0.15);
+  padding:100px 24px;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.cta-section::before {
+  content:'';
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:600px; height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.cta-title { font-size:clamp(28px,4vw,52px); font-weight:900; line-height:1.1; margin-bottom:16px; }
+.cta-sub { font-size:17px; color:var(--text-dim); margin-bottom:40px; }
+.cta-note { font-size:12px; color:var(--text-muted); margin-top:16px; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  padding:64px 24px 40px;
+}
+.footer-grid {
+  max-width:var(--max); margin:0 auto;
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px; margin-bottom:56px;
+}
+.footer-brand .footer-logo-text {
+  font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  margin-bottom:12px;
+}
+.footer-brand .footer-logo-text span { color:var(--accent); }
+.footer-brand p { font-size:13px; color:var(--text-muted); line-height:1.7; max-width:280px; }
+.footer-col h4 { font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px; }
+.footer-col a { display:block; font-size:13px; color:var(--text-dim); margin-bottom:10px; transition:color .15s; }
+.footer-col a:hover { color:var(--accent); }
+.footer-bottom {
+  max-width:var(--max); margin:0 auto;
+  border-top:1px solid var(--border);
+  padding-top:28px;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px;
+}
+.footer-bottom p { font-size:12px; color:var(--text-muted); }
+.footer-bottom a { color:var(--text-muted); transition:color .15s; }
+.footer-bottom a:hover { color:var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+  .nav-links { display:none; }
+  .nav-mobile-cta { display:block; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .stat-item:nth-child(2) { border-right:none; }
+  .features-grid { grid-template-columns:1fr; }
+  .how-grid { grid-template-columns:1fr; }
+  .how-grid::before { display:none; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .mockup-ticker { display:none; }
+}
+@media(max-width:600px) {
+  section { padding:70px 18px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); gap:0; }
+  .stat-item { padding:16px; }
+  .footer-grid { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+  .hero-actions { flex-direction:column; align-items:stretch; }
+  .btn-primary, .btn-secondary { text-align:center; }
+  .mockup-item { grid-template-columns:48px 1fr; }
+  .mi-badge { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#sources">Sources</a>
+    <a href="#compare">Compare</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Open Terminal ↗</a>
+  </div>
+  <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener" class="nav-cta">Launch Free →</a>
+  <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener" class="nav-mobile-cta nav-cta">Launch →</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-eyebrow">Live Now — Real-Time Feed Active</div>
+
+  <h1>
+    The Professional<br>
+    <span class="accent">Financial News Terminal</span><br>
+    <span class="dim">Built for Traders</span>
+  </h1>
+
+  <p class="hero-sub">
+    Aggregate news from 40+ institutional sources — Reuters, Bloomberg, CNBC, ForexLive and more — in a single zero-clutter terminal. With economic calendar, live squawk, and multi-asset watchlists.
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener" class="btn-primary">
+      ▶ Open Terminal — Free
+    </a>
+    <a href="#features" class="btn-secondary">See All Features</a>
+  </div>
+
+  <div class="hero-trust">
+    <div class="hero-trust-item"><span class="check">✓</span> No signup required</div>
+    <div class="hero-trust-item"><span class="check">✓</span> 40+ news sources</div>
+    <div class="hero-trust-item"><span class="check">✓</span> Economic calendar built-in</div>
+    <div class="hero-trust-item"><span class="check">✓</span> Live squawk voice alerts</div>
+  </div>
+
+  <!-- Terminal Mockup -->
+  <div class="mockup-wrap" aria-hidden="true">
+    <div class="mockup-window">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">app.tradingnewsterminal.com</div>
+        <div class="mockup-live">● LIVE</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-ticker">
+          <div class="tick"><span class="tick-sym">EUR/USD</span><span class="tick-val">1.0842</span><span class="tick-chg up">+0.12%</span></div>
+          <div class="tick"><span class="tick-sym">GBP/USD</span><span class="tick-val">1.2654</span><span class="tick-chg dn">−0.08%</span></div>
+          <div class="tick"><span class="tick-sym">USD/JPY</span><span class="tick-val">149.32</span><span class="tick-chg up">+0.31%</span></div>
+          <div class="tick"><span class="tick-sym">GOLD</span><span class="tick-val">2341.50</span><span class="tick-chg up">+0.55%</span></div>
+          <div class="tick"><span class="tick-sym">BTC</span><span class="tick-val">67,210</span><span class="tick-chg dn">−1.20%</span></div>
+          <div class="tick"><span class="tick-sym">S&P 500</span><span class="tick-val">5,248</span><span class="tick-chg up">+0.42%</span></div>
+          <div class="tick"><span class="tick-sym">WTI OIL</span><span class="tick-val">82.10</span><span class="tick-chg dn">−0.33%</span></div>
+          <div class="tick"><span class="tick-sym">DXY</span><span class="tick-val">104.22</span><span class="tick-chg dn">−0.18%</span></div>
+        </div>
+        <div class="mockup-tabs">
+          <div class="mockup-tab active">📰 News Feed</div>
+          <div class="mockup-tab">📅 Economic Calendar</div>
+          <div class="mockup-tab">📺 Live TV</div>
+        </div>
+        <div class="mockup-news">
+          <div class="mockup-item high">
+            <div class="mi-time">14:23:05</div>
+            <div>
+              <div class="mi-headline">🔴 Fed's Powell: Further rate hikes appropriate if inflation does not cool as expected<span class="mi-new">NEW</span></div>
+              <div class="mi-meta"><span class="mi-source">Reuters</span><span class="mi-tag">USD</span><span class="mi-tag">SP500</span></div>
+            </div>
+            <div class="mi-badge high"><span>HIGH</span></div>
+          </div>
+          <div class="mockup-item high">
+            <div class="mi-time">14:18:41</div>
+            <div>
+              <div class="mi-headline">🟢 🇺🇸 US CPI (MoM) — Actual: 3.1% | Forecast: 3.2% | Previous: 3.4%<span class="mi-new">NEW</span></div>
+              <div class="mi-meta"><span class="mi-source">Economic Calendar</span><span class="mi-tag">📅 RELEASE</span></div>
+            </div>
+            <div class="mi-badge high"><span>HIGH</span></div>
+          </div>
+          <div class="mockup-item medium">
+            <div class="mi-time">14:11:22</div>
+            <div>
+              <div class="mi-headline">OPEC+ considering additional output cuts ahead of June meeting — sources</div>
+              <div class="mi-meta"><span class="mi-source">Bloomberg</span><span class="mi-tag">OIL</span></div>
+            </div>
+            <div class="mi-badge medium"><span>MEDIUM</span></div>
+          </div>
+          <div class="mockup-item low">
+            <div class="mi-time">14:06:18</div>
+            <div>
+              <div class="mi-headline">ECB's Lagarde reaffirms data-dependent approach to monetary policy decisions</div>
+              <div class="mi-meta"><span class="mi-source">ForexLive</span><span class="mi-tag">EUR</span></div>
+            </div>
+            <div class="mi-badge low"><span>LOW</span></div>
+          </div>
+          <div class="mockup-item low">
+            <div class="mi-time">13:58:47</div>
+            <div>
+              <div class="mi-headline">Bitcoin surpasses $67,000 as institutional demand accelerates post-halving</div>
+              <div class="mi-meta"><span class="mi-source">CoinTelegraph</span><span class="mi-tag">BTC</span></div>
+            </div>
+            <div class="mi-badge low"><span>LOW</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-bar" role="region" aria-label="Key stats">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number">40+</div>
+      <div class="stat-label">News Sources</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">&lt;30s</div>
+      <div class="stat-label">Update Latency</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Live TV Channels</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Free</div>
+      <div class="stat-label">No Credit Card</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="features-section" id="features" aria-label="Features">
+  <div class="container">
+    <div class="section-eyebrow">Everything you need</div>
+    <h2 class="section-title">A complete trading<br>intelligence platform</h2>
+    <p class="section-sub">Every tool a professional trader needs, in a single zero-friction terminal.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <div class="feature-title">Real-Time News Feed</div>
+        <div class="feature-desc">Aggregated from 40+ sources including Reuters, Bloomberg, CNBC, ForexLive, FXStreet, Benzinga, Axios and more. Auto-classified by impact: HIGH, MEDIUM, LOW.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Economic Calendar</div>
+        <div class="feature-desc">Live economic events with countdown timers, previous, forecast and actual values. Calendar releases auto-inject into the news feed the moment data drops.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔊</div>
+        <div class="feature-title">Live Squawk</div>
+        <div class="feature-desc">Hands-free voice reading of every new headline, so you never miss breaking news while your eyes are on the chart. Highlights the card being read in real time.</div>
+        <span class="feature-tag tag-new">New</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Instant Sound Alerts</div>
+        <div class="feature-desc">Audio notification on every new item. Configurable with a single click. The news tab pulses green when new items arrive while you're in another section.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📺</div>
+        <div class="feature-title">Live Financial TV</div>
+        <div class="feature-desc">Embedded live streams from Bloomberg TV, CNBC, Al Jazeera, Sky News, DW, France 24 and AP News — all inside the terminal with no tab switching.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">★</div>
+        <div class="feature-title">My News Watchlist</div>
+        <div class="feature-desc">Pin assets (USD, EUR, GBP, JPY, GOLD, OIL, SPX, BTC) to filter the feed to only the instruments you trade. Your watchlist persists across sessions.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Smart Search</div>
+        <div class="feature-desc">Search by keyword, asset, source, or forex pair. Entering "eurusd" automatically filters for EUR and USD tagged news. Works across all 40+ sources simultaneously.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-title">Multi-Asset Coverage</div>
+        <div class="feature-desc">Dedicated tabs for Forex, Crypto, Macro, Bonds, Equities, Indexes and Commodities. Market Moving tab surfaces only HIGH impact news and calendar releases.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Bilingual EN / PT</div>
+        <div class="feature-desc">Full interface and automatic headline translation between English and Portuguese. Switch instantly with a single click — all news and calendar entries translate on the fly.</div>
+        <span class="feature-tag tag-free">Included Free</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOURCES ── -->
+<section class="sources-section" id="sources" aria-label="News sources">
+  <div class="container">
+    <div class="section-eyebrow">Coverage</div>
+    <h2 class="section-title">40+ sources, one terminal</h2>
+    <p class="section-sub">We aggregate from the same sources institutional traders rely on — with no paywalls and no logins required.</p>
+
+    <div class="sources-grid">
+      <div class="source-chip highlight">Reuters</div>
+      <div class="source-chip highlight">Bloomberg</div>
+      <div class="source-chip highlight">CNBC</div>
+      <div class="source-chip highlight">ForexLive</div>
+      <div class="source-chip highlight">FXStreet</div>
+      <div class="source-chip highlight">Wall Street Journal</div>
+      <div class="source-chip">MarketWatch</div>
+      <div class="source-chip">Yahoo Finance</div>
+      <div class="source-chip">Investing.com</div>
+      <div class="source-chip">Benzinga</div>
+      <div class="source-chip">Axios</div>
+      <div class="source-chip">Asharq Al-Awsat</div>
+      <div class="source-chip">Financial Times</div>
+      <div class="source-chip">The Telegraph</div>
+      <div class="source-chip">Politico</div>
+      <div class="source-chip">ZeroHedge</div>
+      <div class="source-chip">Seeking Alpha</div>
+      <div class="source-chip">Barron's</div>
+      <div class="source-chip">OilPrice.com</div>
+      <div class="source-chip">Kitco</div>
+      <div class="source-chip">CoinTelegraph</div>
+      <div class="source-chip">CoinDesk</div>
+      <div class="source-chip">DailyFX</div>
+      <div class="source-chip">Forex Factory</div>
+      <div class="source-chip">BBC Business</div>
+      <div class="source-chip">The Guardian</div>
+      <div class="source-chip">Federal Reserve</div>
+      <div class="source-chip">ECB</div>
+      <div class="source-chip">IMF</div>
+      <div class="source-chip">Nasdaq News</div>
+      <div class="source-chip">Business Insider</div>
+      <div class="source-chip">TASS</div>
+      <div class="source-chip">The Atlantic</div>
+      <div class="source-chip">NY Post</div>
+      <div class="source-chip">TheStreet</div>
+      <div class="source-chip">Investopedia</div>
+      <div class="source-chip">Action Forex</div>
+      <div class="source-chip">Myfxbook</div>
+      <div class="source-chip">Decrypt</div>
+      <div class="source-chip">AEI (YouTube)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section" aria-label="How it works">
+  <div class="container">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Up and running in seconds</h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-title">Open the Terminal</div>
+        <div class="how-desc">No registration, no download, no credit card. Just open <strong>app.tradingnewsterminal.com</strong> in any browser and the live feed connects instantly via WebSocket.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-title">Set Your Filters</div>
+        <div class="how-desc">Choose your impact level, pin your assets to My News, and select the categories you trade — Forex, Macro, Commodities, Crypto. The feed updates in under 30 seconds.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-title">Trade with Confidence</div>
+        <div class="how-desc">Sound alerts and Squawk notify you the instant news breaks. Economic calendar releases inject directly into the feed the moment data is published.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VS TABLE ── -->
+<section class="vs-section" id="compare" aria-label="Comparison">
+  <div class="container">
+    <div class="section-eyebrow">Comparison</div>
+    <h2 class="section-title">How we compare</h2>
+    <p class="section-sub">Professional-grade tools without the professional-grade price tag.</p>
+    <div class="vs-table-wrap">
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="ours">Trading News Terminal</th>
+            <th>FinancialJuice</th>
+            <th>Bloomberg Terminal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-name">Real-time news feed</td>
+            <td class="ours"><span class="check-yes">✓</span> Free</td>
+            <td><span class="check-yes">✓</span> Free (limited)</td>
+            <td><span class="check-yes">✓</span> $24k/yr</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Economic calendar</td>
+            <td class="ours"><span class="check-yes">✓</span> Built-in</td>
+            <td><span class="check-yes">✓</span></td>
+            <td><span class="check-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Live squawk</td>
+            <td class="ours"><span class="check-yes">✓</span> Free</td>
+            <td><span class="check-partial">~</span> Paid</td>
+            <td><span class="check-yes">✓</span> Paid</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Live financial TV</td>
+            <td class="ours"><span class="check-yes">✓</span> 7 channels</td>
+            <td><span class="check-no">✗</span></td>
+            <td><span class="check-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">40+ aggregated sources</td>
+            <td class="ours"><span class="check-yes">✓</span></td>
+            <td><span class="check-partial">~</span> Fewer</td>
+            <td><span class="check-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Asset watchlist</td>
+            <td class="ours"><span class="check-yes">✓</span> Free</td>
+            <td><span class="check-no">✗</span></td>
+            <td><span class="check-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">No login required</td>
+            <td class="ours"><span class="check-yes">✓</span></td>
+            <td><span class="check-yes">✓</span></td>
+            <td><span class="check-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Price</td>
+            <td class="ours" style="color:var(--low);font-weight:700;">Free</td>
+            <td>Free / Paid tiers</td>
+            <td style="color:var(--high);">~$2,000/month</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-section" id="faq" aria-label="FAQ">
+  <div class="container" style="text-align:center;">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Frequently asked questions</h2>
+  </div>
+  <div class="faq-grid" role="list">
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is Trading News Terminal really free?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Yes. The core terminal — real-time news feed, economic calendar, live TV, squawk, sound alerts and watchlist — is completely free with no account required. A Pro tier with zero-delay real-time coverage and additional features is planned.</div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How fast is the news feed?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">The backend fetches from all 40+ RSS and API sources every 30 seconds and broadcasts new items to connected clients instantly via WebSocket. Most breaking news appears within 30–60 seconds of publication at the original source.</div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What is the Squawk feature?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Squawk uses your browser's Web Speech API to read headlines aloud as they arrive — just like a professional trading desk squawk box. Enable it in one click, and the terminal will automatically read every new headline and highlight the card being spoken, so you never miss breaking news while watching charts.</div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Which sources does the terminal aggregate?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Over 40 sources including Reuters, Bloomberg, CNBC, ForexLive, FXStreet, Wall Street Journal, MarketWatch, Benzinga, Axios, Financial Times, Politico, BBC Business, Kitco, CoinTelegraph, CoinDesk, DailyFX, Forex Factory, The Telegraph, TASS, and institutional sources like the Federal Reserve and ECB.</div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Does it work on mobile?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Yes. The terminal is fully responsive and works on any modern mobile browser. For the best experience on mobile, add it to your home screen as a Progressive Web App (PWA support coming soon).</div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How does the economic calendar work?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">The economic calendar fetches 7 days of events with live countdown timers for upcoming releases. When actual data is published, the result is automatically injected into the News Feed with colour-coded positive/negative signals, and HIGH impact events trigger a sound alert and squawk.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" aria-label="Call to action">
+  <div class="container">
+    <h2 class="cta-title">Start trading smarter.<br><span style="color:var(--accent)">It's free.</span></h2>
+    <p class="cta-sub">No account. No credit card. No delay. Just open the terminal and trade.</p>
+    <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;">
+      ▶ Open Terminal Now — Free
+    </a>
+    <p class="cta-note">Works in Chrome, Firefox, Safari, Edge. No installation required.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-text">Trading <span>News</span> Terminal</div>
+      <p>Professional real-time financial news terminal for forex, stocks, crypto and macro traders. Aggregating 40+ institutional sources in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Open Terminal</a>
+      <a href="#features">Features</a>
+      <a href="#sources">Sources</a>
+      <a href="#compare">Compare</a>
+    </div>
+    <div class="footer-col">
+      <h4>Markets</h4>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Forex News</a>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Macro News</a>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Crypto News</a>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Economic Calendar</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#faq">FAQ</a>
+      <a href="https://app.tradingnewsterminal.com" target="_blank" rel="noopener">Live TV</a>
+      <a href="mailto:hello@tradingnewsterminal.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Trading News Terminal. All rights reserved.</p>
+    <p>
+      <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms of Use</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Smooth scroll offset for fixed nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({top, behavior:'smooth'});
+  });
+});
+
+// Nav shadow on scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 10 ? '0 4px 24px rgba(0,0,0,0.4)' : '';
+});
+</script>
+</body>
+</html>
