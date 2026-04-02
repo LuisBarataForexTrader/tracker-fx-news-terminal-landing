@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Trading News Terminal</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0c0f; --bg2:#0f1217; --bg3:#141820;
+  --border:#1e2530; --border2:#2a3444;
+  --text:#ffffff; --text-dim:#c8d8e8; --text-muted:#7a9ab0;
+  --accent:#00d4ff; --accent2:#0099cc;
+  --high:#ff3b5c; --low:#10b981; --low-bg:rgba(16,185,129,0.07); --low-border:rgba(16,185,129,0.2);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.02) 2px,rgba(0,0,0,0.02) 4px);pointer-events:none;z-index:1000;}
+
+/* ── NAV ── */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-icon{width:28px;height:28px;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;}
+.nav-logo-icon::before{content:'';width:9px;height:9px;background:var(--accent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.nav-logo-text{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;}
+.nav-logo-text span{color:var(--accent);}
+.nav-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--accent);}
+
+/* ── MAIN ── */
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.auth-card{width:100%;max-width:440px;}
+
+.auth-header{text-align:center;margin-bottom:36px;}
+.auth-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--low);background:var(--low-bg);border:1px solid var(--low-border);padding:5px 12px;border-radius:2px;margin-bottom:20px;}
+.auth-eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--low);animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.auth-title{font-size:28px;font-weight:800;letter-spacing:-0.01em;margin-bottom:8px;}
+.auth-sub{font-size:14px;color:var(--text-muted);}
+
+/* ── TABS ── */
+.auth-tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:28px;}
+.auth-tab{flex:1;padding:11px;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:0.04em;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+.auth-tab.active{background:var(--accent);color:#000;}
+
+/* ── FORM ── */
+.auth-box{background:var(--bg2);border:1px solid var(--border2);padding:32px;border-radius:4px;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.form-input{width:100%;padding:12px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:14px;border-radius:3px;outline:none;transition:border-color .15s;}
+.form-input:focus{border-color:var(--accent2);}
+.form-input::placeholder{color:var(--text-muted);}
+.form-hint{font-size:11px;color:var(--text-muted);margin-top:6px;}
+
+.btn-submit{width:100%;padding:14px;background:var(--accent);color:#000;font-family:var(--font);font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;border-radius:3px;transition:all .2s;margin-top:8px;}
+.btn-submit:hover{background:var(--accent2);}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
+
+.form-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text-muted);font-size:12px;}
+.form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.auth-benefits{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.benefit{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim);}
+.benefit .icon{color:var(--low);font-size:14px;flex-shrink:0;}
+
+/* ── MESSAGES ── */
+.msg{display:none;padding:12px 16px;border-radius:3px;font-size:13px;margin-bottom:16px;font-weight:500;}
+.msg.error{background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.3);color:var(--high);}
+.msg.success{background:rgba(16,185,129,0.1);border:1px solid var(--low-border);color:var(--low);}
+.msg.show{display:block;}
+
+/* ── FOOTER ── */
+.auth-footer-note{text-align:center;margin-top:20px;font-size:12px;color:var(--text-muted);}
+.auth-footer-note a{color:var(--accent);text-decoration:none;}
+
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24px;text-align:center;font-size:11px;color:var(--text-muted);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon"></div>
+    <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<main>
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-eyebrow">Free Access</div>
+      <h1 class="auth-title">Access the Terminal</h1>
+      <p class="auth-sub">Real-time financial news, economic calendar & live squawk</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="showTab('login')">Sign In</button>
+      <button class="auth-tab" id="tab-signup" onclick="showTab('signup')">Create Account</button>
+    </div>
+
+    <div class="auth-box">
+      <div id="msg" class="msg"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="form-login" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email</label>
+          <input class="form-input" id="login-email" type="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input class="form-input" id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-submit" id="btn-login">Sign In → Open Terminal</button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="form-signup" style="display:none" onsubmit="handleSignup(event)">
+        <div class="auth-benefits">
+          <div class="benefit"><span class="icon">✓</span> Free real-time news feed</div>
+          <div class="benefit"><span class="icon">✓</span> Economic calendar + live squawk</div>
+          <div class="benefit"><span class="icon">✓</span> Live financial TV — 7 channels</div>
+          <div class="benefit"><span class="icon">✓</span> No credit card required</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Name</label>
+          <input class="form-input" id="signup-name" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Email</label>
+          <input class="form-input" id="signup-email" type="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="signup-password">Password</label>
+          <input class="form-input" id="signup-password" type="password" placeholder="Min. 6 characters" required autocomplete="new-password">
+          <div class="form-hint">Minimum 6 characters</div>
+        </div>
+        <button type="submit" class="btn-submit" id="btn-signup">Create Account → Open Terminal</button>
+      </form>
+    </div>
+
+    <div class="auth-footer-note">
+      By signing up you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 Trading News Terminal — Real-time Market Intelligence</footer>
+
+<script>
+const BACKEND = 'https://tracker-fx-news-terminal-backend-production.up.railway.app';
+const APP_URL = 'https://app.tradingnewsterminal.com';
+
+// If already logged in, go straight to app
+(function checkExisting() {
+  const token = localStorage.getItem('tnt_token');
+  if (!token) return;
+  fetch(BACKEND + '/auth/me', {headers:{'Authorization':'Bearer '+token}})
+    .then(r => { if (r.ok) window.location.href = APP_URL; })
+    .catch(() => {});
+})();
+
+function showTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('form-login').style.display = tab==='login' ? '' : 'none';
+  document.getElementById('form-signup').style.display = tab==='signup' ? '' : 'none';
+  clearMsg();
+}
+
+function showMsg(text, type) {
+  const el = document.getElementById('msg');
+  el.textContent = text;
+  el.className = 'msg '+type+' show';
+}
+function clearMsg() {
+  document.getElementById('msg').className = 'msg';
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  clearMsg();
+  const btn = document.getElementById('btn-login');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  try {
+    const r = await fetch(BACKEND+'/auth/login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    const data = await r.json();
+    if (!r.ok) { showMsg(data.detail || 'Invalid email or password', 'error'); return; }
+    localStorage.setItem('tnt_token', data.token);
+    localStorage.setItem('tnt_user', JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
+    showMsg('Welcome back! Redirecting…', 'success');
+    setTimeout(() => { window.location.href = APP_URL; }, 800);
+  } catch(err) {
+    showMsg('Connection error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In → Open Terminal';
+  }
+}
+
+async function handleSignup(e) {
+  e.preventDefault();
+  clearMsg();
+  const btn = document.getElementById('btn-signup');
+  btn.disabled = true; btn.textContent = 'Creating account…';
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const name = document.getElementById('signup-name').value.trim();
+  if (password.length < 6) { showMsg('Password must be at least 6 characters.', 'error'); btn.disabled=false; btn.textContent='Create Account → Open Terminal'; return; }
+  try {
+    const r = await fetch(BACKEND+'/auth/signup', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password, name})
+    });
+    const data = await r.json();
+    if (!r.ok) { showMsg(data.detail || 'Signup failed. Please try again.', 'error'); return; }
+    localStorage.setItem('tnt_token', data.token);
+    localStorage.setItem('tnt_user', JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
+    showMsg('Account created! Launching terminal…', 'success');
+    setTimeout(() => { window.location.href = APP_URL; }, 800);
+  } catch(err) {
+    showMsg('Connection error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Create Account → Open Terminal';
+  }
+}
+
+// Auto-switch to signup if ?signup in URL
+if (location.search.includes('signup')) showTab('signup');
+</script>
+</body>
+</html>

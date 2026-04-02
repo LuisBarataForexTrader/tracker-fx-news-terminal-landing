@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Trading News Terminal</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0c0f; --bg2:#0f1217; --bg3:#141820;
+  --border:#1e2530; --border2:#2a3444;
+  --text:#ffffff; --text-dim:#c8d8e8; --text-muted:#7a9ab0;
+  --accent:#00d4ff; --accent2:#0099cc;
+  --high:#ff3b5c; --high-bg:rgba(255,59,92,0.09);
+  --medium:#f59e0b;
+  --low:#10b981; --low-bg:rgba(16,185,129,0.07); --low-border:rgba(16,185,129,0.2);
+  --pro:#a78bfa; --pro-bg:rgba(167,139,250,0.08);
+  --font:'Inter',-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.02) 2px,rgba(0,0,0,0.02) 4px);pointer-events:none;z-index:1000;}
+
+/* ── LOGIN GATE ── */
+#login-gate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
+.gate-box{background:var(--bg2);border:1px solid var(--border2);padding:40px;width:100%;max-width:360px;text-align:center;border-radius:4px;}
+.gate-box h2{font-size:20px;font-weight:800;margin-bottom:6px;}
+.gate-box p{font-size:13px;color:var(--text-muted);margin-bottom:24px;}
+.gate-input{width:100%;padding:11px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:14px;border-radius:3px;outline:none;margin-bottom:12px;}
+.gate-input:focus{border-color:var(--accent2);}
+.gate-btn{width:100%;padding:12px;background:var(--accent);color:#000;font-family:var(--font);font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;border-radius:3px;}
+.gate-error{font-size:12px;color:var(--high);margin-top:8px;display:none;}
+
+/* ── APP ── */
+#app{display:none;}
+
+/* ── HEADER ── */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header-logo{display:flex;align-items:center;gap:12px;}
+.header-logo-icon{width:28px;height:28px;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;}
+.header-logo-icon::before{content:'';width:9px;height:9px;background:var(--accent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.header-title{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;}
+.header-title span{color:var(--accent);}
+.header-badge{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--medium);border:1px solid rgba(245,158,11,0.3);padding:3px 8px;border-radius:2px;background:rgba(245,158,11,0.08);}
+.header-right{display:flex;align-items:center;gap:16px;}
+.last-refresh{font-size:11px;color:var(--text-muted);font-family:var(--font-mono);}
+.refresh-btn{padding:7px 16px;background:transparent;border:1px solid var(--border2);color:var(--text-dim);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;border-radius:3px;transition:all .15s;}
+.refresh-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── LAYOUT ── */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px);}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .15s;border-left:2px solid transparent;}
+.sidebar-item:hover{color:var(--text);background:var(--bg3);}
+.sidebar-item.active{color:var(--accent);background:rgba(0,212,255,0.06);border-left-color:var(--accent);}
+.sidebar-item .si-icon{font-size:15px;}
+.sidebar-label{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);padding:16px 20px 8px;}
+
+/* ── MAIN ── */
+.main{padding:28px;overflow-y:auto;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* ── STAT CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px 24px;border-radius:4px;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.stat-card.accent::before{background:var(--accent);}
+.stat-card.green::before{background:var(--low);}
+.stat-card.amber::before{background:var(--medium);}
+.stat-card.purple::before{background:var(--pro);}
+.stat-label{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.stat-value{font-size:36px;font-weight:900;font-family:var(--font-mono);line-height:1;margin-bottom:4px;}
+.stat-card.accent .stat-value{color:var(--accent);}
+.stat-card.green .stat-value{color:var(--low);}
+.stat-card.amber .stat-value{color:var(--medium);}
+.stat-card.purple .stat-value{color:var(--pro);}
+.stat-sub{font-size:11px;color:var(--text-muted);}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);}
+.section-count{font-size:11px;color:var(--text-muted);font-family:var(--font-mono);}
+
+/* ── SEARCH ── */
+.table-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.search-box{flex:1;max-width:320px;padding:9px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:12px;border-radius:3px;outline:none;}
+.search-box:focus{border-color:var(--accent2);}
+.filter-select{padding:9px 12px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:12px;border-radius:3px;outline:none;cursor:pointer;}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);background:var(--bg3);border-bottom:1px solid var(--border2);white-space:nowrap;}
+tbody td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-dim);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(255,255,255,0.015);}
+.td-email{color:var(--text);font-weight:500;}
+.td-mono{font-family:var(--font-mono);font-size:12px;}
+.plan-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:2px;}
+.plan-free{background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--accent);}
+.plan-pro{background:var(--pro-bg);border:1px solid rgba(167,139,250,0.3);color:var(--pro);}
+.td-actions{display:flex;gap:8px;align-items:center;}
+.action-btn{padding:4px 10px;font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:0.06em;border-radius:2px;cursor:pointer;border:1px solid;transition:all .15s;}
+.btn-upgrade{border-color:rgba(167,139,250,0.4);color:var(--pro);background:transparent;}
+.btn-upgrade:hover{background:var(--pro-bg);}
+.btn-downgrade{border-color:rgba(0,212,255,0.3);color:var(--accent);background:transparent;}
+.btn-downgrade:hover{background:rgba(0,212,255,0.06);}
+.btn-delete{border-color:rgba(255,59,92,0.3);color:var(--high);background:transparent;}
+.btn-delete:hover{background:var(--high-bg);}
+
+/* ── EMPTY / LOADING ── */
+.table-empty{padding:48px;text-align:center;color:var(--text-muted);font-size:13px;}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:600;padding:10px 24px;border-radius:3px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN GATE ── -->
+<div id="login-gate">
+  <div class="gate-box">
+    <h2>Admin Access</h2>
+    <p>Enter your admin token to continue</p>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Admin token" onkeydown="if(event.key==='Enter')gateLogin()">
+    <button class="gate-btn" onclick="gateLogin()">Enter Dashboard</button>
+    <div class="gate-error" id="gate-error">Invalid token. Try again.</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <header class="header">
+    <div class="header-logo">
+      <div class="header-logo-icon"></div>
+      <div class="header-title">Trading <span>News</span> Terminal</div>
+      <div class="header-badge">ADMIN</div>
+    </div>
+    <div class="header-right">
+      <span class="last-refresh" id="last-refresh">—</span>
+      <button class="refresh-btn" onclick="loadAll()">↺ Refresh</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Dashboard</div>
+      <div class="sidebar-item active" onclick="showPage('overview')"><span class="si-icon">◈</span> Overview</div>
+      <div class="sidebar-label">Users</div>
+      <div class="sidebar-item" onclick="showPage('users')"><span class="si-icon">👤</span> All Users</div>
+      <div class="sidebar-item" onclick="showPage('pro-users')"><span class="si-icon">⚡</span> Pro Users</div>
+      <div class="sidebar-item" onclick="showPage('free-users')"><span class="si-icon">◎</span> Free Users</div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- OVERVIEW PAGE -->
+      <div class="page active" id="page-overview">
+        <div class="stats-row">
+          <div class="stat-card accent">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value" id="stat-total">—</div>
+            <div class="stat-sub">All registered accounts</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Free Plan</div>
+            <div class="stat-value" id="stat-free">—</div>
+            <div class="stat-sub">Active free accounts</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-label">Pro Plan</div>
+            <div class="stat-value" id="stat-pro">—</div>
+            <div class="stat-sub">Paying subscribers</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-label">Today</div>
+            <div class="stat-value" id="stat-today">—</div>
+            <div class="stat-sub">New signups today</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-title">Recent Signups</div>
+          <div class="section-count" id="recent-count"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Email</th><th>Name</th><th>Plan</th><th>Signed Up</th><th>Last Seen</th></tr></thead>
+            <tbody id="recent-tbody"><tr><td colspan="6" class="table-empty"><span class="spinner"></span>Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ALL USERS PAGE -->
+      <div class="page" id="page-users">
+        <div class="table-toolbar">
+          <input class="search-box" id="search-all" type="text" placeholder="Search by email or name…" oninput="filterTable('all')">
+          <select class="filter-select" id="filter-plan" onchange="filterTable('all')">
+            <option value="">All plans</option>
+            <option value="free">Free</option>
+            <option value="pro">Pro</option>
+          </select>
+        </div>
+        <div class="section-header">
+          <div class="section-title">All Users</div>
+          <div class="section-count" id="all-count"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Email</th><th>Name</th><th>Plan</th><th>Signed Up</th><th>Last Seen</th><th>Actions</th></tr></thead>
+            <tbody id="all-tbody"><tr><td colspan="7" class="table-empty"><span class="spinner"></span>Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRO USERS PAGE -->
+      <div class="page" id="page-pro-users">
+        <div class="section-header">
+          <div class="section-title">Pro Users</div>
+          <div class="section-count" id="pro-count"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Email</th><th>Name</th><th>Plan</th><th>Signed Up</th><th>Last Seen</th><th>Actions</th></tr></thead>
+            <tbody id="pro-tbody"><tr><td colspan="7" class="table-empty"><span class="spinner"></span>Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FREE USERS PAGE -->
+      <div class="page" id="page-free-users">
+        <div class="section-header">
+          <div class="section-title">Free Users</div>
+          <div class="section-count" id="free-count"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Email</th><th>Name</th><th>Plan</th><th>Signed Up</th><th>Last Seen</th><th>Actions</th></tr></thead>
+            <tbody id="free-tbody"><tr><td colspan="7" class="table-empty"><span class="spinner"></span>Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BACKEND = 'https://tracker-fx-news-terminal-backend-production.up.railway.app';
+let adminToken = '';
+let allUsers = [];
+
+// ── Gate ─────────────────────────────────────────────────────────
+async function gateLogin() {
+  const val = document.getElementById('gate-input').value.trim();
+  if (!val) return;
+  try {
+    const r = await fetch(BACKEND+'/admin/users', {headers:{'x-admin-token': val}});
+    if (!r.ok) { document.getElementById('gate-error').style.display='block'; return; }
+    adminToken = val;
+    sessionStorage.setItem('tnt_admin', val);
+    document.getElementById('login-gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadAll();
+  } catch(e) {
+    document.getElementById('gate-error').style.display = 'block';
+  }
+}
+
+// Auto-restore session
+const saved = sessionStorage.getItem('tnt_admin');
+if (saved) {
+  adminToken = saved;
+  fetch(BACKEND+'/admin/users', {headers:{'x-admin-token': saved}})
+    .then(r => {
+      if (r.ok) { document.getElementById('login-gate').style.display='none'; document.getElementById('app').style.display='block'; loadAll(); }
+      else { sessionStorage.removeItem('tnt_admin'); }
+    }).catch(()=>{});
+}
+
+// ── Data ─────────────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    const r = await fetch(BACKEND+'/admin/users', {headers:{'x-admin-token': adminToken}});
+    if (!r.ok) return;
+    allUsers = await r.json();
+    renderAll();
+    document.getElementById('last-refresh').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB',{hour12:false});
+  } catch(e) { showToast('Error loading users'); }
+}
+
+function renderAll() {
+  const total = allUsers.length;
+  const free  = allUsers.filter(u => u.plan==='free').length;
+  const pro   = allUsers.filter(u => u.plan==='pro').length;
+  const today = allUsers.filter(u => u.created_at && u.created_at.startsWith(new Date().toISOString().split('T')[0])).length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-free').textContent  = free;
+  document.getElementById('stat-pro').textContent   = pro;
+  document.getElementById('stat-today').textContent = today;
+
+  // Recent — last 10
+  const recent = [...allUsers].slice(0,10);
+  document.getElementById('recent-count').textContent = total + ' total';
+  renderTable('recent-tbody', recent, false);
+
+  // All users
+  document.getElementById('all-count').textContent = total + ' users';
+  renderTable('all-tbody', allUsers, true);
+
+  // Pro
+  const proUsers = allUsers.filter(u=>u.plan==='pro');
+  document.getElementById('pro-count').textContent = proUsers.length + ' users';
+  renderTable('pro-tbody', proUsers, true);
+
+  // Free
+  const freeUsers = allUsers.filter(u=>u.plan==='free');
+  document.getElementById('free-count').textContent = freeUsers.length + ' users';
+  renderTable('free-tbody', freeUsers, true);
+}
+
+function renderTable(tbodyId, users, withActions) {
+  const tbody = document.getElementById(tbodyId);
+  if (!users.length) { tbody.innerHTML = '<tr><td colspan="'+(withActions?7:6)+'" class="table-empty">No users found</td></tr>'; return; }
+  tbody.innerHTML = users.map((u, i) => `
+    <tr id="row-${u.id}">
+      <td class="td-mono">${i+1}</td>
+      <td class="td-email">${esc(u.email)}</td>
+      <td>${esc(u.name||'—')}</td>
+      <td><span class="plan-badge plan-${u.plan}">${u.plan.toUpperCase()}</span></td>
+      <td class="td-mono">${fmtDate(u.created_at)}</td>
+      <td class="td-mono">${fmtDate(u.last_seen)}</td>
+      ${withActions ? `<td><div class="td-actions">
+        ${u.plan==='free'
+          ? `<button class="action-btn btn-upgrade" onclick="setPlan(${u.id},'pro')">→ Pro</button>`
+          : `<button class="action-btn btn-downgrade" onclick="setPlan(${u.id},'free')">→ Free</button>`}
+        <button class="action-btn btn-delete" onclick="deleteUser(${u.id},'${esc(u.email)}')">Delete</button>
+      </div></td>` : ''}
+    </tr>`).join('');
+}
+
+function filterTable(type) {
+  const search = (document.getElementById('search-all')?.value||'').toLowerCase();
+  const plan   = document.getElementById('filter-plan')?.value||'';
+  const filtered = allUsers.filter(u =>
+    (!search || u.email.toLowerCase().includes(search) || (u.name||'').toLowerCase().includes(search)) &&
+    (!plan || u.plan === plan)
+  );
+  document.getElementById('all-count').textContent = filtered.length + ' users';
+  renderTable('all-tbody', filtered, true);
+}
+
+async function setPlan(id, plan) {
+  try {
+    const r = await fetch(`${BACKEND}/admin/users/${id}/plan`, {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','x-admin-token':adminToken},
+      body: JSON.stringify({plan})
+    });
+    if (r.ok) { showToast(`Plan updated to ${plan.toUpperCase()}`); loadAll(); }
+  } catch(e) { showToast('Error updating plan'); }
+}
+
+async function deleteUser(id, email) {
+  if (!confirm(`Delete user ${email}? This cannot be undone.`)) return;
+  try {
+    const r = await fetch(`${BACKEND}/admin/users/${id}`, {
+      method:'DELETE',
+      headers:{'x-admin-token':adminToken}
+    });
+    if (r.ok) { showToast('User deleted'); loadAll(); }
+  } catch(e) { showToast('Error deleting user'); }
+}
+
+// ── UI ────────────────────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function fmtDate(str) {
+  if (!str) return '—';
+  try { return new Date(str).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}); }
+  catch { return str; }
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg) {
+  const t = document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// Auto-refresh every 60s
+setInterval(()=>{ if(adminToken) loadAll(); }, 60000);
+</script>
+</body>
+</html>
