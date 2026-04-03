@@ -79,6 +79,13 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 
 .auth-footer-note{text-align:center;margin-top:20px;font-size:12px;color:var(--text-muted);}
 .auth-footer-note a{color:var(--accent);text-decoration:none;}
 
+/* ── FORGOT PASSWORD ── */
+.forgot-link{display:block;text-align:right;font-size:11px;color:var(--text-muted);margin-top:-12px;margin-bottom:20px;cursor:pointer;text-decoration:none;transition:color .15s;}
+.forgot-link:hover{color:var(--accent);}
+.back-link{display:inline-block;font-size:12px;color:var(--text-muted);margin-bottom:20px;cursor:pointer;text-decoration:none;transition:color .15s;}
+.back-link:hover{color:var(--accent);}
+.resend-link{display:inline-block;margin-top:12px;font-size:12px;color:var(--accent);cursor:pointer;background:none;border:none;font-family:var(--font);text-decoration:underline;}
+
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24px;text-align:center;font-size:11px;color:var(--text-muted);flex-shrink:0;}
 </style>
 </head>
@@ -119,14 +126,28 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24p
           <label class="form-label" for="login-password">Password</label>
           <input class="form-input" id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password">
         </div>
+        <a class="forgot-link" onclick="showForgot()">Forgot password?</a>
         <button type="submit" class="btn-submit" id="btn-login">Sign In → Open Terminal</button>
+        <div id="resend-wrap" style="display:none;text-align:center;">
+          <button type="button" class="resend-link" onclick="handleResendVerification()">Resend verification email</button>
+        </div>
       </form>
+
+      <!-- FORGOT PASSWORD FORM -->
+      <div id="form-forgot" style="display:none">
+        <a class="back-link" onclick="showTab('login')">← Back to Sign In</a>
+        <div class="form-group">
+          <label class="form-label" for="forgot-email">Email</label>
+          <input class="form-input" id="forgot-email" type="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <button type="button" class="btn-submit" id="btn-forgot" onclick="handleForgot()">Send Reset Link</button>
+      </div>
 
       <!-- SIGNUP FORM -->
       <form id="form-signup" style="display:none" onsubmit="handleSignup(event)">
         <div class="auth-benefits">
-          <div class="benefit"><span class="icon">✓</span> Free real-time news feed</div>
-          <div class="benefit"><span class="icon">✓</span> Economic calendar + live squawk</div>
+          <div class="benefit"><span class="icon">✓</span> Real-time news feed (2-min delay on free)</div>
+          <div class="benefit"><span class="icon">✓</span> Economic calendar</div>
           <div class="benefit"><span class="icon">✓</span> Live financial TV — 7 channels</div>
           <div class="benefit"><span class="icon">✓</span> No credit card required</div>
         </div>
@@ -143,7 +164,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24p
           <input class="form-input" id="signup-password" type="password" placeholder="Min. 6 characters" required autocomplete="new-password">
           <div class="form-hint">Minimum 6 characters</div>
         </div>
-        <button type="submit" class="btn-submit" id="btn-signup">Create Account → Open Terminal</button>
+        <button type="submit" class="btn-submit" id="btn-signup">Create Account</button>
       </form>
     </div>
 
@@ -159,20 +180,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24p
 const BACKEND = 'https://tracker-fx-news-terminal-backend-production.up.railway.app';
 const APP_URL = 'https://app.tradingnewsterminal.com';
 
-// If already logged in, go straight to app
-(function checkExisting() {
-  const token = localStorage.getItem('tnt_token');
-  if (!token) return;
-  fetch(BACKEND + '/auth/me', {headers:{'Authorization':'Bearer '+token}})
-    .then(r => { if (r.ok) window.location.href = APP_URL; })
-    .catch(() => {});
-})();
+let _lastUnverifiedEmail = '';
 
 function showTab(tab) {
   document.getElementById('tab-login').classList.toggle('active', tab==='login');
   document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
   document.getElementById('form-login').style.display = tab==='login' ? '' : 'none';
+  document.getElementById('form-forgot').style.display = 'none';
   document.getElementById('form-signup').style.display = tab==='signup' ? '' : 'none';
+  document.getElementById('resend-wrap').style.display = 'none';
+  clearMsg();
+}
+
+function showForgot() {
+  document.getElementById('form-login').style.display = 'none';
+  document.getElementById('form-signup').style.display = 'none';
+  document.getElementById('form-forgot').style.display = '';
+  document.getElementById('tab-login').classList.remove('active');
+  document.getElementById('tab-signup').classList.remove('active');
   clearMsg();
 }
 
@@ -183,6 +208,7 @@ function showMsg(text, type) {
 }
 function clearMsg() {
   document.getElementById('msg').className = 'msg';
+  document.getElementById('resend-wrap').style.display = 'none';
 }
 
 async function handleLogin(e) {
@@ -199,11 +225,19 @@ async function handleLogin(e) {
       body: JSON.stringify({email, password})
     });
     const data = await r.json();
-    if (!r.ok) { showMsg(data.detail || 'Invalid email or password', 'error'); return; }
-    localStorage.setItem('tnt_token', data.token);
-    localStorage.setItem('tnt_user', JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
+    if (!r.ok) {
+      if (data.detail === 'EMAIL_NOT_VERIFIED') {
+        _lastUnverifiedEmail = email;
+        showMsg('Please verify your email before signing in. Check your inbox.', 'error');
+        document.getElementById('resend-wrap').style.display = 'block';
+      } else {
+        showMsg(data.detail || 'Invalid email or password', 'error');
+      }
+      return;
+    }
     showMsg('Welcome back! Redirecting…', 'success');
-    setTimeout(() => { window.location.href = APP_URL; }, 800);
+    const user = encodeURIComponent(JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
+    setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
   } catch(err) {
     showMsg('Connection error. Please try again.', 'error');
   } finally {
@@ -219,7 +253,7 @@ async function handleSignup(e) {
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
   const name = document.getElementById('signup-name').value.trim();
-  if (password.length < 6) { showMsg('Password must be at least 6 characters.', 'error'); btn.disabled=false; btn.textContent='Create Account → Open Terminal'; return; }
+  if (password.length < 6) { showMsg('Password must be at least 6 characters.', 'error'); btn.disabled=false; btn.textContent='Create Account'; return; }
   try {
     const r = await fetch(BACKEND+'/auth/signup', {
       method:'POST',
@@ -228,14 +262,52 @@ async function handleSignup(e) {
     });
     const data = await r.json();
     if (!r.ok) { showMsg(data.detail || 'Signup failed. Please try again.', 'error'); return; }
-    localStorage.setItem('tnt_token', data.token);
-    localStorage.setItem('tnt_user', JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
-    showMsg('Account created! Launching terminal…', 'success');
-    setTimeout(() => { window.location.href = APP_URL; }, 800);
+    showMsg('Account created! Please check your email to verify your account.', 'success');
+    _lastUnverifiedEmail = email;
+    // Show resend button in case email was missed
+    setTimeout(() => { document.getElementById('resend-wrap').style.display = 'block'; }, 3000);
   } catch(err) {
     showMsg('Connection error. Please try again.', 'error');
   } finally {
-    btn.disabled = false; btn.textContent = 'Create Account → Open Terminal';
+    btn.disabled = false; btn.textContent = 'Create Account';
+  }
+}
+
+async function handleForgot() {
+  clearMsg();
+  const btn = document.getElementById('btn-forgot');
+  const email = document.getElementById('forgot-email').value.trim();
+  if (!email) { showMsg('Please enter your email.', 'error'); return; }
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const r = await fetch(BACKEND+'/auth/request-password-reset', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email})
+    });
+    const data = await r.json();
+    showMsg(data.message || 'If this email is registered, a reset link has been sent.', 'success');
+  } catch(err) {
+    showMsg('Connection error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Send Reset Link';
+  }
+}
+
+async function handleResendVerification() {
+  const email = _lastUnverifiedEmail || document.getElementById('login-email').value.trim();
+  if (!email) { showMsg('Please enter your email above first.', 'error'); return; }
+  try {
+    const r = await fetch(BACKEND+'/auth/resend-verification', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email})
+    });
+    const data = await r.json();
+    showMsg(data.message || 'Verification email sent.', 'success');
+    document.getElementById('resend-wrap').style.display = 'none';
+  } catch(err) {
+    showMsg('Connection error. Please try again.', 'error');
   }
 }
 
