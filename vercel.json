@@ -1,3 +1,10 @@
 {
-  "alias": ["tradingnewsterminal.com", "www.tradingnewsterminal.com"]
+  "outputDirectory": "public",
+  "alias": ["tradingnewsterminal.com", "www.tradingnewsterminal.com"],
+  "headers": [
+    {
+      "source": "/(.*).html",
+      "headers": [{ "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }]
+    }
+  ]
 }
