@@ -18,7 +18,6 @@
   --high:#ff3b5c; --low:#10b981; --low-bg:rgba(16,185,129,0.07); --low-border:rgba(16,185,129,0.2);
   --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   --font-mono:'IBM Plex Mono','Courier New',monospace;
-  /* panel accent — overridden in Pro flow */
   --panel-accent: var(--accent);
   --panel-accent2: var(--accent2);
   --panel-glow: rgba(0,212,255,0.12);
@@ -55,14 +54,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
   pointer-events:none;z-index:1;
 }
 
-/* panel top glow line */
 .panel-glow-line{
   position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--panel-accent),transparent);
   z-index:2;
 }
 
-/* panel logo */
 .panel-logo{
   position:relative;z-index:2;
   padding:32px 36px 0;
@@ -75,7 +72,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 .panel-logo-text span{color:var(--panel-accent);}
 .panel-logo-sub{font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;}
 
-/* panel main content */
 .panel-body{
   position:relative;z-index:2;
   padding:48px 36px 36px;
@@ -124,7 +120,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 .panel-feature-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
 .panel-feature-sub{font-size:11px;color:var(--text-muted);line-height:1.4;}
 
-/* panel footer */
 .panel-footer{
   position:relative;z-index:2;
   padding:20px 36px 28px;
@@ -143,7 +138,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
   overflow-y:auto;
 }
 
-/* top bar inside form area */
 .form-topbar{
   display:flex;align-items:center;justify-content:flex-end;
   padding:20px 40px;
@@ -153,22 +147,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 .form-topbar-link{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .15s;}
 .form-topbar-link:hover{color:var(--accent);}
 
-/* form center */
 .form-center{
   flex:1;display:flex;align-items:center;justify-content:center;
   padding:48px 40px;
 }
 .form-wrap{width:100%;max-width:400px;}
 
-/* section title inside form */
 .form-section-title{font-size:22px;font-weight:800;letter-spacing:-0.01em;margin-bottom:6px;}
 .form-section-sub{font-size:13px;color:var(--text-muted);margin-bottom:32px;}
-
-/* ── TABS ── */
-.auth-tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:24px;}
-.auth-tab{flex:1;padding:11px 16px;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:0.04em;background:transparent;border:none;color:var(--text-muted);cursor:pointer;transition:all .15s;}
-.auth-tab.active{background:var(--panel-accent);color:#000;}
-.pro-flow .auth-tab.active{color:#fff;}
 
 /* ── FORM ── */
 .auth-box{background:var(--bg2);border:1px solid var(--border2);padding:28px;border-radius:4px;}
@@ -177,7 +163,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 .form-input{width:100%;padding:11px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:14px;border-radius:3px;outline:none;transition:border-color .15s;}
 .form-input:focus{border-color:var(--panel-accent);}
 .form-input::placeholder{color:var(--text-muted);}
-.form-hint{font-size:11px;color:var(--text-muted);margin-top:5px;}
 
 .btn-submit{
   width:100%;padding:13px;
@@ -189,7 +174,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 }
 .btn-submit:hover{background:var(--panel-accent2);transform:translateY(-1px);}
 .btn-submit:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-.pro-flow .btn-submit{color:#fff;}
 
 /* ── MESSAGES ── */
 .msg{display:none;padding:11px 14px;border-radius:3px;font-size:13px;margin-bottom:14px;font-weight:500;}
@@ -206,20 +190,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 
 .auth-footer-note{text-align:center;margin-top:16px;font-size:11px;color:var(--text-muted);}
 .auth-footer-note a{color:var(--panel-accent);text-decoration:none;}
-
-/* benefits list in signup */
-.auth-benefits{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;padding:14px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:3px;}
-.benefit{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--text-dim);}
-.benefit .icon{color:var(--low);font-size:12px;flex-shrink:0;}
-
-/* ── PRO PANEL OVERRIDES ── */
-.pro-flow{
-  --panel-accent: #a78bfa;
-  --panel-accent2: #7c3aed;
-  --panel-glow: rgba(124,58,237,0.1);
-  --panel-border: rgba(167,139,250,0.2);
-  --panel-bg: linear-gradient(160deg,#0f0d1a 0%,#0a0c0f 60%,#0d0f1a 100%);
-}
 
 /* ── FORM AREA BOTTOM BAR ── */
 .form-bottom{
@@ -254,7 +224,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 <div class="auth-layout" id="auth-layout">
 
   <!-- ── LEFT INFO PANEL ── -->
-  <div class="auth-panel" id="auth-panel">
+  <div class="auth-panel">
     <div class="panel-glow-line"></div>
 
     <div class="panel-logo">
@@ -269,25 +239,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 
     <div class="panel-body">
 
-      <!-- Badge + Title (swapped by JS for Pro flow) -->
-      <div class="panel-badge" id="panel-badge">Free Access · No Credit Card</div>
+      <div class="panel-badge">Live Market Intelligence</div>
 
-      <h1 class="panel-title" id="panel-title">
+      <h1 class="panel-title">
         Your edge in<br><span>financial markets.</span>
       </h1>
-      <p class="panel-desc" id="panel-desc">
+      <p class="panel-desc">
         Real-time news, live economic calendar, TradingView charts and more — all in one terminal built for active traders.
       </p>
 
       <div class="panel-divider"></div>
 
-      <!-- Features (Basic by default, replaced for Pro) -->
-      <ul class="panel-features" id="panel-features">
+      <ul class="panel-features">
         <li class="panel-feature">
           <div class="panel-feature-icon">📰</div>
           <div class="panel-feature-content">
             <div class="panel-feature-name">News Feed</div>
-            <div class="panel-feature-sub">Hundreds of sources, 2-min delay on Basic</div>
+            <div class="panel-feature-sub">Hundreds of sources, real-time coverage</div>
           </div>
         </li>
         <li class="panel-feature">
@@ -316,7 +284,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
     </div>
 
     <div class="panel-footer">
-      <div class="panel-stat-row" id="panel-stats">
+      <div class="panel-stat-row">
         <div class="panel-stat">
           <div class="panel-stat-num">€0</div>
           <div class="panel-stat-label">Basic plan forever</div>
@@ -346,12 +314,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
         <h2 class="form-section-title" id="form-title">Welcome back</h2>
         <p class="form-section-sub" id="form-sub">Sign in to access your terminal</p>
 
-        <!-- Tabs -->
-        <div class="auth-tabs">
-          <button class="auth-tab active" id="tab-login" onclick="showTab('login')">Sign In</button>
-          <button class="auth-tab" id="tab-signup" onclick="showTab('signup')">Create Account</button>
-        </div>
-
         <div class="auth-box">
           <div id="msg" class="msg"></div>
 
@@ -374,79 +336,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 
           <!-- FORGOT PASSWORD FORM -->
           <div id="form-forgot" style="display:none">
-            <a class="back-link" onclick="showTab('login')">← Back to Sign In</a>
+            <a class="back-link" onclick="showLogin()">← Back to Sign In</a>
             <div class="form-group">
               <label class="form-label" for="forgot-email">Email</label>
               <input class="form-input" id="forgot-email" type="email" placeholder="you@example.com" required autocomplete="email">
             </div>
             <button type="button" class="btn-submit" id="btn-forgot" onclick="handleForgot()">Send Reset Link</button>
           </div>
-
-          <!-- SIGNUP FORM -->
-          <form id="form-signup" style="display:none" onsubmit="handleSignup(event)">
-            <div class="auth-benefits" id="signup-benefits">
-              <div class="benefit"><span class="icon">✓</span> News feed with real-time market coverage</div>
-              <div class="benefit"><span class="icon">✓</span> Live economic calendar &amp; releases</div>
-              <div class="benefit"><span class="icon">✓</span> TradingView charts &amp; asset watchlist</div>
-              <div class="benefit"><span class="icon">✓</span> No credit card required</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="signup-name">Full Name</label>
-              <input class="form-input" id="signup-name" type="text" placeholder="Your name" autocomplete="name">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="signup-email">Email</label>
-              <input class="form-input" id="signup-email" type="email" placeholder="you@example.com" required autocomplete="email">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="signup-country">Country</label>
-              <select class="form-input" id="signup-country" autocomplete="country">
-                <option value="">Select your country…</option>
-                <option value="AE">🇦🇪 UAE</option>
-                <option value="AR">🇦🇷 Argentina</option>
-                <option value="AT">🇦🇹 Austria</option>
-                <option value="AU">🇦🇺 Australia</option>
-                <option value="BE">🇧🇪 Belgium</option>
-                <option value="BR">🇧🇷 Brazil</option>
-                <option value="CA">🇨🇦 Canada</option>
-                <option value="CH">🇨🇭 Switzerland</option>
-                <option value="CL">🇨🇱 Chile</option>
-                <option value="CO">🇨🇴 Colombia</option>
-                <option value="DE">🇩🇪 Germany</option>
-                <option value="DK">🇩🇰 Denmark</option>
-                <option value="ES">🇪🇸 Spain</option>
-                <option value="FI">🇫🇮 Finland</option>
-                <option value="FR">🇫🇷 France</option>
-                <option value="GB">🇬🇧 United Kingdom</option>
-                <option value="HK">🇭🇰 Hong Kong</option>
-                <option value="IE">🇮🇪 Ireland</option>
-                <option value="IN">🇮🇳 India</option>
-                <option value="IT">🇮🇹 Italy</option>
-                <option value="JP">🇯🇵 Japan</option>
-                <option value="MX">🇲🇽 Mexico</option>
-                <option value="NL">🇳🇱 Netherlands</option>
-                <option value="NO">🇳🇴 Norway</option>
-                <option value="NZ">🇳🇿 New Zealand</option>
-                <option value="PL">🇵🇱 Poland</option>
-                <option value="PT">🇵🇹 Portugal</option>
-                <option value="SE">🇸🇪 Sweden</option>
-                <option value="SG">🇸🇬 Singapore</option>
-                <option value="US">🇺🇸 United States</option>
-                <option value="ZA">🇿🇦 South Africa</option>
-                <option value="OTHER">🌍 Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="signup-password">Password</label>
-              <input class="form-input" id="signup-password" type="password" placeholder="Min. 6 characters" required autocomplete="new-password">
-              <div class="form-hint">Minimum 6 characters</div>
-            </div>
-            <button type="submit" class="btn-submit" id="btn-signup">Create Free Account</button>
-          </form>
         </div>
 
         <div class="auth-footer-note">
-          By signing up you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.
+          Don't have an account? <a href="/signup">Create one free →</a>
         </div>
 
       </div>
@@ -457,7 +357,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
       <span>
         <a href="/terms">Terms</a> &nbsp;·&nbsp;
         <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
-        <a href="#pricing">Pricing</a>
+        <a href="/#pricing">Pricing</a>
       </span>
     </div>
 
@@ -471,157 +371,18 @@ const APP_URL = 'https://app.tradingnewsterminal.com';
 
 let _lastUnverifiedEmail = '';
 
-// ── PRO FLOW DETECTION ──────────────────────────────────────────────────────
-const _params = new URLSearchParams(location.search);
-const PRO_FROM_URL = _params.get('plan') === 'pro';
-const PRO_PENDING  = localStorage.getItem('pendingPro') === '1';
-// Visual Pro theme ONLY shown when ?plan=pro is in the URL
-// Checkout redirect also fires if pendingPro is saved (returning after email verification)
-const PRO_FLOW    = PRO_FROM_URL;
-const PRO_CHECKOUT = PRO_FROM_URL || PRO_PENDING;
-
-const PRO_FEATURES_HTML = `
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📰</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Real-Time News Feed</div>
-      <div class="panel-feature-sub">Zero-delay from hundreds of sources</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📉</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Macro &amp; Bonds Hub</div>
-      <div class="panel-feature-sub">GDP, PMI, yields, central bank rates</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">💼</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Earnings Calendar</div>
-      <div class="panel-feature-sub">EPS beat/miss live as results drop</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">🏦</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Central Banks Tracker</div>
-      <div class="panel-feature-sub">Fed, ECB, BOE, BOJ, SNB &amp; more</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📡</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Live Squawk &amp; 7 TV Channels</div>
-      <div class="panel-feature-sub">Hands-free audio alerts + live financial TV</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">🔍</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Market Screener</div>
-      <div class="panel-feature-sub">Forex, Stocks, Crypto, Indices &amp; more</div>
-    </div>
-  </li>
-`;
-
-const PRO_BENEFITS_HTML = `
-  <div class="benefit"><span class="icon">✓</span> Real-time zero-delay news &amp; market data</div>
-  <div class="benefit"><span class="icon">✓</span> Macro &amp; Bonds Hub · Earnings Calendar</div>
-  <div class="benefit"><span class="icon">✓</span> Central Banks Tracker · Market Sentiment</div>
-  <div class="benefit"><span class="icon">✓</span> Live Squawk · 7 TV Channels · Ad-free</div>
-`;
-
-function _initProFlow() {
-  if (!PRO_FLOW) return;
-
-  localStorage.setItem('pendingPro', '1');
-
-  // Apply Pro theme to entire layout
-  document.getElementById('auth-layout').classList.add('pro-flow');
-
-  // Update left panel
-  document.getElementById('panel-badge').textContent = 'Pro Plan · €40 / month';
-  document.getElementById('panel-title').innerHTML = 'Activate your<br><span>Pro subscription.</span>';
-  document.getElementById('panel-desc').textContent = 'Sign in or create a free account — checkout opens automatically and you\'ll be on Pro within minutes.';
-  document.getElementById('panel-features').innerHTML = PRO_FEATURES_HTML;
-  document.getElementById('panel-stats').innerHTML = `
-    <div class="panel-stat">
-      <div class="panel-stat-num">€40</div>
-      <div class="panel-stat-label">Per month Pro</div>
-    </div>
-    <div class="panel-stat">
-      <div class="panel-stat-num">6</div>
-      <div class="panel-stat-label">Asset classes screened</div>
-    </div>
-    <div class="panel-stat">
-      <div class="panel-stat-num">7</div>
-      <div class="panel-stat-label">Live TV channels</div>
-    </div>
-  `;
-
-  // Update right panel headings
-  document.getElementById('form-title').textContent = 'Complete your Pro setup';
-  document.getElementById('form-sub').textContent = 'Sign in or create an account to continue to checkout';
-
-  // Update signup benefits
-  document.getElementById('signup-benefits').innerHTML = PRO_BENEFITS_HTML;
-
-  // Update button labels
-  document.getElementById('btn-login').textContent = 'Sign In → Continue to Checkout';
-  document.getElementById('btn-signup').textContent = 'Create Account → Continue to Checkout';
-}
-
-// ── STRIPE REDIRECT ─────────────────────────────────────────────────────────
-async function _redirectToCheckout(token) {
-  showMsg('Redirecting to checkout…', 'success');
-  try {
-    const r = await fetch(BACKEND + '/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({})
-    });
-    const data = await r.json();
-    if (r.ok && data.url) {
-      localStorage.removeItem('pendingPro');
-      window.location.href = data.url;
-    } else {
-      showMsg('Could not start checkout. Please upgrade from inside the terminal.', 'error');
-      setTimeout(() => {
-        localStorage.removeItem('pendingPro');
-        window.location.href = APP_URL + '#token=' + encodeURIComponent(token);
-      }, 2500);
-    }
-  } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
-  }
-}
-
-// ── TABS ────────────────────────────────────────────────────────────────────
-function showTab(tab) {
-  document.getElementById('tab-login').classList.toggle('active', tab==='login');
-  document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
-  document.getElementById('form-login').style.display = tab==='login' ? '' : 'none';
+function showLogin() {
+  document.getElementById('form-login').style.display = '';
   document.getElementById('form-forgot').style.display = 'none';
-  document.getElementById('form-signup').style.display = tab==='signup' ? '' : 'none';
   document.getElementById('resend-wrap').style.display = 'none';
-  // Update heading context
-  if (tab === 'login') {
-    document.getElementById('form-title').textContent = PRO_FLOW ? 'Complete your Pro setup' : 'Welcome back';
-    document.getElementById('form-sub').textContent = PRO_FLOW ? 'Sign in to continue to checkout' : 'Sign in to access your terminal';
-  } else {
-    document.getElementById('form-title').textContent = PRO_FLOW ? 'Create your account' : 'Start for free';
-    document.getElementById('form-sub').textContent = PRO_FLOW ? 'Account created? Checkout opens automatically after sign-in' : 'No credit card required — free forever';
-  }
+  document.getElementById('form-title').textContent = 'Welcome back';
+  document.getElementById('form-sub').textContent = 'Sign in to access your terminal';
   clearMsg();
 }
 
 function showForgot() {
   document.getElementById('form-login').style.display = 'none';
-  document.getElementById('form-signup').style.display = 'none';
   document.getElementById('form-forgot').style.display = '';
-  document.getElementById('tab-login').classList.remove('active');
-  document.getElementById('tab-signup').classList.remove('active');
   document.getElementById('form-title').textContent = 'Reset your password';
   document.getElementById('form-sub').textContent = 'Enter your email and we\'ll send a reset link';
   clearMsg();
@@ -661,56 +422,14 @@ async function handleLogin(e) {
       }
       return;
     }
-    if (PRO_CHECKOUT) {
-      await _redirectToCheckout(data.token);
-    } else {
-      showMsg('Welcome back! Redirecting…', 'success');
-      const user = encodeURIComponent(JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
-      setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
-    }
+    showMsg('Welcome back! Redirecting…', 'success');
+    const user = encodeURIComponent(JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
+    setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
   } catch(err) {
     showMsg('Connection error. Please try again.', 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = PRO_FLOW ? 'Sign In → Continue to Checkout' : 'Sign In → Open Terminal';
-  }
-}
-
-// ── SIGNUP ───────────────────────────────────────────────────────────────────
-async function handleSignup(e) {
-  e.preventDefault();
-  clearMsg();
-  const btn = document.getElementById('btn-signup');
-  btn.disabled = true; btn.textContent = 'Creating account…';
-  const email = document.getElementById('signup-email').value.trim();
-  const password = document.getElementById('signup-password').value;
-  const name = document.getElementById('signup-name').value.trim();
-  const country = document.getElementById('signup-country').value;
-  if (password.length < 6) {
-    showMsg('Password must be at least 6 characters.', 'error');
-    btn.disabled=false;
-    btn.textContent = PRO_FLOW ? 'Create Account → Continue to Checkout' : 'Create Free Account';
-    return;
-  }
-  try {
-    const r = await fetch(BACKEND+'/auth/signup', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({email, password, name, country})
-    });
-    const data = await r.json();
-    if (!r.ok) { showMsg(data.detail || 'Signup failed. Please try again.', 'error'); return; }
-    _lastUnverifiedEmail = email;
-    if (PRO_CHECKOUT) {
-      showMsg('Account created! Verify your email, then sign in — checkout opens automatically.', 'success');
-    } else {
-      showMsg('Account created! Please check your email to verify your account.', 'success');
-    }
-    setTimeout(() => { document.getElementById('resend-wrap').style.display = 'block'; }, 3000);
-  } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = PRO_FLOW ? 'Create Account → Continue to Checkout' : 'Create Free Account';
+    btn.textContent = 'Sign In → Open Terminal';
   }
 }
 
@@ -751,11 +470,6 @@ async function handleResendVerification() {
     showMsg('Connection error. Please try again.', 'error');
   }
 }
-
-// ── INIT ─────────────────────────────────────────────────────────────────────
-if (_params.get('plan') === 'pro') showTab('signup');
-else if (location.search.includes('signup')) showTab('signup');
-_initProFlow();
 </script>
 </body>
 </html>

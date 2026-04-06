@@ -1,6 +1,13 @@
 {
   "outputDirectory": "public",
   "alias": ["tradingnewsterminal.com", "www.tradingnewsterminal.com"],
+  "rewrites": [
+    { "source": "/terms",   "destination": "/terms.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/login",   "destination": "/login.html" },
+    { "source": "/signup",  "destination": "/login.html" },
+    { "source": "/signin",  "destination": "/signin.html" }
+  ],
   "headers": [
     {
       "source": "/(.*).html",
