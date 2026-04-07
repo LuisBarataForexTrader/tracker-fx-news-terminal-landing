@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Trading News Terminal</title>
+<meta name="description" content="Terms of Use for Trading News Terminal. Read our terms covering subscriptions, acceptable use, disclaimers and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c0f;--bg2:#0f1217;--bg3:#141820;
+  --border:#1e2530;--border2:#2a3444;
+  --text:#ffffff;--text-dim:#c8d8e8;--text-muted:#7a9ab0;
+  --accent:#00d4ff;--accent2:#0099cc;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* ── NAV ── */
+nav{background:rgba(10,12,15,0.96);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nav-logo-icon::before{content:'';width:10px;height:10px;background:var(--accent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.nav-logo-text{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;line-height:1.3;}
+.nav-logo-text span{color:var(--accent);}
+.nav-logo-sub{font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;}
+.nav-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .15s;display:flex;align-items:center;gap:6px;}
+.nav-back:hover{color:var(--accent);}
+
+/* ── LAYOUT ── */
+.page-wrap{display:grid;grid-template-columns:260px 1fr;max-width:1080px;margin:0 auto;padding:56px 32px 80px;gap:64px;align-items:start;}
+
+/* ── SIDEBAR ── */
+.sidebar{position:sticky;top:88px;max-height:calc(100vh - 108px);display:flex;flex-direction:column;}
+.sidebar-scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;}
+.sidebar-scroll::-webkit-scrollbar{display:none;}
+.sidebar-label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+.sidebar-link{font-size:12px;color:var(--text-muted);text-decoration:none;padding:6px 10px;border-radius:3px;transition:all .15s;border-left:2px solid transparent;}
+.sidebar-link:hover{color:var(--text-dim);background:rgba(255,255,255,0.03);border-left-color:var(--border2);}
+.sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,0.04);}
+.sidebar-footer{flex-shrink:0;border-top:1px solid var(--border);padding-top:16px;margin-top:16px;}
+.sidebar-meta p{font-size:11px;color:var(--text-muted);line-height:1.6;margin-bottom:8px;}
+.sidebar-meta a{color:var(--accent);text-decoration:none;font-size:11px;}
+
+/* ── CONTENT ── */
+.legal-content{}
+.legal-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.legal-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(0,212,255,0.2);padding:5px 12px;border-radius:2px;background:rgba(0,212,255,0.04);margin-bottom:20px;}
+.legal-title{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.1;}
+.legal-subtitle{font-size:15px;color:var(--text-dim);line-height:1.6;max-width:580px;margin-bottom:20px;}
+.legal-updated{font-size:12px;color:var(--text-muted);font-family:var(--font-mono);}
+
+/* sections */
+.legal-section{margin-bottom:48px;scroll-margin-top:96px;}
+.legal-section h2{font-size:18px;font-weight:700;letter-spacing:-0.01em;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.section-num{font-size:11px;font-weight:700;font-family:var(--font-mono);color:var(--accent);background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);padding:3px 7px;border-radius:2px;}
+.legal-section h3{font-size:14px;font-weight:700;color:var(--text-dim);margin:20px 0 10px;letter-spacing:0.02em;}
+.legal-section p{font-size:14px;color:var(--text-dim);line-height:1.75;margin-bottom:14px;}
+.legal-section ul,.legal-section ol{padding-left:20px;margin-bottom:14px;}
+.legal-section li{font-size:14px;color:var(--text-dim);line-height:1.75;margin-bottom:6px;}
+.legal-section a{color:var(--accent);text-decoration:none;}
+.legal-section a:hover{text-decoration:underline;}
+.legal-section strong{color:var(--text);font-weight:600;}
+
+/* callout boxes */
+.callout{border-radius:4px;padding:16px 20px;margin:20px 0;border-left:3px solid;}
+.callout-warning{background:rgba(255,179,0,0.06);border-color:#f59e0b;}
+.callout-warning p{color:#fcd34d;margin:0;font-size:13px;line-height:1.6;}
+.callout-info{background:rgba(0,212,255,0.05);border-color:var(--accent);}
+.callout-info p{color:var(--text-dim);margin:0;font-size:13px;line-height:1.6;}
+.callout-title{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.callout-warning .callout-title{color:#f59e0b;}
+.callout-info .callout-title{color:var(--accent);}
+
+/* plan table */
+.plan-table{width:100%;border-collapse:collapse;margin:16px 0 20px;font-size:13px;}
+.plan-table th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border2);background:var(--bg2);}
+.plan-table td{padding:11px 14px;color:var(--text-dim);border-bottom:1px solid var(--border);vertical-align:top;}
+.plan-table tr:last-child td{border-bottom:none;}
+.plan-table tr:hover td{background:rgba(255,255,255,0.015);}
+
+/* footer */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px 32px;text-align:center;font-size:11px;color:var(--text-muted);}
+footer a{color:var(--text-muted);text-decoration:none;margin:0 8px;}
+footer a:hover{color:var(--accent);}
+
+/* responsive */
+@media(max-width:800px){
+  .page-wrap{grid-template-columns:1fr;gap:32px;padding:32px 20px 60px;}
+  .sidebar{position:static;}
+  .sidebar-nav{flex-direction:row;flex-wrap:wrap;gap:4px;}
+  nav{padding:0 20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-scroll">
+      <div class="sidebar-label">Contents</div>
+      <nav class="sidebar-nav">
+        <a href="#acceptance" class="sidebar-link">1. Acceptance</a>
+        <a href="#service" class="sidebar-link">2. The Service</a>
+        <a href="#accounts" class="sidebar-link">3. Accounts</a>
+        <a href="#subscriptions" class="sidebar-link">4. Subscriptions & Billing</a>
+        <a href="#acceptable-use" class="sidebar-link">5. Acceptable Use</a>
+        <a href="#ip" class="sidebar-link">6. Intellectual Property</a>
+        <a href="#disclaimer" class="sidebar-link">7. Financial Disclaimer</a>
+        <a href="#warranties" class="sidebar-link">8. Disclaimer of Warranties</a>
+        <a href="#liability" class="sidebar-link">9. Limitation of Liability</a>
+        <a href="#indemnification" class="sidebar-link">10. Indemnification</a>
+        <a href="#termination" class="sidebar-link">11. Termination</a>
+        <a href="#governing-law" class="sidebar-link">12. Governing Law</a>
+        <a href="#changes" class="sidebar-link">13. Changes to Terms</a>
+        <a href="#contact-terms" class="sidebar-link">14. Contact</a>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-meta">
+        <p>Effective: 1 April 2026<br>Last updated: 6 April 2026</p>
+        <a href="/privacy">→ Privacy Policy</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="legal-content">
+
+    <div class="legal-header">
+      <div class="legal-badge">Legal Document</div>
+      <h1 class="legal-title">Terms of Use</h1>
+      <p class="legal-subtitle">Please read these terms carefully before using Trading News Terminal. By accessing or using our service, you agree to be bound by these Terms of Use.</p>
+      <div class="legal-updated">Last updated: 6 April 2026 · Version 1.0</div>
+    </div>
+
+    <!-- 1. Acceptance -->
+    <section class="legal-section" id="acceptance">
+      <h2><span class="section-num">01</span> Acceptance of Terms</h2>
+      <p>These Terms of Use ("Terms") constitute a legally binding agreement between you ("User", "you") and Trading News Terminal ("Company", "we", "us", "our") governing your access to and use of the Trading News Terminal platform, available at <a href="https://app.tradingnewsterminal.com">app.tradingnewsterminal.com</a> and associated services (collectively, the "Service").</p>
+      <p>By registering for an account, accessing, or using the Service in any way, you acknowledge that you have read, understood, and agree to be bound by these Terms and our <a href="/privacy">Privacy Policy</a>, which is incorporated herein by reference.</p>
+      <p>If you do not agree to these Terms, you must not use the Service. If you are using the Service on behalf of an organisation, you represent and warrant that you have the authority to bind that organisation to these Terms.</p>
+      <p><strong>Minimum Age.</strong> You must be at least 18 years of age to use the Service. By using the Service, you represent that you are at least 18 years old.</p>
+    </section>
+
+    <!-- 2. The Service -->
+    <section class="legal-section" id="service">
+      <h2><span class="section-num">02</span> Description of the Service</h2>
+      <p>Trading News Terminal is a financial news aggregation and market information platform that provides users with access to:</p>
+      <ul>
+        <li>Aggregated financial news from hundreds of third-party sources</li>
+        <li>Live and delayed economic calendars and data releases</li>
+        <li>Market data, price quotes, and charting tools</li>
+        <li>Market screener tools covering multiple asset classes</li>
+        <li>Live audio squawk and broadcast financial television channels</li>
+        <li>Macro and bonds data, earnings calendars, and central bank tracking (Pro plan)</li>
+        <li>Market sentiment and analytical tools (Pro plan)</li>
+      </ul>
+      <p>The Service is provided as a software-as-a-service (SaaS) platform accessible via web browser. We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time with or without notice, subject to the terms set out in Section 13.</p>
+      <div class="callout callout-warning">
+        <div class="callout-title">Important</div>
+        <p>Trading News Terminal is an information and news aggregation service only. We are not a financial broker, investment adviser, or regulated financial institution. Nothing on the platform constitutes financial or investment advice. See Section 7 for our full financial disclaimer.</p>
+      </div>
+    </section>
+
+    <!-- 3. Accounts -->
+    <section class="legal-section" id="accounts">
+      <h2><span class="section-num">03</span> User Accounts</h2>
+      <h3>Registration</h3>
+      <p>To access the Service, you must register for an account by providing accurate, current, and complete information including your name, email address, and country of residence. You agree to keep this information up to date.</p>
+      <h3>Account Security</h3>
+      <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must:</p>
+      <ul>
+        <li>Choose a strong, unique password for your account</li>
+        <li>Not share your login credentials with any third party</li>
+        <li>Not allow others to access the Service using your account</li>
+        <li>Notify us immediately at <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a> if you suspect unauthorised access to your account</li>
+      </ul>
+      <p>We shall not be liable for any loss or damage arising from unauthorised access to your account resulting from your failure to comply with these security obligations.</p>
+      <h3>One Account Per User</h3>
+      <p>Each subscription is for a single named user. You may not share your account or use the Service on behalf of multiple individuals simultaneously. Commercial redistribution of the Service or its content to third parties is strictly prohibited without prior written authorisation from us.</p>
+    </section>
+
+    <!-- 4. Subscriptions -->
+    <section class="legal-section" id="subscriptions">
+      <h2><span class="section-num">04</span> Subscriptions & Billing</h2>
+      <h3>Available Plans</h3>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Price</th>
+            <th>Billing</th>
+            <th>Key Inclusions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Basic</strong></td>
+            <td>€0 / forever</td>
+            <td>Free — no card required</td>
+            <td>News feed (2-min delay), economic calendar, charts, watchlist</td>
+          </tr>
+          <tr>
+            <td><strong>Pro</strong></td>
+            <td>€40 / month</td>
+            <td>Monthly, auto-renewing</td>
+            <td>All Basic features plus real-time news, screener, squawk, live TV, macro hub, earnings, central banks, sentiment</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Payment Processing</h3>
+      <p>All payments are processed securely by <strong>Stripe, Inc.</strong> We do not store your payment card details. By subscribing to the Pro plan, you authorise us to charge your chosen payment method on a recurring monthly basis on the date of your initial subscription.</p>
+      <h3>Auto-Renewal</h3>
+      <p>Pro subscriptions automatically renew at the end of each billing period unless cancelled before the renewal date. You will receive a payment confirmation email for each successful billing cycle.</p>
+      <h3>Failed Payments</h3>
+      <p>If a payment fails, we will attempt to retry the charge. If the payment remains unsuccessful after retry attempts, your account may be downgraded to the Basic plan until payment is resolved. We will notify you by email of any payment failure.</p>
+      <h3>Cancellation</h3>
+      <p>You may cancel your Pro subscription at any time from within your account settings or by contacting us at <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a>. Cancellation takes effect at the end of the current billing period. You will retain access to Pro features until the period ends.</p>
+      <h3>Refund Policy</h3>
+      <p>All subscription fees are non-refundable except where required by applicable law. We do not provide prorated refunds for unused portions of a billing period. If you cancel mid-period, you will continue to have access to the Pro plan until the end of that period.</p>
+      <div class="callout callout-info">
+        <div class="callout-title">EU Consumer Rights</div>
+        <p>If you are a consumer in the European Union, you may have a statutory right to withdraw from a digital services contract within 14 days of purchase. However, by accessing the Pro service immediately upon subscription, you expressly consent to the immediate performance of the service and acknowledge that your right of withdrawal is waived once the service commences.</p>
+      </div>
+      <h3>Price Changes</h3>
+      <p>We reserve the right to modify subscription prices. We will provide at least 30 days' advance notice of any price increase via email. If you do not cancel before the change takes effect, your continued use constitutes acceptance of the new price.</p>
+    </section>
+
+    <!-- 5. Acceptable Use -->
+    <section class="legal-section" id="acceptable-use">
+      <h2><span class="section-num">05</span> Acceptable Use Policy</h2>
+      <p>You agree to use the Service only for lawful purposes and in accordance with these Terms. You shall not:</p>
+      <ul>
+        <li>Use the Service for any unlawful, fraudulent, or malicious purpose</li>
+        <li>Reproduce, redistribute, resell, or provide access to the Service to any third party without our prior written consent</li>
+        <li>Scrape, crawl, or systematically extract data from the Service using automated tools, bots, or scripts</li>
+        <li>Reverse engineer, decompile, disassemble, or attempt to derive the source code of any part of the Service</li>
+        <li>Attempt to gain unauthorised access to any part of the Service, its servers, or connected systems</li>
+        <li>Transmit any malware, viruses, or other harmful code through the Service</li>
+        <li>Interfere with or disrupt the integrity, performance, or availability of the Service</li>
+        <li>Use the Service to send unsolicited communications or spam</li>
+        <li>Create multiple accounts to circumvent any feature restrictions or access controls</li>
+        <li>Misrepresent your identity or affiliation when using the Service</li>
+        <li>Use the Service in any manner that could damage our reputation or the reputation of any third party</li>
+      </ul>
+      <p>We reserve the right to investigate potential violations of this policy and to take appropriate action, including suspension or termination of your account, reporting to law enforcement authorities, or pursuing civil or criminal remedies.</p>
+    </section>
+
+    <!-- 6. IP -->
+    <section class="legal-section" id="ip">
+      <h2><span class="section-num">06</span> Intellectual Property</h2>
+      <h3>Our Property</h3>
+      <p>The Service, including all software, code, design, graphics, user interfaces, trademarks, logos, and the Trading News Terminal brand, is the exclusive property of the Company or its licensors and is protected by applicable intellectual property laws. Nothing in these Terms grants you ownership of or any licence to our intellectual property beyond the limited right to use the Service as described herein.</p>
+      <h3>Third-Party Content</h3>
+      <p>News articles, market data, and other content displayed on the Service may originate from third-party providers and publishers. Such content is the property of the respective owners. We aggregate and display this content in accordance with applicable licences and agreements. You may not reproduce, republish, or redistribute third-party content obtained through the Service.</p>
+      <h3>Limited Licence to Users</h3>
+      <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable licence to access and use the Service for your personal, non-commercial purposes. This licence does not include any right to: (a) sub-license the Service; (b) make the Service available to others; or (c) use any data mining, scraping, or similar extraction methods.</p>
+      <h3>Feedback</h3>
+      <p>If you provide us with feedback, suggestions, or ideas about the Service, you grant us a perpetual, irrevocable, royalty-free, worldwide licence to use such feedback for any purpose, including improving the Service, without any obligation of compensation or attribution to you.</p>
+    </section>
+
+    <!-- 7. Financial Disclaimer -->
+    <section class="legal-section" id="disclaimer">
+      <h2><span class="section-num">07</span> Financial Information Disclaimer</h2>
+      <div class="callout callout-warning">
+        <div class="callout-title">Not Financial Advice</div>
+        <p>All content, data, news, analysis, and information available through Trading News Terminal is provided solely for informational and educational purposes. Nothing on the Service constitutes financial advice, investment advice, trading recommendations, or any other form of regulated financial guidance.</p>
+      </div>
+      <p>You expressly acknowledge and agree that:</p>
+      <ul>
+        <li><strong>Not a regulated adviser.</strong> Trading News Terminal is not a registered investment adviser, broker-dealer, financial planner, or any other regulated financial entity under the laws of Portugal, the European Union, or any other jurisdiction.</li>
+        <li><strong>No investment recommendations.</strong> Information provided on the Service should not be construed as a recommendation to buy, sell, or hold any financial instrument, security, currency, commodity, or other asset.</li>
+        <li><strong>Past performance.</strong> Any historical data, performance figures, or market trends displayed on the Service do not guarantee future results. Past performance is not indicative of future performance.</li>
+        <li><strong>Data accuracy.</strong> Market data, prices, news, and economic indicators are sourced from third-party providers. While we strive to ensure accuracy, we make no representation or warranty as to the completeness, accuracy, timeliness, or reliability of such information. Data may be delayed, inaccurate, or incomplete.</li>
+        <li><strong>Your responsibility.</strong> All investment and trading decisions are solely your responsibility. You should conduct your own research and, where appropriate, consult with a qualified financial adviser before making any investment decisions.</li>
+        <li><strong>Investment risk.</strong> Trading financial instruments carries significant risk, including the risk of total loss of capital. You acknowledge that you understand these risks.</li>
+      </ul>
+    </section>
+
+    <!-- 8. Warranty Disclaimer -->
+    <section class="legal-section" id="warranties">
+      <h2><span class="section-num">08</span> Disclaimer of Warranties</h2>
+      <p>The Service is provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis without any warranties of any kind, whether express, implied, or statutory.</p>
+      <p>To the fullest extent permitted by applicable law, we expressly disclaim all warranties, including but not limited to:</p>
+      <ul>
+        <li>Warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+        <li>Any warranty that the Service will be uninterrupted, error-free, secure, or free from viruses or harmful components</li>
+        <li>Any warranty regarding the accuracy, completeness, timeliness, or reliability of any content or data</li>
+        <li>Any warranty that defects will be corrected</li>
+      </ul>
+      <p>We do not warrant that the Service will meet your requirements or that your use of the Service will produce any particular outcome or result.</p>
+    </section>
+
+    <!-- 9. Liability -->
+    <section class="legal-section" id="liability">
+      <h2><span class="section-num">09</span> Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, the Company and its officers, directors, employees, agents, suppliers, and licensors shall not be liable for any:</p>
+      <ul>
+        <li>Indirect, incidental, special, consequential, or punitive damages</li>
+        <li>Loss of profits, revenue, data, or business opportunities</li>
+        <li>Damages arising from your reliance on information obtained through the Service</li>
+        <li>Damages arising from any investment or trading decisions made based on content available on the Service</li>
+        <li>Damages arising from service interruptions, downtime, or data loss</li>
+        <li>Damages arising from unauthorised access to or alteration of your account or data</li>
+        <li>Damages arising from any third-party content, data, or services accessible through the Service</li>
+      </ul>
+      <p>In no event shall our total aggregate liability to you for all claims arising out of or related to these Terms or the Service exceed the total amount you paid to us in the twelve (12) months preceding the event giving rise to the claim, or €40, whichever is greater.</p>
+      <p>Some jurisdictions do not allow the exclusion of certain warranties or limitation of liability for certain types of damages. If you reside in such a jurisdiction, some of the above limitations may not apply to you.</p>
+    </section>
+
+    <!-- 10. Indemnification -->
+    <section class="legal-section" id="indemnification">
+      <h2><span class="section-num">10</span> Indemnification</h2>
+      <p>You agree to indemnify, defend, and hold harmless the Company and its officers, directors, employees, agents, and licensors from and against any claims, liabilities, damages, losses, costs, and expenses (including reasonable legal fees) arising out of or in connection with:</p>
+      <ul>
+        <li>Your use of or access to the Service</li>
+        <li>Your violation of these Terms</li>
+        <li>Your violation of any applicable law, regulation, or third-party rights</li>
+        <li>Any investment or trading decisions you make based on information from the Service</li>
+        <li>Any content or data you submit or transmit through the Service</li>
+      </ul>
+    </section>
+
+    <!-- 11. Termination -->
+    <section class="legal-section" id="termination">
+      <h2><span class="section-num">11</span> Termination</h2>
+      <h3>Termination by You</h3>
+      <p>You may terminate your account at any time by contacting us at <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a>. Upon termination, your right to use the Service will immediately cease. No refunds will be issued for any prepaid fees except as required by law.</p>
+      <h3>Termination by Us</h3>
+      <p>We reserve the right to suspend or terminate your account and access to the Service at any time, with or without notice, if we determine that:</p>
+      <ul>
+        <li>You have violated these Terms or our Acceptable Use Policy</li>
+        <li>Your use of the Service poses a risk to us, other users, or third parties</li>
+        <li>We are required to do so by law or regulatory authority</li>
+        <li>You have provided false or misleading information during registration</li>
+      </ul>
+      <p>In the event of termination for cause, any outstanding amounts remain due and payable, and no refunds will be issued.</p>
+      <h3>Effect of Termination</h3>
+      <p>Upon termination of your account: (a) all licences granted under these Terms will immediately terminate; (b) you must cease all use of the Service; (c) provisions that by their nature should survive termination will continue to apply, including Sections 6, 7, 8, 9, 10, and 12.</p>
+    </section>
+
+    <!-- 12. Governing Law -->
+    <section class="legal-section" id="governing-law">
+      <h2><span class="section-num">12</span> Governing Law & Disputes</h2>
+      <p>These Terms shall be governed by and construed in accordance with the laws of <strong>Portugal</strong>, without regard to its conflict of law provisions. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded.</p>
+      <p>Any dispute, controversy, or claim arising out of or in connection with these Terms, or the breach, termination, or invalidity thereof, shall be submitted to the exclusive jurisdiction of the competent courts of Lisbon, Portugal, unless mandatory consumer protection laws in your country of residence require otherwise.</p>
+      <p><strong>EU Online Dispute Resolution.</strong> If you are an EU consumer, you may also use the European Commission's Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+      <h3>Severability</h3>
+      <p>If any provision of these Terms is found to be invalid, illegal, or unenforceable, the remaining provisions shall continue in full force and effect. The invalid or unenforceable provision shall be modified to the minimum extent necessary to make it valid and enforceable.</p>
+    </section>
+
+    <!-- 13. Changes -->
+    <section class="legal-section" id="changes">
+      <h2><span class="section-num">13</span> Changes to These Terms</h2>
+      <p>We reserve the right to update or modify these Terms at any time. We will provide notice of material changes by:</p>
+      <ul>
+        <li>Sending an email to the address associated with your account</li>
+        <li>Displaying a prominent notice within the Service</li>
+        <li>Updating the "Last Updated" date at the top of this page</li>
+      </ul>
+      <p>Your continued use of the Service after the effective date of any changes constitutes your acceptance of the revised Terms. If you do not agree with the changes, you must cease using the Service and may cancel your subscription before the changes take effect.</p>
+    </section>
+
+    <!-- 14. Contact -->
+    <section class="legal-section" id="contact-terms">
+      <h2><span class="section-num">14</span> Contact</h2>
+      <p>If you have any questions about these Terms of Use, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a></li>
+        <li><strong>Support:</strong> <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a></li>
+        <li><strong>Website:</strong> <a href="https://tradingnewsterminal.com">tradingnewsterminal.com</a></li>
+      </ul>
+      <p>We aim to respond to all legal enquiries within 10 business days.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>© 2026 Trading News Terminal. All rights reserved.</span>
+  <span>
+    <a href="/terms">Terms of Use</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/">Home</a>
+    <a href="/login.html">Sign In</a>
+  </span>
+</footer>
+
+<script>
+// Highlight active sidebar link on scroll
+const sections = document.querySelectorAll('.legal-section');
+const links = document.querySelectorAll('.sidebar-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#'+id);
+      });
+    }
+  });
+}, { rootMargin:'-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
