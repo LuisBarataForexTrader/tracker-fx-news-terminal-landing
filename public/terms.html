@@ -113,19 +113,20 @@ footer a:hover{color:var(--accent);}
     <div class="nav-logo-icon"></div>
     <div>
       <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
-      <div class="nav-logo-sub">Real-time Market Intelligence</div>
+      <div class="nav-logo-sub" id="logo-sub">Real-time Market Intelligence</div>
     </div>
   </a>
-  <a href="/" class="nav-back">← Back to home</a>
+  <a href="/" class="nav-back" id="nav-back">← Back to home</a>
 </nav>
+<div id="lang-notice" style="display:none;background:rgba(0,212,255,0.06);border-bottom:1px solid rgba(0,212,255,0.15);padding:10px 32px;font-size:12px;color:var(--text-dim);text-align:center;"></div>
 
 <div class="page-wrap">
 
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-scroll">
-      <div class="sidebar-label">Contents</div>
-      <nav class="sidebar-nav">
+      <div class="sidebar-label" id="sidebar-label">Contents</div>
+      <nav class="sidebar-nav" id="sidebar-nav">
         <a href="#acceptance" class="sidebar-link">1. Acceptance</a>
         <a href="#service" class="sidebar-link">2. The Service</a>
         <a href="#accounts" class="sidebar-link">3. Accounts</a>
@@ -144,8 +145,8 @@ footer a:hover{color:var(--accent);}
     </div>
     <div class="sidebar-footer">
       <div class="sidebar-meta">
-        <p>Effective: 1 April 2026<br>Last updated: 6 April 2026</p>
-        <a href="/privacy">→ Privacy Policy</a>
+        <p id="sidebar-dates">Effective: 1 April 2026<br>Last updated: 6 April 2026</p>
+        <a href="/privacy" id="sidebar-privacy">→ Privacy Policy</a>
       </div>
     </div>
   </aside>
@@ -154,10 +155,10 @@ footer a:hover{color:var(--accent);}
   <main class="legal-content">
 
     <div class="legal-header">
-      <div class="legal-badge">Legal Document</div>
-      <h1 class="legal-title">Terms of Use</h1>
-      <p class="legal-subtitle">Please read these terms carefully before using Trading News Terminal. By accessing or using our service, you agree to be bound by these Terms of Use.</p>
-      <div class="legal-updated">Last updated: 6 April 2026 · Version 1.0</div>
+      <div class="legal-badge" id="legal-badge">Legal Document</div>
+      <h1 class="legal-title" id="legal-title">Terms of Use</h1>
+      <p class="legal-subtitle" id="legal-subtitle">Please read these terms carefully before using Trading News Terminal. By accessing or using our service, you agree to be bound by these Terms of Use.</p>
+      <div class="legal-updated" id="legal-updated">Last updated: 6 April 2026 · Version 1.0</div>
     </div>
 
     <!-- 1. Acceptance -->
@@ -404,16 +405,182 @@ footer a:hover{color:var(--accent);}
 </div>
 
 <footer>
-  <span>© 2026 Trading News Terminal. All rights reserved.</span>
+  <span id="footer-copy">© 2026 Trading News Terminal. All rights reserved.</span>
   <span>
-    <a href="/terms">Terms of Use</a>
-    <a href="/privacy">Privacy Policy</a>
-    <a href="/">Home</a>
-    <a href="/login.html">Sign In</a>
+    <a href="/terms" id="footer-terms">Terms of Use</a>
+    <a href="/privacy" id="footer-privacy">Privacy Policy</a>
+    <a href="/" id="footer-home">Home</a>
+    <a href="/login" id="footer-signin">Sign In</a>
   </span>
 </footer>
 
 <script>
+// ── TERMS i18n ────────────────────────────────────────────────────────────────
+const _T = {
+  en:{
+    'nav.back':'← Back to home','logo.sub':'Real-time Market Intelligence',
+    'sidebar.label':'Contents',
+    'sidebar.dates':'Effective: 1 April 2026<br>Last updated: 6 April 2026',
+    'sidebar.privacy':'→ Privacy Policy',
+    'legal.badge':'Legal Document','legal.title':'Terms of Use',
+    'legal.subtitle':'Please read these terms carefully before using Trading News Terminal. By accessing or using our service, you agree to be bound by these Terms of Use.',
+    'legal.updated':'Last updated: 6 April 2026 · Version 1.0',
+    's1':'Acceptance of Terms','s2':'Description of the Service','s3':'User Accounts',
+    's4':'Subscriptions & Billing','s5':'Acceptable Use Policy','s6':'Intellectual Property',
+    's7':'Financial Information Disclaimer','s8':'Disclaimer of Warranties','s9':'Limitation of Liability',
+    's10':'Indemnification','s11':'Termination','s12':'Governing Law & Disputes',
+    's13':'Changes to These Terms','s14':'Contact',
+    'footer.copy':'© 2026 Trading News Terminal. All rights reserved.',
+    'footer.terms':'Terms of Use','footer.privacy':'Privacy Policy','footer.home':'Home','footer.signin':'Sign In',
+    'notice':'',
+  },
+  pt:{
+    'nav.back':'← Voltar ao início','logo.sub':'Inteligência de Mercado em Tempo Real',
+    'sidebar.label':'Índice',
+    'sidebar.dates':'Em vigor: 1 de abril de 2026<br>Última atualização: 6 de abril de 2026',
+    'sidebar.privacy':'→ Política de Privacidade',
+    'legal.badge':'Documento Legal','legal.title':'Termos de Utilização',
+    'legal.subtitle':'Lê atentamente estes termos antes de utilizar o Trading News Terminal. Ao aceder ou utilizar o nosso serviço, concordas com estes Termos de Utilização.',
+    'legal.updated':'Última atualização: 6 de abril de 2026 · Versão 1.0',
+    's1':'Aceitação dos Termos','s2':'Descrição do Serviço','s3':'Contas de Utilizador',
+    's4':'Subscrições e Faturação','s5':'Política de Utilização Aceitável','s6':'Propriedade Intelectual',
+    's7':'Aviso de Isenção Financeira','s8':'Isenção de Garantias','s9':'Limitação de Responsabilidade',
+    's10':'Indemnização','s11':'Rescisão','s12':'Lei Aplicável e Litígios',
+    's13':'Alterações aos Termos','s14':'Contacto',
+    'footer.copy':'© 2026 Trading News Terminal. Todos os direitos reservados.',
+    'footer.terms':'Termos de Utilização','footer.privacy':'Política de Privacidade','footer.home':'Início','footer.signin':'Iniciar Sessão',
+    'notice':'ℹ Este documento legal está disponível em inglês. A versão em inglês é a versão juridicamente vinculativa.',
+  },
+  es:{
+    'nav.back':'← Volver al inicio','logo.sub':'Inteligencia de Mercado en Tiempo Real',
+    'sidebar.label':'Contenido',
+    'sidebar.dates':'En vigor: 1 de abril de 2026<br>Última actualización: 6 de abril de 2026',
+    'sidebar.privacy':'→ Política de Privacidad',
+    'legal.badge':'Documento Legal','legal.title':'Términos de Uso',
+    'legal.subtitle':'Lee atentamente estos términos antes de usar Trading News Terminal. Al acceder o usar nuestro servicio, aceptas quedar vinculado por estos Términos de Uso.',
+    'legal.updated':'Última actualización: 6 de abril de 2026 · Versión 1.0',
+    's1':'Aceptación de los Términos','s2':'Descripción del Servicio','s3':'Cuentas de Usuario',
+    's4':'Suscripciones y Facturación','s5':'Política de Uso Aceptable','s6':'Propiedad Intelectual',
+    's7':'Aviso de Descargo Financiero','s8':'Exclusión de Garantías','s9':'Limitación de Responsabilidad',
+    's10':'Indemnización','s11':'Terminación','s12':'Ley Aplicable y Disputas',
+    's13':'Cambios en los Términos','s14':'Contacto',
+    'footer.copy':'© 2026 Trading News Terminal. Todos los derechos reservados.',
+    'footer.terms':'Términos de Uso','footer.privacy':'Política de Privacidad','footer.home':'Inicio','footer.signin':'Iniciar Sesión',
+    'notice':'ℹ Este documento legal está disponible en inglés. La versión en inglés es la versión jurídicamente vinculante.',
+  },
+  fr:{
+    'nav.back':'← Retour à l\'accueil','logo.sub':'Intelligence de Marché en Temps Réel',
+    'sidebar.label':'Sommaire',
+    'sidebar.dates':'En vigueur : 1er avril 2026<br>Dernière mise à jour : 6 avril 2026',
+    'sidebar.privacy':'→ Politique de confidentialité',
+    'legal.badge':'Document Légal','legal.title':'Conditions d\'utilisation',
+    'legal.subtitle':'Veuillez lire attentivement ces conditions avant d\'utiliser Trading News Terminal. En accédant ou en utilisant notre service, vous acceptez d\'être lié par ces Conditions d\'utilisation.',
+    'legal.updated':'Dernière mise à jour : 6 avril 2026 · Version 1.0',
+    's1':'Acceptation des conditions','s2':'Description du service','s3':'Comptes utilisateur',
+    's4':'Abonnements et facturation','s5':'Politique d\'utilisation acceptable','s6':'Propriété intellectuelle',
+    's7':'Avertissement financier','s8':'Exclusion de garanties','s9':'Limitation de responsabilité',
+    's10':'Indemnisation','s11':'Résiliation','s12':'Droit applicable et litiges',
+    's13':'Modifications des conditions','s14':'Contact',
+    'footer.copy':'© 2026 Trading News Terminal. Tous droits réservés.',
+    'footer.terms':'Conditions d\'utilisation','footer.privacy':'Politique de confidentialité','footer.home':'Accueil','footer.signin':'Connexion',
+    'notice':'ℹ Ce document légal est disponible en anglais. La version anglaise est la version juridiquement contraignante.',
+  },
+  de:{
+    'nav.back':'← Zurück zur Startseite','logo.sub':'Echtzeit-Marktintelligenz',
+    'sidebar.label':'Inhalt',
+    'sidebar.dates':'Gültig ab: 1. April 2026<br>Zuletzt aktualisiert: 6. April 2026',
+    'sidebar.privacy':'→ Datenschutzrichtlinie',
+    'legal.badge':'Rechtliches Dokument','legal.title':'Nutzungsbedingungen',
+    'legal.subtitle':'Bitte lese diese Bedingungen sorgfältig, bevor du Trading News Terminal nutzt. Durch den Zugriff auf oder die Nutzung unseres Dienstes erklärst du dich mit diesen Nutzungsbedingungen einverstanden.',
+    'legal.updated':'Zuletzt aktualisiert: 6. April 2026 · Version 1.0',
+    's1':'Annahme der Bedingungen','s2':'Beschreibung des Dienstes','s3':'Benutzerkonten',
+    's4':'Abonnements & Abrechnung','s5':'Richtlinie zur akzeptablen Nutzung','s6':'Geistiges Eigentum',
+    's7':'Finanzieller Haftungsausschluss','s8':'Haftungsausschluss für Garantien','s9':'Haftungsbeschränkung',
+    's10':'Schadloshaltung','s11':'Kündigung','s12':'Anwendbares Recht & Streitigkeiten',
+    's13':'Änderungen der Bedingungen','s14':'Kontakt',
+    'footer.copy':'© 2026 Trading News Terminal. Alle Rechte vorbehalten.',
+    'footer.terms':'Nutzungsbedingungen','footer.privacy':'Datenschutzrichtlinie','footer.home':'Startseite','footer.signin':'Anmelden',
+    'notice':'ℹ Dieses Rechtsdokument ist auf Englisch verfügbar. Die englische Version ist die rechtsverbindliche Version.',
+  },
+  it:{
+    'nav.back':'← Torna alla home','logo.sub':'Intelligence di Mercato in Tempo Reale',
+    'sidebar.label':'Indice',
+    'sidebar.dates':'In vigore: 1° aprile 2026<br>Ultimo aggiornamento: 6 aprile 2026',
+    'sidebar.privacy':'→ Informativa sulla Privacy',
+    'legal.badge':'Documento Legale','legal.title':'Termini di Utilizzo',
+    'legal.subtitle':'Leggi attentamente questi termini prima di utilizzare Trading News Terminal. Accedendo o utilizzando il nostro servizio, accetti di essere vincolato da questi Termini di Utilizzo.',
+    'legal.updated':'Ultimo aggiornamento: 6 aprile 2026 · Versione 1.0',
+    's1':'Accettazione dei Termini','s2':'Descrizione del Servizio','s3':'Account Utente',
+    's4':'Abbonamenti e Fatturazione','s5':'Politica di Utilizzo Accettabile','s6':'Proprietà Intellettuale',
+    's7':'Disclaimer Informazioni Finanziarie','s8':'Esclusione di Garanzie','s9':'Limitazione di Responsabilità',
+    's10':'Indennizzo','s11':'Risoluzione','s12':'Legge Applicabile e Controversie',
+    's13':'Modifiche ai Termini','s14':'Contatto',
+    'footer.copy':'© 2026 Trading News Terminal. Tutti i diritti riservati.',
+    'footer.terms':'Termini di Utilizzo','footer.privacy':'Informativa sulla Privacy','footer.home':'Home','footer.signin':'Accedi',
+    'notice':'ℹ Questo documento legale è disponibile in inglese. La versione inglese è quella giuridicamente vincolante.',
+  }
+};
+function _tl(k){ const l=localStorage.getItem('tnt_lang')||'en'; return (_T[l]||_T.en)[k]||_T.en[k]||k; }
+
+function _applyTermsTranslations() {
+  const gi = (id) => document.getElementById(id);
+  const qs = (s) => document.querySelector(s);
+
+  // Nav & logo
+  gi('nav-back').textContent     = _tl('nav.back');
+  gi('logo-sub').textContent     = _tl('logo.sub');
+
+  // Sidebar
+  gi('sidebar-label').textContent   = _tl('sidebar.label');
+  gi('sidebar-dates').innerHTML     = _tl('sidebar.dates');
+  gi('sidebar-privacy').textContent = _tl('sidebar.privacy');
+
+  // Sidebar links
+  const sLinks = [
+    ['#acceptance','s1'],['#service','s2'],['#accounts','s3'],['#subscriptions','s4'],
+    ['#acceptable-use','s5'],['#ip','s6'],['#disclaimer','s7'],['#warranties','s8'],
+    ['#liability','s9'],['#indemnification','s10'],['#termination','s11'],
+    ['#governing-law','s12'],['#changes','s13'],['#contact-terms','s14']
+  ];
+  sLinks.forEach(([href, key], i) => {
+    const a = qs(`#sidebar-nav a[href="${href}"]`);
+    if(a) a.textContent = `${i+1}. ${_tl(key)}`;
+  });
+
+  // Legal header
+  gi('legal-badge').textContent    = _tl('legal.badge');
+  gi('legal-title').textContent    = _tl('legal.title');
+  gi('legal-subtitle').textContent = _tl('legal.subtitle');
+  gi('legal-updated').textContent  = _tl('legal.updated');
+
+  // Section h2 headings
+  const sections = [
+    ['acceptance','01','s1'],['service','02','s2'],['accounts','03','s3'],
+    ['subscriptions','04','s4'],['acceptable-use','05','s5'],['ip','06','s6'],
+    ['disclaimer','07','s7'],['warranties','08','s8'],['liability','09','s9'],
+    ['indemnification','10','s10'],['termination','11','s11'],
+    ['governing-law','12','s12'],['changes','13','s13'],['contact-terms','14','s14']
+  ];
+  sections.forEach(([id, num, key]) => {
+    const h2 = qs(`#${id} h2`);
+    if(h2) h2.innerHTML = `<span class="section-num">${num}</span> ${_tl(key)}`;
+  });
+
+  // Language notice (non-EN only)
+  const notice = gi('lang-notice');
+  const noticeText = _tl('notice');
+  if(notice) { notice.textContent = noticeText; notice.style.display = noticeText ? 'block' : 'none'; }
+
+  // Footer
+  gi('footer-copy').textContent    = _tl('footer.copy');
+  gi('footer-terms').textContent   = _tl('footer.terms');
+  gi('footer-privacy').textContent = _tl('footer.privacy');
+  gi('footer-home').textContent    = _tl('footer.home');
+  gi('footer-signin').textContent  = _tl('footer.signin');
+}
+
+_applyTermsTranslations();
+
 // Highlight active sidebar link on scroll
 const sections = document.querySelectorAll('.legal-section');
 const links = document.querySelectorAll('.sidebar-link');
