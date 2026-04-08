@@ -1072,6 +1072,18 @@ _applyAuthTranslations();
     { method: 'POST' }).catch(()=>{});
 }());
 
+// ── Real-time online heartbeat ─────────────────────────────────
+(function(){
+  const BE = 'https://trading-news-terminal-backend-production.up.railway.app';
+  let _sid = sessionStorage.getItem('_tnt_sid');
+  if (!_sid) { _sid = crypto.randomUUID(); sessionStorage.setItem('_tnt_sid', _sid); }
+  function _ping() {
+    fetch(BE + '/online/ping?session=' + _sid + '&source=login', { method: 'POST' }).catch(()=>{});
+  }
+  _ping();
+  setInterval(_ping, 30000);
+}());
+
 function _tpwd(id, btn) {
   const inp = document.getElementById(id);
   if (!inp) return;
