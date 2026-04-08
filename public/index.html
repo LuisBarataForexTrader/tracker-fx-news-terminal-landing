@@ -570,6 +570,22 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 .photo-strip-content h3 { font-size:clamp(22px,3vw,36px); font-weight:800; }
 .photo-strip-content p { font-size:15px; color:var(--text-dim); max-width:500px; line-height:1.6; }
 
+/* ── LANG PICKER ── */
+.lang-picker{position:relative;}
+.lang-cur{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg3);border:1px solid var(--border);color:#fff;font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .15s;}
+.lang-cur:hover{background:rgba(255,255,255,0.06);border-color:var(--accent);}
+.lang-flag{font-size:14px;line-height:1;display:inline-flex;align-items:center;}
+.lang-flag img.emoji{width:16px;height:16px;vertical-align:middle;}
+.lang-opt-flag img.emoji{width:18px;height:18px;vertical-align:middle;}
+.lang-code{line-height:1;}
+.lang-caret{font-size:9px;opacity:0.7;line-height:1;}
+.lang-menu{position:absolute;top:calc(100% + 4px);right:0;background:#0a0e15;border:1px solid var(--border);border-radius:6px;padding:4px;z-index:9999;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.7);}
+.lang-menu[hidden]{display:none;}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;background:transparent;border:none;color:#fff;font-family:var(--font);font-size:12px;font-weight:500;text-align:left;cursor:pointer;border-radius:4px;transition:background .1s;}
+.lang-opt:hover{background:rgba(0,212,170,0.1);}
+.lang-opt.active{background:rgba(0,212,170,0.18);color:var(--accent);}
+.lang-opt-flag{font-size:16px;line-height:1;}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px) {
   .nav-links { display:none; }
@@ -603,23 +619,38 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <div class="nav-logo-icon" aria-hidden="true"></div>
     <div>
       <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
-      <div class="nav-logo-sub">Real-time Market Intelligence</div>
+      <div class="nav-logo-sub" data-i18n="nav.tagline">Real-time Market Intelligence</div>
     </div>
   </a>
   <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#charts">Charts</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#compare">Compare</a>
-    <a href="#faq">FAQ</a>
-    <a href="/signin">Sign In ↗</a>
+    <a href="#features" data-i18n="nav.features">Features</a>
+    <a href="#charts" data-i18n="nav.charts">Charts</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="#compare" data-i18n="nav.compare">Compare</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="/signin" data-i18n="nav.signin">Sign In ↗</a>
   </div>
   <div style="display:flex;gap:8px;align-items:center;">
-    <a href="/signin" class="nav-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text-dim);">Login</a>
-    <a href="/signup" class="nav-cta">Launch Free →</a>
-    <a href="/login?plan=pro" class="nav-pro-cta">Get Pro</a>
+    <div class="lang-picker" id="landingLangPicker">
+      <button class="lang-cur" onclick="toggleLandingLangMenu(event)" title="Language">
+        <span class="lang-flag" id="landingLangFlag">🇬🇧</span>
+        <span class="lang-code" id="landingLangCode">EN</span>
+        <span class="lang-caret">▾</span>
+      </button>
+      <div class="lang-menu" id="landingLangMenu" hidden>
+        <button class="lang-opt active" data-lang="en" onclick="setLandingLang('en')"><span class="lang-opt-flag">🇬🇧</span><span>English</span></button>
+        <button class="lang-opt" data-lang="pt" onclick="setLandingLang('pt')"><span class="lang-opt-flag">🇵🇹</span><span>Português</span></button>
+        <button class="lang-opt" data-lang="es" onclick="setLandingLang('es')"><span class="lang-opt-flag">🇪🇸</span><span>Español</span></button>
+        <button class="lang-opt" data-lang="fr" onclick="setLandingLang('fr')"><span class="lang-opt-flag">🇫🇷</span><span>Français</span></button>
+        <button class="lang-opt" data-lang="de" onclick="setLandingLang('de')"><span class="lang-opt-flag">🇩🇪</span><span>Deutsch</span></button>
+        <button class="lang-opt" data-lang="it" onclick="setLandingLang('it')"><span class="lang-opt-flag">🇮🇹</span><span>Italiano</span></button>
+      </div>
+    </div>
+    <a href="/signin" class="nav-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text-dim);" data-i18n="nav.login">Login</a>
+    <a href="/signup" class="nav-cta" data-i18n="nav.launch_free">Launch Free →</a>
+    <a href="/login?plan=pro" class="nav-pro-cta" data-i18n="nav.get_pro">Get Pro</a>
   </div>
-  <a href="/signup" class="nav-mobile-cta nav-cta">Launch →</a>
+  <a href="/signup" class="nav-mobile-cta nav-cta" data-i18n="nav.launch">Launch →</a>
 </nav>
 
 <!-- ── HERO ── -->
@@ -628,30 +659,30 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
 
-  <div class="hero-eyebrow" aria-label="Live status">Live Now — Real-Time Feed Active</div>
+  <div class="hero-eyebrow" aria-label="Live status" data-i18n="hero.eyebrow">Live Now — Real-Time Feed Active</div>
 
   <h1>
-    The Professional<br>
-    <span class="accent">Financial News Terminal</span><br>
-    <span class="dim">Built for Active Traders</span>
+    <span data-i18n="hero.h1_line1">The Professional</span><br>
+    <span class="accent" data-i18n="hero.h1_line2">Financial News Terminal</span><br>
+    <span class="dim" data-i18n="hero.h1_line3">Built for Active Traders</span>
   </h1>
 
-  <p class="hero-sub">
+  <p class="hero-sub" data-i18n-html="hero.sub">
     Real-time financial news, live economic calendar, squawk box, TradingView charts and live financial TV — all in one zero-clutter terminal. The affordable alternative to Bloomberg. <strong>Free to start.</strong>
   </p>
 
   <div class="hero-actions">
-    <a href="/signup" class="btn-primary">▶ Open Terminal — Free</a>
-    <a href="/login?plan=pro" class="btn-pro">Get Pro — €40/mo</a>
-    <a href="#features" class="btn-secondary">Explore Features</a>
+    <a href="/signup" class="btn-primary" data-i18n="hero.btn_open">▶ Open Terminal — Free</a>
+    <a href="/login?plan=pro" class="btn-pro" data-i18n="hero.btn_pro">Get Pro — €40/mo</a>
+    <a href="#features" class="btn-secondary" data-i18n="hero.btn_explore">Explore Features</a>
   </div>
 
   <div class="hero-trust">
-    <div class="hero-trust-item"><span class="check">✓</span> Free account in 30 seconds</div>
-    <div class="hero-trust-item"><span class="check">✓</span> No credit card required</div>
-    <div class="hero-trust-item"><span class="check">✓</span> Economic calendar with live releases</div>
-    <div class="hero-trust-item"><span class="check">✓</span> TradingView charts included</div>
-    <div class="hero-trust-item"><span class="check">✓</span> Live squawk on Pro</div>
+    <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust1">Free account in 30 seconds</span></div>
+    <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust2">No credit card required</span></div>
+    <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust3">Economic calendar with live releases</span></div>
+    <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust4">TradingView charts included</span></div>
+    <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust5">Live squawk on Pro</span></div>
   </div>
 
   <!-- Terminal Mockup -->
@@ -723,119 +754,119 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <div class="pro-ticker" aria-label="Pro plan features" role="region">
   <div class="pro-ticker-label">PRO<a href="/login?plan=pro" style="font-size:9px;font-weight:800;letter-spacing:0.1em;color:#a78bfa;background:rgba(124,58,237,0.25);border:1px solid rgba(167,139,250,0.3);padding:4px 8px;border-radius:2px;text-decoration:none;margin-top:4px;white-space:nowrap;">Get Pro →</a></div>
   <div class="pro-ticker-track">
-    <div class="pro-ticker-item"><span class="ti">✦</span> Real-Time Zero-Delay News Feed</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Live Squawk Box</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Market Sentiment Analysis</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> 7 Live Financial TV Channels</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Central Banks Tracker</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Earnings Calendar</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Macro &amp; Bonds Hub</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Market Screener — 6 Asset Classes</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Comprehensive Source Coverage</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> 100% Ad-Free</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> No Upgrade Prompts</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Priority Support</div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.realtime">Real-Time Zero-Delay News Feed</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.squawk">Live Squawk Box</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sentiment">Market Sentiment Analysis</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.tv">7 Live Financial TV Channels</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.centralbanks">Central Banks Tracker</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.earnings">Earnings Calendar</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.macro">Macro &amp; Bonds Hub</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.screener">Market Screener — 6 Asset Classes</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sources">Comprehensive Source Coverage</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.adfree">100% Ad-Free</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.noprompts">No Upgrade Prompts</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.support">Priority Support</span></div>
     <!-- Duplicate for seamless loop -->
-    <div class="pro-ticker-item"><span class="ti">✦</span> Real-Time Zero-Delay News Feed</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Live Squawk Box</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Market Sentiment Analysis</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> 7 Live Financial TV Channels</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Central Banks Tracker</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Earnings Calendar</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Macro &amp; Bonds Hub</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Market Screener — 6 Asset Classes</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Comprehensive Source Coverage</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> 100% Ad-Free</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> No Upgrade Prompts</div>
-    <div class="pro-ticker-item"><span class="ti">✦</span> Priority Support</div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.realtime">Real-Time Zero-Delay News Feed</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.squawk">Live Squawk Box</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sentiment">Market Sentiment Analysis</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.tv">7 Live Financial TV Channels</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.centralbanks">Central Banks Tracker</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.earnings">Earnings Calendar</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.macro">Macro &amp; Bonds Hub</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.screener">Market Screener — 6 Asset Classes</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sources">Comprehensive Source Coverage</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.adfree">100% Ad-Free</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.noprompts">No Upgrade Prompts</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.support">Priority Support</span></div>
   </div>
 </div>
 
 <!-- ── FEATURES ── -->
 <section class="features-section" id="features" aria-labelledby="features-heading">
   <div class="container">
-    <div class="section-eyebrow">Everything you need</div>
-    <h2 class="section-title" id="features-heading">A complete trading<br>intelligence platform</h2>
-    <p class="section-sub">Every tool a professional trader needs — live news, calendar, charts, squawk and TV — in a single zero-friction terminal.</p>
+    <div class="section-eyebrow" data-i18n="feat.eyebrow">Everything you need</div>
+    <h2 class="section-title" id="features-heading" data-i18n-html="feat.h2">A complete trading<br>intelligence platform</h2>
+    <p class="section-sub" data-i18n="feat.sub">Every tool a professional trader needs — live news, calendar, charts, squawk and TV — in a single zero-friction terminal.</p>
 
     <div class="features-grid" role="list">
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">📡</div>
-        <h3 class="feature-title">Real-Time News Feed</h3>
-        <p class="feature-desc">Aggregated from institutional sources across forex, macro, crypto, equities and commodities. Every item auto-classified by market impact: <strong>HIGH</strong>, <strong>MEDIUM</strong> or <strong>LOW</strong>. Basic includes a 2-minute delay; Pro delivers zero-delay real-time news.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc1.title">Real-Time News Feed</h3>
+        <p class="feature-desc" data-i18n-html="fc1.desc">Aggregated from institutional sources across forex, macro, crypto, equities and commodities. Every item auto-classified by market impact: <strong>HIGH</strong>, <strong>MEDIUM</strong> or <strong>LOW</strong>. Basic includes a 2-minute delay; Pro delivers zero-delay real-time news.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">📅</div>
-        <h3 class="feature-title">Live Economic Calendar</h3>
-        <p class="feature-desc">7-day economic calendar with live countdown timers, previous values, forecast and actual data. Calendar releases automatically inject into the news feed the moment data drops — colour-coded for beat/miss. HIGH impact events trigger instant audio alerts.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc2.title">Live Economic Calendar</h3>
+        <p class="feature-desc" data-i18n="fc2.desc">7-day economic calendar with live countdown timers, previous values, forecast and actual data. Calendar releases automatically inject into the news feed the moment data drops — colour-coded for beat/miss. HIGH impact events trigger instant audio alerts.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">🔊</div>
-        <h3 class="feature-title">Live Squawk Box</h3>
-        <p class="feature-desc">Hands-free voice reading of every new headline using your browser's speech engine — exactly like a professional trading desk squawk. Enable in one click. The terminal highlights the card being read in real time so you never miss a move.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc3.title">Live Squawk Box</h3>
+        <p class="feature-desc" data-i18n="fc3.desc">Hands-free voice reading of every new headline using your browser's speech engine — exactly like a professional trading desk squawk. Enable in one click. The terminal highlights the card being read in real time so you never miss a move.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">📊</div>
-        <h3 class="feature-title">TradingView Charts</h3>
-        <p class="feature-desc">Embedded TradingView charts for forex pairs, cryptocurrencies, indices, metals, energy and agricultural commodities — directly inside the terminal. No tab switching. Covers EUR/USD, GBP/USD, GOLD, BTC, S&amp;P 500, OIL, and 20+ more.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc4.title">TradingView Charts</h3>
+        <p class="feature-desc" data-i18n="fc4.desc">Embedded TradingView charts for forex pairs, cryptocurrencies, indices, metals, energy and agricultural commodities — directly inside the terminal. No tab switching. Covers EUR/USD, GBP/USD, GOLD, BTC, S&amp;P 500, OIL, and 20+ more.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">📺</div>
-        <h3 class="feature-title">Live Financial TV</h3>
-        <p class="feature-desc">7 embedded live streams — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 and AP News — all inside the terminal. No subscriptions, no tab switching. Watch breaking news while monitoring the feed.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc5.title">Live Financial TV</h3>
+        <p class="feature-desc" data-i18n="fc5.desc">7 embedded live streams — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 and AP News — all inside the terminal. No subscriptions, no tab switching. Watch breaking news while monitoring the feed.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">⚡</div>
-        <h3 class="feature-title">Instant Sound Alerts</h3>
-        <p class="feature-desc">Audio notification on every new item — configurable in one click. The news tab pulses green when new items arrive while you're in another section. HIGH impact news and economic releases trigger a separate priority alert tone.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc6.title">Instant Sound Alerts</h3>
+        <p class="feature-desc" data-i18n="fc6.desc">Audio notification on every new item — configurable in one click. The news tab pulses green when new items arrive while you're in another section. HIGH impact news and economic releases trigger a separate priority alert tone.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">★</div>
-        <h3 class="feature-title">Asset Watchlist</h3>
-        <p class="feature-desc">Pin specific instruments — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH and more — to filter the news feed to only the assets you trade. Your watchlist and filters persist across sessions automatically.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc7.title">Asset Watchlist</h3>
+        <p class="feature-desc" data-i18n="fc7.desc">Pin specific instruments — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH and more — to filter the news feed to only the assets you trade. Your watchlist and filters persist across sessions automatically.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">🔍</div>
-        <h3 class="feature-title">Smart Search &amp; Filters</h3>
-        <p class="feature-desc">Search by keyword, asset, source or forex pair across all aggregated sources simultaneously. Entering "eurusd" auto-filters for all EUR and USD tagged headlines. Filter by impact level, source, time range or asset class.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc8.title">Smart Search &amp; Filters</h3>
+        <p class="feature-desc" data-i18n="fc8.desc">Search by keyword, asset, source or forex pair across all aggregated sources simultaneously. Entering "eurusd" auto-filters for all EUR and USD tagged headlines. Filter by impact level, source, time range or asset class.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">🌐</div>
-        <h3 class="feature-title">Multilingual Interface</h3>
-        <p class="feature-desc">Full interface and on-the-fly headline translation across multiple languages. Switch languages instantly — all news items and economic calendar entries translate in real time. More languages are continuously being added to make TNT accessible to traders worldwide.</p>
-        <span class="feature-tag tag-free">Basic + Pro</span>
+        <h3 class="feature-title" data-i18n="fc9.title">Multilingual Interface</h3>
+        <p class="feature-desc" data-i18n="fc9.desc">Full interface and on-the-fly headline translation across multiple languages. Switch languages instantly — all news items and economic calendar entries translate in real time. More languages are continuously being added to make TNT accessible to traders worldwide.</p>
+        <span class="feature-tag tag-free" data-i18n="tag.basic_pro">Basic + Pro</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.25);">🔤</div>
-        <h3 class="feature-title">Auto Article Translation</h3>
-        <p class="feature-desc">Click any headline and the full source article opens automatically translated into your selected language — Portuguese, Spanish, French, German or Italian. One toggle in settings, zero effort. Read global market news in your native language.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc10.title">Auto Article Translation</h3>
+        <p class="feature-desc" data-i18n="fc10.desc">Click any headline and the full source article opens automatically translated into your selected language — Portuguese, Spanish, French, German or Italian. One toggle in settings, zero effort. Read global market news in your native language.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">📉</div>
-        <h3 class="feature-title">Macro &amp; Bonds Hub</h3>
-        <p class="feature-desc">Dedicated Macro tab aggregates global macroeconomic news — GDP, inflation, PMI, trade data, interest rate decisions and government bond yields. Filter by region or indicator. Includes real-time market sentiment analysis: see whether macro flow is risk-on or risk-off at a glance.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc11.title">Macro &amp; Bonds Hub</h3>
+        <p class="feature-desc" data-i18n="fc11.desc">Dedicated Macro tab aggregates global macroeconomic news — GDP, inflation, PMI, trade data, interest rate decisions and government bond yields. Filter by region or indicator. Includes real-time market sentiment analysis: see whether macro flow is risk-on or risk-off at a glance.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">💼</div>
-        <h3 class="feature-title">Earnings Calendar</h3>
-        <p class="feature-desc">Track upcoming company earnings dates alongside EPS forecasts and previous results. When earnings drop, the actual vs forecast comparison injects directly into the news feed — colour-coded beat or miss — so you react before the broader market has time to price it in.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc12.title">Earnings Calendar</h3>
+        <p class="feature-desc" data-i18n="fc12.desc">Track upcoming company earnings dates alongside EPS forecasts and previous results. When earnings drop, the actual vs forecast comparison injects directly into the news feed — colour-coded beat or miss — so you react before the broader market has time to price it in.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true">🏦</div>
-        <h3 class="feature-title">Central Banks Tracker</h3>
-        <p class="feature-desc">Dedicated Central Banks tab monitors all major central bank decisions, speeches and rate path signals — Fed, ECB, BOE, BOJ, SNB, RBA, BOC and more. Rate decisions auto-inject into the live feed the instant they're announced, with prior vs current rate comparison and immediate market context.</p>
-        <span class="feature-tag tag-pro">Pro Only</span>
+        <h3 class="feature-title" data-i18n="fc13.title">Central Banks Tracker</h3>
+        <p class="feature-desc" data-i18n="fc13.desc">Dedicated Central Banks tab monitors all major central bank decisions, speeches and rate path signals — Fed, ECB, BOE, BOJ, SNB, RBA, BOC and more. Rate decisions auto-inject into the live feed the instant they're announced, with prior vs current rate comparison and immediate market context.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
     </div>
   </div>
@@ -846,17 +877,17 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=1600&q=75&fit=crop" alt="Professional trading terminal with multiple financial charts and live news" loading="lazy" width="1600" height="320">
   <div class="photo-strip-overlay"></div>
   <div class="photo-strip-content">
-    <h3>Professional grade. Trader price.</h3>
-    <p>Everything Bloomberg has for market news — at a fraction of the cost. Built by traders, for traders.</p>
+    <h3 data-i18n="photo.h3">Professional grade. Trader price.</h3>
+    <p data-i18n="photo.p">Everything Bloomberg has for market news — at a fraction of the cost. Built by traders, for traders.</p>
   </div>
 </div>
 
 <!-- ── CHARTS SHOWCASE ── -->
 <section class="charts-section" id="charts" aria-labelledby="charts-heading">
   <div class="container">
-    <div class="section-eyebrow">Integrated Charts</div>
-    <h2 class="section-title" id="charts-heading">TradingView charts<br>built right in</h2>
-    <p class="section-sub">No separate tabs. No extra subscriptions. Correlate breaking news to price action instantly, all from within the terminal.</p>
+    <div class="section-eyebrow" data-i18n="charts.eyebrow">Integrated Charts</div>
+    <h2 class="section-title" id="charts-heading" data-i18n-html="charts.h2">TradingView charts<br>built right in</h2>
+    <p class="section-sub" data-i18n="charts.sub">No separate tabs. No extra subscriptions. Correlate breaking news to price action instantly, all from within the terminal.</p>
 
     <div class="charts-grid">
       <div>
@@ -864,29 +895,29 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <div class="chart-feat">
             <div class="chart-feat-icon">💱</div>
             <div>
-              <div class="chart-feat-title">Forex Pairs</div>
-              <div class="chart-feat-desc">EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD and more — full major and minor coverage with TradingView pro-grade charts.</div>
+              <div class="chart-feat-title" data-i18n="cf1.title">Forex Pairs</div>
+              <div class="chart-feat-desc" data-i18n="cf1.desc">EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD and more — full major and minor coverage with TradingView pro-grade charts.</div>
             </div>
           </div>
           <div class="chart-feat">
             <div class="chart-feat-icon">🏅</div>
             <div>
-              <div class="chart-feat-title">Metals &amp; Energy</div>
-              <div class="chart-feat-desc">Gold, Silver, Platinum, WTI Crude, Brent Oil, Natural Gas and Copper — live spot prices with full TradingView charting tools.</div>
+              <div class="chart-feat-title" data-i18n="cf2.title">Metals &amp; Energy</div>
+              <div class="chart-feat-desc" data-i18n="cf2.desc">Gold, Silver, Platinum, WTI Crude, Brent Oil, Natural Gas and Copper — live spot prices with full TradingView charting tools.</div>
             </div>
           </div>
           <div class="chart-feat">
             <div class="chart-feat-icon">🌾</div>
             <div>
-              <div class="chart-feat-title">Agricultural Commodities</div>
-              <div class="chart-feat-desc">Corn, Wheat, Soybeans, Coffee (Arabica), Cocoa, Cotton — commodity CFD charts rarely available in free terminals.</div>
+              <div class="chart-feat-title" data-i18n="cf3.title">Agricultural Commodities</div>
+              <div class="chart-feat-desc" data-i18n="cf3.desc">Corn, Wheat, Soybeans, Coffee (Arabica), Cocoa, Cotton — commodity CFD charts rarely available in free terminals.</div>
             </div>
           </div>
           <div class="chart-feat">
             <div class="chart-feat-icon">₿</div>
             <div>
-              <div class="chart-feat-title">Crypto &amp; Indices</div>
-              <div class="chart-feat-desc">Bitcoin, Ethereum, XRP alongside S&amp;P 500, NASDAQ, DAX, Nikkei and FTSE 100 — everything in one place.</div>
+              <div class="chart-feat-title" data-i18n="cf4.title">Crypto &amp; Indices</div>
+              <div class="chart-feat-desc" data-i18n="cf4.desc">Bitcoin, Ethereum, XRP alongside S&amp;P 500, NASDAQ, DAX, Nikkei and FTSE 100 — everything in one place.</div>
             </div>
           </div>
         </div>
@@ -951,22 +982,22 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── SOURCES ── -->
 <section class="sources-section" aria-labelledby="sources-heading">
   <div class="container">
-    <div class="section-eyebrow">News Sources</div>
-    <h2 class="section-title" id="sources-heading">Institutional sources.<br>One terminal.</h2>
-    <p class="section-sub">We aggregate from hundreds of institutional and professional news sources — confidential for competitive reasons — covering every major market and asset class.</p>
+    <div class="section-eyebrow" data-i18n="src.eyebrow">News Sources</div>
+    <h2 class="section-title" id="sources-heading" data-i18n-html="src.h2">Institutional sources.<br>One terminal.</h2>
+    <p class="section-sub" data-i18n="src.sub">We aggregate from hundreds of institutional and professional news sources — confidential for competitive reasons — covering every major market and asset class.</p>
     <div class="sources-grid" role="list" aria-label="Coverage categories">
-      <div class="source-chip highlight" role="listitem">📡 Forex News Wires</div>
-      <div class="source-chip highlight" role="listitem">📉 Macro &amp; Bonds</div>
-      <div class="source-chip highlight" role="listitem">₿ Crypto Media</div>
-      <div class="source-chip highlight" role="listitem">🏦 Central Bank Feeds</div>
-      <div class="source-chip" role="listitem">📈 Equities &amp; Earnings</div>
-      <div class="source-chip" role="listitem">🌾 Commodity News</div>
-      <div class="source-chip" role="listitem">🛢 Energy Markets</div>
-      <div class="source-chip" role="listitem">🏅 Metals &amp; Mining</div>
-      <div class="source-chip" role="listitem">🌍 Geopolitical Events</div>
-      <div class="source-chip" role="listitem">📊 Economic Data Releases</div>
-      <div class="source-chip" role="listitem">🔊 Institutional Research</div>
-      <div class="source-chip" style="border-style:dashed;color:var(--text-muted);letter-spacing:0.06em" role="listitem">+ hundreds more</div>
+      <div class="source-chip highlight" role="listitem" data-i18n="src.chip1">📡 Forex News Wires</div>
+      <div class="source-chip highlight" role="listitem" data-i18n="src.chip2">📉 Macro &amp; Bonds</div>
+      <div class="source-chip highlight" role="listitem" data-i18n="src.chip3">₿ Crypto Media</div>
+      <div class="source-chip highlight" role="listitem" data-i18n="src.chip4">🏦 Central Bank Feeds</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip5">📈 Equities &amp; Earnings</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip6">🌾 Commodity News</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip7">🛢 Energy Markets</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip8">🏅 Metals &amp; Mining</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip9">🌍 Geopolitical Events</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip10">📊 Economic Data Releases</div>
+      <div class="source-chip" role="listitem" data-i18n="src.chip11">🔊 Institutional Research</div>
+      <div class="source-chip" style="border-style:dashed;color:var(--text-muted);letter-spacing:0.06em" role="listitem" data-i18n="src.chip12">+ hundreds more</div>
     </div>
   </div>
 </section>
@@ -974,8 +1005,8 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── TESTIMONIALS ── -->
 <section class="testimonials-section" aria-labelledby="testimonials-heading">
   <div class="container">
-    <div class="section-eyebrow">Traders using TNT</div>
-    <h2 class="section-title" id="testimonials-heading">Trusted by independent<br>traders worldwide</h2>
+    <div class="section-eyebrow" data-i18n="test.eyebrow">Traders using TNT</div>
+    <h2 class="section-title" id="testimonials-heading" data-i18n-html="test.h2">Trusted by independent<br>traders worldwide</h2>
 
     <div class="testimonials-grid" role="list">
       <div class="testimonial-card" role="listitem" itemscope itemtype="https://schema.org/Review">
@@ -987,7 +1018,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&q=80" alt="James K. — Forex day trader, London" loading="lazy" width="40" height="40">
           <div>
             <div class="testimonial-name" itemprop="author">James K.</div>
-            <div class="testimonial-role">Forex Day Trader · London</div>
+            <div class="testimonial-role" data-i18n="test.role1">Forex Day Trader · London</div>
             <span class="testimonial-badge tb-pro">Pro</span>
           </div>
         </div>
@@ -1002,7 +1033,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&q=80" alt="Sofia R. — Macro trader, Lisbon" loading="lazy" width="40" height="40">
           <div>
             <div class="testimonial-name" itemprop="author">Sofia R.</div>
-            <div class="testimonial-role">Macro Trader · Lisbon</div>
+            <div class="testimonial-role" data-i18n="test.role2">Macro Trader · Lisbon</div>
             <span class="testimonial-badge tb-pro">Pro</span>
           </div>
         </div>
@@ -1017,7 +1048,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&q=80" alt="Marco T. — Swing trader, Milan" loading="lazy" width="40" height="40">
           <div>
             <div class="testimonial-name" itemprop="author">Marco T.</div>
-            <div class="testimonial-role">Swing Trader · Milan</div>
+            <div class="testimonial-role" data-i18n="test.role3">Swing Trader · Milan</div>
             <span class="testimonial-badge tb-free">Basic</span>
           </div>
         </div>
@@ -1029,69 +1060,69 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── PRICING ── -->
 <section id="pricing" style="background:var(--bg3);padding:100px 24px;" aria-labelledby="pricing-heading">
   <div class="container">
-    <div class="section-eyebrow">Plans &amp; Pricing</div>
-    <h2 class="section-title" id="pricing-heading">Start free. Upgrade when you're ready.</h2>
-    <p class="section-sub">Basic is free forever. Pro is €40/month — less than 2% of what Bloomberg costs.</p>
+    <div class="section-eyebrow" data-i18n="pricing.eyebrow">Plans &amp; Pricing</div>
+    <h2 class="section-title" id="pricing-heading" data-i18n="pricing.h2">Start free. Upgrade when you're ready.</h2>
+    <p class="section-sub" data-i18n="pricing.sub">Basic is free forever. Pro is €40/month — less than 2% of what Bloomberg costs.</p>
 
     <div class="billing-toggle" role="group" aria-label="Billing period">
-      <button class="bill-btn bill-active" id="bill-monthly" onclick="setBilling('monthly')">Monthly</button>
-      <button class="bill-btn" id="bill-annual" onclick="setBilling('annual')">Annual <span class="bill-save">Save 25%</span></button>
+      <button class="bill-btn bill-active" id="bill-monthly" onclick="setBilling('monthly')" data-i18n="pricing.monthly">Monthly</button>
+      <button class="bill-btn" id="bill-annual" onclick="setBilling('annual')"><span data-i18n="pricing.annual">Annual</span> <span class="bill-save" data-i18n="pricing.save">Save 25%</span></button>
     </div>
 
     <div class="pricing-grid">
       <!-- BASIC -->
       <div class="plan-card plan-card-basic" itemscope itemtype="https://schema.org/Offer">
-        <div class="plan-badge-basic">Free Forever</div>
+        <div class="plan-badge-basic" data-i18n="plan.basic_badge">Free Forever</div>
         <div class="plan-name plan-name-basic" itemprop="name">Basic</div>
         <div class="plan-price plan-price-basic" itemprop="price" content="0">€0</div>
-        <div class="plan-price-sub">No credit card required</div>
+        <div class="plan-price-sub" data-i18n="plan.no_cc">No credit card required</div>
         <div class="plan-divider"></div>
-        <p class="plan-desc">Essential market intelligence for traders getting started. Access the full terminal and stay informed on what moves the markets — at no cost, forever.</p>
+        <p class="plan-desc" data-i18n="plan.basic_desc">Essential market intelligence for traders getting started. Access the full terminal and stay informed on what moves the markets — at no cost, forever.</p>
         <ul class="plan-features" aria-label="Basic plan features">
-          <li class="pf-yes pf-basic">News feed <span class="pf-note">(2-min delay)</span></li>
-          <li class="pf-yes pf-basic">Economic calendar with live releases</li>
-          <li class="pf-no">Market screener</li>
-          <li class="pf-yes pf-basic">TradingView charts</li>
-          <li class="pf-yes pf-basic">Asset watchlist &amp; smart search</li>
-          <li class="pf-yes pf-basic">Sound alerts</li>
-          <li class="pf-yes pf-basic">Multilingual</li>
-          <li class="pf-no">Real-time zero-delay news</li>
-          <li class="pf-no">Macro &amp; bonds hub</li>
-          <li class="pf-no">Earnings calendar</li>
-          <li class="pf-no">Central banks tracker</li>
-          <li class="pf-no">Market sentiment analysis</li>
-          <li class="pf-no">Live squawk</li>
-          <li class="pf-no">Live financial TV (7 channels)</li>
-          <li class="pf-no">Ad-free experience</li>
+          <li class="pf-yes pf-basic" data-i18n-html="pf.news_delay">News feed <span class="pf-note">(2-min delay)</span></li>
+          <li class="pf-yes pf-basic" data-i18n="pf.calendar">Economic calendar with live releases</li>
+          <li class="pf-no" data-i18n="pf.screener">Market screener</li>
+          <li class="pf-yes pf-basic" data-i18n="pf.charts">TradingView charts</li>
+          <li class="pf-yes pf-basic" data-i18n="pf.watchlist">Asset watchlist &amp; smart search</li>
+          <li class="pf-yes pf-basic" data-i18n="pf.sound">Sound alerts</li>
+          <li class="pf-yes pf-basic" data-i18n="pf.multilingual">Multilingual</li>
+          <li class="pf-no" data-i18n="pf.realtime">Real-time zero-delay news</li>
+          <li class="pf-no" data-i18n="pf.macro">Macro &amp; bonds hub</li>
+          <li class="pf-no" data-i18n="pf.earnings">Earnings calendar</li>
+          <li class="pf-no" data-i18n="pf.centralbanks">Central banks tracker</li>
+          <li class="pf-no" data-i18n="pf.sentiment">Market sentiment analysis</li>
+          <li class="pf-no" data-i18n="pf.squawk">Live squawk</li>
+          <li class="pf-no" data-i18n="pf.tv">Live financial TV (7 channels)</li>
+          <li class="pf-no" data-i18n="pf.adfree">Ad-free experience</li>
         </ul>
-        <a href="/signup" class="plan-btn plan-btn-free">Get Started Free →</a>
+        <a href="/signup" class="plan-btn plan-btn-free" data-i18n="plan.basic_btn">Get Started Free →</a>
       </div>
 
       <!-- PRO -->
       <div class="plan-card plan-card-pro" itemscope itemtype="https://schema.org/Offer">
-        <div class="plan-badge-pro">Most Powerful</div>
+        <div class="plan-badge-pro" data-i18n="plan.pro_badge">Most Powerful</div>
         <div class="plan-name plan-name-pro" itemprop="name">Pro</div>
         <div class="plan-price plan-price-pro">€<span id="pro-price" itemprop="price">40</span></div>
-        <div class="plan-price-sub" id="pro-period">/month</div>
-        <div class="plan-annual-note" id="pro-annual-note">Billed €360/year — save €120 vs monthly</div>
-        <div class="plan-vat-note">excl. VAT where applicable · Billed in EUR</div>
+        <div class="plan-price-sub" id="pro-period" data-i18n="plan.per_month">/month</div>
+        <div class="plan-annual-note" id="pro-annual-note" data-i18n="plan.annual_note">Billed €360/year — save €120 vs monthly</div>
+        <div class="plan-vat-note" data-i18n="plan.vat_note">excl. VAT where applicable · Billed in EUR</div>
         <div class="plan-divider plan-divider-pro"></div>
-        <p class="plan-desc">Institutional-grade coverage with zero compromise. Every feature, every source, zero-delay real-time news — built for traders who can't afford to miss a move.</p>
+        <p class="plan-desc" data-i18n="plan.pro_desc">Institutional-grade coverage with zero compromise. Every feature, every source, zero-delay real-time news — built for traders who can't afford to miss a move.</p>
         <ul class="plan-features" aria-label="Pro plan features">
-          <li class="pf-yes pf-pro-item">Everything in Basic</li>
-          <li class="pf-yes pf-pro-item"><strong>Real-time</strong> zero-delay news feed</li>
-          <li class="pf-yes pf-pro-item"><strong>Macro &amp; Bonds Hub</strong> — GDP, PMI, yields</li>
-          <li class="pf-yes pf-pro-item"><strong>Earnings Calendar</strong> — EPS beat/miss live</li>
-          <li class="pf-yes pf-pro-item"><strong>Central Banks Tracker</strong> — Fed, ECB, BOE, BOJ…</li>
-          <li class="pf-yes pf-pro-item"><strong>Market Sentiment</strong> — risk-on / risk-off</li>
-          <li class="pf-yes pf-pro-item"><strong>Live Squawk</strong> — hands-free voice alerts</li>
-          <li class="pf-yes pf-pro-item"><strong>Live Financial TV</strong> — 7 channels</li>
-          <li class="pf-yes pf-pro-item"><strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…</li>
-          <li class="pf-yes pf-pro-item">Comprehensive source coverage</li>
-          <li class="pf-yes pf-pro-item">100% ad-free · No upgrade prompts</li>
-          <li class="pf-yes pf-pro-item">Priority support</li>
+          <li class="pf-yes pf-pro-item" data-i18n="ppf.everything">Everything in Basic</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.realtime"><strong>Real-time</strong> zero-delay news feed</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.macro"><strong>Macro &amp; Bonds Hub</strong> — GDP, PMI, yields</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.earnings"><strong>Earnings Calendar</strong> — EPS beat/miss live</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.centralbanks"><strong>Central Banks Tracker</strong> — Fed, ECB, BOE, BOJ…</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.sentiment"><strong>Market Sentiment</strong> — risk-on / risk-off</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.squawk"><strong>Live Squawk</strong> — hands-free voice alerts</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.tv"><strong>Live Financial TV</strong> — 7 channels</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.screener"><strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…</li>
+          <li class="pf-yes pf-pro-item" data-i18n="ppf.sources">Comprehensive source coverage</li>
+          <li class="pf-yes pf-pro-item" data-i18n="ppf.adfree">100% ad-free · No upgrade prompts</li>
+          <li class="pf-yes pf-pro-item" data-i18n="ppf.support">Priority support</li>
         </ul>
-        <a href="/login?plan=pro" class="plan-btn plan-btn-pro" id="pro-cta">Get Pro Access →</a>
+        <a href="/login?plan=pro" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="plan.pro_btn">Get Pro Access →</a>
       </div>
     </div>
   </div>
@@ -1103,16 +1134,16 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;">
       <div>
-        <div class="section-eyebrow">Market Screener</div>
-        <h2 class="section-title" id="screener-heading">Scan every market.<br>Spot the move first.</h2>
+        <div class="section-eyebrow" data-i18n="sc.eyebrow">Market Screener</div>
+        <h2 class="section-title" id="screener-heading" data-i18n-html="sc.h2">Scan every market.<br>Spot the move first.</h2>
       </div>
       <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--low);border:1px solid var(--low-border);background:var(--low-bg);padding:6px 14px;border-radius:2px;white-space:nowrap;align-self:flex-start;margin-top:8px;">
         <span style="width:6px;height:6px;border-radius:50%;background:var(--low);animation:blink 1.5s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
-        Now Live
+        <span data-i18n="sc.live">Now Live</span>
       </div>
     </div>
 
-    <p style="font-size:16px;color:var(--text-dim);line-height:1.7;max-width:680px;margin-bottom:48px;">The built-in market screener lets you scan Forex, Stocks, Crypto, Indices, Commodities and Bonds in one place — ranked by news activity, economic event proximity and market impact. Know exactly what's in play before you trade.</p>
+    <p style="font-size:16px;color:var(--text-dim);line-height:1.7;max-width:680px;margin-bottom:48px;" data-i18n="sc.desc">The built-in market screener lets you scan Forex, Stocks, Crypto, Indices, Commodities and Bonds in one place — ranked by news activity, economic event proximity and market impact. Know exactly what's in play before you trade.</p>
 
     <!-- Screener tabs row -->
     <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:6px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);margin-bottom:48px;">
@@ -1133,7 +1164,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       <!-- Stocks tab content -->
       <div>
         <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:9px 16px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">
-          <span>Stock</span><span>Change</span><span>News</span><span>Earnings</span><span>Signal</span>
+          <span data-i18n="sc.col_stock">Stock</span><span data-i18n="sc.col_change">Change</span><span data-i18n="sc.col_news">News</span><span data-i18n="sc.col_earnings">Earnings</span><span data-i18n="sc.col_signal">Signal</span>
         </div>
         <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--high);background:rgba(255,59,92,0.04);font-family:var(--font-mono);font-size:11px;align-items:center;">
           <span style="font-weight:600;color:var(--text)">NVDA</span><span style="color:var(--low)">+4.82%</span><span style="color:var(--text-dim)">23</span><span style="color:var(--high);font-size:10px">28 May</span><span class="screener-tag hot">HOT</span>
@@ -1160,18 +1191,18 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);">
       <div class="screener-feat" style="background:var(--bg2);padding:28px 28px;display:flex;flex-direction:column;gap:0;">
         <div class="screener-feat-icon" style="margin-bottom:16px;">📋</div>
-        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;">6 Asset Class Tabs</div>
-        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);">Switch instantly between <strong>Forex</strong>, <strong>Stocks</strong>, <strong>Crypto</strong>, <strong>Indices</strong>, <strong>Commodities</strong> and <strong>Bonds</strong>. Each tab shows only the instruments relevant to that market — no noise.</div>
+        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;" data-i18n="sfc1.title">6 Asset Class Tabs</div>
+        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);" data-i18n-html="sfc1.desc">Switch instantly between <strong>Forex</strong>, <strong>Stocks</strong>, <strong>Crypto</strong>, <strong>Indices</strong>, <strong>Commodities</strong> and <strong>Bonds</strong>. Each tab shows only the instruments relevant to that market — no noise.</div>
       </div>
       <div class="screener-feat" style="background:var(--bg2);padding:28px 28px;display:flex;flex-direction:column;gap:0;">
         <div class="screener-feat-icon" style="margin-bottom:16px;">🔴</div>
-        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;">HOT / WATCH / CALM Signals</div>
-        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);">Every instrument is scored in real time based on news volume, impact classification and upcoming economic events. <strong>HOT</strong> = high activity now. <strong>WATCH</strong> = event approaching. <strong>CALM</strong> = quiet.</div>
+        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;" data-i18n="sfc2.title">HOT / WATCH / CALM Signals</div>
+        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);" data-i18n-html="sfc2.desc">Every instrument is scored in real time based on news volume, impact classification and upcoming economic events. <strong>HOT</strong> = high activity now. <strong>WATCH</strong> = event approaching. <strong>CALM</strong> = quiet.</div>
       </div>
       <div class="screener-feat" style="background:var(--bg2);padding:28px 28px;display:flex;flex-direction:column;gap:0;">
         <div class="screener-feat-icon" style="margin-bottom:16px;">📅</div>
-        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;">Earnings &amp; Event Proximity</div>
-        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);">See upcoming earnings dates for stocks and economic event countdowns for forex and macro. Know which instruments have a catalyst coming before you enter a trade.</div>
+        <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;" data-i18n="sfc3.title">Earnings &amp; Event Proximity</div>
+        <div class="screener-feat-desc" style="font-size:13px;line-height:1.65;color:var(--text-dim);" data-i18n="sfc3.desc">See upcoming earnings dates for stocks and economic event countdowns for forex and macro. Know which instruments have a catalyst coming before you enter a trade.</div>
       </div>
     </div>
 
@@ -1181,23 +1212,23 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── HOW IT WORKS ── -->
 <section class="how-section" aria-labelledby="how-heading">
   <div class="container">
-    <div class="section-eyebrow">How it works</div>
-    <h2 class="section-title" id="how-heading">Up and running in 60 seconds</h2>
+    <div class="section-eyebrow" data-i18n="how.eyebrow">How it works</div>
+    <h2 class="section-title" id="how-heading" data-i18n="how.h2">Up and running in 60 seconds</h2>
     <div class="how-grid" role="list">
       <div class="how-step" role="listitem">
         <div class="how-num" aria-hidden="true">01</div>
-        <h3 class="how-title">Create a Free Account</h3>
-        <p class="how-desc">Sign up at <strong>tradingnewsterminal.com</strong> with your email — no credit card required. Your session is saved so you return straight to the terminal on every visit. Account creation takes under 30 seconds.</p>
+        <h3 class="how-title" data-i18n="how.step1_title">Create a Free Account</h3>
+        <p class="how-desc" data-i18n-html="how.step1_desc">Sign up at <strong>tradingnewsterminal.com</strong> with your email — no credit card required. Your session is saved so you return straight to the terminal on every visit. Account creation takes under 30 seconds.</p>
       </div>
       <div class="how-step" role="listitem">
         <div class="how-num" aria-hidden="true">02</div>
-        <h3 class="how-title">Configure Your Feed</h3>
-        <p class="how-desc">Pin the assets you trade to My News watchlist. Set your preferred impact filter (HIGH / MEDIUM / LOW). Choose your language from the available options. The terminal remembers your settings across all sessions.</p>
+        <h3 class="how-title" data-i18n="how.step2_title">Configure Your Feed</h3>
+        <p class="how-desc" data-i18n="how.step2_desc">Pin the assets you trade to My News watchlist. Set your preferred impact filter (HIGH / MEDIUM / LOW). Choose your language from the available options. The terminal remembers your settings across all sessions.</p>
       </div>
       <div class="how-step" role="listitem">
         <div class="how-num" aria-hidden="true">03</div>
-        <h3 class="how-title">Trade with Confidence</h3>
-        <p class="how-desc">Enable Squawk for hands-free voice alerts. Monitor the economic calendar for upcoming releases. Open the integrated TradingView chart for the instrument you're trading — news and price action, side by side.</p>
+        <h3 class="how-title" data-i18n="how.step3_title">Trade with Confidence</h3>
+        <p class="how-desc" data-i18n="how.step3_desc">Enable Squawk for hands-free voice alerts. Monitor the economic calendar for upcoming releases. Open the integrated TradingView chart for the instrument you're trading — news and price action, side by side.</p>
       </div>
     </div>
   </div>
@@ -1206,101 +1237,101 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── VS TABLE ── -->
 <section class="vs-section" id="compare" aria-labelledby="compare-heading">
   <div class="container">
-    <div class="section-eyebrow">Comparison</div>
-    <h2 class="section-title" id="compare-heading">How we compare to Bloomberg<br>&amp; FinancialJuice</h2>
-    <p class="section-sub">Professional-grade market intelligence without the professional-grade price.</p>
+    <div class="section-eyebrow" data-i18n="vs.eyebrow">Comparison</div>
+    <h2 class="section-title" id="compare-heading" data-i18n-html="vs.h2">How we compare to Bloomberg<br>&amp; FinancialJuice</h2>
+    <p class="section-sub" data-i18n="vs.sub">Professional-grade market intelligence without the professional-grade price.</p>
     <div class="vs-table-wrap">
       <table class="vs-table">
         <thead>
           <tr>
-            <th>Feature</th>
-            <th class="ours">TNT Basic — Free</th>
-            <th class="ours" style="color:#a78bfa;background:rgba(167,139,250,0.06)">TNT Pro — €40/mo</th>
+            <th data-i18n="vs.th_feature">Feature</th>
+            <th class="ours" data-i18n="vs.th_basic">TNT Basic — Free</th>
+            <th class="ours" style="color:#a78bfa;background:rgba(167,139,250,0.06)" data-i18n="vs.th_pro">TNT Pro — €40/mo</th>
             <th>FinancialJuice</th>
             <th>Bloomberg Terminal</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="feature-name">News feed</td>
-            <td class="ours"><span class="check-yes">✓</span> 2-min delay</td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> Real-time</td>
-            <td><span class="check-yes">✓</span> Limited</td>
-            <td><span class="check-yes">✓</span> Real-time</td>
+            <td class="feature-name" data-i18n="vs.news">News feed</td>
+            <td class="ours"><span class="check-yes">✓</span> <span data-i18n="vs.delay">2-min delay</span></td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.realtime">Real-time</span></td>
+            <td><span class="check-yes">✓</span> <span data-i18n="vs.limited">Limited</span></td>
+            <td><span class="check-yes">✓</span> <span data-i18n="vs.realtime">Real-time</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Economic calendar</td>
-            <td class="ours"><span class="check-yes">✓</span> Live releases</td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> Live releases</td>
+            <td class="feature-name" data-i18n="vs.calendar">Economic calendar</td>
+            <td class="ours"><span class="check-yes">✓</span> <span data-i18n="vs.live_releases">Live releases</span></td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.live_releases">Live releases</span></td>
             <td><span class="check-yes">✓</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Macro &amp; bonds hub</td>
+            <td class="feature-name" data-i18n="vs.macro">Macro &amp; bonds hub</td>
             <td class="ours"><span class="check-no">✗</span></td>
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Central banks tracker</td>
+            <td class="feature-name" data-i18n="vs.centralbanks">Central banks tracker</td>
             <td class="ours"><span class="check-no">✗</span></td>
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span></td>
             <td><span class="check-partial">~</span> Limited</td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Earnings calendar</td>
+            <td class="feature-name" data-i18n="vs.earnings">Earnings calendar</td>
             <td class="ours"><span class="check-no">✗</span></td>
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Market screener</td>
+            <td class="feature-name" data-i18n="vs.screener">Market screener</td>
             <td class="ours"><span class="check-no">✗</span></td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> 6 asset classes</td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.screener_6">6 asset classes</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Market sentiment</td>
+            <td class="feature-name" data-i18n="vs.sentiment">Market sentiment</td>
             <td class="ours"><span class="check-no">✗</span></td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> Real-time</td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.realtime">Real-time</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Live squawk</td>
+            <td class="feature-name" data-i18n="vs.squawk">Live squawk</td>
             <td class="ours"><span class="check-no">✗</span></td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> Included</td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.included">Included</span></td>
             <td><span class="check-partial">~</span> €100+/mo</td>
             <td><span class="check-yes">✓</span> Paid add-on</td>
           </tr>
           <tr>
-            <td class="feature-name">Live financial TV</td>
+            <td class="feature-name" data-i18n="vs.tv">Live financial TV</td>
             <td class="ours"><span class="check-no">✗</span></td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> 7 channels</td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.tv_7">7 channels</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">TradingView charts</td>
-            <td class="ours"><span class="check-yes">✓</span> Built-in</td>
-            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> Built-in</td>
+            <td class="feature-name" data-i18n="vs.charts">TradingView charts</td>
+            <td class="ours"><span class="check-yes">✓</span> <span data-i18n="vs.builtin">Built-in</span></td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.builtin">Built-in</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Ad-free</td>
+            <td class="feature-name" data-i18n="vs.adfree">Ad-free</td>
             <td class="ours"><span class="check-no">✗</span></td>
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
           </tr>
           <tr>
-            <td class="feature-name">Monthly price</td>
-            <td class="ours" style="color:var(--low);font-weight:700;">Free</td>
+            <td class="feature-name" data-i18n="vs.price">Monthly price</td>
+            <td class="ours" style="color:var(--low);font-weight:700;" data-i18n="vs.free">Free</td>
             <td style="background:rgba(167,139,250,0.03);color:#a78bfa;font-weight:700;">€40 / month</td>
             <td style="color:var(--text-muted)">Free / Paid tiers</td>
             <td style="color:var(--high);font-weight:700;">~€1,800 / month</td>
@@ -1314,26 +1345,26 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── FAQ ── -->
 <section class="faq-section" id="faq" aria-labelledby="faq-heading">
   <div class="container" style="text-align:center;">
-    <div class="section-eyebrow">FAQ</div>
-    <h2 class="section-title" id="faq-heading">Frequently asked questions</h2>
-    <p style="font-size:15px;color:var(--text-dim);max-width:520px;margin:0 auto;">Everything you need to know about Trading News Terminal.</p>
+    <div class="section-eyebrow" data-i18n="faq.eyebrow">FAQ</div>
+    <h2 class="section-title" id="faq-heading" data-i18n="faq.h2">Frequently asked questions</h2>
+    <p style="font-size:15px;color:var(--text-dim);max-width:520px;margin:0 auto;" data-i18n="faq.sub">Everything you need to know about Trading News Terminal.</p>
   </div>
   <div class="faq-grid" role="list">
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        What is Trading News Terminal?
+        <span data-i18n="faq.q1">What is Trading News Terminal?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Trading News Terminal is a professional real-time financial news platform for active traders. It aggregates live news from institutional sources across forex, macro, crypto, equities and commodities, classifies each item by market impact (HIGH, MEDIUM, LOW), and combines it with a live economic calendar, squawk box, TradingView charts and financial TV — all in one zero-clutter web interface.</div>
+      <div class="faq-a" data-i18n="faq.a1">Trading News Terminal is a professional real-time financial news platform for active traders. It aggregates live news from institutional sources across forex, macro, crypto, equities and commodities, classifies each item by market impact (HIGH, MEDIUM, LOW), and combines it with a live economic calendar, squawk box, TradingView charts and financial TV — all in one zero-clutter web interface.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        What is the difference between Basic and Pro?
+        <span data-i18n="faq.q2">What is the difference between Basic and Pro?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">
+      <div class="faq-a" data-i18n-html="faq.a2">
         <p style="margin-bottom:12px;"><strong>Basic (free)</strong> includes: news feed with 2-minute delay, live economic calendar, TradingView charts, asset watchlist, smart search and multilingual interface.</p>
         <p><strong>Pro (€40/month)</strong> adds everything in Basic plus: <strong>Real-time zero-delay news feed</strong> — <strong>Macro &amp; Bonds Hub</strong> (GDP, PMI, yields) — <strong>Earnings Calendar</strong> (EPS beat/miss live) — <strong>Central Banks Tracker</strong> (Fed, ECB, BOE, BOJ, SNB…) — <strong>Market Sentiment</strong> (risk-on / risk-off) — <strong>Market Screener</strong> (Forex, Stocks, Crypto, Indices, Commodities &amp; Bonds) — <strong>Live Squawk</strong> (hands-free voice alerts) — <strong>7 Live Financial TV channels</strong> — comprehensive source coverage — 100% ad-free — no upgrade prompts — priority support.</p>
       </div>
@@ -1341,58 +1372,58 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        Is the Basic plan really free?
+        <span data-i18n="faq.q3">Is the Basic plan really free?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Yes. The Basic plan is free forever — no credit card required, no trial period, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal.</div>
+      <div class="faq-a" data-i18n="faq.a3">Yes. The Basic plan is free forever — no credit card required, no trial period, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        What is the Squawk feature?
+        <span data-i18n="faq.q4">What is the Squawk feature?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Squawk uses your browser's Web Speech API to read every new headline aloud as it arrives — just like a professional trading desk squawk box. Enable it with one click. The terminal highlights the card being read in real time, so you never miss breaking news while watching charts. Squawk is a Pro-only feature.</div>
+      <div class="faq-a" data-i18n="faq.a4">Squawk uses your browser's Web Speech API to read every new headline aloud as it arrives — just like a professional trading desk squawk box. Enable it with one click. The terminal highlights the card being read in real time, so you never miss breaking news while watching charts. Squawk is a Pro-only feature.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        Which news sources does the terminal aggregate?
+        <span data-i18n="faq.q5">Which news sources does the terminal aggregate?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">We aggregate from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the highest-impact sources; the Pro plan unlocks full comprehensive coverage across every category and asset class.</div>
+      <div class="faq-a" data-i18n="faq.a5">We aggregate from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the highest-impact sources; the Pro plan unlocks full comprehensive coverage across every category and asset class.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        Does Trading News Terminal have live charts?
+        <span data-i18n="faq.q6">Does Trading News Terminal have live charts?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Yes. The terminal includes embedded TradingView charts for forex pairs (EUR/USD, GBP/USD, USD/JPY and more), cryptocurrencies (BTC, ETH, XRP), major indices (S&amp;P 500, DAX, Nikkei, FTSE), metals and energy (Gold, Silver, WTI, Brent, Natural Gas), and agricultural commodities (Corn, Wheat, Soybeans, Coffee, Cocoa, Cotton). Charts are available on both Basic and Pro plans.</div>
+      <div class="faq-a" data-i18n="faq.a6">Yes. The terminal includes embedded TradingView charts for forex pairs (EUR/USD, GBP/USD, USD/JPY and more), cryptocurrencies (BTC, ETH, XRP), major indices (S&amp;P 500, DAX, Nikkei, FTSE), metals and energy (Gold, Silver, WTI, Brent, Natural Gas), and agricultural commodities (Corn, Wheat, Soybeans, Coffee, Cocoa, Cotton). Charts are available on both Basic and Pro plans.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        How does the economic calendar work?
+        <span data-i18n="faq.q7">How does the economic calendar work?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">The economic calendar shows 7 days of upcoming events with live countdown timers, previous values and forecasts. When actual data is published, the result is automatically injected into the news feed with colour-coded beat/miss signals. HIGH impact events trigger an audio alert and Squawk reading (on Pro). The calendar covers all major currencies and economies globally.</div>
+      <div class="faq-a" data-i18n="faq.a7">The economic calendar shows 7 days of upcoming events with live countdown timers, previous values and forecasts. When actual data is published, the result is automatically injected into the news feed with colour-coded beat/miss signals. HIGH impact events trigger an audio alert and Squawk reading (on Pro). The calendar covers all major currencies and economies globally.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        Is Trading News Terminal a Bloomberg alternative?
+        <span data-i18n="faq.q8">Is Trading News Terminal a Bloomberg alternative?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Yes. Bloomberg Terminal costs approximately €1,800 per month. Trading News Terminal Pro delivers real-time financial news, economic calendar, live squawk, 7 live TV channels and TradingView charts for €40/month. For independent and retail traders who need professional-grade market intelligence without the institutional price, TNT is the obvious Bloomberg alternative.</div>
+      <div class="faq-a" data-i18n="faq.a8">Yes. Bloomberg Terminal costs approximately €1,800 per month. Trading News Terminal Pro delivers real-time financial news, economic calendar, live squawk, 7 live TV channels and TradingView charts for €40/month. For independent and retail traders who need professional-grade market intelligence without the institutional price, TNT is the obvious Bloomberg alternative.</div>
     </div>
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        Does it work on mobile and tablet?
+        <span data-i18n="faq.q9">Does it work on mobile and tablet?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a">Mobile and tablet support is <strong>coming soon</strong>. The terminal is currently optimised for desktop and laptop browsers. A fully native mobile experience is in development.</div>
+      <div class="faq-a" data-i18n-html="faq.a9">Mobile and tablet support is <strong>coming soon</strong>. The terminal is currently optimised for desktop and laptop browsers. A fully native mobile experience is in development.</div>
     </div>
 
   </div>
@@ -1401,39 +1432,39 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 <!-- ── CTA ── -->
 <section class="cta-section" aria-label="Call to action — choose your plan">
   <div class="container">
-    <h2 class="cta-title">Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span></h2>
-    <p class="cta-sub" style="margin-bottom:48px;">Free to start. Upgrade to Pro when you need more.</p>
+    <h2 class="cta-title" data-i18n-html="cta.h2">Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span></h2>
+    <p class="cta-sub" style="margin-bottom:48px;" data-i18n="cta.sub">Free to start. Upgrade to Pro when you need more.</p>
     <div class="cta-dual">
       <!-- Free card -->
       <div class="cta-card cta-card-free">
-        <div class="cta-card-badge">Basic — Free</div>
-        <div class="cta-card-price">€0 <span>/ forever</span></div>
-        <p class="cta-card-desc">Everything you need to follow markets. No credit card, no expiry.</p>
+        <div class="cta-card-badge" data-i18n="cta.free_badge">Basic — Free</div>
+        <div class="cta-card-price">€0 <span data-i18n="cta.forever">/ forever</span></div>
+        <p class="cta-card-desc" data-i18n="cta.free_desc">Everything you need to follow markets. No credit card, no expiry.</p>
         <ul class="cta-card-features">
-          <li>News feed (2-min delay)</li>
-          <li>Live economic calendar</li>
-          <li>TradingView charts</li>
-          <li>Asset watchlist & smart search</li>
-          <li>Sound alerts · Multilingual</li>
+          <li data-i18n="cta.f1">News feed (2-min delay)</li>
+          <li data-i18n="cta.f2">Live economic calendar</li>
+          <li data-i18n="cta.f3">TradingView charts</li>
+          <li data-i18n="cta.f4">Asset watchlist &amp; smart search</li>
+          <li data-i18n="cta.f5">Sound alerts · Multilingual</li>
         </ul>
-        <a href="/signup" class="btn-primary">▶ Open Terminal — Free</a>
+        <a href="/signup" class="btn-primary" data-i18n="hero.btn_open">▶ Open Terminal — Free</a>
       </div>
       <!-- Pro card -->
       <div class="cta-card cta-card-pro">
-        <div class="cta-card-badge">Pro — €40/month</div>
-        <div class="cta-card-price" style="color:#a78bfa;">€40 <span>/ month</span></div>
-        <p class="cta-card-desc">Full professional suite. Real-time data, all tools, zero ads.</p>
+        <div class="cta-card-badge" data-i18n="cta.pro_badge">Pro — €40/month</div>
+        <div class="cta-card-price" style="color:#a78bfa;">€40 <span data-i18n="cta.per_month">/ month</span></div>
+        <p class="cta-card-desc" data-i18n="cta.pro_desc">Full professional suite. Real-time data, all tools, zero ads.</p>
         <ul class="cta-card-features">
-          <li><strong>Real-time</strong> zero-delay news</li>
-          <li>Macro & Bonds Hub · Earnings Calendar</li>
-          <li>Central Banks Tracker · Sentiment</li>
-          <li>Market Screener — 6 asset classes</li>
-          <li>Live Squawk · 7 TV channels · Ad-free</li>
+          <li data-i18n-html="cta.p1"><strong>Real-time</strong> zero-delay news</li>
+          <li data-i18n="cta.p2">Macro &amp; Bonds Hub · Earnings Calendar</li>
+          <li data-i18n="cta.p3">Central Banks Tracker · Sentiment</li>
+          <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
+          <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
         </ul>
-        <a href="/login?plan=pro" class="btn-pro">Get Pro Access →</a>
+        <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
       </div>
     </div>
-    <p class="cta-note" style="margin-top:28px;">Works in Chrome, Firefox, Safari, Edge · No installation required</p>
+    <p class="cta-note" style="margin-top:28px;" data-i18n="cta.note">Works in Chrome, Firefox, Safari, Edge · No installation required</p>
   </div>
 </section>
 
@@ -1442,46 +1473,1148 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="footer-logo-text">Trading <span>News</span> Terminal</div>
-      <p>Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.</p>
+      <p data-i18n="footer.brand_tagline">Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.</p>
     </div>
     <div class="footer-col">
-      <h4>Product</h4>
-      <a href="/signup">Open Terminal</a>
-      <a href="#features">Features</a>
-      <a href="#charts">Charts</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#compare">Compare</a>
+      <h4 data-i18n="footer.col_product">Product</h4>
+      <a href="/signup" data-i18n="footer.open_terminal">Open Terminal</a>
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#charts" data-i18n="nav.charts">Charts</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#compare" data-i18n="nav.compare">Compare</a>
     </div>
     <div class="footer-col">
-      <h4>Markets</h4>
-      <a href="/signup">Forex News</a>
-      <a href="/signup">Crypto News</a>
-      <a href="/signup">Macro &amp; Bonds</a>
-      <a href="/signup">Commodities News</a>
-      <a href="/signup">Economic Calendar</a>
+      <h4 data-i18n="footer.col_markets">Markets</h4>
+      <a href="/signup" data-i18n="footer.forex_news">Forex News</a>
+      <a href="/signup" data-i18n="footer.crypto_news">Crypto News</a>
+      <a href="/signup" data-i18n="footer.macro_bonds">Macro &amp; Bonds</a>
+      <a href="/signup" data-i18n="footer.commodities">Commodities News</a>
+      <a href="/signup" data-i18n="footer.econ_cal">Economic Calendar</a>
     </div>
     <div class="footer-col">
-      <h4>Resources</h4>
-      <a href="#faq">FAQ</a>
-      <a href="/signup">Live Financial TV</a>
-      <a href="/signup">Live Squawk</a>
-      <a href="#compare">Bloomberg Alternative</a>
-      <a href="/terms">Terms of Use</a>
-      <a href="/privacy">Privacy Policy</a>
-      <a href="mailto:support@tradingnewsterminal.com">Contact</a>
+      <h4 data-i18n="footer.col_resources">Resources</h4>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="/signup" data-i18n="footer.live_tv">Live Financial TV</a>
+      <a href="/signup" data-i18n="footer.live_squawk">Live Squawk</a>
+      <a href="#compare" data-i18n="footer.bloomberg_alt">Bloomberg Alternative</a>
+      <a href="/terms" data-i18n="footer.terms">Terms of Use</a>
+      <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="mailto:support@tradingnewsterminal.com" data-i18n="footer.contact">Contact</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Trading News Terminal. All rights reserved.</p>
+    <p data-i18n="footer.copyright">© 2026 Trading News Terminal. All rights reserved.</p>
     <p>
-      <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp;
-      <a href="/terms">Terms of Use</a> &nbsp;·&nbsp;
+      <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/terms" data-i18n="footer.terms">Terms of Use</a> &nbsp;·&nbsp;
       <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a>
     </p>
   </div>
 </footer>
 
 <script>
+// ─── Landing Page Translation System ─────────────────────────────
+let _landingLang = localStorage.getItem('tnt_lang') || 'en';
+
+const _LS = {
+  en: {
+    'nav.tagline':'Real-time Market Intelligence',
+    'nav.features':'Features','nav.charts':'Charts','nav.pricing':'Pricing',
+    'nav.compare':'Compare','nav.faq':'FAQ','nav.signin':'Sign In ↗',
+    'nav.login':'Login','nav.launch_free':'Launch Free →','nav.get_pro':'Get Pro',
+    'nav.launch':'Launch →',
+    'hero.eyebrow':'Live Now — Real-Time Feed Active',
+    'hero.h1_line1':'The Professional','hero.h1_line2':'Financial News Terminal',
+    'hero.h1_line3':'Built for Active Traders',
+    'hero.sub':'Real-time financial news, live economic calendar, squawk box, TradingView charts and live financial TV — all in one zero-clutter terminal. The affordable alternative to Bloomberg. <strong>Free to start.</strong>',
+    'hero.btn_open':'▶ Open Terminal — Free','hero.btn_pro':'Get Pro — €40/mo',
+    'hero.btn_explore':'Explore Features',
+    'hero.trust1':'Free account in 30 seconds','hero.trust2':'No credit card required',
+    'hero.trust3':'Economic calendar with live releases','hero.trust4':'TradingView charts included',
+    'hero.trust5':'Live squawk on Pro',
+    'ticker.realtime':'Real-Time Zero-Delay News Feed','ticker.squawk':'Live Squawk Box',
+    'ticker.sentiment':'Market Sentiment Analysis','ticker.tv':'7 Live Financial TV Channels',
+    'ticker.centralbanks':'Central Banks Tracker','ticker.earnings':'Earnings Calendar',
+    'ticker.macro':'Macro & Bonds Hub','ticker.screener':'Market Screener — 6 Asset Classes',
+    'ticker.sources':'Comprehensive Source Coverage','ticker.adfree':'100% Ad-Free',
+    'ticker.noprompts':'No Upgrade Prompts','ticker.support':'Priority Support',
+    'feat.eyebrow':'Everything you need',
+    'feat.h2':'A complete trading<br>intelligence platform',
+    'feat.sub':'Every tool a professional trader needs — live news, calendar, charts, squawk and TV — in a single zero-friction terminal.',
+    'fc1.title':'Real-Time News Feed',
+    'fc1.desc':'Aggregated from institutional sources across forex, macro, crypto, equities and commodities. Every item auto-classified by market impact: <strong>HIGH</strong>, <strong>MEDIUM</strong> or <strong>LOW</strong>. Basic includes a 2-minute delay; Pro delivers zero-delay real-time news.',
+    'fc2.title':'Live Economic Calendar',
+    'fc2.desc':'7-day economic calendar with live countdown timers, previous values, forecast and actual data. Calendar releases automatically inject into the news feed the moment data drops — colour-coded for beat/miss. HIGH impact events trigger instant audio alerts.',
+    'fc3.title':'Live Squawk Box',
+    'fc3.desc':"Hands-free voice reading of every new headline using your browser's speech engine — exactly like a professional trading desk squawk. Enable in one click. The terminal highlights the card being read in real time so you never miss a move.",
+    'fc4.title':'TradingView Charts',
+    'fc4.desc':'Embedded TradingView charts for forex pairs, cryptocurrencies, indices, metals, energy and agricultural commodities — directly inside the terminal. No tab switching. Covers EUR/USD, GBP/USD, GOLD, BTC, S&P 500, OIL, and 20+ more.',
+    'fc5.title':'Live Financial TV',
+    'fc5.desc':'7 embedded live streams — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 and AP News — all inside the terminal. No subscriptions, no tab switching. Watch breaking news while monitoring the feed.',
+    'fc6.title':'Instant Sound Alerts',
+    'fc6.desc':"Audio notification on every new item — configurable in one click. The news tab pulses green when new items arrive while you're in another section. HIGH impact news and economic releases trigger a separate priority alert tone.",
+    'fc7.title':'Asset Watchlist',
+    'fc7.desc':'Pin specific instruments — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH and more — to filter the news feed to only the assets you trade. Your watchlist and filters persist across sessions automatically.',
+    'fc8.title':'Smart Search & Filters',
+    'fc8.desc':'Search by keyword, asset, source or forex pair across all aggregated sources simultaneously. Entering "eurusd" auto-filters for all EUR and USD tagged headlines. Filter by impact level, source, time range or asset class.',
+    'fc9.title':'Multilingual Interface',
+    'fc9.desc':'Full interface and on-the-fly headline translation across multiple languages. Switch languages instantly — all news items and economic calendar entries translate in real time. More languages are continuously being added.',
+    'fc10.title':'Auto Article Translation',
+    'fc10.desc':'Click any headline and the full source article opens automatically translated into your selected language — Portuguese, Spanish, French, German or Italian. One toggle in settings, zero effort. Read global market news in your native language.',
+    'fc11.title':'Macro & Bonds Hub',
+    'fc11.desc':'Dedicated Macro tab aggregates global macroeconomic news — GDP, inflation, PMI, trade data, interest rate decisions and government bond yields. Filter by region or indicator. Includes real-time market sentiment analysis.',
+    'fc12.title':'Earnings Calendar',
+    'fc12.desc':'Track upcoming company earnings dates alongside EPS forecasts and previous results. When earnings drop, the actual vs forecast comparison injects directly into the news feed — colour-coded beat or miss.',
+    'fc13.title':'Central Banks Tracker',
+    'fc13.desc':'Dedicated Central Banks tab monitors all major central bank decisions, speeches and rate path signals — Fed, ECB, BOE, BOJ, SNB, RBA, BOC and more. Rate decisions auto-inject into the live feed the instant they\'re announced.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Pro Only',
+    'photo.h3':'Professional grade. Trader price.',
+    'photo.p':'Everything Bloomberg has for market news — at a fraction of the cost. Built by traders, for traders.',
+    'charts.eyebrow':'Integrated Charts',
+    'charts.h2':'TradingView charts<br>built right in',
+    'charts.sub':'No separate tabs. No extra subscriptions. Correlate breaking news to price action instantly, all from within the terminal.',
+    'cf1.title':'Forex Pairs',
+    'cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD and more — full major and minor coverage with TradingView pro-grade charts.',
+    'cf2.title':'Metals & Energy',
+    'cf2.desc':'Gold, Silver, Platinum, WTI Crude, Brent Oil, Natural Gas and Copper — live spot prices with full TradingView charting tools.',
+    'cf3.title':'Agricultural Commodities',
+    'cf3.desc':'Corn, Wheat, Soybeans, Coffee (Arabica), Cocoa, Cotton — commodity CFD charts rarely available in free terminals.',
+    'cf4.title':'Crypto & Indices',
+    'cf4.desc':'Bitcoin, Ethereum, XRP alongside S&P 500, NASDAQ, DAX, Nikkei and FTSE 100 — everything in one place.',
+    'src.eyebrow':'News Sources',
+    'src.h2':'Institutional sources.<br>One terminal.',
+    'src.sub':'We aggregate from hundreds of institutional and professional news sources — confidential for competitive reasons — covering every major market and asset class.',
+    'src.chip1':'📡 Forex News Wires','src.chip2':'📉 Macro & Bonds',
+    'src.chip3':'₿ Crypto Media','src.chip4':'🏦 Central Bank Feeds',
+    'src.chip5':'📈 Equities & Earnings','src.chip6':'🌾 Commodity News',
+    'src.chip7':'🛢 Energy Markets','src.chip8':'🏅 Metals & Mining',
+    'src.chip9':'🌍 Geopolitical Events','src.chip10':'📊 Economic Data Releases',
+    'src.chip11':'🔊 Institutional Research','src.chip12':'+ hundreds more',
+    'test.eyebrow':'Traders using TNT',
+    'test.h2':'Trusted by independent<br>traders worldwide',
+    'test.role1':'Forex Day Trader · London','test.role2':'Macro Trader · Lisbon','test.role3':'Swing Trader · Milan',
+    'pricing.eyebrow':'Plans & Pricing',
+    'pricing.h2':'Start free. Upgrade when you\'re ready.',
+    'pricing.sub':'Basic is free forever. Pro is €40/month — less than 2% of what Bloomberg costs.',
+    'pricing.monthly':'Monthly','pricing.annual':'Annual','pricing.save':'Save 25%',
+    'plan.basic_badge':'Free Forever','plan.no_cc':'No credit card required',
+    'plan.basic_desc':'Essential market intelligence for traders getting started. Access the full terminal and stay informed on what moves the markets — at no cost, forever.',
+    'plan.pro_badge':'Most Powerful','plan.per_month':'/month',
+    'plan.annual_note':'Billed €360/year — save €120 vs monthly',
+    'plan.vat_note':'excl. VAT where applicable · Billed in EUR',
+    'plan.pro_desc':"Institutional-grade coverage with zero compromise. Every feature, every source, zero-delay real-time news — built for traders who can't afford to miss a move.",
+    'plan.basic_btn':'Get Started Free →','plan.pro_btn':'Get Pro Access →',
+    'pf.news_delay':'News feed <span class="pf-note">(2-min delay)</span>',
+    'pf.calendar':'Economic calendar with live releases','pf.screener':'Market screener',
+    'pf.charts':'TradingView charts','pf.watchlist':'Asset watchlist & smart search',
+    'pf.sound':'Sound alerts','pf.multilingual':'Multilingual',
+    'pf.realtime':'Real-time zero-delay news','pf.macro':'Macro & bonds hub',
+    'pf.earnings':'Earnings calendar','pf.centralbanks':'Central banks tracker',
+    'pf.sentiment':'Market sentiment analysis','pf.squawk':'Live squawk',
+    'pf.tv':'Live financial TV (7 channels)','pf.adfree':'Ad-free experience',
+    'ppf.everything':'Everything in Basic',
+    'ppf.realtime':'<strong>Real-time</strong> zero-delay news feed',
+    'ppf.macro':'<strong>Macro & Bonds Hub</strong> — GDP, PMI, yields',
+    'ppf.earnings':'<strong>Earnings Calendar</strong> — EPS beat/miss live',
+    'ppf.centralbanks':'<strong>Central Banks Tracker</strong> — Fed, ECB, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Market Sentiment</strong> — risk-on / risk-off',
+    'ppf.squawk':'<strong>Live Squawk</strong> — hands-free voice alerts',
+    'ppf.tv':'<strong>Live Financial TV</strong> — 7 channels',
+    'ppf.screener':'<strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…',
+    'ppf.sources':'Comprehensive source coverage',
+    'ppf.adfree':'100% ad-free · No upgrade prompts','ppf.support':'Priority support',
+    'sc.eyebrow':'Market Screener',
+    'sc.h2':'Scan every market.<br>Spot the move first.',
+    'sc.desc':'The built-in market screener lets you scan Forex, Stocks, Crypto, Indices, Commodities and Bonds in one place — ranked by news activity, economic event proximity and market impact.',
+    'sc.live':'Now Live','sc.col_stock':'Stock','sc.col_change':'Change',
+    'sc.col_news':'News','sc.col_earnings':'Earnings','sc.col_signal':'Signal',
+    'sfc1.title':'6 Asset Class Tabs',
+    'sfc1.desc':'Switch instantly between <strong>Forex</strong>, <strong>Stocks</strong>, <strong>Crypto</strong>, <strong>Indices</strong>, <strong>Commodities</strong> and <strong>Bonds</strong>. Each tab shows only the instruments relevant to that market — no noise.',
+    'sfc2.title':'HOT / WATCH / CALM Signals',
+    'sfc2.desc':'Every instrument is scored in real time based on news volume, impact classification and upcoming economic events. <strong>HOT</strong> = high activity now. <strong>WATCH</strong> = event approaching. <strong>CALM</strong> = quiet.',
+    'sfc3.title':'Earnings & Event Proximity',
+    'sfc3.desc':'See upcoming earnings dates for stocks and economic event countdowns for forex and macro. Know which instruments have a catalyst coming before you enter a trade.',
+    'how.eyebrow':'How it works','how.h2':'Up and running in 60 seconds',
+    'how.step1_title':'Create a Free Account',
+    'how.step1_desc':'Sign up at <strong>tradingnewsterminal.com</strong> with your email — no credit card required. Your session is saved so you return straight to the terminal on every visit. Account creation takes under 30 seconds.',
+    'how.step2_title':'Configure Your Feed',
+    'how.step2_desc':'Pin the assets you trade to My News watchlist. Set your preferred impact filter (HIGH / MEDIUM / LOW). Choose your language from the available options. The terminal remembers your settings across all sessions.',
+    'how.step3_title':'Trade with Confidence',
+    'how.step3_desc':'Enable Squawk for hands-free voice alerts. Monitor the economic calendar for upcoming releases. Open the integrated TradingView chart for the instrument you\'re trading — news and price action, side by side.',
+    'vs.eyebrow':'Comparison',
+    'vs.h2':'How we compare to Bloomberg<br>& FinancialJuice',
+    'vs.sub':'Professional-grade market intelligence without the professional-grade price.',
+    'vs.th_feature':'Feature','vs.th_basic':'TNT Basic — Free','vs.th_pro':'TNT Pro — €40/mo',
+    'vs.news':'News feed','vs.delay':'2-min delay','vs.realtime':'Real-time',
+    'vs.calendar':'Economic calendar','vs.live_releases':'Live releases',
+    'vs.macro':'Macro & bonds hub','vs.centralbanks':'Central banks tracker',
+    'vs.earnings':'Earnings calendar','vs.screener':'Market screener',
+    'vs.screener_6':'6 asset classes','vs.sentiment':'Market sentiment',
+    'vs.squawk':'Live squawk','vs.included':'Included','vs.tv':'Live financial TV',
+    'vs.tv_7':'7 channels','vs.charts':'TradingView charts','vs.builtin':'Built-in',
+    'vs.adfree':'Ad-free','vs.price':'Monthly price','vs.free':'Free','vs.limited':'Limited',
+    'faq.eyebrow':'FAQ','faq.h2':'Frequently asked questions',
+    'faq.sub':'Everything you need to know about Trading News Terminal.',
+    'faq.q1':'What is Trading News Terminal?',
+    'faq.a1':'Trading News Terminal is a professional real-time financial news platform for active traders. It aggregates live news from institutional sources across forex, macro, crypto, equities and commodities, classifies each item by market impact (HIGH, MEDIUM, LOW), and combines it with a live economic calendar, squawk box, TradingView charts and financial TV — all in one zero-clutter web interface.',
+    'faq.q2':'What is the difference between Basic and Pro?',
+    'faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (free)</strong> includes: news feed with 2-minute delay, live economic calendar, TradingView charts, asset watchlist, smart search and multilingual interface.</p><p><strong>Pro (€40/month)</strong> adds: <strong>Real-time zero-delay news</strong> — <strong>Macro & Bonds Hub</strong> — <strong>Earnings Calendar</strong> — <strong>Central Banks Tracker</strong> — <strong>Market Sentiment</strong> — <strong>Market Screener</strong> — <strong>Live Squawk</strong> — <strong>7 Live TV channels</strong> — comprehensive sources — 100% ad-free — priority support.</p>',
+    'faq.q3':'Is the Basic plan really free?',
+    'faq.a3':'Yes. The Basic plan is free forever — no credit card required, no trial period, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal.',
+    'faq.q4':'What is the Squawk feature?',
+    'faq.a4':"Squawk uses your browser's Web Speech API to read every new headline aloud as it arrives — just like a professional trading desk squawk box. Enable it with one click. The terminal highlights the card being read in real time. Squawk is a Pro-only feature.",
+    'faq.q5':'Which news sources does the terminal aggregate?',
+    'faq.a5':'We aggregate from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the highest-impact sources; Pro unlocks full comprehensive coverage.',
+    'faq.q6':'Does Trading News Terminal have live charts?',
+    'faq.a6':'Yes. The terminal includes embedded TradingView charts for forex pairs (EUR/USD, GBP/USD, USD/JPY and more), cryptocurrencies (BTC, ETH, XRP), major indices (S&P 500, DAX, Nikkei, FTSE), metals and energy (Gold, Silver, WTI, Brent, Natural Gas), and agricultural commodities. Available on both Basic and Pro plans.',
+    'faq.q7':'How does the economic calendar work?',
+    'faq.a7':'The economic calendar shows 7 days of upcoming events with live countdown timers, previous values and forecasts. When actual data is published, the result is automatically injected into the news feed with colour-coded beat/miss signals. HIGH impact events trigger an audio alert and Squawk reading (on Pro).',
+    'faq.q8':'Is Trading News Terminal a Bloomberg alternative?',
+    'faq.a8':'Yes. Bloomberg Terminal costs approximately €1,800 per month. Trading News Terminal Pro delivers real-time financial news, economic calendar, live squawk, 7 live TV channels and TradingView charts for €40/month — the professional-grade Bloomberg alternative at a fraction of the cost.',
+    'faq.q9':'Does it work on mobile and tablet?',
+    'faq.a9':'Mobile and tablet support is <strong>coming soon</strong>. The terminal is currently optimised for desktop and laptop browsers. A fully native mobile experience is in development.',
+    'cta.h2':'Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span>',
+    'cta.sub':'Free to start. Upgrade to Pro when you need more.',
+    'cta.free_badge':'Basic — Free','cta.forever':'/ forever',
+    'cta.free_desc':'Everything you need to follow markets. No credit card, no expiry.',
+    'cta.f1':'News feed (2-min delay)','cta.f2':'Live economic calendar',
+    'cta.f3':'TradingView charts','cta.f4':'Asset watchlist & smart search',
+    'cta.f5':'Sound alerts · Multilingual',
+    'cta.pro_badge':'Pro — €40/month','cta.per_month':'/ month',
+    'cta.pro_desc':'Full professional suite. Real-time data, all tools, zero ads.',
+    'cta.p1':'<strong>Real-time</strong> zero-delay news',
+    'cta.p2':'Macro & Bonds Hub · Earnings Calendar',
+    'cta.p3':'Central Banks Tracker · Sentiment',
+    'cta.p4':'Market Screener — 6 asset classes',
+    'cta.p5':'Live Squawk · 7 TV channels · Ad-free',
+    'cta.note':'Works in Chrome, Firefox, Safari, Edge · No installation required',
+    'footer.brand_tagline':'Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.',
+    'footer.col_product':'Product','footer.open_terminal':'Open Terminal',
+    'footer.col_markets':'Markets','footer.forex_news':'Forex News',
+    'footer.crypto_news':'Crypto News','footer.macro_bonds':'Macro & Bonds',
+    'footer.commodities':'Commodities News','footer.econ_cal':'Economic Calendar',
+    'footer.col_resources':'Resources','footer.live_tv':'Live Financial TV',
+    'footer.live_squawk':'Live Squawk','footer.bloomberg_alt':'Bloomberg Alternative',
+    'footer.terms':'Terms of Use','footer.privacy':'Privacy Policy',
+    'footer.contact':'Contact','footer.copyright':'© 2026 Trading News Terminal. All rights reserved.',
+  },
+  pt: {
+    'nav.tagline':'Inteligência de Mercado em Tempo Real',
+    'nav.features':'Funcionalidades','nav.charts':'Gráficos','nav.pricing':'Preços',
+    'nav.compare':'Comparar','nav.faq':'FAQ','nav.signin':'Entrar ↗',
+    'nav.login':'Login','nav.launch_free':'Começar Grátis →','nav.get_pro':'Obter Pro',
+    'nav.launch':'Abrir →',
+    'hero.eyebrow':'Ao Vivo — Feed em Tempo Real Ativo',
+    'hero.h1_line1':'O Terminal Profissional','hero.h1_line2':'de Notícias Financeiras',
+    'hero.h1_line3':'Para Traders Ativos',
+    'hero.sub':'Notícias financeiras em tempo real, calendário económico ao vivo, squawk box, gráficos TradingView e TV financeira — tudo num terminal sem distração. A alternativa acessível ao Bloomberg. <strong>Grátis para começar.</strong>',
+    'hero.btn_open':'▶ Abrir Terminal — Grátis','hero.btn_pro':'Obter Pro — €40/mês',
+    'hero.btn_explore':'Ver Funcionalidades',
+    'hero.trust1':'Conta grátis em 30 segundos','hero.trust2':'Sem cartão de crédito',
+    'hero.trust3':'Calendário económico com releases ao vivo','hero.trust4':'Gráficos TradingView incluídos',
+    'hero.trust5':'Squawk ao vivo no Pro',
+    'ticker.realtime':'Feed de Notícias em Tempo Real','ticker.squawk':'Squawk Box Ao Vivo',
+    'ticker.sentiment':'Análise de Sentimento de Mercado','ticker.tv':'7 Canais de TV Financeira',
+    'ticker.centralbanks':'Tracker de Bancos Centrais','ticker.earnings':'Calendário de Resultados',
+    'ticker.macro':'Hub Macro & Obrigações','ticker.screener':'Screener de Mercado — 6 Classes de Ativos',
+    'ticker.sources':'Cobertura Abrangente de Fontes','ticker.adfree':'100% Sem Anúncios',
+    'ticker.noprompts':'Sem Pedidos de Upgrade','ticker.support':'Suporte Prioritário',
+    'feat.eyebrow':'Tudo o que precisas',
+    'feat.h2':'Uma plataforma completa<br>de inteligência de trading',
+    'feat.sub':'Todas as ferramentas que um trader profissional precisa — notícias ao vivo, calendário, gráficos, squawk e TV — num terminal sem fricção.',
+    'fc1.title':'Feed de Notícias em Tempo Real',
+    'fc1.desc':'Agregado de fontes institucionais em forex, macro, cripto, ações e commodities. Cada item classificado por impacto: <strong>HIGH</strong>, <strong>MEDIUM</strong> ou <strong>LOW</strong>. O Basic inclui atraso de 2 minutos; o Pro entrega notícias em tempo real sem atraso.',
+    'fc2.title':'Calendário Económico Ao Vivo',
+    'fc2.desc':'Calendário económico de 7 dias com temporizadores, valores anteriores, previsão e dados reais. Os releases injetam automaticamente no feed no momento em que saem — com código de cores. Eventos HIGH disparam alertas de áudio instantâneos.',
+    'fc3.title':'Squawk Box Ao Vivo',
+    'fc3.desc':'Leitura de voz de cada nova manchete usando o motor de fala do browser — exatamente como um squawk box profissional. Ativa com um clique. O terminal destaca o card a ser lido em tempo real.',
+    'fc4.title':'Gráficos TradingView',
+    'fc4.desc':'Gráficos TradingView incorporados para pares de forex, criptomoedas, índices, metais, energia e commodities agrícolas — diretamente no terminal. Sem mudança de separadores. Cobre EUR/USD, GBP/USD, GOLD, BTC, S&P 500, OIL e mais de 20.',
+    'fc5.title':'TV Financeira Ao Vivo',
+    'fc5.desc':'7 streams em direto — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 e AP News — todos dentro do terminal. Sem subscrições adicionais.',
+    'fc6.title':'Alertas Sonoros Instantâneos',
+    'fc6.desc':'Notificação de áudio para cada novo item — configurável num clique. O separador de notícias pisca verde quando chegam novos itens. Eventos HIGH disparam um tom de alerta prioritário separado.',
+    'fc7.title':'Watchlist de Ativos',
+    'fc7.desc':'Fixa instrumentos específicos — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH e mais — para filtrar o feed apenas para os ativos que negocias. A tua watchlist persiste automaticamente.',
+    'fc8.title':'Pesquisa & Filtros Inteligentes',
+    'fc8.desc':'Pesquisa por palavra-chave, ativo, fonte ou par de forex em todas as fontes. Digitar "eurusd" filtra automaticamente todas as manchetes com EUR e USD. Filtra por impacto, fonte, intervalo de tempo ou classe de ativo.',
+    'fc9.title':'Interface Multilingue',
+    'fc9.desc':'Interface completa e tradução de manchetes em múltiplos idiomas. Muda de idioma instantaneamente — todas as notícias e entradas do calendário traduzem em tempo real.',
+    'fc10.title':'Tradução Automática de Artigos',
+    'fc10.desc':'Clica em qualquer manchete e o artigo original abre automaticamente traduzido para o teu idioma — Português, Espanhol, Francês, Alemão ou Italiano. Um toggle nas definições, zero esforço.',
+    'fc11.title':'Hub Macro & Obrigações',
+    'fc11.desc':'Tab Macro dedicado agrega notícias macroeconómicas globais — PIB, inflação, PMI, dados de comércio, decisões de taxas e yields de obrigações. Inclui análise de sentimento de mercado em tempo real.',
+    'fc12.title':'Calendário de Resultados',
+    'fc12.desc':'Acompanha datas de resultados de empresas com previsões de EPS e resultados anteriores. Quando os resultados saem, a comparação real vs previsão injeta diretamente no feed.',
+    'fc13.title':'Tracker de Bancos Centrais',
+    'fc13.desc':'Tab dedicado monitoriza todas as decisões dos principais bancos centrais — Fed, BCE, BOE, BOJ, SNB, RBA, BOC e mais. As decisões injetam no feed ao vivo no instante em que são anunciadas.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Só Pro',
+    'photo.h3':'Qualidade profissional. Preço de trader.',
+    'photo.p':'Tudo o que o Bloomberg tem em notícias de mercado — a uma fração do custo. Criado por traders, para traders.',
+    'charts.eyebrow':'Gráficos Integrados',
+    'charts.h2':'Gráficos TradingView<br>integrados no terminal',
+    'charts.sub':'Sem separadores separados. Sem subscrições extra. Correlaciona notícias com ação de preço instantaneamente, tudo dentro do terminal.',
+    'cf1.title':'Pares de Forex',
+    'cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD e mais — cobertura completa de pares maiores e menores com gráficos TradingView pro.',
+    'cf2.title':'Metais & Energia',
+    'cf2.desc':'Ouro, Prata, Platina, WTI, Brent, Gás Natural e Cobre — preços spot ao vivo com ferramentas TradingView completas.',
+    'cf3.title':'Commodities Agrícolas',
+    'cf3.desc':'Milho, Trigo, Soja, Café (Arábica), Cacau, Algodão — gráficos de CFD raramente disponíveis em terminais gratuitos.',
+    'cf4.title':'Cripto & Índices',
+    'cf4.desc':'Bitcoin, Ethereum, XRP ao lado do S&P 500, NASDAQ, DAX, Nikkei e FTSE 100 — tudo num só lugar.',
+    'src.eyebrow':'Fontes de Notícias',
+    'src.h2':'Fontes institucionais.<br>Um terminal.',
+    'src.sub':'Agregamos centenas de fontes institucionais e profissionais de notícias — confidenciais por razões competitivas — cobrindo todos os principais mercados e classes de ativos.',
+    'src.chip1':'📡 Fios de Notícias Forex','src.chip2':'📉 Macro & Obrigações',
+    'src.chip3':'₿ Media Cripto','src.chip4':'🏦 Feeds de Bancos Centrais',
+    'src.chip5':'📈 Ações & Resultados','src.chip6':'🌾 Notícias de Commodities',
+    'src.chip7':'🛢 Mercados de Energia','src.chip8':'🏅 Metais & Mineração',
+    'src.chip9':'🌍 Eventos Geopolíticos','src.chip10':'📊 Releases de Dados Económicos',
+    'src.chip11':'🔊 Research Institucional','src.chip12':'+ centenas mais',
+    'test.eyebrow':'Traders a usar o TNT',
+    'test.h2':'De confiança de traders independentes<br>em todo o mundo',
+    'test.role1':'Trader Forex Intradiário · Londres','test.role2':'Trader Macro · Lisboa','test.role3':'Swing Trader · Milão',
+    'pricing.eyebrow':'Planos & Preços',
+    'pricing.h2':'Começa grátis. Faz upgrade quando estiveres pronto.',
+    'pricing.sub':'O Basic é gratuito para sempre. O Pro é €40/mês — menos de 2% do que o Bloomberg custa.',
+    'pricing.monthly':'Mensal','pricing.annual':'Anual','pricing.save':'Poupa 25%',
+    'plan.basic_badge':'Grátis Para Sempre','plan.no_cc':'Sem cartão de crédito',
+    'plan.basic_desc':'Inteligência de mercado essencial para traders que estão a começar. Acede ao terminal completo e mantém-te informado sobre o que move os mercados — sem custo, para sempre.',
+    'plan.pro_badge':'O Mais Poderoso','plan.per_month':'/mês',
+    'plan.annual_note':'Faturado €360/ano — poupa €120 vs mensal',
+    'plan.vat_note':'excl. IVA onde aplicável · Faturado em EUR',
+    'plan.pro_desc':'Cobertura de nível institucional sem compromissos. Todas as funcionalidades, todas as fontes, notícias em tempo real sem atraso.',
+    'plan.basic_btn':'Começar Grátis →','plan.pro_btn':'Obter Acesso Pro →',
+    'pf.news_delay':'Feed de notícias <span class="pf-note">(atraso 2 min)</span>',
+    'pf.calendar':'Calendário económico com releases ao vivo','pf.screener':'Screener de mercado',
+    'pf.charts':'Gráficos TradingView','pf.watchlist':'Watchlist de ativos & pesquisa',
+    'pf.sound':'Alertas sonoros','pf.multilingual':'Multilingue',
+    'pf.realtime':'Notícias em tempo real sem atraso','pf.macro':'Hub macro & obrigações',
+    'pf.earnings':'Calendário de resultados','pf.centralbanks':'Tracker de bancos centrais',
+    'pf.sentiment':'Análise de sentimento de mercado','pf.squawk':'Squawk ao vivo',
+    'pf.tv':'TV financeira ao vivo (7 canais)','pf.adfree':'Sem anúncios',
+    'ppf.everything':'Tudo no Basic',
+    'ppf.realtime':'Feed de notícias <strong>em tempo real</strong> sem atraso',
+    'ppf.macro':'<strong>Hub Macro & Obrigações</strong> — PIB, PMI, yields',
+    'ppf.earnings':'<strong>Calendário de Resultados</strong> — EPS beat/miss ao vivo',
+    'ppf.centralbanks':'<strong>Tracker de Bancos Centrais</strong> — Fed, BCE, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Sentimento de Mercado</strong> — risk-on / risk-off',
+    'ppf.squawk':'<strong>Squawk Ao Vivo</strong> — alertas de voz mãos-livres',
+    'ppf.tv':'<strong>TV Financeira Ao Vivo</strong> — 7 canais',
+    'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Ações, Cripto, Índices…',
+    'ppf.sources':'Cobertura abrangente de fontes',
+    'ppf.adfree':'100% sem anúncios · Sem pedidos de upgrade','ppf.support':'Suporte prioritário',
+    'sc.eyebrow':'Screener de Mercado',
+    'sc.h2':'Analisa todos os mercados.<br>Identifica o movimento primeiro.',
+    'sc.desc':'O screener integrado permite-te analisar Forex, Ações, Cripto, Índices, Commodities e Obrigações num só lugar — ordenado por atividade de notícias, proximidade de eventos económicos e impacto de mercado.',
+    'sc.live':'Ao Vivo','sc.col_stock':'Ação','sc.col_change':'Variação',
+    'sc.col_news':'Notícias','sc.col_earnings':'Resultados','sc.col_signal':'Sinal',
+    'sfc1.title':'6 Separadores de Classe de Ativo',
+    'sfc1.desc':'Muda instantaneamente entre <strong>Forex</strong>, <strong>Ações</strong>, <strong>Cripto</strong>, <strong>Índices</strong>, <strong>Commodities</strong> e <strong>Obrigações</strong>. Cada separador mostra apenas os instrumentos relevantes.',
+    'sfc2.title':'Sinais HOT / WATCH / CALM',
+    'sfc2.desc':'Cada instrumento é pontuado em tempo real com base no volume de notícias, classificação de impacto e eventos económicos próximos. <strong>HOT</strong> = alta atividade. <strong>WATCH</strong> = evento próximo. <strong>CALM</strong> = quieto.',
+    'sfc3.title':'Resultados & Proximidade de Eventos',
+    'sfc3.desc':'Vê as datas de resultados de ações e contagens regressivas de eventos económicos para forex e macro. Sabe quais os instrumentos com um catalisador a chegar antes de entrares numa trade.',
+    'how.eyebrow':'Como funciona','how.h2':'Pronto em 60 segundos',
+    'how.step1_title':'Cria uma Conta Grátis',
+    'how.step1_desc':'Regista-te em <strong>tradingnewsterminal.com</strong> com o teu email — sem cartão de crédito. A tua sessão é guardada para voltares direto ao terminal em cada visita. A criação de conta demora menos de 30 segundos.',
+    'how.step2_title':'Configura o Teu Feed',
+    'how.step2_desc':'Fixa os ativos que negocias na watchlist. Define o filtro de impacto preferido (HIGH / MEDIUM / LOW). Escolhe o teu idioma. O terminal memoriza as tuas definições em todas as sessões.',
+    'how.step3_title':'Negoceia com Confiança',
+    'how.step3_desc':'Ativa o Squawk para alertas de voz mãos-livres. Monitoriza o calendário económico. Abre o gráfico TradingView integrado para o instrumento que estás a negociar — notícias e ação de preço, lado a lado.',
+    'vs.eyebrow':'Comparação',
+    'vs.h2':'Como nos comparamos ao Bloomberg<br>& FinancialJuice',
+    'vs.sub':'Inteligência de mercado de nível profissional sem o preço profissional.',
+    'vs.th_feature':'Funcionalidade','vs.th_basic':'TNT Basic — Grátis','vs.th_pro':'TNT Pro — €40/mês',
+    'vs.news':'Feed de notícias','vs.delay':'Atraso 2 min','vs.realtime':'Tempo real',
+    'vs.calendar':'Calendário económico','vs.live_releases':'Releases ao vivo',
+    'vs.macro':'Hub macro & obrigações','vs.centralbanks':'Tracker bancos centrais',
+    'vs.earnings':'Calendário de resultados','vs.screener':'Screener de mercado',
+    'vs.screener_6':'6 classes de ativos','vs.sentiment':'Sentimento de mercado',
+    'vs.squawk':'Squawk ao vivo','vs.included':'Incluído','vs.tv':'TV financeira ao vivo',
+    'vs.tv_7':'7 canais','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
+    'vs.adfree':'Sem anúncios','vs.price':'Preço mensal','vs.free':'Grátis','vs.limited':'Limitado',
+    'faq.eyebrow':'FAQ','faq.h2':'Perguntas frequentes',
+    'faq.sub':'Tudo o que precisas de saber sobre o Trading News Terminal.',
+    'faq.q1':'O que é o Trading News Terminal?',
+    'faq.a1':'O Trading News Terminal é uma plataforma profissional de notícias financeiras em tempo real para traders ativos. Agrega notícias ao vivo de fontes institucionais em forex, macro, cripto, ações e commodities, classifica cada item por impacto de mercado (HIGH, MEDIUM, LOW) e combina com calendário económico ao vivo, squawk box, gráficos TradingView e TV financeira — tudo numa interface web sem distração.',
+    'faq.q2':'Qual a diferença entre Basic e Pro?',
+    'faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (grátis)</strong> inclui: feed de notícias com atraso de 2 minutos, calendário económico ao vivo, gráficos TradingView, watchlist de ativos, pesquisa inteligente e interface multilingue.</p><p><strong>Pro (€40/mês)</strong> adiciona: <strong>Notícias em tempo real sem atraso</strong> — <strong>Hub Macro & Obrigações</strong> — <strong>Calendário de Resultados</strong> — <strong>Tracker de Bancos Centrais</strong> — <strong>Sentimento de Mercado</strong> — <strong>Screener de Mercado</strong> — <strong>Squawk Ao Vivo</strong> — <strong>7 canais de TV</strong> — cobertura abrangente — 100% sem anúncios — suporte prioritário.</p>',
+    'faq.q3':'O plano Basic é mesmo gratuito?',
+    'faq.a3':'Sim. O plano Basic é gratuito para sempre — sem cartão de crédito, sem período de teste, sem upgrade automático. Cria uma conta com o teu email em menos de 30 segundos e tem acesso imediato ao terminal completo.',
+    'faq.q4':'O que é a funcionalidade Squawk?',
+    'faq.a4':'O Squawk usa a Web Speech API do teu browser para ler cada nova manchete em voz alta assim que chega — exatamente como um squawk box profissional de trading. Ativa com um clique. O terminal destaca o card a ser lido em tempo real. O Squawk é uma funcionalidade exclusiva do Pro.',
+    'faq.q5':'Quais as fontes de notícias que o terminal agrega?',
+    'faq.a5':'Agregamos centenas de fontes institucionais e profissionais de notícias em forex, macro, ações, cripto e commodities. Mantemos a lista de fontes confidencial por razões competitivas. O Basic cobre as fontes de maior impacto; o Pro desbloqueia cobertura abrangente completa.',
+    'faq.q6':'O Trading News Terminal tem gráficos ao vivo?',
+    'faq.a6':'Sim. O terminal inclui gráficos TradingView incorporados para pares de forex (EUR/USD, GBP/USD, USD/JPY e mais), criptomoedas (BTC, ETH, XRP), índices principais (S&P 500, DAX, Nikkei, FTSE), metais e energia (Ouro, Prata, WTI, Brent, Gás Natural) e commodities agrícolas. Disponível nos planos Basic e Pro.',
+    'faq.q7':'Como funciona o calendário económico?',
+    'faq.a7':'O calendário económico mostra 7 dias de eventos próximos com temporizadores ao vivo, valores anteriores e previsões. Quando os dados reais são publicados, o resultado é automaticamente injetado no feed com sinais de cor beat/miss. Eventos HIGH disparam alertas de áudio e leitura de Squawk (no Pro).',
+    'faq.q8':'O Trading News Terminal é uma alternativa ao Bloomberg?',
+    'faq.a8':'Sim. O Bloomberg Terminal custa aproximadamente €1.800 por mês. O Trading News Terminal Pro entrega notícias financeiras em tempo real, calendário económico, squawk ao vivo, 7 canais de TV e gráficos TradingView por €40/mês — a alternativa profissional ao Bloomberg a uma fração do custo.',
+    'faq.q9':'Funciona em mobile e tablet?',
+    'faq.a9':'Suporte mobile e tablet está <strong>a chegar em breve</strong>. O terminal está atualmente otimizado para browsers de desktop e laptop. Uma experiência mobile nativa completa está em desenvolvimento.',
+    'cta.h2':'Começa a negociar de forma mais inteligente.<br><span style="color:var(--accent)">Escolhe o teu plano.</span>',
+    'cta.sub':'Grátis para começar. Faz upgrade para Pro quando precisares de mais.',
+    'cta.free_badge':'Basic — Grátis','cta.forever':'/ para sempre',
+    'cta.free_desc':'Tudo o que precisas para acompanhar os mercados. Sem cartão de crédito, sem expiração.',
+    'cta.f1':'Feed de notícias (atraso 2 min)','cta.f2':'Calendário económico ao vivo',
+    'cta.f3':'Gráficos TradingView','cta.f4':'Watchlist de ativos & pesquisa inteligente',
+    'cta.f5':'Alertas sonoros · Multilingue',
+    'cta.pro_badge':'Pro — €40/mês','cta.per_month':'/ mês',
+    'cta.pro_desc':'Suite profissional completa. Dados em tempo real, todas as ferramentas, zero anúncios.',
+    'cta.p1':'Notícias <strong>em tempo real</strong> sem atraso',
+    'cta.p2':'Hub Macro & Obrigações · Calendário de Resultados',
+    'cta.p3':'Tracker de Bancos Centrais · Sentimento',
+    'cta.p4':'Screener de Mercado — 6 classes de ativos',
+    'cta.p5':'Squawk Ao Vivo · 7 canais TV · Sem anúncios',
+    'cta.note':'Funciona no Chrome, Firefox, Safari, Edge · Sem instalação',
+    'footer.brand_tagline':'Terminal profissional de notícias financeiras em tempo real para traders de forex, cripto e macro. Calendário económico ao vivo, squawk box, gráficos TradingView e TV num só lugar.',
+    'footer.col_product':'Produto','footer.open_terminal':'Abrir Terminal',
+    'footer.col_markets':'Mercados','footer.forex_news':'Notícias Forex',
+    'footer.crypto_news':'Notícias Cripto','footer.macro_bonds':'Macro & Obrigações',
+    'footer.commodities':'Notícias de Commodities','footer.econ_cal':'Calendário Económico',
+    'footer.col_resources':'Recursos','footer.live_tv':'TV Financeira Ao Vivo',
+    'footer.live_squawk':'Squawk Ao Vivo','footer.bloomberg_alt':'Alternativa ao Bloomberg',
+    'footer.terms':'Termos de Uso','footer.privacy':'Política de Privacidade',
+    'footer.contact':'Contacto','footer.copyright':'© 2026 Trading News Terminal. Todos os direitos reservados.',
+  },
+  es: {
+    'nav.tagline':'Inteligencia de Mercado en Tiempo Real',
+    'nav.features':'Características','nav.charts':'Gráficos','nav.pricing':'Precios',
+    'nav.compare':'Comparar','nav.faq':'FAQ','nav.signin':'Iniciar Sesión ↗',
+    'nav.login':'Login','nav.launch_free':'Empezar Gratis →','nav.get_pro':'Obtener Pro',
+    'nav.launch':'Abrir →',
+    'hero.eyebrow':'En Vivo — Feed en Tiempo Real Activo',
+    'hero.h1_line1':'El Terminal Profesional','hero.h1_line2':'de Noticias Financieras',
+    'hero.h1_line3':'Para Traders Activos',
+    'hero.sub':'Noticias financieras en tiempo real, calendario económico en vivo, squawk box, gráficos TradingView y TV financiera — todo en un terminal sin distracciones. La alternativa asequible a Bloomberg. <strong>Gratis para empezar.</strong>',
+    'hero.btn_open':'▶ Abrir Terminal — Gratis','hero.btn_pro':'Obtener Pro — €40/mes',
+    'hero.btn_explore':'Ver Características',
+    'hero.trust1':'Cuenta gratis en 30 segundos','hero.trust2':'Sin tarjeta de crédito',
+    'hero.trust3':'Calendario económico con publicaciones en vivo','hero.trust4':'Gráficos TradingView incluidos',
+    'hero.trust5':'Squawk en vivo en Pro',
+    'ticker.realtime':'Feed de Noticias en Tiempo Real','ticker.squawk':'Squawk Box en Vivo',
+    'ticker.sentiment':'Análisis de Sentimiento de Mercado','ticker.tv':'7 Canales de TV Financiera',
+    'ticker.centralbanks':'Tracker de Bancos Centrales','ticker.earnings':'Calendario de Resultados',
+    'ticker.macro':'Hub Macro & Bonos','ticker.screener':'Screener de Mercado — 6 Clases de Activos',
+    'ticker.sources':'Cobertura Completa de Fuentes','ticker.adfree':'100% Sin Anuncios',
+    'ticker.noprompts':'Sin Solicitudes de Upgrade','ticker.support':'Soporte Prioritario',
+    'feat.eyebrow':'Todo lo que necesitas',
+    'feat.h2':'Una plataforma completa<br>de inteligencia de trading',
+    'feat.sub':'Todas las herramientas que un trader profesional necesita — noticias en vivo, calendario, gráficos, squawk y TV — en un terminal sin fricción.',
+    'fc1.title':'Feed de Noticias en Tiempo Real',
+    'fc1.desc':'Agregado de fuentes institucionales en forex, macro, cripto, acciones y materias primas. Cada elemento clasificado por impacto: <strong>HIGH</strong>, <strong>MEDIUM</strong> o <strong>LOW</strong>. Basic incluye retraso de 2 minutos; Pro ofrece noticias en tiempo real.',
+    'fc2.title':'Calendario Económico en Vivo',
+    'fc2.desc':'Calendario económico de 7 días con temporizadores en vivo, valores anteriores, previsión y datos reales. Las publicaciones se inyectan automáticamente en el feed en el momento en que salen — con código de colores. Eventos HIGH disparan alertas de audio instantáneas.',
+    'fc3.title':'Squawk Box en Vivo',
+    'fc3.desc':'Lectura de voz de cada nuevo titular usando el motor de voz del navegador — exactamente como un squawk box profesional. Activa con un clic.',
+    'fc4.title':'Gráficos TradingView',
+    'fc4.desc':'Gráficos TradingView integrados para pares de forex, criptomonedas, índices, metales, energía y materias primas agrícolas — directamente en el terminal. Sin cambio de pestañas.',
+    'fc5.title':'TV Financiera en Vivo',
+    'fc5.desc':'7 streams en directo — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 y AP News — todos dentro del terminal.',
+    'fc6.title':'Alertas Sonoras Instantáneas',
+    'fc6.desc':'Notificación de audio para cada nuevo elemento — configurable en un clic. La pestaña de noticias parpadea verde cuando llegan nuevos elementos. Los eventos HIGH disparan un tono de alerta prioritario.',
+    'fc7.title':'Lista de Seguimiento de Activos',
+    'fc7.desc':'Fija instrumentos específicos — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH y más — para filtrar el feed solo a los activos que operas. Tu lista persiste automáticamente.',
+    'fc8.title':'Búsqueda Inteligente & Filtros',
+    'fc8.desc':'Busca por palabra clave, activo, fuente o par de forex en todas las fuentes simultáneamente. Filtrar por nivel de impacto, fuente, rango de tiempo o clase de activo.',
+    'fc9.title':'Interfaz Multilingüe',
+    'fc9.desc':'Interfaz completa y traducción de titulares en múltiples idiomas. Cambia de idioma al instante — todas las noticias y entradas del calendario se traducen en tiempo real.',
+    'fc10.title':'Traducción Automática de Artículos',
+    'fc10.desc':'Haz clic en cualquier titular y el artículo completo se abre automáticamente traducido a tu idioma seleccionado — Portugués, Español, Francés, Alemán o Italiano.',
+    'fc11.title':'Hub Macro & Bonos',
+    'fc11.desc':'Pestaña Macro dedicada agrega noticias macroeconómicas globales — PIB, inflación, PMI, datos de comercio, decisiones de tipos y rendimientos de bonos. Incluye análisis de sentimiento de mercado en tiempo real.',
+    'fc12.title':'Calendario de Resultados',
+    'fc12.desc':'Sigue fechas de resultados de empresas con previsiones de EPS y resultados anteriores. Cuando salen los resultados, la comparación real vs previsión se inyecta directamente en el feed.',
+    'fc13.title':'Tracker de Bancos Centrales',
+    'fc13.desc':'Pestaña dedicada monitorea todas las decisiones de los principales bancos centrales — Fed, BCE, BOE, BOJ, SNB, RBA, BOC y más.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Solo Pro',
+    'photo.h3':'Calidad profesional. Precio de trader.',
+    'photo.p':'Todo lo que Bloomberg tiene en noticias de mercado — a una fracción del costo. Creado por traders, para traders.',
+    'charts.eyebrow':'Gráficos Integrados',
+    'charts.h2':'Gráficos TradingView<br>integrados en el terminal',
+    'charts.sub':'Sin pestañas separadas. Sin suscripciones adicionales. Correlaciona noticias con acción del precio al instante.',
+    'cf1.title':'Pares de Forex','cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD y más — cobertura completa de pares mayores y menores.',
+    'cf2.title':'Metales & Energía','cf2.desc':'Oro, Plata, Platino, WTI, Brent, Gas Natural y Cobre — precios spot en vivo con herramientas TradingView completas.',
+    'cf3.title':'Materias Primas Agrícolas','cf3.desc':'Maíz, Trigo, Soja, Café (Arábica), Cacao, Algodón — gráficos CFD raramente disponibles en terminales gratuitos.',
+    'cf4.title':'Cripto & Índices','cf4.desc':'Bitcoin, Ethereum, XRP junto al S&P 500, NASDAQ, DAX, Nikkei y FTSE 100 — todo en un solo lugar.',
+    'src.eyebrow':'Fuentes de Noticias',
+    'src.h2':'Fuentes institucionales.<br>Un terminal.',
+    'src.sub':'Agregamos cientos de fuentes institucionales y profesionales de noticias — confidenciales por razones competitivas — cubriendo todos los mercados principales.',
+    'src.chip1':'📡 Cables de Noticias Forex','src.chip2':'📉 Macro & Bonos',
+    'src.chip3':'₿ Media Cripto','src.chip4':'🏦 Feeds de Bancos Centrales',
+    'src.chip5':'📈 Acciones & Resultados','src.chip6':'🌾 Noticias de Materias Primas',
+    'src.chip7':'🛢 Mercados de Energía','src.chip8':'🏅 Metales & Minería',
+    'src.chip9':'🌍 Eventos Geopolíticos','src.chip10':'📊 Publicaciones de Datos Económicos',
+    'src.chip11':'🔊 Research Institucional','src.chip12':'+ cientos más',
+    'test.eyebrow':'Traders usando TNT',
+    'test.h2':'De confianza de traders independientes<br>en todo el mundo',
+    'test.role1':'Trader Forex Intradía · Londres','test.role2':'Trader Macro · Lisboa','test.role3':'Swing Trader · Milán',
+    'pricing.eyebrow':'Planes & Precios',
+    'pricing.h2':'Empieza gratis. Actualiza cuando estés listo.',
+    'pricing.sub':'Basic es gratis para siempre. Pro es €40/mes — menos del 2% de lo que cuesta Bloomberg.',
+    'pricing.monthly':'Mensual','pricing.annual':'Anual','pricing.save':'Ahorra 25%',
+    'plan.basic_badge':'Gratis Para Siempre','plan.no_cc':'Sin tarjeta de crédito',
+    'plan.basic_desc':'Inteligencia de mercado esencial para traders que empiezan. Accede al terminal completo sin costo, para siempre.',
+    'plan.pro_badge':'El Más Potente','plan.per_month':'/mes',
+    'plan.annual_note':'Facturado €360/año — ahorra €120 vs mensual',
+    'plan.vat_note':'excl. IVA donde aplique · Facturado en EUR',
+    'plan.pro_desc':'Cobertura de nivel institucional sin compromisos. Todas las funciones, todas las fuentes, noticias en tiempo real.',
+    'plan.basic_btn':'Empezar Gratis →','plan.pro_btn':'Obtener Acceso Pro →',
+    'pf.news_delay':'Feed de noticias <span class="pf-note">(retraso 2 min)</span>',
+    'pf.calendar':'Calendario económico con publicaciones en vivo','pf.screener':'Screener de mercado',
+    'pf.charts':'Gráficos TradingView','pf.watchlist':'Lista de activos & búsqueda inteligente',
+    'pf.sound':'Alertas sonoras','pf.multilingual':'Multilingüe',
+    'pf.realtime':'Noticias en tiempo real sin retraso','pf.macro':'Hub macro & bonos',
+    'pf.earnings':'Calendario de resultados','pf.centralbanks':'Tracker de bancos centrales',
+    'pf.sentiment':'Análisis de sentimiento de mercado','pf.squawk':'Squawk en vivo',
+    'pf.tv':'TV financiera en vivo (7 canales)','pf.adfree':'Sin anuncios',
+    'ppf.everything':'Todo en Basic',
+    'ppf.realtime':'Feed de noticias <strong>en tiempo real</strong> sin retraso',
+    'ppf.macro':'<strong>Hub Macro & Bonos</strong> — PIB, PMI, rendimientos',
+    'ppf.earnings':'<strong>Calendario de Resultados</strong> — EPS beat/miss en vivo',
+    'ppf.centralbanks':'<strong>Tracker Bancos Centrales</strong> — Fed, BCE, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Sentimiento de Mercado</strong> — risk-on / risk-off',
+    'ppf.squawk':'<strong>Squawk en Vivo</strong> — alertas de voz manos libres',
+    'ppf.tv':'<strong>TV Financiera en Vivo</strong> — 7 canales',
+    'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Acciones, Cripto, Índices…',
+    'ppf.sources':'Cobertura completa de fuentes',
+    'ppf.adfree':'100% sin anuncios · Sin solicitudes de upgrade','ppf.support':'Soporte prioritario',
+    'sc.eyebrow':'Screener de Mercado',
+    'sc.h2':'Analiza todos los mercados.<br>Detecta el movimiento primero.',
+    'sc.desc':'El screener integrado te permite analizar Forex, Acciones, Cripto, Índices, Materias Primas y Bonos en un solo lugar — ordenado por actividad de noticias, proximidad de eventos económicos e impacto de mercado.',
+    'sc.live':'En Vivo','sc.col_stock':'Acción','sc.col_change':'Cambio',
+    'sc.col_news':'Noticias','sc.col_earnings':'Resultados','sc.col_signal':'Señal',
+    'sfc1.title':'6 Pestañas de Clase de Activo',
+    'sfc1.desc':'Cambia al instante entre <strong>Forex</strong>, <strong>Acciones</strong>, <strong>Cripto</strong>, <strong>Índices</strong>, <strong>Materias Primas</strong> y <strong>Bonos</strong>.',
+    'sfc2.title':'Señales HOT / WATCH / CALM',
+    'sfc2.desc':'Cada instrumento se puntúa en tiempo real. <strong>HOT</strong> = alta actividad. <strong>WATCH</strong> = evento próximo. <strong>CALM</strong> = tranquilo.',
+    'sfc3.title':'Resultados & Proximidad de Eventos',
+    'sfc3.desc':'Ve las fechas de resultados de acciones y cuentas atrás de eventos económicos para forex y macro.',
+    'how.eyebrow':'Cómo funciona','how.h2':'Listo en 60 segundos',
+    'how.step1_title':'Crea una Cuenta Gratis',
+    'how.step1_desc':'Regístrate en <strong>tradingnewsterminal.com</strong> con tu email — sin tarjeta de crédito. La creación de cuenta tarda menos de 30 segundos.',
+    'how.step2_title':'Configura Tu Feed',
+    'how.step2_desc':'Fija los activos que operas en tu watchlist. Establece tu filtro de impacto preferido (HIGH / MEDIUM / LOW). Elige tu idioma. El terminal recuerda tu configuración.',
+    'how.step3_title':'Opera con Confianza',
+    'how.step3_desc':'Activa Squawk para alertas de voz manos libres. Monitorea el calendario económico. Abre el gráfico TradingView integrado — noticias y acción del precio, lado a lado.',
+    'vs.eyebrow':'Comparación',
+    'vs.h2':'Cómo nos comparamos con Bloomberg<br>& FinancialJuice',
+    'vs.sub':'Inteligencia de mercado de nivel profesional sin el precio profesional.',
+    'vs.th_feature':'Característica','vs.th_basic':'TNT Basic — Gratis','vs.th_pro':'TNT Pro — €40/mes',
+    'vs.news':'Feed de noticias','vs.delay':'Retraso 2 min','vs.realtime':'Tiempo real',
+    'vs.calendar':'Calendario económico','vs.live_releases':'Publicaciones en vivo',
+    'vs.macro':'Hub macro & bonos','vs.centralbanks':'Tracker bancos centrales',
+    'vs.earnings':'Calendario de resultados','vs.screener':'Screener de mercado',
+    'vs.screener_6':'6 clases de activos','vs.sentiment':'Sentimiento de mercado',
+    'vs.squawk':'Squawk en vivo','vs.included':'Incluido','vs.tv':'TV financiera en vivo',
+    'vs.tv_7':'7 canales','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
+    'vs.adfree':'Sin anuncios','vs.price':'Precio mensual','vs.free':'Gratis','vs.limited':'Limitado',
+    'faq.eyebrow':'FAQ','faq.h2':'Preguntas frecuentes',
+    'faq.sub':'Todo lo que necesitas saber sobre Trading News Terminal.',
+    'faq.q1':'¿Qué es Trading News Terminal?','faq.a1':'Trading News Terminal es una plataforma profesional de noticias financieras en tiempo real para traders activos. Agrega noticias en vivo de fuentes institucionales en forex, macro, cripto, acciones y materias primas, clasifica cada elemento por impacto de mercado (HIGH, MEDIUM, LOW) y combina con calendario económico, squawk box, gráficos TradingView y TV financiera.',
+    'faq.q2':'¿Cuál es la diferencia entre Basic y Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con retraso de 2 min, calendario económico, gráficos TradingView, watchlist, búsqueda inteligente e interfaz multilingüe.</p><p><strong>Pro (€40/mes)</strong> añade: <strong>Noticias en tiempo real</strong> — <strong>Hub Macro & Bonos</strong> — <strong>Calendario de Resultados</strong> — <strong>Tracker Bancos Centrales</strong> — <strong>Sentimiento de Mercado</strong> — <strong>Screener</strong> — <strong>Squawk en Vivo</strong> — <strong>7 canales TV</strong> — sin anuncios — soporte prioritario.</p>',
+    'faq.q3':'¿El plan Basic es realmente gratuito?','faq.a3':'Sí. El plan Basic es gratuito para siempre — sin tarjeta de crédito, sin período de prueba, sin upgrade automático. Crea una cuenta con tu email en menos de 30 segundos.',
+    'faq.q4':'¿Qué es la función Squawk?','faq.a4':'Squawk usa la Web Speech API de tu navegador para leer cada nuevo titular en voz alta al llegar — exactamente como un squawk box profesional. Actívalo con un clic. Es una función exclusiva de Pro.',
+    'faq.q5':'¿Qué fuentes de noticias agrega el terminal?','faq.a5':'Agregamos cientos de fuentes institucionales y profesionales. Mantenemos nuestra lista de fuentes confidencial por razones competitivas. Basic cubre las fuentes de mayor impacto; Pro desbloquea cobertura completa.',
+    'faq.q6':'¿Tiene gráficos en vivo?','faq.a6':'Sí. El terminal incluye gráficos TradingView para pares de forex, criptomonedas, índices principales, metales y energía, y materias primas agrícolas. Disponible en planes Basic y Pro.',
+    'faq.q7':'¿Cómo funciona el calendario económico?','faq.a7':'El calendario económico muestra 7 días de eventos con temporizadores en vivo, valores anteriores y previsiones. Cuando se publican datos reales, el resultado se inyecta automáticamente en el feed con señales de color beat/miss.',
+    'faq.q8':'¿Es Trading News Terminal una alternativa a Bloomberg?','faq.a8':'Sí. Bloomberg Terminal cuesta aproximadamente €1.800 al mes. Trading News Terminal Pro ofrece noticias financieras en tiempo real, calendario económico, squawk, 7 canales de TV y gráficos TradingView por €40/mes.',
+    'faq.q9':'¿Funciona en móvil y tablet?','faq.a9':'El soporte para móvil y tablet está <strong>próximamente</strong>. El terminal está optimizado para navegadores de escritorio y portátil.',
+    'cta.h2':'Empieza a operar de forma más inteligente.<br><span style="color:var(--accent)">Elige tu plan.</span>',
+    'cta.sub':'Gratis para empezar. Actualiza a Pro cuando necesites más.',
+    'cta.free_badge':'Basic — Gratis','cta.forever':'/ para siempre',
+    'cta.free_desc':'Todo lo que necesitas para seguir los mercados. Sin tarjeta de crédito, sin vencimiento.',
+    'cta.f1':'Feed de noticias (retraso 2 min)','cta.f2':'Calendario económico en vivo',
+    'cta.f3':'Gráficos TradingView','cta.f4':'Lista de activos & búsqueda inteligente',
+    'cta.f5':'Alertas sonoras · Multilingüe',
+    'cta.pro_badge':'Pro — €40/mes','cta.per_month':'/ mes',
+    'cta.pro_desc':'Suite profesional completa. Datos en tiempo real, todas las herramientas, cero anuncios.',
+    'cta.p1':'Noticias <strong>en tiempo real</strong> sin retraso',
+    'cta.p2':'Hub Macro & Bonos · Calendario de Resultados',
+    'cta.p3':'Tracker Bancos Centrales · Sentimiento',
+    'cta.p4':'Screener de Mercado — 6 clases de activos',
+    'cta.p5':'Squawk en Vivo · 7 canales TV · Sin anuncios',
+    'cta.note':'Funciona en Chrome, Firefox, Safari, Edge · Sin instalación requerida',
+    'footer.brand_tagline':'Terminal profesional de noticias financieras en tiempo real para traders de forex, cripto y macro.',
+    'footer.col_product':'Producto','footer.open_terminal':'Abrir Terminal',
+    'footer.col_markets':'Mercados','footer.forex_news':'Noticias Forex',
+    'footer.crypto_news':'Noticias Cripto','footer.macro_bonds':'Macro & Bonos',
+    'footer.commodities':'Noticias de Materias Primas','footer.econ_cal':'Calendario Económico',
+    'footer.col_resources':'Recursos','footer.live_tv':'TV Financiera en Vivo',
+    'footer.live_squawk':'Squawk en Vivo','footer.bloomberg_alt':'Alternativa a Bloomberg',
+    'footer.terms':'Términos de Uso','footer.privacy':'Política de Privacidad',
+    'footer.contact':'Contacto','footer.copyright':'© 2026 Trading News Terminal. Todos los derechos reservados.',
+  },
+  fr: {
+    'nav.tagline':'Intelligence de Marché en Temps Réel',
+    'nav.features':'Fonctionnalités','nav.charts':'Graphiques','nav.pricing':'Tarifs',
+    'nav.compare':'Comparer','nav.faq':'FAQ','nav.signin':'Se Connecter ↗',
+    'nav.login':'Connexion','nav.launch_free':'Commencer Gratuitement →','nav.get_pro':'Obtenir Pro',
+    'nav.launch':'Ouvrir →',
+    'hero.eyebrow':'En Direct — Flux en Temps Réel Actif',
+    'hero.h1_line1':'Le Terminal Professionnel','hero.h1_line2':'d\'Actualités Financières',
+    'hero.h1_line3':'Pour les Traders Actifs',
+    'hero.sub':'Actualités financières en temps réel, calendrier économique en direct, squawk box, graphiques TradingView et TV financière — tout dans un terminal sans encombrement. L\'alternative abordable à Bloomberg. <strong>Gratuit pour commencer.</strong>',
+    'hero.btn_open':'▶ Ouvrir Terminal — Gratuit','hero.btn_pro':'Obtenir Pro — €40/mois',
+    'hero.btn_explore':'Voir les Fonctionnalités',
+    'hero.trust1':'Compte gratuit en 30 secondes','hero.trust2':'Sans carte de crédit',
+    'hero.trust3':'Calendrier économique avec publications en direct','hero.trust4':'Graphiques TradingView inclus',
+    'hero.trust5':'Squawk en direct sur Pro',
+    'ticker.realtime':'Flux d\'Actualités en Temps Réel','ticker.squawk':'Squawk Box en Direct',
+    'ticker.sentiment':'Analyse du Sentiment de Marché','ticker.tv':'7 Chaînes TV Financières',
+    'ticker.centralbanks':'Suivi des Banques Centrales','ticker.earnings':'Calendrier des Résultats',
+    'ticker.macro':'Hub Macro & Obligations','ticker.screener':'Screener de Marché — 6 Classes d\'Actifs',
+    'ticker.sources':'Couverture Complète des Sources','ticker.adfree':'100% Sans Publicité',
+    'ticker.noprompts':'Sans Sollicitations de Mise à Niveau','ticker.support':'Support Prioritaire',
+    'feat.eyebrow':'Tout ce dont vous avez besoin',
+    'feat.h2':'Une plateforme complète<br>d\'intelligence de trading',
+    'feat.sub':'Tous les outils qu\'un trader professionnel nécessite — actualités en direct, calendrier, graphiques, squawk et TV — dans un terminal sans friction.',
+    'fc1.title':'Flux d\'Actualités en Temps Réel',
+    'fc1.desc':'Agrégé de sources institutionnelles en forex, macro, crypto, actions et matières premières. Chaque élément classifié par impact: <strong>HIGH</strong>, <strong>MEDIUM</strong> ou <strong>LOW</strong>. Basic inclut un délai de 2 minutes; Pro livre des actualités en temps réel.',
+    'fc2.title':'Calendrier Économique en Direct',
+    'fc2.desc':'Calendrier économique de 7 jours avec minuteries en direct, valeurs précédentes, prévisions et données réelles. Les publications s\'injectent automatiquement dans le flux — avec code couleur. Les événements HIGH déclenchent des alertes audio instantanées.',
+    'fc3.title':'Squawk Box en Direct',
+    'fc3.desc':'Lecture vocale de chaque nouveau titre avec le moteur de synthèse vocale du navigateur — exactement comme un squawk box professionnel. Activez en un clic.',
+    'fc4.title':'Graphiques TradingView',
+    'fc4.desc':'Graphiques TradingView intégrés pour paires forex, cryptomonnaies, indices, métaux, énergie et matières premières agricoles — directement dans le terminal.',
+    'fc5.title':'TV Financière en Direct',
+    'fc5.desc':'7 flux en direct — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 et AP News — tous dans le terminal.',
+    'fc6.title':'Alertes Sonores Instantanées',
+    'fc6.desc':'Notification audio pour chaque nouvel élément — configurable en un clic. L\'onglet actualités pulse en vert à l\'arrivée de nouveaux éléments.',
+    'fc7.title':'Liste de Surveillance d\'Actifs',
+    'fc7.desc':'Épinglez des instruments spécifiques pour filtrer le flux uniquement sur les actifs que vous tradez. Votre liste persiste automatiquement.',
+    'fc8.title':'Recherche Intelligente & Filtres',
+    'fc8.desc':'Recherchez par mot-clé, actif, source ou paire forex dans toutes les sources simultanément.',
+    'fc9.title':'Interface Multilingue',
+    'fc9.desc':'Interface complète et traduction de titres à la volée en plusieurs langues. Changez de langue instantanément.',
+    'fc10.title':'Traduction Automatique d\'Articles',
+    'fc10.desc':'Cliquez sur n\'importe quel titre et l\'article complet s\'ouvre automatiquement traduit dans votre langue sélectionnée.',
+    'fc11.title':'Hub Macro & Obligations',
+    'fc11.desc':'Onglet Macro dédié agrège les actualités macroéconomiques mondiales — PIB, inflation, PMI, données commerciales, décisions de taux et rendements obligataires.',
+    'fc12.title':'Calendrier des Résultats',
+    'fc12.desc':'Suivez les dates de résultats des entreprises avec prévisions BPA et résultats précédents. La comparaison réel vs prévision s\'injecte directement dans le flux.',
+    'fc13.title':'Suivi des Banques Centrales',
+    'fc13.desc':'Onglet dédié surveille toutes les décisions des principales banques centrales — Fed, BCE, BOE, BOJ, SNB, RBA, BOC et plus.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Pro Uniquement',
+    'photo.h3':'Qualité professionnelle. Prix de trader.',
+    'photo.p':'Tout ce que Bloomberg a pour les actualités de marché — à une fraction du coût. Créé par des traders, pour des traders.',
+    'charts.eyebrow':'Graphiques Intégrés',
+    'charts.h2':'Graphiques TradingView<br>intégrés dans le terminal',
+    'charts.sub':'Sans onglets séparés. Sans abonnements supplémentaires. Corrélez les actualités à l\'action des prix instantanément.',
+    'cf1.title':'Paires Forex','cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD et plus.',
+    'cf2.title':'Métaux & Énergie','cf2.desc':'Or, Argent, Platine, WTI, Brent, Gaz Naturel et Cuivre — prix spot en direct.',
+    'cf3.title':'Matières Premières Agricoles','cf3.desc':'Maïs, Blé, Soja, Café (Arabica), Cacao, Coton — graphiques CFD rarement disponibles.',
+    'cf4.title':'Crypto & Indices','cf4.desc':'Bitcoin, Ethereum, XRP aux côtés du S&P 500, NASDAQ, DAX, Nikkei et FTSE 100.',
+    'src.eyebrow':'Sources d\'Actualités',
+    'src.h2':'Sources institutionnelles.<br>Un terminal.',
+    'src.sub':'Nous agrégeons des centaines de sources institutionnelles et professionnelles — confidentielles pour des raisons concurrentielles — couvrant tous les marchés principaux.',
+    'src.chip1':'📡 Câbles Forex','src.chip2':'📉 Macro & Obligations',
+    'src.chip3':'₿ Médias Crypto','src.chip4':'🏦 Flux Banques Centrales',
+    'src.chip5':'📈 Actions & Résultats','src.chip6':'🌾 Actualités Matières Premières',
+    'src.chip7':'🛢 Marchés de l\'Énergie','src.chip8':'🏅 Métaux & Mines',
+    'src.chip9':'🌍 Événements Géopolitiques','src.chip10':'📊 Publications Données Économiques',
+    'src.chip11':'🔊 Recherche Institutionnelle','src.chip12':'+ des centaines de plus',
+    'test.eyebrow':'Traders utilisant TNT',
+    'test.h2':'La confiance de traders indépendants<br>dans le monde entier',
+    'test.role1':'Trader Forex Intraday · Londres','test.role2':'Trader Macro · Lisbonne','test.role3':'Swing Trader · Milan',
+    'pricing.eyebrow':'Plans & Tarifs',
+    'pricing.h2':'Commencez gratuitement. Mettez à niveau quand vous êtes prêt.',
+    'pricing.sub':'Basic est gratuit pour toujours. Pro est €40/mois — moins de 2% de ce que coûte Bloomberg.',
+    'pricing.monthly':'Mensuel','pricing.annual':'Annuel','pricing.save':'Économisez 25%',
+    'plan.basic_badge':'Gratuit Pour Toujours','plan.no_cc':'Sans carte de crédit',
+    'plan.basic_desc':'Intelligence de marché essentielle pour les traders débutants. Accédez au terminal complet gratuitement, pour toujours.',
+    'plan.pro_badge':'Le Plus Puissant','plan.per_month':'/mois',
+    'plan.annual_note':'Facturé €360/an — économisez €120 vs mensuel',
+    'plan.vat_note':'TVA excl. si applicable · Facturé en EUR',
+    'plan.pro_desc':'Couverture de niveau institutionnel sans compromis. Toutes les fonctionnalités, toutes les sources, actualités en temps réel.',
+    'plan.basic_btn':'Commencer Gratuitement →','plan.pro_btn':'Obtenir l\'Accès Pro →',
+    'pf.news_delay':'Flux d\'actualités <span class="pf-note">(délai 2 min)</span>',
+    'pf.calendar':'Calendrier économique avec publications en direct','pf.screener':'Screener de marché',
+    'pf.charts':'Graphiques TradingView','pf.watchlist':'Liste d\'actifs & recherche intelligente',
+    'pf.sound':'Alertes sonores','pf.multilingual':'Multilingue',
+    'pf.realtime':'Actualités en temps réel sans délai','pf.macro':'Hub macro & obligations',
+    'pf.earnings':'Calendrier des résultats','pf.centralbanks':'Suivi banques centrales',
+    'pf.sentiment':'Analyse du sentiment de marché','pf.squawk':'Squawk en direct',
+    'pf.tv':'TV financière en direct (7 chaînes)','pf.adfree':'Sans publicité',
+    'ppf.everything':'Tout dans Basic',
+    'ppf.realtime':'Flux <strong>en temps réel</strong> sans délai',
+    'ppf.macro':'<strong>Hub Macro & Obligations</strong> — PIB, PMI, rendements',
+    'ppf.earnings':'<strong>Calendrier des Résultats</strong> — BPA beat/miss en direct',
+    'ppf.centralbanks':'<strong>Suivi Banques Centrales</strong> — Fed, BCE, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Sentiment de Marché</strong> — risk-on / risk-off',
+    'ppf.squawk':'<strong>Squawk en Direct</strong> — alertes vocales mains libres',
+    'ppf.tv':'<strong>TV Financière en Direct</strong> — 7 chaînes',
+    'ppf.screener':'<strong>Screener de Marché</strong> — Forex, Actions, Crypto, Indices…',
+    'ppf.sources':'Couverture complète des sources',
+    'ppf.adfree':'100% sans publicité · Sans sollicitations','ppf.support':'Support prioritaire',
+    'sc.eyebrow':'Screener de Marché',
+    'sc.h2':'Scannez tous les marchés.<br>Repérez le mouvement en premier.',
+    'sc.desc':'Le screener intégré vous permet de scanner Forex, Actions, Crypto, Indices, Matières Premières et Obligations en un seul endroit.',
+    'sc.live':'En Direct','sc.col_stock':'Action','sc.col_change':'Variation',
+    'sc.col_news':'Actualités','sc.col_earnings':'Résultats','sc.col_signal':'Signal',
+    'sfc1.title':'6 Onglets de Classe d\'Actif',
+    'sfc1.desc':'Passez instantanément entre <strong>Forex</strong>, <strong>Actions</strong>, <strong>Crypto</strong>, <strong>Indices</strong>, <strong>Matières Premières</strong> et <strong>Obligations</strong>.',
+    'sfc2.title':'Signaux HOT / WATCH / CALM',
+    'sfc2.desc':'Chaque instrument est noté en temps réel. <strong>HOT</strong> = haute activité. <strong>WATCH</strong> = événement à venir. <strong>CALM</strong> = calme.',
+    'sfc3.title':'Résultats & Proximité d\'Événements',
+    'sfc3.desc':'Voyez les dates de résultats d\'actions et les comptes à rebours d\'événements économiques.',
+    'how.eyebrow':'Comment ça fonctionne','how.h2':'Opérationnel en 60 secondes',
+    'how.step1_title':'Créez un Compte Gratuit',
+    'how.step1_desc':'Inscrivez-vous sur <strong>tradingnewsterminal.com</strong> avec votre email — sans carte de crédit. La création de compte prend moins de 30 secondes.',
+    'how.step2_title':'Configurez Votre Flux',
+    'how.step2_desc':'Épinglez les actifs que vous tradez. Définissez votre filtre d\'impact préféré (HIGH / MEDIUM / LOW). Choisissez votre langue.',
+    'how.step3_title':'Tradez avec Confiance',
+    'how.step3_desc':'Activez Squawk pour des alertes vocales mains libres. Surveillez le calendrier économique. Ouvrez le graphique TradingView intégré.',
+    'vs.eyebrow':'Comparaison',
+    'vs.h2':'Comment nous comparons à Bloomberg<br>& FinancialJuice',
+    'vs.sub':'Intelligence de marché de niveau professionnel sans le prix professionnel.',
+    'vs.th_feature':'Fonctionnalité','vs.th_basic':'TNT Basic — Gratuit','vs.th_pro':'TNT Pro — €40/mois',
+    'vs.news':'Flux d\'actualités','vs.delay':'Délai 2 min','vs.realtime':'Temps réel',
+    'vs.calendar':'Calendrier économique','vs.live_releases':'Publications en direct',
+    'vs.macro':'Hub macro & obligations','vs.centralbanks':'Suivi banques centrales',
+    'vs.earnings':'Calendrier des résultats','vs.screener':'Screener de marché',
+    'vs.screener_6':'6 classes d\'actifs','vs.sentiment':'Sentiment de marché',
+    'vs.squawk':'Squawk en direct','vs.included':'Inclus','vs.tv':'TV financière en direct',
+    'vs.tv_7':'7 chaînes','vs.charts':'Graphiques TradingView','vs.builtin':'Intégré',
+    'vs.adfree':'Sans publicité','vs.price':'Prix mensuel','vs.free':'Gratuit','vs.limited':'Limité',
+    'faq.eyebrow':'FAQ','faq.h2':'Questions fréquemment posées',
+    'faq.sub':'Tout ce que vous devez savoir sur Trading News Terminal.',
+    'faq.q1':'Qu\'est-ce que Trading News Terminal?','faq.a1':'Trading News Terminal est une plateforme professionnelle d\'actualités financières en temps réel pour les traders actifs. Elle agrège des actualités en direct de sources institutionnelles en forex, macro, crypto, actions et matières premières.',
+    'faq.q2':'Quelle est la différence entre Basic et Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratuit)</strong>: flux avec délai de 2 min, calendrier économique, graphiques TradingView, watchlist, recherche intelligente et interface multilingue.</p><p><strong>Pro (€40/mois)</strong> ajoute: actualités en temps réel — Hub Macro & Obligations — Calendrier Résultats — Suivi Banques Centrales — Sentiment — Screener — Squawk — 7 chaînes TV — sans publicité — support prioritaire.</p>',
+    'faq.q3':'Le plan Basic est-il vraiment gratuit?','faq.a3':'Oui. Le plan Basic est gratuit pour toujours — sans carte de crédit, sans période d\'essai. Créez un compte en moins de 30 secondes.',
+    'faq.q4':'Qu\'est-ce que la fonction Squawk?','faq.a4':'Squawk utilise l\'API Web Speech de votre navigateur pour lire chaque nouveau titre à voix haute à son arrivée. Activez en un clic. C\'est une fonctionnalité exclusive Pro.',
+    'faq.q5':'Quelles sources d\'actualités le terminal agrège-t-il?','faq.a5':'Nous agrégeons des centaines de sources institutionnelles et professionnelles. Notre liste de sources est confidentielle. Basic couvre les sources à plus fort impact; Pro déverrouille une couverture complète.',
+    'faq.q6':'Le terminal a-t-il des graphiques en direct?','faq.a6':'Oui. Le terminal inclut des graphiques TradingView pour paires forex, cryptomonnaies, indices principaux, métaux et énergie, et matières premières agricoles.',
+    'faq.q7':'Comment fonctionne le calendrier économique?','faq.a7':'Le calendrier économique affiche 7 jours d\'événements avec minuteries en direct, valeurs précédentes et prévisions. Quand les données réelles sont publiées, le résultat s\'injecte automatiquement dans le flux.',
+    'faq.q8':'Trading News Terminal est-il une alternative à Bloomberg?','faq.a8':'Oui. Bloomberg Terminal coûte environ €1.800 par mois. Trading News Terminal Pro offre actualités en temps réel, calendrier économique, squawk, 7 chaînes TV et graphiques TradingView pour €40/mois.',
+    'faq.q9':'Fonctionne-t-il sur mobile et tablette?','faq.a9':'Le support mobile et tablette est <strong>à venir</strong>. Le terminal est actuellement optimisé pour les navigateurs de bureau.',
+    'cta.h2':'Commencez à trader plus intelligemment.<br><span style="color:var(--accent)">Choisissez votre plan.</span>',
+    'cta.sub':'Gratuit pour commencer. Mettez à niveau vers Pro quand vous en avez besoin.',
+    'cta.free_badge':'Basic — Gratuit','cta.forever':'/ pour toujours',
+    'cta.free_desc':'Tout ce dont vous avez besoin pour suivre les marchés. Sans carte de crédit.',
+    'cta.f1':'Flux d\'actualités (délai 2 min)','cta.f2':'Calendrier économique en direct',
+    'cta.f3':'Graphiques TradingView','cta.f4':'Liste d\'actifs & recherche intelligente',
+    'cta.f5':'Alertes sonores · Multilingue',
+    'cta.pro_badge':'Pro — €40/mois','cta.per_month':'/ mois',
+    'cta.pro_desc':'Suite professionnelle complète. Données en temps réel, tous les outils, zéro publicité.',
+    'cta.p1':'Actualités <strong>en temps réel</strong> sans délai',
+    'cta.p2':'Hub Macro & Obligations · Calendrier Résultats',
+    'cta.p3':'Suivi Banques Centrales · Sentiment',
+    'cta.p4':'Screener de Marché — 6 classes d\'actifs',
+    'cta.p5':'Squawk en Direct · 7 chaînes TV · Sans publicité',
+    'cta.note':'Fonctionne sur Chrome, Firefox, Safari, Edge · Aucune installation requise',
+    'footer.brand_tagline':'Terminal professionnel d\'actualités financières en temps réel pour les traders forex, crypto et macro.',
+    'footer.col_product':'Produit','footer.open_terminal':'Ouvrir Terminal',
+    'footer.col_markets':'Marchés','footer.forex_news':'Actualités Forex',
+    'footer.crypto_news':'Actualités Crypto','footer.macro_bonds':'Macro & Obligations',
+    'footer.commodities':'Actualités Matières Premières','footer.econ_cal':'Calendrier Économique',
+    'footer.col_resources':'Ressources','footer.live_tv':'TV Financière en Direct',
+    'footer.live_squawk':'Squawk en Direct','footer.bloomberg_alt':'Alternative à Bloomberg',
+    'footer.terms':'Conditions d\'Utilisation','footer.privacy':'Politique de Confidentialité',
+    'footer.contact':'Contact','footer.copyright':'© 2026 Trading News Terminal. Tous droits réservés.',
+  },
+  de: {
+    'nav.tagline':'Echtzeit-Marktintelligenz',
+    'nav.features':'Funktionen','nav.charts':'Charts','nav.pricing':'Preise',
+    'nav.compare':'Vergleich','nav.faq':'FAQ','nav.signin':'Anmelden ↗',
+    'nav.login':'Login','nav.launch_free':'Kostenlos starten →','nav.get_pro':'Pro holen',
+    'nav.launch':'Öffnen →',
+    'hero.eyebrow':'Live — Echtzeit-Feed aktiv',
+    'hero.h1_line1':'Das professionelle','hero.h1_line2':'Finanznachrichten-Terminal',
+    'hero.h1_line3':'Für aktive Trader',
+    'hero.sub':'Echtzeit-Finanznachrichten, Live-Wirtschaftskalender, Squawk-Box, TradingView-Charts und Live-Finanz-TV — alles in einem aufgeräumten Terminal. Die erschwingliche Alternative zu Bloomberg. <strong>Kostenlos starten.</strong>',
+    'hero.btn_open':'▶ Terminal öffnen — Kostenlos','hero.btn_pro':'Pro holen — €40/Monat',
+    'hero.btn_explore':'Funktionen erkunden',
+    'hero.trust1':'Kostenloses Konto in 30 Sekunden','hero.trust2':'Keine Kreditkarte erforderlich',
+    'hero.trust3':'Wirtschaftskalender mit Live-Veröffentlichungen','hero.trust4':'TradingView-Charts inklusive',
+    'hero.trust5':'Live-Squawk auf Pro',
+    'ticker.realtime':'Echtzeit-Nachrichtenfeed ohne Verzögerung','ticker.squawk':'Live-Squawk-Box',
+    'ticker.sentiment':'Marktsentiment-Analyse','ticker.tv':'7 Live-Finanz-TV-Kanäle',
+    'ticker.centralbanks':'Zentralbank-Tracker','ticker.earnings':'Ergebniskalender',
+    'ticker.macro':'Makro & Anleihen Hub','ticker.screener':'Marktscreener — 6 Asset-Klassen',
+    'ticker.sources':'Umfassende Quellenabdeckung','ticker.adfree':'100% Werbefrei',
+    'ticker.noprompts':'Keine Upgrade-Aufforderungen','ticker.support':'Prioritätssupport',
+    'feat.eyebrow':'Alles, was du brauchst',
+    'feat.h2':'Eine vollständige Trading-<br>Intelligenzplattform',
+    'feat.sub':'Alle Werkzeuge, die ein professioneller Trader benötigt — Live-Nachrichten, Kalender, Charts, Squawk und TV — in einem reibungslosen Terminal.',
+    'fc1.title':'Echtzeit-Nachrichtenfeed',
+    'fc1.desc':'Aggregiert aus institutionellen Quellen in Forex, Makro, Krypto, Aktien und Rohstoffen. Jedes Element klassifiziert nach Marktauswirkung: <strong>HIGH</strong>, <strong>MEDIUM</strong> oder <strong>LOW</strong>. Basic enthält 2 Minuten Verzögerung; Pro liefert Echtzeit-Nachrichten.',
+    'fc2.title':'Live-Wirtschaftskalender',
+    'fc2.desc':'7-Tage-Wirtschaftskalender mit Live-Countdown-Timern, Vorwerten, Prognosen und aktuellen Daten. Veröffentlichungen werden automatisch in den Feed eingefügt — farbcodiert für beat/miss.',
+    'fc3.title':'Live-Squawk-Box',
+    'fc3.desc':'Freihändiges Vorlesen jeder neuen Schlagzeile mit der Sprachsynthese des Browsers — genau wie eine professionelle Trading-Squawk-Box. Mit einem Klick aktivieren.',
+    'fc4.title':'TradingView-Charts',
+    'fc4.desc':'Eingebettete TradingView-Charts für Forex-Paare, Kryptowährungen, Indizes, Metalle, Energie und Agrarrohstoffe — direkt im Terminal. Kein Tab-Wechsel.',
+    'fc5.title':'Live-Finanz-TV',
+    'fc5.desc':'7 eingebettete Live-Streams — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 und AP News — alle im Terminal.',
+    'fc6.title':'Sofortige Tonalarme',
+    'fc6.desc':'Audiobenachrichtigung für jedes neue Element — in einem Klick konfigurierbar. Der News-Tab pulsiert grün bei neuen Elementen. HIGH-Ereignisse lösen einen Prioritätsalarm aus.',
+    'fc7.title':'Asset-Watchlist',
+    'fc7.desc':'Spezifische Instrumente pinnen — USD, EUR, GBP, JPY, CHF, GOLD, OIL und mehr — um den Feed auf die gehandelten Assets zu filtern. Die Watchlist wird automatisch gespeichert.',
+    'fc8.title':'Intelligente Suche & Filter',
+    'fc8.desc':'Suche nach Stichwort, Asset, Quelle oder Forex-Paar über alle aggregierten Quellen gleichzeitig. Filtere nach Auswirkungsebene, Quelle, Zeitraum oder Asset-Klasse.',
+    'fc9.title':'Mehrsprachige Oberfläche',
+    'fc9.desc':'Vollständige Oberfläche und On-the-fly-Schlagzeilenübersetzung in mehrere Sprachen. Sprache sofort wechseln — alle Nachrichten und Kalendereinträge übersetzen in Echtzeit.',
+    'fc10.title':'Automatische Artikelübersetzung',
+    'fc10.desc':'Klicke auf eine Schlagzeile und der vollständige Quellartikel öffnet sich automatisch in deiner gewählten Sprache übersetzt.',
+    'fc11.title':'Makro & Anleihen Hub',
+    'fc11.desc':'Dedizierter Makro-Tab aggregiert globale makroökonomische Nachrichten — BIP, Inflation, PMI, Handelsdaten, Zinsentscheidungen und Anleiherenditen.',
+    'fc12.title':'Ergebniskalender',
+    'fc12.desc':'Verfolge bevorstehende Unternehmens-Ergebnistermine mit EPS-Prognosen und Vorwerten. Das Vergleich Ist vs. Prognose wird direkt in den Feed eingefügt.',
+    'fc13.title':'Zentralbank-Tracker',
+    'fc13.desc':'Dedizierter Tab überwacht alle wichtigen Zentralbankentscheidungen — Fed, EZB, BOE, BOJ, SNB, RBA, BOC und mehr.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Nur Pro',
+    'photo.h3':'Professionelle Qualität. Trader-Preis.',
+    'photo.p':'Alles, was Bloomberg für Marktnachrichten hat — zu einem Bruchteil der Kosten. Von Tradern für Trader.',
+    'charts.eyebrow':'Integrierte Charts',
+    'charts.h2':'TradingView-Charts<br>direkt eingebaut',
+    'charts.sub':'Keine separaten Tabs. Keine zusätzlichen Abonnements. Korreliere Nachrichten mit Preisaktionen sofort.',
+    'cf1.title':'Forex-Paare','cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD und mehr.',
+    'cf2.title':'Metalle & Energie','cf2.desc':'Gold, Silber, Platin, WTI, Brent, Erdgas und Kupfer — Live-Spotpreise.',
+    'cf3.title':'Agronomische Rohstoffe','cf3.desc':'Mais, Weizen, Soja, Kaffee (Arabica), Kakao, Baumwolle — selten in kostenlosen Terminals.',
+    'cf4.title':'Krypto & Indizes','cf4.desc':'Bitcoin, Ethereum, XRP neben S&P 500, NASDAQ, DAX, Nikkei und FTSE 100.',
+    'src.eyebrow':'Nachrichtenquellen',
+    'src.h2':'Institutionelle Quellen.<br>Ein Terminal.',
+    'src.sub':'Wir aggregieren aus Hunderten von institutionellen und professionellen Nachrichtenquellen — vertraulich aus Wettbewerbsgründen.',
+    'src.chip1':'📡 Forex-Nachrichtenkabel','src.chip2':'📉 Makro & Anleihen',
+    'src.chip3':'₿ Krypto-Medien','src.chip4':'🏦 Zentralbank-Feeds',
+    'src.chip5':'📈 Aktien & Ergebnisse','src.chip6':'🌾 Rohstoffnachrichten',
+    'src.chip7':'🛢 Energiemärkte','src.chip8':'🏅 Metalle & Bergbau',
+    'src.chip9':'🌍 Geopolitische Ereignisse','src.chip10':'📊 Wirtschaftsdatenveröffentlichungen',
+    'src.chip11':'🔊 Institutionelle Forschung','src.chip12':'+ Hunderte mehr',
+    'test.eyebrow':'Trader, die TNT nutzen',
+    'test.h2':'Vertrauen von unabhängigen Tradern<br>weltweit',
+    'test.role1':'Forex-Day-Trader · London','test.role2':'Makro-Trader · Lissabon','test.role3':'Swing-Trader · Mailand',
+    'pricing.eyebrow':'Pläne & Preise',
+    'pricing.h2':'Kostenlos starten. Upgraden wenn bereit.',
+    'pricing.sub':'Basic ist kostenlos für immer. Pro ist €40/Monat — weniger als 2% von dem, was Bloomberg kostet.',
+    'pricing.monthly':'Monatlich','pricing.annual':'Jährlich','pricing.save':'25% sparen',
+    'plan.basic_badge':'Für immer kostenlos','plan.no_cc':'Keine Kreditkarte erforderlich',
+    'plan.basic_desc':'Wesentliche Marktintelligenz für Trader, die anfangen. Greife kostenlos für immer auf das vollständige Terminal zu.',
+    'plan.pro_badge':'Am leistungsstärksten','plan.per_month':'/Monat',
+    'plan.annual_note':'Jährlich €360 abgerechnet — spare €120 vs. monatlich',
+    'plan.vat_note':'zzgl. MwSt. wo anwendbar · In EUR abgerechnet',
+    'plan.pro_desc':'Institutionelle Abdeckung ohne Kompromisse. Alle Funktionen, alle Quellen, Echtzeit-Nachrichten.',
+    'plan.basic_btn':'Kostenlos starten →','plan.pro_btn':'Pro-Zugang holen →',
+    'pf.news_delay':'Nachrichtenfeed <span class="pf-note">(2 Min. Verzögerung)</span>',
+    'pf.calendar':'Wirtschaftskalender mit Live-Veröffentlichungen','pf.screener':'Marktscreener',
+    'pf.charts':'TradingView-Charts','pf.watchlist':'Asset-Watchlist & intelligente Suche',
+    'pf.sound':'Tonalarme','pf.multilingual':'Mehrsprachig',
+    'pf.realtime':'Echtzeit-Nachrichten ohne Verzögerung','pf.macro':'Makro & Anleihen Hub',
+    'pf.earnings':'Ergebniskalender','pf.centralbanks':'Zentralbank-Tracker',
+    'pf.sentiment':'Marktsentiment-Analyse','pf.squawk':'Live-Squawk',
+    'pf.tv':'Live-Finanz-TV (7 Kanäle)','pf.adfree':'Werbefreie Erfahrung',
+    'ppf.everything':'Alles in Basic',
+    'ppf.realtime':'<strong>Echtzeit</strong>-Nachrichtenfeed ohne Verzögerung',
+    'ppf.macro':'<strong>Makro & Anleihen Hub</strong> — BIP, PMI, Renditen',
+    'ppf.earnings':'<strong>Ergebniskalender</strong> — EPS beat/miss live',
+    'ppf.centralbanks':'<strong>Zentralbank-Tracker</strong> — Fed, EZB, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Marktsentiment</strong> — Risk-on / Risk-off',
+    'ppf.squawk':'<strong>Live-Squawk</strong> — freihändige Sprachalarme',
+    'ppf.tv':'<strong>Live-Finanz-TV</strong> — 7 Kanäle',
+    'ppf.screener':'<strong>Marktscreener</strong> — Forex, Aktien, Krypto, Indizes…',
+    'ppf.sources':'Umfassende Quellenabdeckung',
+    'ppf.adfree':'100% werbefrei · Keine Upgrade-Aufforderungen','ppf.support':'Prioritätssupport',
+    'sc.eyebrow':'Marktscreener',
+    'sc.h2':'Alle Märkte scannen.<br>Die Bewegung zuerst erkennen.',
+    'sc.desc':'Der integrierte Marktscreener ermöglicht das Scannen von Forex, Aktien, Krypto, Indizes, Rohstoffen und Anleihen an einem Ort.',
+    'sc.live':'Jetzt Live','sc.col_stock':'Aktie','sc.col_change':'Änderung',
+    'sc.col_news':'Nachrichten','sc.col_earnings':'Ergebnisse','sc.col_signal':'Signal',
+    'sfc1.title':'6 Asset-Klassen-Tabs',
+    'sfc1.desc':'Wechsle sofort zwischen <strong>Forex</strong>, <strong>Aktien</strong>, <strong>Krypto</strong>, <strong>Indizes</strong>, <strong>Rohstoffen</strong> und <strong>Anleihen</strong>.',
+    'sfc2.title':'HOT / WATCH / CALM Signale',
+    'sfc2.desc':'Jedes Instrument wird in Echtzeit bewertet. <strong>HOT</strong> = hohe Aktivität. <strong>WATCH</strong> = Ereignis nähert sich. <strong>CALM</strong> = ruhig.',
+    'sfc3.title':'Ergebnisse & Ereignisnähe',
+    'sfc3.desc':'Zeige bevorstehende Ergebnistermine für Aktien und Wirtschaftsereignis-Countdowns für Forex und Makro.',
+    'how.eyebrow':'So funktioniert es','how.h2':'In 60 Sekunden einsatzbereit',
+    'how.step1_title':'Kostenloses Konto erstellen',
+    'how.step1_desc':'Registriere dich auf <strong>tradingnewsterminal.com</strong> mit deiner E-Mail — keine Kreditkarte erforderlich. Die Kontoerstellung dauert weniger als 30 Sekunden.',
+    'how.step2_title':'Deinen Feed konfigurieren',
+    'how.step2_desc':'Pinne die Assets, die du handelst, auf deine Watchlist. Stelle deinen bevorzugten Impact-Filter ein (HIGH / MEDIUM / LOW). Wähle deine Sprache.',
+    'how.step3_title':'Mit Zuversicht handeln',
+    'how.step3_desc':'Aktiviere Squawk für freihändige Sprachalarme. Überwache den Wirtschaftskalender. Öffne den integrierten TradingView-Chart — Nachrichten und Preisaktionen, Seite an Seite.',
+    'vs.eyebrow':'Vergleich',
+    'vs.h2':'Wie wir uns mit Bloomberg<br>& FinancialJuice vergleichen',
+    'vs.sub':'Marktintelligenz auf Profi-Niveau ohne den Profi-Preis.',
+    'vs.th_feature':'Funktion','vs.th_basic':'TNT Basic — Kostenlos','vs.th_pro':'TNT Pro — €40/Monat',
+    'vs.news':'Nachrichtenfeed','vs.delay':'2 Min. Verzögerung','vs.realtime':'Echtzeit',
+    'vs.calendar':'Wirtschaftskalender','vs.live_releases':'Live-Veröffentlichungen',
+    'vs.macro':'Makro & Anleihen Hub','vs.centralbanks':'Zentralbank-Tracker',
+    'vs.earnings':'Ergebniskalender','vs.screener':'Marktscreener',
+    'vs.screener_6':'6 Asset-Klassen','vs.sentiment':'Marktsentiment',
+    'vs.squawk':'Live-Squawk','vs.included':'Inklusive','vs.tv':'Live-Finanz-TV',
+    'vs.tv_7':'7 Kanäle','vs.charts':'TradingView-Charts','vs.builtin':'Eingebaut',
+    'vs.adfree':'Werbefrei','vs.price':'Monatspreis','vs.free':'Kostenlos','vs.limited':'Begrenzt',
+    'faq.eyebrow':'FAQ','faq.h2':'Häufig gestellte Fragen',
+    'faq.sub':'Alles, was du über Trading News Terminal wissen musst.',
+    'faq.q1':'Was ist Trading News Terminal?','faq.a1':'Trading News Terminal ist eine professionelle Echtzeit-Finanznachrichtenplattform für aktive Trader. Es aggregiert Live-Nachrichten aus institutionellen Quellen in Forex, Makro, Krypto, Aktien und Rohstoffen und kombiniert sie mit Live-Wirtschaftskalender, Squawk-Box, TradingView-Charts und Finanz-TV.',
+    'faq.q2':'Was ist der Unterschied zwischen Basic und Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (kostenlos)</strong>: Feed mit 2 Min. Verzögerung, Live-Wirtschaftskalender, TradingView-Charts, Watchlist, intelligente Suche und mehrsprachige Oberfläche.</p><p><strong>Pro (€40/Monat)</strong> fügt hinzu: Echtzeit-Nachrichten — Makro & Anleihen Hub — Ergebniskalender — Zentralbank-Tracker — Marktsentiment — Marktscreener — Live-Squawk — 7 TV-Kanäle — werbefrei — Prioritätssupport.</p>',
+    'faq.q3':'Ist der Basic-Plan wirklich kostenlos?','faq.a3':'Ja. Der Basic-Plan ist für immer kostenlos — keine Kreditkarte, kein Testzeitraum. Erstelle ein Konto mit deiner E-Mail in unter 30 Sekunden.',
+    'faq.q4':'Was ist die Squawk-Funktion?','faq.a4':'Squawk verwendet die Web Speech API deines Browsers, um jede neue Schlagzeile laut vorzulesen — genau wie eine professionelle Trading-Squawk-Box. Mit einem Klick aktivieren. Squawk ist eine exklusive Pro-Funktion.',
+    'faq.q5':'Welche Nachrichtenquellen aggregiert das Terminal?','faq.a5':'Wir aggregieren aus Hunderten von institutionellen und professionellen Nachrichtenquellen. Unsere Quellenliste ist aus Wettbewerbsgründen vertraulich. Basic deckt die wirkungsvollsten Quellen ab; Pro schaltet vollständige Abdeckung frei.',
+    'faq.q6':'Hat Trading News Terminal Live-Charts?','faq.a6':'Ja. Das Terminal enthält eingebettete TradingView-Charts für Forex-Paare, Kryptowährungen, wichtige Indizes, Metalle und Energie sowie Agrarrohstoffe.',
+    'faq.q7':'Wie funktioniert der Wirtschaftskalender?','faq.a7':'Der Wirtschaftskalender zeigt 7 Tage bevorstehender Ereignisse mit Live-Timern, Vorwerten und Prognosen. Wenn Ist-Daten veröffentlicht werden, wird das Ergebnis automatisch in den Feed eingefügt.',
+    'faq.q8':'Ist Trading News Terminal eine Bloomberg-Alternative?','faq.a8':'Ja. Das Bloomberg Terminal kostet etwa €1.800 pro Monat. Trading News Terminal Pro bietet Echtzeit-Finanznachrichten, Wirtschaftskalender, Live-Squawk, 7 TV-Kanäle und TradingView-Charts für €40/Monat.',
+    'faq.q9':'Funktioniert es auf Mobilgeräten und Tablets?','faq.a9':'Mobile und Tablet-Unterstützung kommt <strong>bald</strong>. Das Terminal ist derzeit für Desktop- und Laptop-Browser optimiert.',
+    'cta.h2':'Fange an, intelligenter zu handeln.<br><span style="color:var(--accent)">Wähle deinen Plan.</span>',
+    'cta.sub':'Kostenlos starten. Upgraden zu Pro wenn du mehr benötigst.',
+    'cta.free_badge':'Basic — Kostenlos','cta.forever':'/ für immer',
+    'cta.free_desc':'Alles, was du brauchst, um Märkte zu verfolgen. Keine Kreditkarte, kein Ablaufdatum.',
+    'cta.f1':'Nachrichtenfeed (2 Min. Verzögerung)','cta.f2':'Live-Wirtschaftskalender',
+    'cta.f3':'TradingView-Charts','cta.f4':'Asset-Watchlist & intelligente Suche',
+    'cta.f5':'Tonalarme · Mehrsprachig',
+    'cta.pro_badge':'Pro — €40/Monat','cta.per_month':'/ Monat',
+    'cta.pro_desc':'Vollständige Profi-Suite. Echtzeit-Daten, alle Tools, null Werbung.',
+    'cta.p1':'<strong>Echtzeit</strong>-Nachrichten ohne Verzögerung',
+    'cta.p2':'Makro & Anleihen Hub · Ergebniskalender',
+    'cta.p3':'Zentralbank-Tracker · Sentiment',
+    'cta.p4':'Marktscreener — 6 Asset-Klassen',
+    'cta.p5':'Live-Squawk · 7 TV-Kanäle · Werbefrei',
+    'cta.note':'Funktioniert in Chrome, Firefox, Safari, Edge · Keine Installation erforderlich',
+    'footer.brand_tagline':'Professionelles Echtzeit-Finanznachrichten-Terminal für Forex-, Krypto- und Makro-Trader.',
+    'footer.col_product':'Produkt','footer.open_terminal':'Terminal öffnen',
+    'footer.col_markets':'Märkte','footer.forex_news':'Forex-Nachrichten',
+    'footer.crypto_news':'Krypto-Nachrichten','footer.macro_bonds':'Makro & Anleihen',
+    'footer.commodities':'Rohstoffnachrichten','footer.econ_cal':'Wirtschaftskalender',
+    'footer.col_resources':'Ressourcen','footer.live_tv':'Live-Finanz-TV',
+    'footer.live_squawk':'Live-Squawk','footer.bloomberg_alt':'Bloomberg-Alternative',
+    'footer.terms':'Nutzungsbedingungen','footer.privacy':'Datenschutzrichtlinie',
+    'footer.contact':'Kontakt','footer.copyright':'© 2026 Trading News Terminal. Alle Rechte vorbehalten.',
+  },
+  it: {
+    'nav.tagline':'Intelligenza di Mercato in Tempo Reale',
+    'nav.features':'Funzionalità','nav.charts':'Grafici','nav.pricing':'Prezzi',
+    'nav.compare':'Confronta','nav.faq':'FAQ','nav.signin':'Accedi ↗',
+    'nav.login':'Login','nav.launch_free':'Inizia Gratis →','nav.get_pro':'Ottieni Pro',
+    'nav.launch':'Apri →',
+    'hero.eyebrow':'In Diretta — Feed in Tempo Reale Attivo',
+    'hero.h1_line1':'Il Terminale Professionale','hero.h1_line2':'di Notizie Finanziarie',
+    'hero.h1_line3':'Per Trader Attivi',
+    'hero.sub':'Notizie finanziarie in tempo reale, calendario economico in diretta, squawk box, grafici TradingView e TV finanziaria — tutto in un terminale senza ingombro. L\'alternativa conveniente a Bloomberg. <strong>Gratis per iniziare.</strong>',
+    'hero.btn_open':'▶ Apri Terminale — Gratis','hero.btn_pro':'Ottieni Pro — €40/mese',
+    'hero.btn_explore':'Scopri le Funzionalità',
+    'hero.trust1':'Account gratuito in 30 secondi','hero.trust2':'Nessuna carta di credito richiesta',
+    'hero.trust3':'Calendario economico con pubblicazioni in diretta','hero.trust4':'Grafici TradingView inclusi',
+    'hero.trust5':'Squawk in diretta su Pro',
+    'ticker.realtime':'Feed di Notizie in Tempo Reale','ticker.squawk':'Squawk Box in Diretta',
+    'ticker.sentiment':'Analisi del Sentiment di Mercato','ticker.tv':'7 Canali TV Finanziaria',
+    'ticker.centralbanks':'Tracker Banche Centrali','ticker.earnings':'Calendario Utili',
+    'ticker.macro':'Hub Macro & Obbligazioni','ticker.screener':'Screener di Mercato — 6 Classi di Attivi',
+    'ticker.sources':'Copertura Completa delle Fonti','ticker.adfree':'100% Senza Pubblicità',
+    'ticker.noprompts':'Nessuna Sollecitazione di Upgrade','ticker.support':'Supporto Prioritario',
+    'feat.eyebrow':'Tutto ciò di cui hai bisogno',
+    'feat.h2':'Una piattaforma completa<br>di intelligenza di trading',
+    'feat.sub':'Tutti gli strumenti di cui un trader professionista ha bisogno — notizie in diretta, calendario, grafici, squawk e TV — in un terminale senza attrito.',
+    'fc1.title':'Feed di Notizie in Tempo Reale',
+    'fc1.desc':'Aggregato da fonti istituzionali in forex, macro, cripto, azioni e materie prime. Ogni elemento classificato per impatto: <strong>HIGH</strong>, <strong>MEDIUM</strong> o <strong>LOW</strong>. Basic include 2 minuti di ritardo; Pro consegna notizie in tempo reale.',
+    'fc2.title':'Calendario Economico in Diretta',
+    'fc2.desc':'Calendario economico di 7 giorni con timer in diretta, valori precedenti, previsioni e dati reali. Le pubblicazioni si iniettano automaticamente nel feed — con codice colore. Gli eventi HIGH scatenano avvisi audio istantanei.',
+    'fc3.title':'Squawk Box in Diretta',
+    'fc3.desc':'Lettura vocale hands-free di ogni nuovo titolo usando il motore vocale del browser — esattamente come uno squawk box professionale. Attiva con un clic.',
+    'fc4.title':'Grafici TradingView',
+    'fc4.desc':'Grafici TradingView incorporati per coppie forex, criptovalute, indici, metalli, energia e materie prime agricole — direttamente nel terminale.',
+    'fc5.title':'TV Finanziaria in Diretta',
+    'fc5.desc':'7 stream in diretta — Bloomberg TV, CNBC, Al Jazeera Business, Sky News, DW, France 24 e AP News — tutti nel terminale.',
+    'fc6.title':'Avvisi Sonori Istantanei',
+    'fc6.desc':'Notifica audio per ogni nuovo elemento — configurabile in un clic. La scheda notizie pulsa verde all\'arrivo di nuovi elementi. Gli eventi HIGH attivano un tono di avviso prioritario.',
+    'fc7.title':'Watchlist di Attivi',
+    'fc7.desc':'Fissa strumenti specifici — USD, EUR, GBP, JPY, CHF, GOLD, OIL, SPX, BTC, ETH e altri — per filtrare il feed solo agli attivi che negozi. La tua watchlist persiste automaticamente.',
+    'fc8.title':'Ricerca Intelligente & Filtri',
+    'fc8.desc':'Cerca per parola chiave, attivo, fonte o coppia forex in tutte le fonti contemporaneamente. Filtra per livello di impatto, fonte, intervallo di tempo o classe di attivo.',
+    'fc9.title':'Interfaccia Multilingue',
+    'fc9.desc':'Interfaccia completa e traduzione dei titoli al volo in più lingue. Cambia lingua istantaneamente — tutte le notizie e le voci del calendario si traducono in tempo reale.',
+    'fc10.title':'Traduzione Automatica degli Articoli',
+    'fc10.desc':'Clicca su qualsiasi titolo e l\'articolo completo si apre automaticamente tradotto nella tua lingua selezionata.',
+    'fc11.title':'Hub Macro & Obbligazioni',
+    'fc11.desc':'Tab Macro dedicato aggrega notizie macroeconomiche globali — PIL, inflazione, PMI, dati commerciali, decisioni sui tassi e rendimenti obbligazionari.',
+    'fc12.title':'Calendario Utili',
+    'fc12.desc':'Tieni traccia delle date degli utili aziendali con previsioni EPS e risultati precedenti. Il confronto reale vs previsione si inietta direttamente nel feed.',
+    'fc13.title':'Tracker Banche Centrali',
+    'fc13.desc':'Tab dedicato monitora tutte le decisioni delle principali banche centrali — Fed, BCE, BOE, BOJ, SNB, RBA, BOC e altri.',
+    'tag.basic_pro':'Basic + Pro','tag.pro_only':'Solo Pro',
+    'photo.h3':'Qualità professionale. Prezzo da trader.',
+    'photo.p':'Tutto ciò che Bloomberg ha per le notizie di mercato — a una frazione del costo. Creato da trader, per trader.',
+    'charts.eyebrow':'Grafici Integrati',
+    'charts.h2':'Grafici TradingView<br>integrati nel terminale',
+    'charts.sub':'Nessuna scheda separata. Nessun abbonamento extra. Correla le notizie all\'azione dei prezzi istantaneamente.',
+    'cf1.title':'Coppie Forex','cf1.desc':'EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, USD/CAD, NZD/USD e altre — copertura completa.',
+    'cf2.title':'Metalli & Energia','cf2.desc':'Oro, Argento, Platino, WTI, Brent, Gas Naturale e Rame — prezzi spot in diretta.',
+    'cf3.title':'Materie Prime Agricole','cf3.desc':'Mais, Grano, Soia, Caffè (Arabica), Cacao, Cotone — grafici CFD raramente disponibili nei terminali gratuiti.',
+    'cf4.title':'Cripto & Indici','cf4.desc':'Bitcoin, Ethereum, XRP accanto a S&P 500, NASDAQ, DAX, Nikkei e FTSE 100.',
+    'src.eyebrow':'Fonti di Notizie',
+    'src.h2':'Fonti istituzionali.<br>Un terminale.',
+    'src.sub':'Aggreghiamo da centinaia di fonti istituzionali e professionali di notizie — riservate per ragioni competitive — coprendo tutti i principali mercati.',
+    'src.chip1':'📡 Cavi Notizie Forex','src.chip2':'📉 Macro & Obbligazioni',
+    'src.chip3':'₿ Media Cripto','src.chip4':'🏦 Feed Banche Centrali',
+    'src.chip5':'📈 Azioni & Utili','src.chip6':'🌾 Notizie Materie Prime',
+    'src.chip7':'🛢 Mercati Energetici','src.chip8':'🏅 Metalli & Miniere',
+    'src.chip9':'🌍 Eventi Geopolitici','src.chip10':'📊 Pubblicazioni Dati Economici',
+    'src.chip11':'🔊 Ricerca Istituzionale','src.chip12':'+ centinaia di altre',
+    'test.eyebrow':'Trader che usano TNT',
+    'test.h2':'La fiducia di trader indipendenti<br>in tutto il mondo',
+    'test.role1':'Trader Forex Intraday · Londra','test.role2':'Trader Macro · Lisbona','test.role3':'Swing Trader · Milano',
+    'pricing.eyebrow':'Piani & Prezzi',
+    'pricing.h2':'Inizia gratis. Fai upgrade quando sei pronto.',
+    'pricing.sub':'Basic è gratis per sempre. Pro è €40/mese — meno del 2% di quello che costa Bloomberg.',
+    'pricing.monthly':'Mensile','pricing.annual':'Annuale','pricing.save':'Risparmia 25%',
+    'plan.basic_badge':'Gratis Per Sempre','plan.no_cc':'Nessuna carta di credito richiesta',
+    'plan.basic_desc':'Intelligenza di mercato essenziale per i trader che iniziano. Accedi al terminale completo senza costo, per sempre.',
+    'plan.pro_badge':'Il Più Potente','plan.per_month':'/mese',
+    'plan.annual_note':'Fatturato €360/anno — risparmia €120 vs mensile',
+    'plan.vat_note':'IVA esclusa dove applicabile · Fatturato in EUR',
+    'plan.pro_desc':'Copertura di livello istituzionale senza compromessi. Tutte le funzionalità, tutte le fonti, notizie in tempo reale.',
+    'plan.basic_btn':'Inizia Gratis →','plan.pro_btn':'Ottieni Accesso Pro →',
+    'pf.news_delay':'Feed notizie <span class="pf-note">(ritardo 2 min)</span>',
+    'pf.calendar':'Calendario economico con pubblicazioni in diretta','pf.screener':'Screener di mercato',
+    'pf.charts':'Grafici TradingView','pf.watchlist':'Watchlist attivi & ricerca intelligente',
+    'pf.sound':'Avvisi sonori','pf.multilingual':'Multilingue',
+    'pf.realtime':'Notizie in tempo reale senza ritardo','pf.macro':'Hub macro & obbligazioni',
+    'pf.earnings':'Calendario utili','pf.centralbanks':'Tracker banche centrali',
+    'pf.sentiment':'Analisi sentiment di mercato','pf.squawk':'Squawk in diretta',
+    'pf.tv':'TV finanziaria in diretta (7 canali)','pf.adfree':'Esperienza senza pubblicità',
+    'ppf.everything':'Tutto in Basic',
+    'ppf.realtime':'Feed notizie <strong>in tempo reale</strong> senza ritardo',
+    'ppf.macro':'<strong>Hub Macro & Obbligazioni</strong> — PIL, PMI, rendimenti',
+    'ppf.earnings':'<strong>Calendario Utili</strong> — EPS beat/miss in diretta',
+    'ppf.centralbanks':'<strong>Tracker Banche Centrali</strong> — Fed, BCE, BOE, BOJ…',
+    'ppf.sentiment':'<strong>Sentiment di Mercato</strong> — risk-on / risk-off',
+    'ppf.squawk':'<strong>Squawk in Diretta</strong> — avvisi vocali hands-free',
+    'ppf.tv':'<strong>TV Finanziaria in Diretta</strong> — 7 canali',
+    'ppf.screener':'<strong>Screener di Mercato</strong> — Forex, Azioni, Cripto, Indici…',
+    'ppf.sources':'Copertura completa delle fonti',
+    'ppf.adfree':'100% senza pubblicità · Nessuna sollecitazione di upgrade','ppf.support':'Supporto prioritario',
+    'sc.eyebrow':'Screener di Mercato',
+    'sc.h2':'Analizza tutti i mercati.<br>Individua il movimento per primo.',
+    'sc.desc':'Lo screener integrato ti permette di analizzare Forex, Azioni, Cripto, Indici, Materie Prime e Obbligazioni in un unico posto.',
+    'sc.live':'Ora Live','sc.col_stock':'Azione','sc.col_change':'Variazione',
+    'sc.col_news':'Notizie','sc.col_earnings':'Utili','sc.col_signal':'Segnale',
+    'sfc1.title':'6 Schede Classi di Attivo',
+    'sfc1.desc':'Passa istantaneamente tra <strong>Forex</strong>, <strong>Azioni</strong>, <strong>Cripto</strong>, <strong>Indici</strong>, <strong>Materie Prime</strong> e <strong>Obbligazioni</strong>.',
+    'sfc2.title':'Segnali HOT / WATCH / CALM',
+    'sfc2.desc':'Ogni strumento viene valutato in tempo reale. <strong>HOT</strong> = alta attività. <strong>WATCH</strong> = evento in avvicinamento. <strong>CALM</strong> = tranquillo.',
+    'sfc3.title':'Utili & Prossimità degli Eventi',
+    'sfc3.desc':'Vedi le date degli utili per le azioni e i conto alla rovescia degli eventi economici per forex e macro.',
+    'how.eyebrow':'Come funziona','how.h2':'Operativo in 60 secondi',
+    'how.step1_title':'Crea un Account Gratuito',
+    'how.step1_desc':'Registrati su <strong>tradingnewsterminal.com</strong> con la tua email — nessuna carta di credito richiesta. La creazione dell\'account richiede meno di 30 secondi.',
+    'how.step2_title':'Configura il Tuo Feed',
+    'how.step2_desc':'Fissa gli attivi che negozi nella tua watchlist. Imposta il filtro di impatto preferito (HIGH / MEDIUM / LOW). Scegli la tua lingua.',
+    'how.step3_title':'Fai Trading con Fiducia',
+    'how.step3_desc':'Attiva Squawk per avvisi vocali hands-free. Monitora il calendario economico. Apri il grafico TradingView integrato — notizie e azione dei prezzi, fianco a fianco.',
+    'vs.eyebrow':'Confronto',
+    'vs.h2':'Come ci confrontiamo con Bloomberg<br>& FinancialJuice',
+    'vs.sub':'Intelligenza di mercato di livello professionale senza il prezzo professionale.',
+    'vs.th_feature':'Funzionalità','vs.th_basic':'TNT Basic — Gratis','vs.th_pro':'TNT Pro — €40/mese',
+    'vs.news':'Feed notizie','vs.delay':'Ritardo 2 min','vs.realtime':'Tempo reale',
+    'vs.calendar':'Calendario economico','vs.live_releases':'Pubblicazioni in diretta',
+    'vs.macro':'Hub macro & obbligazioni','vs.centralbanks':'Tracker banche centrali',
+    'vs.earnings':'Calendario utili','vs.screener':'Screener di mercato',
+    'vs.screener_6':'6 classi di attivi','vs.sentiment':'Sentiment di mercato',
+    'vs.squawk':'Squawk in diretta','vs.included':'Incluso','vs.tv':'TV finanziaria in diretta',
+    'vs.tv_7':'7 canali','vs.charts':'Grafici TradingView','vs.builtin':'Integrato',
+    'vs.adfree':'Senza pubblicità','vs.price':'Prezzo mensile','vs.free':'Gratis','vs.limited':'Limitato',
+    'faq.eyebrow':'FAQ','faq.h2':'Domande frequenti',
+    'faq.sub':'Tutto ciò che devi sapere su Trading News Terminal.',
+    'faq.q1':'Che cos\'è Trading News Terminal?','faq.a1':'Trading News Terminal è una piattaforma professionale di notizie finanziarie in tempo reale per trader attivi. Aggrega notizie in diretta da fonti istituzionali in forex, macro, cripto, azioni e materie prime, classifica ogni elemento per impatto di mercato (HIGH, MEDIUM, LOW) e combina con calendario economico, squawk box, grafici TradingView e TV finanziaria.',
+    'faq.q2':'Qual è la differenza tra Basic e Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con ritardo di 2 min, calendario economico, grafici TradingView, watchlist, ricerca intelligente e interfaccia multilingue.</p><p><strong>Pro (€40/mese)</strong> aggiunge: notizie in tempo reale — Hub Macro & Obbligazioni — Calendario Utili — Tracker Banche Centrali — Sentiment — Screener — Squawk — 7 canali TV — senza pubblicità — supporto prioritario.</p>',
+    'faq.q3':'Il piano Basic è davvero gratuito?','faq.a3':'Sì. Il piano Basic è gratuito per sempre — nessuna carta di credito, nessun periodo di prova. Crea un account con la tua email in meno di 30 secondi.',
+    'faq.q4':'Cos\'è la funzione Squawk?','faq.a4':'Squawk usa la Web Speech API del tuo browser per leggere ogni nuovo titolo ad alta voce al suo arrivo — esattamente come uno squawk box professionale. Attiva con un clic. È una funzione esclusiva Pro.',
+    'faq.q5':'Quali fonti di notizie aggrega il terminale?','faq.a5':'Aggreghiamo da centinaia di fonti istituzionali e professionali. Il nostro elenco di fonti è riservato per ragioni competitive. Basic copre le fonti ad alto impatto; Pro sblocca la copertura completa.',
+    'faq.q6':'Il Trading News Terminal ha grafici in diretta?','faq.a6':'Sì. Il terminale include grafici TradingView per coppie forex, criptovalute, indici principali, metalli e energia, e materie prime agricole.',
+    'faq.q7':'Come funziona il calendario economico?','faq.a7':'Il calendario economico mostra 7 giorni di eventi con timer in diretta, valori precedenti e previsioni. Quando vengono pubblicati i dati reali, il risultato viene automaticamente iniettato nel feed con segnali di colore beat/miss.',
+    'faq.q8':'Il Trading News Terminal è un\'alternativa a Bloomberg?','faq.a8':'Sì. Il Bloomberg Terminal costa circa €1.800 al mese. Trading News Terminal Pro offre notizie finanziarie in tempo reale, calendario economico, squawk, 7 canali TV e grafici TradingView per €40/mese.',
+    'faq.q9':'Funziona su mobile e tablet?','faq.a9':'Il supporto mobile e tablet è <strong>in arrivo</strong>. Il terminale è attualmente ottimizzato per browser desktop e laptop.',
+    'cta.h2':'Inizia a fare trading in modo più intelligente.<br><span style="color:var(--accent)">Scegli il tuo piano.</span>',
+    'cta.sub':'Gratis per iniziare. Fai upgrade a Pro quando ne hai bisogno.',
+    'cta.free_badge':'Basic — Gratis','cta.forever':'/ per sempre',
+    'cta.free_desc':'Tutto ciò di cui hai bisogno per seguire i mercati. Nessuna carta di credito, nessuna scadenza.',
+    'cta.f1':'Feed notizie (ritardo 2 min)','cta.f2':'Calendario economico in diretta',
+    'cta.f3':'Grafici TradingView','cta.f4':'Watchlist attivi & ricerca intelligente',
+    'cta.f5':'Avvisi sonori · Multilingue',
+    'cta.pro_badge':'Pro — €40/mese','cta.per_month':'/ mese',
+    'cta.pro_desc':'Suite professionale completa. Dati in tempo reale, tutti gli strumenti, zero pubblicità.',
+    'cta.p1':'Notizie <strong>in tempo reale</strong> senza ritardo',
+    'cta.p2':'Hub Macro & Obbligazioni · Calendario Utili',
+    'cta.p3':'Tracker Banche Centrali · Sentiment',
+    'cta.p4':'Screener di Mercato — 6 classi di attivi',
+    'cta.p5':'Squawk in Diretta · 7 canali TV · Senza pubblicità',
+    'cta.note':'Funziona in Chrome, Firefox, Safari, Edge · Nessuna installazione richiesta',
+    'footer.brand_tagline':'Terminale professionale di notizie finanziarie in tempo reale per trader forex, cripto e macro.',
+    'footer.col_product':'Prodotto','footer.open_terminal':'Apri Terminale',
+    'footer.col_markets':'Mercati','footer.forex_news':'Notizie Forex',
+    'footer.crypto_news':'Notizie Cripto','footer.macro_bonds':'Macro & Obbligazioni',
+    'footer.commodities':'Notizie Materie Prime','footer.econ_cal':'Calendario Economico',
+    'footer.col_resources':'Risorse','footer.live_tv':'TV Finanziaria in Diretta',
+    'footer.live_squawk':'Squawk in Diretta','footer.bloomberg_alt':'Alternativa a Bloomberg',
+    'footer.terms':'Termini di Utilizzo','footer.privacy':'Informativa sulla Privacy',
+    'footer.contact':'Contatto','footer.copyright':'© 2026 Trading News Terminal. Tutti i diritti riservati.',
+  },
+};
+
+function _tl(key) {
+  return (_LS[_landingLang] || _LS.en)[key] || (_LS.en)[key] || key;
+}
+
+function _applyLandingTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = _tl(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    el.innerHTML = _tl(el.getAttribute('data-i18n-html'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = _tl(el.getAttribute('data-i18n-placeholder'));
+  });
+}
+
+const _LANDING_LANG_META = {
+  en:{flag:'🇬🇧',code:'EN'},pt:{flag:'🇵🇹',code:'PT'},
+  es:{flag:'🇪🇸',code:'ES'},fr:{flag:'🇫🇷',code:'FR'},
+  de:{flag:'🇩🇪',code:'DE'},it:{flag:'🇮🇹',code:'IT'},
+};
+
+function _updateLandingLangUI(l) {
+  const meta = _LANDING_LANG_META[l] || _LANDING_LANG_META.en;
+  const f = document.getElementById('landingLangFlag');
+  const c = document.getElementById('landingLangCode');
+  if (f) f.textContent = meta.flag;
+  if (c) c.textContent = meta.code;
+  document.querySelectorAll('#landingLangMenu .lang-opt').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-lang') === l);
+  });
+}
+
+function toggleLandingLangMenu(e) {
+  if (e) e.stopPropagation();
+  const m = document.getElementById('landingLangMenu');
+  if (m) m.hidden = !m.hidden;
+}
+
+function setLandingLang(l) {
+  if (!_LS[l]) l = 'en';
+  _landingLang = l;
+  localStorage.setItem('tnt_lang', l);
+  _updateLandingLangUI(l);
+  const m = document.getElementById('landingLangMenu');
+  if (m) m.hidden = true;
+  _applyLandingTranslations();
+}
+
+document.addEventListener('click', function(e) {
+  const p = document.getElementById('landingLangPicker');
+  if (p && !p.contains(e.target)) {
+    const m = document.getElementById('landingLangMenu');
+    if (m) m.hidden = true;
+  }
+});
+
+// Init
+_updateLandingLangUI(_landingLang);
+_applyLandingTranslations();
+// ─── End Translation System ───────────────────────────────────────
+
 function setBilling(mode) {
   const isAnnual = mode === 'annual';
   document.getElementById('bill-monthly').classList.toggle('bill-active', !isAnnual);
