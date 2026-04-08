@@ -376,6 +376,146 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 </div><!-- /auth-layout -->
 
 <script>
+// ── AUTH i18n (shared strings — same object as login.html) ───────────────────
+const _AUTH_STR = {
+  en: {
+    'logo.sub':'Real-time Market Intelligence','topbar.back':'← Back to tradingnewsterminal.com',
+    'signin.badge':'Live Market Intelligence',
+    'panel.title.basic':'Your edge in<br><span>financial markets.</span>',
+    'panel.desc.basic':'Real-time news, live economic calendar, TradingView charts and more — all in one terminal built for active traders.',
+    'panel.stat.price.label.basic':'Basic plan forever','panel.stat.time.label':'To create account','panel.stat.coverage.label':'Market coverage',
+    'feat.news.name':'News Feed','feat.news.sub.basic':'Hundreds of sources, real-time coverage',
+    'feat.cal.name':'Economic Calendar','feat.cal.sub':'Live releases with impact ratings',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Full charting suite, all asset classes',
+    'feat.multi.name':'Multilingual','feat.multi.sub':'Switch language instantly',
+    'form.title.login.basic':'Welcome back','form.sub.login.basic':'Sign in to access your terminal',
+    'form.title.forgot':'Reset your password','form.sub.forgot':'Enter your email and we\'ll send a reset link',
+    'label.email':'Email','label.password':'Password',
+    'btn.login.basic':'Sign In → Open Terminal','btn.forgot':'Send Reset Link',
+    'btn.signing':'Signing in…','btn.sending':'Sending…',
+    'link.forgot':'Forgot password?','link.back.login':'← Back to Sign In','link.resend':'Resend verification email',
+    'link.no.account':'Don\'t have an account? <a href="/login">Create one free →</a>',
+    'msg.email.not.verified':'Please verify your email before signing in. Check your inbox.',
+    'msg.connection.error':'Connection error. Please try again.','msg.welcome.back':'Welcome back! Redirecting…',
+    'msg.email.required':'Please enter your email.','msg.enter.email.first':'Please enter your email above first.',
+    'footer.terms':'Terms','footer.privacy':'Privacy','footer.pricing':'Pricing',
+  },
+  pt: {
+    'logo.sub':'Inteligência de Mercado em Tempo Real','topbar.back':'← Voltar para tradingnewsterminal.com',
+    'signin.badge':'Inteligência de Mercado ao Vivo',
+    'panel.title.basic':'A tua vantagem nos<br><span>mercados financeiros.</span>',
+    'panel.desc.basic':'Notícias em tempo real, calendário económico, gráficos TradingView e muito mais — tudo num terminal para traders ativos.',
+    'panel.stat.price.label.basic':'Plano Basic para sempre','panel.stat.time.label':'Para criar conta','panel.stat.coverage.label':'Cobertura de mercado',
+    'feat.news.name':'Feed de Notícias','feat.news.sub.basic':'Centenas de fontes, cobertura em tempo real',
+    'feat.cal.name':'Calendário Económico','feat.cal.sub':'Dados ao vivo com classificação de impacto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas as classes de ativos',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Troca de idioma instantânea',
+    'form.title.login.basic':'Bem-vindo de volta','form.sub.login.basic':'Inicia sessão para aceder ao teu terminal',
+    'form.title.forgot':'Repõe a tua palavra-passe','form.sub.forgot':'Introduz o teu email e enviaremos um link de reset',
+    'label.email':'Email','label.password':'Palavra-passe',
+    'btn.login.basic':'Iniciar Sessão → Abrir Terminal','btn.forgot':'Enviar Link de Reset',
+    'btn.signing':'A iniciar sessão…','btn.sending':'A enviar…',
+    'link.forgot':'Esqueceste a palavra-passe?','link.back.login':'← Voltar para Iniciar Sessão','link.resend':'Reenviar email de verificação',
+    'link.no.account':'Não tens conta? <a href="/login">Cria uma gratuitamente →</a>',
+    'msg.email.not.verified':'Verifica o teu email antes de iniciar sessão. Verifica a caixa de entrada.',
+    'msg.connection.error':'Erro de ligação. Tenta novamente.','msg.welcome.back':'Bem-vindo de volta! A redirecionar…',
+    'msg.email.required':'Introduz o teu email.','msg.enter.email.first':'Introduz primeiro o teu email acima.',
+    'footer.terms':'Termos','footer.privacy':'Privacidade','footer.pricing':'Preços',
+  },
+  es: {
+    'logo.sub':'Inteligencia de Mercado en Tiempo Real','topbar.back':'← Volver a tradingnewsterminal.com',
+    'signin.badge':'Inteligencia de Mercado en Directo',
+    'panel.title.basic':'Tu ventaja en los<br><span>mercados financieros.</span>',
+    'panel.desc.basic':'Noticias en tiempo real, calendario económico en directo, gráficos TradingView y más — todo en un terminal para traders activos.',
+    'panel.stat.price.label.basic':'Plan básico para siempre','panel.stat.time.label':'Para crear cuenta','panel.stat.coverage.label':'Cobertura de mercado',
+    'feat.news.name':'Feed de Noticias','feat.news.sub.basic':'Cientos de fuentes, cobertura en tiempo real',
+    'feat.cal.name':'Calendario Económico','feat.cal.sub':'Datos en directo con calificaciones de impacto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas las clases de activos',
+    'feat.multi.name':'Multilingüe','feat.multi.sub':'Cambio de idioma instantáneo',
+    'form.title.login.basic':'Bienvenido de nuevo','form.sub.login.basic':'Inicia sesión para acceder a tu terminal',
+    'form.title.forgot':'Restablece tu contraseña','form.sub.forgot':'Introduce tu email y te enviaremos un enlace de restablecimiento',
+    'label.email':'Email','label.password':'Contraseña',
+    'btn.login.basic':'Iniciar Sesión → Abrir Terminal','btn.forgot':'Enviar Enlace de Restablecimiento',
+    'btn.signing':'Iniciando sesión…','btn.sending':'Enviando…',
+    'link.forgot':'¿Olvidaste tu contraseña?','link.back.login':'← Volver a Iniciar Sesión','link.resend':'Reenviar email de verificación',
+    'link.no.account':'¿No tienes cuenta? <a href="/login">Crea una gratis →</a>',
+    'msg.email.not.verified':'Verifica tu email antes de iniciar sesión. Revisa tu bandeja de entrada.',
+    'msg.connection.error':'Error de conexión. Inténtalo de nuevo.','msg.welcome.back':'¡Bienvenido de nuevo! Redirigiendo…',
+    'msg.email.required':'Por favor, introduce tu email.','msg.enter.email.first':'Por favor, introduce tu email arriba primero.',
+    'footer.terms':'Términos','footer.privacy':'Privacidad','footer.pricing':'Precios',
+  },
+  fr: {
+    'logo.sub':'Intelligence de Marché en Temps Réel','topbar.back':'← Retour à tradingnewsterminal.com',
+    'signin.badge':'Intelligence de Marché en Direct',
+    'panel.title.basic':'Votre avantage sur<br><span>les marchés financiers.</span>',
+    'panel.desc.basic':'Actualités en temps réel, calendrier économique, graphiques TradingView et plus — tout dans un terminal pour traders actifs.',
+    'panel.stat.price.label.basic':'Plan basique à vie','panel.stat.time.label':'Pour créer un compte','panel.stat.coverage.label':'Couverture des marchés',
+    'feat.news.name':'Flux d\'actualités','feat.news.sub.basic':'Des centaines de sources, couverture en temps réel',
+    'feat.cal.name':'Calendrier Économique','feat.cal.sub':'Publications en direct avec notes d\'impact',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite de graphiques complète, toutes classes d\'actifs',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Changez de langue instantanément',
+    'form.title.login.basic':'Bon retour','form.sub.login.basic':'Connectez-vous pour accéder à votre terminal',
+    'form.title.forgot':'Réinitialisez votre mot de passe','form.sub.forgot':'Entrez votre email et nous vous enverrons un lien de réinitialisation',
+    'label.email':'Email','label.password':'Mot de passe',
+    'btn.login.basic':'Connexion → Ouvrir Terminal','btn.forgot':'Envoyer le lien de réinitialisation',
+    'btn.signing':'Connexion en cours…','btn.sending':'Envoi en cours…',
+    'link.forgot':'Mot de passe oublié ?','link.back.login':'← Retour à la connexion','link.resend':'Renvoyer l\'email de vérification',
+    'link.no.account':'Pas de compte ? <a href="/login">Créez-en un gratuitement →</a>',
+    'msg.email.not.verified':'Veuillez vérifier votre email avant de vous connecter. Vérifiez votre boîte de réception.',
+    'msg.connection.error':'Erreur de connexion. Veuillez réessayer.','msg.welcome.back':'Bon retour ! Redirection en cours…',
+    'msg.email.required':'Veuillez entrer votre email.','msg.enter.email.first':'Veuillez d\'abord entrer votre email ci-dessus.',
+    'footer.terms':'Conditions','footer.privacy':'Confidentialité','footer.pricing':'Tarifs',
+  },
+  de: {
+    'logo.sub':'Echtzeit-Marktintelligenz','topbar.back':'← Zurück zu tradingnewsterminal.com',
+    'signin.badge':'Live Marktintelligenz',
+    'panel.title.basic':'Dein Vorteil auf<br><span>den Finanzmärkten.</span>',
+    'panel.desc.basic':'Echtzeit-Nachrichten, Live-Wirtschaftskalender, TradingView-Charts und mehr — alles in einem Terminal für aktive Trader.',
+    'panel.stat.price.label.basic':'Basic-Plan dauerhaft','panel.stat.time.label':'Zur Kontoerstellung','panel.stat.coverage.label':'Marktabdeckung',
+    'feat.news.name':'News-Feed','feat.news.sub.basic':'Hunderte von Quellen, Echtzeit-Abdeckung',
+    'feat.cal.name':'Wirtschaftskalender','feat.cal.sub':'Live-Veröffentlichungen mit Impaktbewertungen',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Vollständige Chart-Suite, alle Asset-Klassen',
+    'feat.multi.name':'Mehrsprachig','feat.multi.sub':'Sprache sofort wechseln',
+    'form.title.login.basic':'Willkommen zurück','form.sub.login.basic':'Melde dich an, um auf dein Terminal zuzugreifen',
+    'form.title.forgot':'Passwort zurücksetzen','form.sub.forgot':'Gib deine E-Mail ein und wir senden dir einen Reset-Link',
+    'label.email':'E-Mail','label.password':'Passwort',
+    'btn.login.basic':'Anmelden → Terminal öffnen','btn.forgot':'Reset-Link senden',
+    'btn.signing':'Wird angemeldet…','btn.sending':'Wird gesendet…',
+    'link.forgot':'Passwort vergessen?','link.back.login':'← Zurück zur Anmeldung','link.resend':'Bestätigungs-E-Mail erneut senden',
+    'link.no.account':'Noch kein Konto? <a href="/login">Kostenlos erstellen →</a>',
+    'msg.email.not.verified':'Bitte bestätige deine E-Mail, bevor du dich anmeldest. Überprüfe deinen Posteingang.',
+    'msg.connection.error':'Verbindungsfehler. Bitte versuche es erneut.','msg.welcome.back':'Willkommen zurück! Weiterleitung…',
+    'msg.email.required':'Bitte gib deine E-Mail ein.','msg.enter.email.first':'Bitte gib zuerst deine E-Mail oben ein.',
+    'footer.terms':'Bedingungen','footer.privacy':'Datenschutz','footer.pricing':'Preise',
+  },
+  it: {
+    'logo.sub':'Intelligence di Mercato in Tempo Reale','topbar.back':'← Torna a tradingnewsterminal.com',
+    'signin.badge':'Intelligence di Mercato in Diretta',
+    'panel.title.basic':'Il tuo vantaggio nei<br><span>mercati finanziari.</span>',
+    'panel.desc.basic':'Notizie in tempo reale, calendario economico in diretta, grafici TradingView e altro — tutto in un terminal per trader attivi.',
+    'panel.stat.price.label.basic':'Piano Base per sempre','panel.stat.time.label':'Per creare account','panel.stat.coverage.label':'Copertura di mercato',
+    'feat.news.name':'Feed di Notizie','feat.news.sub.basic':'Centinaia di fonti, copertura in tempo reale',
+    'feat.cal.name':'Calendario Economico','feat.cal.sub':'Dati in diretta con valutazioni di impatto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa di grafici, tutte le classi di asset',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Cambia lingua istantaneamente',
+    'form.title.login.basic':'Bentornato','form.sub.login.basic':'Accedi per entrare nel tuo terminal',
+    'form.title.forgot':'Reimposta la tua password','form.sub.forgot':'Inserisci la tua email e ti invieremo un link di reset',
+    'label.email':'Email','label.password':'Password',
+    'btn.login.basic':'Accedi → Apri Terminal','btn.forgot':'Invia Link di Reset',
+    'btn.signing':'Accesso in corso…','btn.sending':'Invio in corso…',
+    'link.forgot':'Password dimenticata?','link.back.login':'← Torna all\'accesso','link.resend':'Reinvia email di verifica',
+    'link.no.account':'Non hai un account? <a href="/login">Creane uno gratis →</a>',
+    'msg.email.not.verified':'Verifica la tua email prima di accedere. Controlla la tua casella di posta.',
+    'msg.connection.error':'Errore di connessione. Riprova.','msg.welcome.back':'Bentornato! Reindirizzamento…',
+    'msg.email.required':'Per favore inserisci la tua email.','msg.enter.email.first':'Per favore inserisci prima la tua email sopra.',
+    'footer.terms':'Termini','footer.privacy':'Privacy','footer.pricing':'Prezzi',
+  }
+};
+function _tl(key) {
+  const lang = localStorage.getItem('tnt_lang') || 'en';
+  return (_AUTH_STR[lang] || _AUTH_STR.en)[key] || _AUTH_STR.en[key] || key;
+}
+
 const BACKEND = 'https://trading-news-terminal-backend-production.up.railway.app';
 const APP_URL = 'https://app.tradingnewsterminal.com';
 
@@ -385,16 +525,16 @@ function showLogin() {
   document.getElementById('form-login').style.display = '';
   document.getElementById('form-forgot').style.display = 'none';
   document.getElementById('resend-wrap').style.display = 'none';
-  document.getElementById('form-title').textContent = 'Welcome back';
-  document.getElementById('form-sub').textContent = 'Sign in to access your terminal';
+  document.getElementById('form-title').textContent = _tl('form.title.login.basic');
+  document.getElementById('form-sub').textContent   = _tl('form.sub.login.basic');
   clearMsg();
 }
 
 function showForgot() {
   document.getElementById('form-login').style.display = 'none';
   document.getElementById('form-forgot').style.display = '';
-  document.getElementById('form-title').textContent = 'Reset your password';
-  document.getElementById('form-sub').textContent = 'Enter your email and we\'ll send a reset link';
+  document.getElementById('form-title').textContent = _tl('form.title.forgot');
+  document.getElementById('form-sub').textContent   = _tl('form.sub.forgot');
   clearMsg();
 }
 
@@ -413,7 +553,7 @@ async function handleLogin(e) {
   e.preventDefault();
   clearMsg();
   const btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Signing in…';
+  btn.disabled = true; btn.textContent = _tl('btn.signing');
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
   try {
@@ -425,21 +565,21 @@ async function handleLogin(e) {
     if (!r.ok) {
       if (data.detail === 'EMAIL_NOT_VERIFIED') {
         _lastUnverifiedEmail = email;
-        showMsg('Please verify your email before signing in. Check your inbox.', 'error');
+        showMsg(_tl('msg.email.not.verified'), 'error');
         document.getElementById('resend-wrap').style.display = 'block';
       } else {
         showMsg(data.detail || 'Invalid email or password', 'error');
       }
       return;
     }
-    showMsg('Welcome back! Redirecting…', 'success');
+    showMsg(_tl('msg.welcome.back'), 'success');
     const user = encodeURIComponent(JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
     setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Sign In → Open Terminal';
+    btn.textContent = _tl('btn.login.basic');
   }
 }
 
@@ -448,8 +588,8 @@ async function handleForgot() {
   clearMsg();
   const btn = document.getElementById('btn-forgot');
   const email = document.getElementById('forgot-email').value.trim();
-  if (!email) { showMsg('Please enter your email.', 'error'); return; }
-  btn.disabled = true; btn.textContent = 'Sending…';
+  if (!email) { showMsg(_tl('msg.email.required'), 'error'); return; }
+  btn.disabled = true; btn.textContent = _tl('btn.sending');
   try {
     const r = await fetch(BACKEND+'/auth/request-password-reset', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -458,16 +598,16 @@ async function handleForgot() {
     const data = await r.json();
     showMsg(data.message || 'If this email is registered, a reset link has been sent.', 'success');
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   } finally {
-    btn.disabled = false; btn.textContent = 'Send Reset Link';
+    btn.disabled = false; btn.textContent = _tl('btn.forgot');
   }
 }
 
 // ── RESEND VERIFICATION ──────────────────────────────────────────────────────
 async function handleResendVerification() {
   const email = _lastUnverifiedEmail || document.getElementById('login-email').value.trim();
-  if (!email) { showMsg('Please enter your email above first.', 'error'); return; }
+  if (!email) { showMsg(_tl('msg.enter.email.first'), 'error'); return; }
   try {
     const r = await fetch(BACKEND+'/auth/resend-verification', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -477,9 +617,66 @@ async function handleResendVerification() {
     showMsg(data.message || 'Verification email sent.', 'success');
     document.getElementById('resend-wrap').style.display = 'none';
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   }
 }
+
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
+function _applyAuthTranslations() {
+  const $ = (s) => document.querySelector(s);
+  const lbl = (f) => $(`label[for="${f}"]`);
+
+  // Logo & topbar
+  const ls=$('.panel-logo-sub'); if(ls) ls.textContent=_tl('logo.sub');
+  const tl=$('.form-topbar-link'); if(tl) tl.textContent=_tl('topbar.back');
+
+  // Left panel
+  const pb=$('.panel-badge'); if(pb) pb.textContent=_tl('signin.badge');
+  const pt=document.getElementById('panel-title'); if(pt) pt.innerHTML=_tl('panel.title.basic');
+  const pd=document.getElementById('panel-desc'); if(pd) pd.textContent=_tl('panel.desc.basic');
+
+  // Features
+  const pf=document.getElementById('panel-features');
+  if(pf) pf.innerHTML=`
+    <li class="panel-feature"><div class="panel-feature-icon">📰</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.news.name')}</div><div class="panel-feature-sub">${_tl('feat.news.sub.basic')}</div></div></li>
+    <li class="panel-feature"><div class="panel-feature-icon">📅</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.cal.name')}</div><div class="panel-feature-sub">${_tl('feat.cal.sub')}</div></div></li>
+    <li class="panel-feature"><div class="panel-feature-icon">📊</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.charts.name')}</div><div class="panel-feature-sub">${_tl('feat.charts.sub')}</div></div></li>
+    <li class="panel-feature"><div class="panel-feature-icon">🌐</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.multi.name')}</div><div class="panel-feature-sub">${_tl('feat.multi.sub')}</div></div></li>`;
+
+  // Stats
+  const ps=document.getElementById('panel-stats');
+  if(ps) ps.innerHTML=`
+    <div class="panel-stat"><div class="panel-stat-num">€0</div><div class="panel-stat-label">${_tl('panel.stat.price.label.basic')}</div></div>
+    <div class="panel-stat"><div class="panel-stat-num">30s</div><div class="panel-stat-label">${_tl('panel.stat.time.label')}</div></div>
+    <div class="panel-stat"><div class="panel-stat-num">24/7</div><div class="panel-stat-label">${_tl('panel.stat.coverage.label')}</div></div>`;
+
+  // Form title/sub
+  document.getElementById('form-title').textContent = _tl('form.title.login.basic');
+  document.getElementById('form-sub').textContent   = _tl('form.sub.login.basic');
+
+  // Labels
+  const le=lbl('login-email'); if(le) le.textContent=_tl('label.email');
+  const lp=lbl('login-password'); if(lp) lp.textContent=_tl('label.password');
+  const lfe=lbl('forgot-email'); if(lfe) lfe.textContent=_tl('label.email');
+
+  // Buttons
+  const bl=document.getElementById('btn-login'); if(bl&&!bl.disabled) bl.textContent=_tl('btn.login.basic');
+  const bf=document.getElementById('btn-forgot'); if(bf&&!bf.disabled) bf.textContent=_tl('btn.forgot');
+
+  // Links
+  const fl=$('.forgot-link'); if(fl) fl.textContent=_tl('link.forgot');
+  const bkl=$('.back-link'); if(bkl) bkl.textContent=_tl('link.back.login');
+  const rl=$('.resend-link'); if(rl) rl.textContent=_tl('link.resend');
+
+  // Footer note & bottom bar
+  const fn=$('.auth-footer-note'); if(fn) fn.innerHTML=_tl('link.no.account');
+  const fb=$('.form-bottom');
+  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); if(as[2]) as[2].textContent=_tl('footer.pricing'); }
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+_applyAuthTranslations();
+
 function _tpwd(id, btn) {
   const inp = document.getElementById(id);
   if (!inp) return;

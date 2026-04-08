@@ -476,6 +476,284 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 </div><!-- /auth-layout -->
 
 <script>
+// ── AUTH i18n ────────────────────────────────────────────────────────────────
+const _AUTH_STR = {
+  en: {
+    'logo.sub':'Real-time Market Intelligence','topbar.back':'← Back to tradingnewsterminal.com',
+    'panel.badge.basic':'Free Access · No Credit Card','panel.title.basic':'Your edge in<br><span>financial markets.</span>',
+    'panel.desc.basic':'Real-time news, live economic calendar, TradingView charts and more — all in one terminal built for active traders.',
+    'panel.stat.price.label.basic':'Basic plan forever','panel.stat.time.label':'To create account','panel.stat.coverage.label':'Market coverage',
+    'feat.news.name':'News Feed','feat.news.sub.basic':'Hundreds of sources, 2-min delay on Basic',
+    'feat.cal.name':'Economic Calendar','feat.cal.sub':'Live releases with impact ratings',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Full charting suite, all asset classes',
+    'feat.multi.name':'Multilingual','feat.multi.sub':'Switch language instantly',
+    'panel.badge.pro':'Pro Plan · €40 / month','panel.title.pro':'Activate your<br><span>Pro subscription.</span>',
+    'panel.desc.pro':'Sign in or create a free account — checkout opens automatically and you\'ll be on Pro within minutes.',
+    'panel.stat.price.label.pro':'Per month Pro','panel.stat.assets.label':'Asset classes screened','panel.stat.tv.label':'Live TV channels',
+    'feat.news.name.pro':'Real-Time News Feed','feat.news.sub.pro':'Zero-delay from hundreds of sources',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'GDP, PMI, yields, central bank rates',
+    'feat.earnings.name':'Earnings Calendar','feat.earnings.sub':'EPS beat/miss live as results drop',
+    'feat.cb.name':'Central Banks Tracker','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & more',
+    'feat.squawk.name':'Live Squawk & 7 TV Channels','feat.squawk.sub':'Hands-free audio alerts + live financial TV',
+    'feat.screener.name':'Market Screener','feat.screener.sub':'Forex, Stocks, Crypto, Indices & more',
+    'tab.signin':'Sign In','tab.signup':'Create Account',
+    'form.title.login.basic':'Welcome back','form.sub.login.basic':'Sign in to access your terminal',
+    'form.title.login.pro':'Complete your Pro setup','form.sub.login.pro':'Sign in to continue to checkout',
+    'form.title.signup.basic':'Start for free','form.sub.signup.basic':'No credit card required — free forever',
+    'form.title.signup.pro':'Create your account','form.sub.signup.pro':'Account created? Checkout opens automatically after sign-in',
+    'form.title.forgot':'Reset your password','form.sub.forgot':'Enter your email and we\'ll send a reset link',
+    'label.email':'Email','label.password':'Password','label.fullname':'Full Name','label.country':'Country',
+    'ph.name':'Your name','ph.country':'Select your country…','ph.password.new':'Min. 6 characters',
+    'btn.login.basic':'Sign In → Open Terminal','btn.login.pro':'Sign In → Continue to Checkout',
+    'btn.signup.basic':'Create Free Account','btn.signup.pro':'Create Account → Continue to Checkout',
+    'btn.forgot':'Send Reset Link','btn.signing':'Signing in…','btn.creating':'Creating account…','btn.sending':'Sending…',
+    'link.forgot':'Forgot password?','link.back.login':'← Back to Sign In','link.resend':'Resend verification email',
+    'link.terms.agree':'By signing up you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.',
+    'link.no.account':'Don\'t have an account? <a href="/login">Create one free →</a>',
+    'ben.news':'News feed with real-time market coverage','ben.cal':'Live economic calendar & releases',
+    'ben.charts':'TradingView charts & asset watchlist','ben.free':'No credit card required',
+    'ben.pro.news':'Real-time zero-delay news & market data','ben.pro.macro':'Macro & Bonds Hub · Earnings Calendar',
+    'ben.pro.cb':'Central Banks Tracker · Market Sentiment','ben.pro.squawk':'Live Squawk · 7 TV Channels · Ad-free',
+    'msg.email.not.verified':'Please verify your email before signing in. Check your inbox.',
+    'msg.connection.error':'Connection error. Please try again.','msg.welcome.back':'Welcome back! Redirecting…',
+    'msg.checkout.redirecting':'Redirecting to checkout…','msg.checkout.error':'Could not start checkout. Please upgrade from inside the terminal.',
+    'msg.signup.pro':'Account created! Verify your email, then sign in — checkout opens automatically.',
+    'msg.signup.basic':'Account created! Please check your email to verify your account.',
+    'msg.password.short':'Password must be at least 6 characters.','msg.email.required':'Please enter your email.',
+    'msg.enter.email.first':'Please enter your email above first.','hint.password':'Minimum 6 characters',
+    'footer.terms':'Terms','footer.privacy':'Privacy','footer.pricing':'Pricing','signin.badge':'Live Market Intelligence',
+  },
+  pt: {
+    'logo.sub':'Inteligência de Mercado em Tempo Real','topbar.back':'← Voltar para tradingnewsterminal.com',
+    'panel.badge.basic':'Acesso Gratuito · Sem Cartão','panel.title.basic':'A tua vantagem nos<br><span>mercados financeiros.</span>',
+    'panel.desc.basic':'Notícias em tempo real, calendário económico, gráficos TradingView e muito mais — tudo num terminal para traders ativos.',
+    'panel.stat.price.label.basic':'Plano Basic para sempre','panel.stat.time.label':'Para criar conta','panel.stat.coverage.label':'Cobertura de mercado',
+    'feat.news.name':'Feed de Notícias','feat.news.sub.basic':'Centenas de fontes, 2 min de atraso no Basic',
+    'feat.cal.name':'Calendário Económico','feat.cal.sub':'Dados ao vivo com classificação de impacto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas as classes de ativos',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Troca de idioma instantânea',
+    'panel.badge.pro':'Plano Pro · €40 / mês','panel.title.pro':'Ativa a tua<br><span>subscrição Pro.</span>',
+    'panel.desc.pro':'Inicia sessão ou cria uma conta gratuita — o checkout abre automaticamente e estarás no Pro em minutos.',
+    'panel.stat.price.label.pro':'Por mês Pro','panel.stat.assets.label':'Classes de ativos analisados','panel.stat.tv.label':'Canais TV em direto',
+    'feat.news.name.pro':'Feed de Notícias em Tempo Real','feat.news.sub.pro':'Sem atraso, centenas de fontes',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'PIB, PMI, yields, taxas dos bancos centrais',
+    'feat.earnings.name':'Calendário de Resultados','feat.earnings.sub':'EPS beat/miss ao vivo quando saem os resultados',
+    'feat.cb.name':'Rastreador de Bancos Centrais','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & mais',
+    'feat.squawk.name':'Live Squawk & 7 Canais TV','feat.squawk.sub':'Alertas de áudio + TV financeira ao vivo',
+    'feat.screener.name':'Screener de Mercado','feat.screener.sub':'Forex, Ações, Cripto, Índices & mais',
+    'tab.signin':'Iniciar Sessão','tab.signup':'Criar Conta',
+    'form.title.login.basic':'Bem-vindo de volta','form.sub.login.basic':'Inicia sessão para aceder ao teu terminal',
+    'form.title.login.pro':'Completa a configuração Pro','form.sub.login.pro':'Inicia sessão para continuar para o checkout',
+    'form.title.signup.basic':'Começa gratuitamente','form.sub.signup.basic':'Sem cartão de crédito — gratuito para sempre',
+    'form.title.signup.pro':'Cria a tua conta','form.sub.signup.pro':'Conta criada? O checkout abre automaticamente após o login',
+    'form.title.forgot':'Repõe a tua palavra-passe','form.sub.forgot':'Introduz o teu email e enviaremos um link de reset',
+    'label.email':'Email','label.password':'Palavra-passe','label.fullname':'Nome Completo','label.country':'País',
+    'ph.name':'O teu nome','ph.country':'Seleciona o teu país…','ph.password.new':'Mín. 6 caracteres',
+    'btn.login.basic':'Iniciar Sessão → Abrir Terminal','btn.login.pro':'Iniciar Sessão → Continuar para Checkout',
+    'btn.signup.basic':'Criar Conta Gratuita','btn.signup.pro':'Criar Conta → Continuar para Checkout',
+    'btn.forgot':'Enviar Link de Reset','btn.signing':'A iniciar sessão…','btn.creating':'A criar conta…','btn.sending':'A enviar…',
+    'link.forgot':'Esqueceste a palavra-passe?','link.back.login':'← Voltar para Iniciar Sessão','link.resend':'Reenviar email de verificação',
+    'link.terms.agree':'Ao criar conta aceitas os nossos <a href="/terms">Termos de Utilização</a> e <a href="/privacy">Política de Privacidade</a>.',
+    'link.no.account':'Não tens conta? <a href="/login">Cria uma gratuitamente →</a>',
+    'ben.news':'Feed de notícias com cobertura de mercado em tempo real','ben.cal':'Calendário económico ao vivo e dados',
+    'ben.charts':'Gráficos TradingView e lista de ativos','ben.free':'Sem cartão de crédito',
+    'ben.pro.news':'Notícias e dados de mercado em tempo real sem atraso','ben.pro.macro':'Macro & Bonds Hub · Calendário de Resultados',
+    'ben.pro.cb':'Rastreador de Bancos Centrais · Sentimento de Mercado','ben.pro.squawk':'Live Squawk · 7 Canais TV · Sem anúncios',
+    'msg.email.not.verified':'Verifica o teu email antes de iniciar sessão. Verifica a caixa de entrada.',
+    'msg.connection.error':'Erro de ligação. Tenta novamente.','msg.welcome.back':'Bem-vindo de volta! A redirecionar…',
+    'msg.checkout.redirecting':'A redirecionar para checkout…','msg.checkout.error':'Não foi possível iniciar o checkout. Faz upgrade dentro do terminal.',
+    'msg.signup.pro':'Conta criada! Verifica o teu email e inicia sessão — o checkout abre automaticamente.',
+    'msg.signup.basic':'Conta criada! Verifica o teu email para ativar a conta.',
+    'msg.password.short':'A palavra-passe deve ter pelo menos 6 caracteres.','msg.email.required':'Introduz o teu email.',
+    'msg.enter.email.first':'Introduz primeiro o teu email acima.','hint.password':'Mínimo 6 caracteres',
+    'footer.terms':'Termos','footer.privacy':'Privacidade','footer.pricing':'Preços','signin.badge':'Inteligência de Mercado ao Vivo',
+  },
+  es: {
+    'logo.sub':'Inteligencia de Mercado en Tiempo Real','topbar.back':'← Volver a tradingnewsterminal.com',
+    'panel.badge.basic':'Acceso Gratuito · Sin Tarjeta','panel.title.basic':'Tu ventaja en los<br><span>mercados financieros.</span>',
+    'panel.desc.basic':'Noticias en tiempo real, calendario económico en directo, gráficos TradingView y más — todo en un terminal para traders activos.',
+    'panel.stat.price.label.basic':'Plan básico para siempre','panel.stat.time.label':'Para crear cuenta','panel.stat.coverage.label':'Cobertura de mercado',
+    'feat.news.name':'Feed de Noticias','feat.news.sub.basic':'Cientos de fuentes, 2 min de retraso en Basic',
+    'feat.cal.name':'Calendario Económico','feat.cal.sub':'Datos en directo con calificaciones de impacto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas las clases de activos',
+    'feat.multi.name':'Multilingüe','feat.multi.sub':'Cambio de idioma instantáneo',
+    'panel.badge.pro':'Plan Pro · €40 / mes','panel.title.pro':'Activa tu<br><span>suscripción Pro.</span>',
+    'panel.desc.pro':'Inicia sesión o crea una cuenta gratuita — el checkout se abre automáticamente y estarás en Pro en minutos.',
+    'panel.stat.price.label.pro':'Por mes Pro','panel.stat.assets.label':'Clases de activos analizados','panel.stat.tv.label':'Canales TV en directo',
+    'feat.news.name.pro':'Feed de Noticias en Tiempo Real','feat.news.sub.pro':'Sin retraso, cientos de fuentes',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'PIB, PMI, yields, tasas de bancos centrales',
+    'feat.earnings.name':'Calendario de Resultados','feat.earnings.sub':'EPS beat/miss en directo cuando salen los resultados',
+    'feat.cb.name':'Rastreador de Bancos Centrales','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & más',
+    'feat.squawk.name':'Live Squawk & 7 Canales TV','feat.squawk.sub':'Alertas de audio + TV financiera en directo',
+    'feat.screener.name':'Screener de Mercado','feat.screener.sub':'Forex, Acciones, Cripto, Índices & más',
+    'tab.signin':'Iniciar Sesión','tab.signup':'Crear Cuenta',
+    'form.title.login.basic':'Bienvenido de nuevo','form.sub.login.basic':'Inicia sesión para acceder a tu terminal',
+    'form.title.login.pro':'Completa tu configuración Pro','form.sub.login.pro':'Inicia sesión para continuar al pago',
+    'form.title.signup.basic':'Empieza gratis','form.sub.signup.basic':'Sin tarjeta de crédito — gratis para siempre',
+    'form.title.signup.pro':'Crea tu cuenta','form.sub.signup.pro':'¿Cuenta creada? El checkout se abre automáticamente tras iniciar sesión',
+    'form.title.forgot':'Restablece tu contraseña','form.sub.forgot':'Introduce tu email y te enviaremos un enlace de restablecimiento',
+    'label.email':'Email','label.password':'Contraseña','label.fullname':'Nombre Completo','label.country':'País',
+    'ph.name':'Tu nombre','ph.country':'Selecciona tu país…','ph.password.new':'Mín. 6 caracteres',
+    'btn.login.basic':'Iniciar Sesión → Abrir Terminal','btn.login.pro':'Iniciar Sesión → Continuar al Pago',
+    'btn.signup.basic':'Crear Cuenta Gratuita','btn.signup.pro':'Crear Cuenta → Continuar al Pago',
+    'btn.forgot':'Enviar Enlace de Restablecimiento','btn.signing':'Iniciando sesión…','btn.creating':'Creando cuenta…','btn.sending':'Enviando…',
+    'link.forgot':'¿Olvidaste tu contraseña?','link.back.login':'← Volver a Iniciar Sesión','link.resend':'Reenviar email de verificación',
+    'link.terms.agree':'Al registrarte aceptas nuestros <a href="/terms">Términos de Uso</a> y <a href="/privacy">Política de Privacidad</a>.',
+    'link.no.account':'¿No tienes cuenta? <a href="/login">Crea una gratis →</a>',
+    'ben.news':'Feed de noticias con cobertura de mercado en tiempo real','ben.cal':'Calendario económico en directo y datos',
+    'ben.charts':'Gráficos TradingView y lista de activos','ben.free':'Sin tarjeta de crédito',
+    'ben.pro.news':'Noticias y datos de mercado en tiempo real sin retraso','ben.pro.macro':'Macro & Bonds Hub · Calendario de Resultados',
+    'ben.pro.cb':'Rastreador de Bancos Centrales · Sentimiento de Mercado','ben.pro.squawk':'Live Squawk · 7 Canales TV · Sin anuncios',
+    'msg.email.not.verified':'Verifica tu email antes de iniciar sesión. Revisa tu bandeja de entrada.',
+    'msg.connection.error':'Error de conexión. Inténtalo de nuevo.','msg.welcome.back':'¡Bienvenido de nuevo! Redirigiendo…',
+    'msg.checkout.redirecting':'Redirigiendo al pago…','msg.checkout.error':'No se pudo iniciar el pago. Actualiza desde dentro del terminal.',
+    'msg.signup.pro':'¡Cuenta creada! Verifica tu email e inicia sesión — el checkout se abre automáticamente.',
+    'msg.signup.basic':'¡Cuenta creada! Revisa tu email para verificar la cuenta.',
+    'msg.password.short':'La contraseña debe tener al menos 6 caracteres.','msg.email.required':'Por favor, introduce tu email.',
+    'msg.enter.email.first':'Por favor, introduce tu email arriba primero.','hint.password':'Mínimo 6 caracteres',
+    'footer.terms':'Términos','footer.privacy':'Privacidad','footer.pricing':'Precios','signin.badge':'Inteligencia de Mercado en Directo',
+  },
+  fr: {
+    'logo.sub':'Intelligence de Marché en Temps Réel','topbar.back':'← Retour à tradingnewsterminal.com',
+    'panel.badge.basic':'Accès Gratuit · Sans Carte','panel.title.basic':'Votre avantage sur<br><span>les marchés financiers.</span>',
+    'panel.desc.basic':'Actualités en temps réel, calendrier économique, graphiques TradingView et plus — tout dans un terminal pour traders actifs.',
+    'panel.stat.price.label.basic':'Plan basique à vie','panel.stat.time.label':'Pour créer un compte','panel.stat.coverage.label':'Couverture des marchés',
+    'feat.news.name':'Flux d\'actualités','feat.news.sub.basic':'Des centaines de sources, 2 min de délai en Basic',
+    'feat.cal.name':'Calendrier Économique','feat.cal.sub':'Publications en direct avec notes d\'impact',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite de graphiques complète, toutes classes d\'actifs',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Changez de langue instantanément',
+    'panel.badge.pro':'Plan Pro · €40 / mois','panel.title.pro':'Activez votre<br><span>abonnement Pro.</span>',
+    'panel.desc.pro':'Connectez-vous ou créez un compte gratuit — le paiement s\'ouvre automatiquement et vous serez en Pro en quelques minutes.',
+    'panel.stat.price.label.pro':'Par mois Pro','panel.stat.assets.label':'Classes d\'actifs analysées','panel.stat.tv.label':'Chaînes TV en direct',
+    'feat.news.name.pro':'Flux d\'actualités en temps réel','feat.news.sub.pro':'Sans délai, des centaines de sources',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'PIB, PMI, rendements, taux des banques centrales',
+    'feat.earnings.name':'Calendrier des résultats','feat.earnings.sub':'EPS beat/miss en direct à la publication',
+    'feat.cb.name':'Suivi des Banques Centrales','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & plus',
+    'feat.squawk.name':'Live Squawk & 7 Chaînes TV','feat.squawk.sub':'Alertes audio mains libres + TV financière en direct',
+    'feat.screener.name':'Screener de Marché','feat.screener.sub':'Forex, Actions, Crypto, Indices & plus',
+    'tab.signin':'Connexion','tab.signup':'Créer un compte',
+    'form.title.login.basic':'Bon retour','form.sub.login.basic':'Connectez-vous pour accéder à votre terminal',
+    'form.title.login.pro':'Finalisez votre configuration Pro','form.sub.login.pro':'Connectez-vous pour passer au paiement',
+    'form.title.signup.basic':'Commencer gratuitement','form.sub.signup.basic':'Aucune carte requise — gratuit pour toujours',
+    'form.title.signup.pro':'Créez votre compte','form.sub.signup.pro':'Compte créé ? Le paiement s\'ouvre automatiquement après connexion',
+    'form.title.forgot':'Réinitialisez votre mot de passe','form.sub.forgot':'Entrez votre email et nous vous enverrons un lien de réinitialisation',
+    'label.email':'Email','label.password':'Mot de passe','label.fullname':'Nom Complet','label.country':'Pays',
+    'ph.name':'Votre nom','ph.country':'Sélectionnez votre pays…','ph.password.new':'Min. 6 caractères',
+    'btn.login.basic':'Connexion → Ouvrir Terminal','btn.login.pro':'Connexion → Continuer vers le paiement',
+    'btn.signup.basic':'Créer un compte gratuit','btn.signup.pro':'Créer un compte → Continuer vers le paiement',
+    'btn.forgot':'Envoyer le lien de réinitialisation','btn.signing':'Connexion en cours…','btn.creating':'Création du compte…','btn.sending':'Envoi en cours…',
+    'link.forgot':'Mot de passe oublié ?','link.back.login':'← Retour à la connexion','link.resend':'Renvoyer l\'email de vérification',
+    'link.terms.agree':'En vous inscrivant, vous acceptez nos <a href="/terms">Conditions d\'utilisation</a> et notre <a href="/privacy">Politique de confidentialité</a>.',
+    'link.no.account':'Pas de compte ? <a href="/login">Créez-en un gratuitement →</a>',
+    'ben.news':'Flux d\'actualités avec couverture de marché en temps réel','ben.cal':'Calendrier économique en direct et publications',
+    'ben.charts':'Graphiques TradingView & liste de surveillance','ben.free':'Aucune carte requise',
+    'ben.pro.news':'Actualités et données de marché sans délai','ben.pro.macro':'Macro & Bonds Hub · Calendrier des résultats',
+    'ben.pro.cb':'Suivi des Banques Centrales · Sentiment de Marché','ben.pro.squawk':'Live Squawk · 7 Chaînes TV · Sans publicité',
+    'msg.email.not.verified':'Veuillez vérifier votre email avant de vous connecter. Vérifiez votre boîte de réception.',
+    'msg.connection.error':'Erreur de connexion. Veuillez réessayer.','msg.welcome.back':'Bon retour ! Redirection en cours…',
+    'msg.checkout.redirecting':'Redirection vers le paiement…','msg.checkout.error':'Impossible de démarrer le paiement. Veuillez mettre à niveau depuis le terminal.',
+    'msg.signup.pro':'Compte créé ! Vérifiez votre email, puis connectez-vous — le paiement s\'ouvre automatiquement.',
+    'msg.signup.basic':'Compte créé ! Veuillez vérifier votre email pour activer votre compte.',
+    'msg.password.short':'Le mot de passe doit comporter au moins 6 caractères.','msg.email.required':'Veuillez entrer votre email.',
+    'msg.enter.email.first':'Veuillez d\'abord entrer votre email ci-dessus.','hint.password':'Minimum 6 caractères',
+    'footer.terms':'Conditions','footer.privacy':'Confidentialité','footer.pricing':'Tarifs','signin.badge':'Intelligence de Marché en Direct',
+  },
+  de: {
+    'logo.sub':'Echtzeit-Marktintelligenz','topbar.back':'← Zurück zu tradingnewsterminal.com',
+    'panel.badge.basic':'Kostenloser Zugang · Keine Karte','panel.title.basic':'Dein Vorteil auf<br><span>den Finanzmärkten.</span>',
+    'panel.desc.basic':'Echtzeit-Nachrichten, Live-Wirtschaftskalender, TradingView-Charts und mehr — alles in einem Terminal für aktive Trader.',
+    'panel.stat.price.label.basic':'Basic-Plan dauerhaft','panel.stat.time.label':'Zur Kontoerstellung','panel.stat.coverage.label':'Marktabdeckung',
+    'feat.news.name':'News-Feed','feat.news.sub.basic':'Hunderte von Quellen, 2 Min. Verzögerung auf Basic',
+    'feat.cal.name':'Wirtschaftskalender','feat.cal.sub':'Live-Veröffentlichungen mit Impaktbewertungen',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Vollständige Chart-Suite, alle Asset-Klassen',
+    'feat.multi.name':'Mehrsprachig','feat.multi.sub':'Sprache sofort wechseln',
+    'panel.badge.pro':'Pro-Plan · €40 / Monat','panel.title.pro':'Aktiviere dein<br><span>Pro-Abonnement.</span>',
+    'panel.desc.pro':'Melde dich an oder erstelle ein kostenloses Konto — der Checkout öffnet sich automatisch und du bist in Minuten auf Pro.',
+    'panel.stat.price.label.pro':'Pro Monat Pro','panel.stat.assets.label':'Analysierte Asset-Klassen','panel.stat.tv.label':'Live-TV-Kanäle',
+    'feat.news.name.pro':'Echtzeit-News-Feed','feat.news.sub.pro':'Ohne Verzögerung, Hunderte von Quellen',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'BIP, PMI, Renditen, Zentralbankzinsen',
+    'feat.earnings.name':'Earnings-Kalender','feat.earnings.sub':'EPS Beat/Miss live bei Ergebnisveröffentlichung',
+    'feat.cb.name':'Zentralbank-Tracker','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & mehr',
+    'feat.squawk.name':'Live Squawk & 7 TV-Kanäle','feat.squawk.sub':'Freihändig Audio-Alerts + Live-Finanz-TV',
+    'feat.screener.name':'Markt-Screener','feat.screener.sub':'Forex, Aktien, Krypto, Indizes & mehr',
+    'tab.signin':'Anmelden','tab.signup':'Konto erstellen',
+    'form.title.login.basic':'Willkommen zurück','form.sub.login.basic':'Melde dich an, um auf dein Terminal zuzugreifen',
+    'form.title.login.pro':'Vervollständige dein Pro-Setup','form.sub.login.pro':'Melde dich an, um zur Kasse zu gehen',
+    'form.title.signup.basic':'Kostenlos starten','form.sub.signup.basic':'Keine Kreditkarte — dauerhaft kostenlos',
+    'form.title.signup.pro':'Erstelle dein Konto','form.sub.signup.pro':'Konto erstellt? Checkout öffnet sich automatisch nach der Anmeldung',
+    'form.title.forgot':'Passwort zurücksetzen','form.sub.forgot':'Gib deine E-Mail ein und wir senden dir einen Reset-Link',
+    'label.email':'E-Mail','label.password':'Passwort','label.fullname':'Vollständiger Name','label.country':'Land',
+    'ph.name':'Dein Name','ph.country':'Wähle dein Land…','ph.password.new':'Mind. 6 Zeichen',
+    'btn.login.basic':'Anmelden → Terminal öffnen','btn.login.pro':'Anmelden → Weiter zur Kasse',
+    'btn.signup.basic':'Kostenloses Konto erstellen','btn.signup.pro':'Konto erstellen → Weiter zur Kasse',
+    'btn.forgot':'Reset-Link senden','btn.signing':'Wird angemeldet…','btn.creating':'Konto wird erstellt…','btn.sending':'Wird gesendet…',
+    'link.forgot':'Passwort vergessen?','link.back.login':'← Zurück zur Anmeldung','link.resend':'Bestätigungs-E-Mail erneut senden',
+    'link.terms.agree':'Mit der Registrierung stimmst du unseren <a href="/terms">Nutzungsbedingungen</a> und der <a href="/privacy">Datenschutzrichtlinie</a> zu.',
+    'link.no.account':'Noch kein Konto? <a href="/login">Kostenlos erstellen →</a>',
+    'ben.news':'News-Feed mit Echtzeit-Marktabdeckung','ben.cal':'Live-Wirtschaftskalender & Veröffentlichungen',
+    'ben.charts':'TradingView-Charts & Asset-Watchlist','ben.free':'Keine Kreditkarte erforderlich',
+    'ben.pro.news':'Echtzeit-Nachrichten & Marktdaten ohne Verzögerung','ben.pro.macro':'Macro & Bonds Hub · Earnings-Kalender',
+    'ben.pro.cb':'Zentralbank-Tracker · Marktstimmung','ben.pro.squawk':'Live Squawk · 7 TV-Kanäle · Werbefrei',
+    'msg.email.not.verified':'Bitte bestätige deine E-Mail, bevor du dich anmeldest. Überprüfe deinen Posteingang.',
+    'msg.connection.error':'Verbindungsfehler. Bitte versuche es erneut.','msg.welcome.back':'Willkommen zurück! Weiterleitung…',
+    'msg.checkout.redirecting':'Weiterleitung zur Kasse…','msg.checkout.error':'Checkout konnte nicht gestartet werden. Bitte upgrade innerhalb des Terminals.',
+    'msg.signup.pro':'Konto erstellt! Bestätige deine E-Mail, dann melde dich an — Checkout öffnet sich automatisch.',
+    'msg.signup.basic':'Konto erstellt! Bitte überprüfe deine E-Mail, um dein Konto zu bestätigen.',
+    'msg.password.short':'Das Passwort muss mindestens 6 Zeichen haben.','msg.email.required':'Bitte gib deine E-Mail ein.',
+    'msg.enter.email.first':'Bitte gib zuerst deine E-Mail oben ein.','hint.password':'Mindestens 6 Zeichen',
+    'footer.terms':'Bedingungen','footer.privacy':'Datenschutz','footer.pricing':'Preise','signin.badge':'Live Marktintelligenz',
+  },
+  it: {
+    'logo.sub':'Intelligence di Mercato in Tempo Reale','topbar.back':'← Torna a tradingnewsterminal.com',
+    'panel.badge.basic':'Accesso Gratuito · Nessuna Carta','panel.title.basic':'Il tuo vantaggio nei<br><span>mercati finanziari.</span>',
+    'panel.desc.basic':'Notizie in tempo reale, calendario economico in diretta, grafici TradingView e altro — tutto in un terminal per trader attivi.',
+    'panel.stat.price.label.basic':'Piano Base per sempre','panel.stat.time.label':'Per creare account','panel.stat.coverage.label':'Copertura di mercato',
+    'feat.news.name':'Feed di Notizie','feat.news.sub.basic':'Centinaia di fonti, 2 min di ritardo su Basic',
+    'feat.cal.name':'Calendario Economico','feat.cal.sub':'Dati in diretta con valutazioni di impatto',
+    'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa di grafici, tutte le classi di asset',
+    'feat.multi.name':'Multilingue','feat.multi.sub':'Cambia lingua istantaneamente',
+    'panel.badge.pro':'Piano Pro · €40 / mese','panel.title.pro':'Attiva il tuo<br><span>abbonamento Pro.</span>',
+    'panel.desc.pro':'Accedi o crea un account gratuito — il checkout si apre automaticamente e sarai su Pro in pochi minuti.',
+    'panel.stat.price.label.pro':'Al mese Pro','panel.stat.assets.label':'Classi di asset analizzate','panel.stat.tv.label':'Canali TV in diretta',
+    'feat.news.name.pro':'Feed di Notizie in Tempo Reale','feat.news.sub.pro':'Senza ritardo, centinaia di fonti',
+    'feat.macro.name':'Macro & Bonds Hub','feat.macro.sub':'PIL, PMI, rendimenti, tassi delle banche centrali',
+    'feat.earnings.name':'Calendario Risultati','feat.earnings.sub':'EPS beat/miss in diretta alla pubblicazione',
+    'feat.cb.name':'Tracker Banche Centrali','feat.cb.sub':'Fed, ECB, BOE, BOJ, SNB & altro',
+    'feat.squawk.name':'Live Squawk & 7 Canali TV','feat.squawk.sub':'Avvisi audio + TV finanziaria in diretta',
+    'feat.screener.name':'Screener di Mercato','feat.screener.sub':'Forex, Azioni, Crypto, Indici & altro',
+    'tab.signin':'Accedi','tab.signup':'Crea Account',
+    'form.title.login.basic':'Bentornato','form.sub.login.basic':'Accedi per entrare nel tuo terminal',
+    'form.title.login.pro':'Completa la configurazione Pro','form.sub.login.pro':'Accedi per procedere al checkout',
+    'form.title.signup.basic':'Inizia gratuitamente','form.sub.signup.basic':'Nessuna carta richiesta — gratuito per sempre',
+    'form.title.signup.pro':'Crea il tuo account','form.sub.signup.pro':'Account creato? Il checkout si apre automaticamente dopo l\'accesso',
+    'form.title.forgot':'Reimposta la tua password','form.sub.forgot':'Inserisci la tua email e ti invieremo un link di reset',
+    'label.email':'Email','label.password':'Password','label.fullname':'Nome Completo','label.country':'Paese',
+    'ph.name':'Il tuo nome','ph.country':'Seleziona il tuo paese…','ph.password.new':'Min. 6 caratteri',
+    'btn.login.basic':'Accedi → Apri Terminal','btn.login.pro':'Accedi → Continua al Checkout',
+    'btn.signup.basic':'Crea Account Gratuito','btn.signup.pro':'Crea Account → Continua al Checkout',
+    'btn.forgot':'Invia Link di Reset','btn.signing':'Accesso in corso…','btn.creating':'Creazione account…','btn.sending':'Invio in corso…',
+    'link.forgot':'Password dimenticata?','link.back.login':'← Torna all\'accesso','link.resend':'Reinvia email di verifica',
+    'link.terms.agree':'Registrandoti accetti i nostri <a href="/terms">Termini di Utilizzo</a> e la nostra <a href="/privacy">Politica sulla Privacy</a>.',
+    'link.no.account':'Non hai un account? <a href="/login">Creane uno gratis →</a>',
+    'ben.news':'Feed di notizie con copertura di mercato in tempo reale','ben.cal':'Calendario economico in diretta e dati',
+    'ben.charts':'Grafici TradingView e watchlist asset','ben.free':'Nessuna carta di credito richiesta',
+    'ben.pro.news':'Notizie e dati di mercato in tempo reale senza ritardo','ben.pro.macro':'Macro & Bonds Hub · Calendario Risultati',
+    'ben.pro.cb':'Tracker Banche Centrali · Sentiment di Mercato','ben.pro.squawk':'Live Squawk · 7 Canali TV · Senza pubblicità',
+    'msg.email.not.verified':'Verifica la tua email prima di accedere. Controlla la tua casella di posta.',
+    'msg.connection.error':'Errore di connessione. Riprova.','msg.welcome.back':'Bentornato! Reindirizzamento…',
+    'msg.checkout.redirecting':'Reindirizzamento al checkout…','msg.checkout.error':'Impossibile avviare il checkout. Aggiorna dall\'interno del terminal.',
+    'msg.signup.pro':'Account creato! Verifica la tua email, poi accedi — il checkout si apre automaticamente.',
+    'msg.signup.basic':'Account creato! Controlla la tua email per verificare l\'account.',
+    'msg.password.short':'La password deve avere almeno 6 caratteri.','msg.email.required':'Per favore inserisci la tua email.',
+    'msg.enter.email.first':'Per favore inserisci prima la tua email sopra.','hint.password':'Minimo 6 caratteri',
+    'footer.terms':'Termini','footer.privacy':'Privacy','footer.pricing':'Prezzi','signin.badge':'Intelligence di Mercato in Diretta',
+  }
+};
+function _tl(key) {
+  const lang = localStorage.getItem('tnt_lang') || 'en';
+  return (_AUTH_STR[lang] || _AUTH_STR.en)[key] || _AUTH_STR.en[key] || key;
+}
+
 const BACKEND = 'https://trading-news-terminal-backend-production.up.railway.app';
 const APP_URL = 'https://app.tradingnewsterminal.com';
 
@@ -490,101 +768,58 @@ const PRO_PENDING  = localStorage.getItem('pendingPro') === '1';
 const PRO_FLOW    = PRO_FROM_URL;
 const PRO_CHECKOUT = PRO_FROM_URL || PRO_PENDING;
 
-const PRO_FEATURES_HTML = `
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📰</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Real-Time News Feed</div>
-      <div class="panel-feature-sub">Zero-delay from hundreds of sources</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📉</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Macro &amp; Bonds Hub</div>
-      <div class="panel-feature-sub">GDP, PMI, yields, central bank rates</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">💼</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Earnings Calendar</div>
-      <div class="panel-feature-sub">EPS beat/miss live as results drop</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">🏦</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Central Banks Tracker</div>
-      <div class="panel-feature-sub">Fed, ECB, BOE, BOJ, SNB &amp; more</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">📡</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Live Squawk &amp; 7 TV Channels</div>
-      <div class="panel-feature-sub">Hands-free audio alerts + live financial TV</div>
-    </div>
-  </li>
-  <li class="panel-feature">
-    <div class="panel-feature-icon">🔍</div>
-    <div class="panel-feature-content">
-      <div class="panel-feature-name">Market Screener</div>
-      <div class="panel-feature-sub">Forex, Stocks, Crypto, Indices &amp; more</div>
-    </div>
-  </li>
-`;
-
-const PRO_BENEFITS_HTML = `
-  <div class="benefit"><span class="icon">✓</span> Real-time zero-delay news &amp; market data</div>
-  <div class="benefit"><span class="icon">✓</span> Macro &amp; Bonds Hub · Earnings Calendar</div>
-  <div class="benefit"><span class="icon">✓</span> Central Banks Tracker · Market Sentiment</div>
-  <div class="benefit"><span class="icon">✓</span> Live Squawk · 7 TV Channels · Ad-free</div>
-`;
+function _buildProFeaturesHTML() {
+  return `
+  <li class="panel-feature"><div class="panel-feature-icon">📰</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.news.name.pro')}</div><div class="panel-feature-sub">${_tl('feat.news.sub.pro')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">📉</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.macro.name')}</div><div class="panel-feature-sub">${_tl('feat.macro.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">💼</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.earnings.name')}</div><div class="panel-feature-sub">${_tl('feat.earnings.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">🏦</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.cb.name')}</div><div class="panel-feature-sub">${_tl('feat.cb.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">📡</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.squawk.name')}</div><div class="panel-feature-sub">${_tl('feat.squawk.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">🔍</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.screener.name')}</div><div class="panel-feature-sub">${_tl('feat.screener.sub')}</div></div></li>`;
+}
+function _buildBasicFeaturesHTML() {
+  return `
+  <li class="panel-feature"><div class="panel-feature-icon">📰</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.news.name')}</div><div class="panel-feature-sub">${_tl('feat.news.sub.basic')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">📅</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.cal.name')}</div><div class="panel-feature-sub">${_tl('feat.cal.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">📊</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.charts.name')}</div><div class="panel-feature-sub">${_tl('feat.charts.sub')}</div></div></li>
+  <li class="panel-feature"><div class="panel-feature-icon">🌐</div><div class="panel-feature-content"><div class="panel-feature-name">${_tl('feat.multi.name')}</div><div class="panel-feature-sub">${_tl('feat.multi.sub')}</div></div></li>`;
+}
+function _buildProBenefitsHTML() {
+  return `
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.pro.news')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.pro.macro')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.pro.cb')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.pro.squawk')}</div>`;
+}
+function _buildBasicBenefitsHTML() {
+  return `
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.news')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.cal')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.charts')}</div>
+  <div class="benefit"><span class="icon">✓</span> ${_tl('ben.free')}</div>`;
+}
 
 function _initProFlow() {
   if (!PRO_FLOW) return;
-
   localStorage.setItem('pendingPro', '1');
-
   // Apply Pro theme to entire layout
   document.getElementById('auth-layout').classList.add('pro-flow');
-
   // Update left panel
-  document.getElementById('panel-badge').textContent = 'Pro Plan · €40 / month';
-  document.getElementById('panel-title').innerHTML = 'Activate your<br><span>Pro subscription.</span>';
-  document.getElementById('panel-desc').textContent = 'Sign in or create a free account — checkout opens automatically and you\'ll be on Pro within minutes.';
-  document.getElementById('panel-features').innerHTML = PRO_FEATURES_HTML;
+  document.getElementById('panel-badge').textContent = _tl('panel.badge.pro');
+  document.getElementById('panel-title').innerHTML = _tl('panel.title.pro');
+  document.getElementById('panel-desc').textContent = _tl('panel.desc.pro');
+  document.getElementById('panel-features').innerHTML = _buildProFeaturesHTML();
   document.getElementById('panel-stats').innerHTML = `
-    <div class="panel-stat">
-      <div class="panel-stat-num">€40</div>
-      <div class="panel-stat-label">Per month Pro</div>
-    </div>
-    <div class="panel-stat">
-      <div class="panel-stat-num">6</div>
-      <div class="panel-stat-label">Asset classes screened</div>
-    </div>
-    <div class="panel-stat">
-      <div class="panel-stat-num">7</div>
-      <div class="panel-stat-label">Live TV channels</div>
-    </div>
-  `;
-
-  // Update right panel headings
-  document.getElementById('form-title').textContent = 'Complete your Pro setup';
-  document.getElementById('form-sub').textContent = 'Sign in or create an account to continue to checkout';
-
+    <div class="panel-stat"><div class="panel-stat-num">€40</div><div class="panel-stat-label">${_tl('panel.stat.price.label.pro')}</div></div>
+    <div class="panel-stat"><div class="panel-stat-num">6</div><div class="panel-stat-label">${_tl('panel.stat.assets.label')}</div></div>
+    <div class="panel-stat"><div class="panel-stat-num">7</div><div class="panel-stat-label">${_tl('panel.stat.tv.label')}</div></div>`;
   // Update signup benefits
-  document.getElementById('signup-benefits').innerHTML = PRO_BENEFITS_HTML;
-
-  // Update button labels
-  document.getElementById('btn-login').textContent = 'Sign In → Continue to Checkout';
-  document.getElementById('btn-signup').textContent = 'Create Account → Continue to Checkout';
+  document.getElementById('signup-benefits').innerHTML = _buildProBenefitsHTML();
 }
 
 // ── STRIPE REDIRECT ─────────────────────────────────────────────────────────
 async function _redirectToCheckout(token) {
-  showMsg('Redirecting to checkout…', 'success');
+  showMsg(_tl('msg.checkout.redirecting'), 'success');
   try {
     const r = await fetch(BACKEND + '/create-checkout-session', {
       method: 'POST',
@@ -596,14 +831,14 @@ async function _redirectToCheckout(token) {
       localStorage.removeItem('pendingPro');
       window.location.href = data.url;
     } else {
-      showMsg('Could not start checkout. Please upgrade from inside the terminal.', 'error');
+      showMsg(_tl('msg.checkout.error'), 'error');
       setTimeout(() => {
         localStorage.removeItem('pendingPro');
         window.location.href = APP_URL + '#token=' + encodeURIComponent(token);
       }, 2500);
     }
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   }
 }
 
@@ -615,13 +850,12 @@ function showTab(tab) {
   document.getElementById('form-forgot').style.display = 'none';
   document.getElementById('form-signup').style.display = tab==='signup' ? '' : 'none';
   document.getElementById('resend-wrap').style.display = 'none';
-  // Update heading context
   if (tab === 'login') {
-    document.getElementById('form-title').textContent = PRO_FLOW ? 'Complete your Pro setup' : 'Welcome back';
-    document.getElementById('form-sub').textContent = PRO_FLOW ? 'Sign in to continue to checkout' : 'Sign in to access your terminal';
+    document.getElementById('form-title').textContent = PRO_FLOW ? _tl('form.title.login.pro') : _tl('form.title.login.basic');
+    document.getElementById('form-sub').textContent   = PRO_FLOW ? _tl('form.sub.login.pro')   : _tl('form.sub.login.basic');
   } else {
-    document.getElementById('form-title').textContent = PRO_FLOW ? 'Create your account' : 'Start for free';
-    document.getElementById('form-sub').textContent = PRO_FLOW ? 'Account created? Checkout opens automatically after sign-in' : 'No credit card required — free forever';
+    document.getElementById('form-title').textContent = PRO_FLOW ? _tl('form.title.signup.pro') : _tl('form.title.signup.basic');
+    document.getElementById('form-sub').textContent   = PRO_FLOW ? _tl('form.sub.signup.pro')   : _tl('form.sub.signup.basic');
   }
   clearMsg();
 }
@@ -632,8 +866,8 @@ function showForgot() {
   document.getElementById('form-forgot').style.display = '';
   document.getElementById('tab-login').classList.remove('active');
   document.getElementById('tab-signup').classList.remove('active');
-  document.getElementById('form-title').textContent = 'Reset your password';
-  document.getElementById('form-sub').textContent = 'Enter your email and we\'ll send a reset link';
+  document.getElementById('form-title').textContent = _tl('form.title.forgot');
+  document.getElementById('form-sub').textContent   = _tl('form.sub.forgot');
   clearMsg();
 }
 
@@ -652,7 +886,7 @@ async function handleLogin(e) {
   e.preventDefault();
   clearMsg();
   const btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Signing in…';
+  btn.disabled = true; btn.textContent = _tl('btn.signing');
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
   try {
@@ -664,7 +898,7 @@ async function handleLogin(e) {
     if (!r.ok) {
       if (data.detail === 'EMAIL_NOT_VERIFIED') {
         _lastUnverifiedEmail = email;
-        showMsg('Please verify your email before signing in. Check your inbox.', 'error');
+        showMsg(_tl('msg.email.not.verified'), 'error');
         document.getElementById('resend-wrap').style.display = 'block';
       } else {
         showMsg(data.detail || 'Invalid email or password', 'error');
@@ -674,15 +908,15 @@ async function handleLogin(e) {
     if (PRO_CHECKOUT) {
       await _redirectToCheckout(data.token);
     } else {
-      showMsg('Welcome back! Redirecting…', 'success');
+      showMsg(_tl('msg.welcome.back'), 'success');
       const user = encodeURIComponent(JSON.stringify({email:data.email, name:data.name, plan:data.plan}));
       setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
     }
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = PRO_FLOW ? 'Sign In → Continue to Checkout' : 'Sign In → Open Terminal';
+    btn.textContent = PRO_FLOW ? _tl('btn.login.pro') : _tl('btn.login.basic');
   }
 }
 
@@ -691,15 +925,15 @@ async function handleSignup(e) {
   e.preventDefault();
   clearMsg();
   const btn = document.getElementById('btn-signup');
-  btn.disabled = true; btn.textContent = 'Creating account…';
+  btn.disabled = true; btn.textContent = _tl('btn.creating');
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
   const name = document.getElementById('signup-name').value.trim();
   const country = document.getElementById('signup-country').value;
   if (password.length < 6) {
-    showMsg('Password must be at least 6 characters.', 'error');
-    btn.disabled=false;
-    btn.textContent = PRO_FLOW ? 'Create Account → Continue to Checkout' : 'Create Free Account';
+    showMsg(_tl('msg.password.short'), 'error');
+    btn.disabled = false;
+    btn.textContent = PRO_FLOW ? _tl('btn.signup.pro') : _tl('btn.signup.basic');
     return;
   }
   try {
@@ -710,17 +944,13 @@ async function handleSignup(e) {
     const data = await r.json();
     if (!r.ok) { showMsg(data.detail || 'Signup failed. Please try again.', 'error'); return; }
     _lastUnverifiedEmail = email;
-    if (PRO_CHECKOUT) {
-      showMsg('Account created! Verify your email, then sign in — checkout opens automatically.', 'success');
-    } else {
-      showMsg('Account created! Please check your email to verify your account.', 'success');
-    }
+    showMsg(PRO_CHECKOUT ? _tl('msg.signup.pro') : _tl('msg.signup.basic'), 'success');
     setTimeout(() => { document.getElementById('resend-wrap').style.display = 'block'; }, 3000);
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = PRO_FLOW ? 'Create Account → Continue to Checkout' : 'Create Free Account';
+    btn.textContent = PRO_FLOW ? _tl('btn.signup.pro') : _tl('btn.signup.basic');
   }
 }
 
@@ -729,8 +959,8 @@ async function handleForgot() {
   clearMsg();
   const btn = document.getElementById('btn-forgot');
   const email = document.getElementById('forgot-email').value.trim();
-  if (!email) { showMsg('Please enter your email.', 'error'); return; }
-  btn.disabled = true; btn.textContent = 'Sending…';
+  if (!email) { showMsg(_tl('msg.email.required'), 'error'); return; }
+  btn.disabled = true; btn.textContent = _tl('btn.sending');
   try {
     const r = await fetch(BACKEND+'/auth/request-password-reset', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -739,16 +969,16 @@ async function handleForgot() {
     const data = await r.json();
     showMsg(data.message || 'If this email is registered, a reset link has been sent.', 'success');
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
   } finally {
-    btn.disabled = false; btn.textContent = 'Send Reset Link';
+    btn.disabled = false; btn.textContent = _tl('btn.forgot');
   }
 }
 
 // ── RESEND VERIFICATION ──────────────────────────────────────────────────────
 async function handleResendVerification() {
   const email = _lastUnverifiedEmail || document.getElementById('login-email').value.trim();
-  if (!email) { showMsg('Please enter your email above first.', 'error'); return; }
+  if (!email) { showMsg(_tl('msg.enter.email.first'), 'error'); return; }
   try {
     const r = await fetch(BACKEND+'/auth/resend-verification', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -758,7 +988,73 @@ async function handleResendVerification() {
     showMsg(data.message || 'Verification email sent.', 'success');
     document.getElementById('resend-wrap').style.display = 'none';
   } catch(err) {
-    showMsg('Connection error. Please try again.', 'error');
+    showMsg(_tl('msg.connection.error'), 'error');
+  }
+}
+
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
+function _applyAuthTranslations() {
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => document.querySelectorAll(s);
+  const lbl = (f) => $(`label[for="${f}"]`);
+
+  // Logo & topbar
+  const ls = $('.panel-logo-sub'); if(ls) ls.textContent = _tl('logo.sub');
+  const tl = $('.form-topbar-link'); if(tl) tl.textContent = _tl('topbar.back');
+
+  // Left panel (basic flow; pro flow overrides in _initProFlow)
+  if (!PRO_FLOW) {
+    document.getElementById('panel-badge').textContent = _tl('panel.badge.basic');
+    document.getElementById('panel-title').innerHTML   = _tl('panel.title.basic');
+    document.getElementById('panel-desc').textContent  = _tl('panel.desc.basic');
+    document.getElementById('panel-features').innerHTML = _buildBasicFeaturesHTML();
+    document.getElementById('panel-stats').innerHTML = `
+      <div class="panel-stat"><div class="panel-stat-num">€0</div><div class="panel-stat-label">${_tl('panel.stat.price.label.basic')}</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">30s</div><div class="panel-stat-label">${_tl('panel.stat.time.label')}</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">24/7</div><div class="panel-stat-label">${_tl('panel.stat.coverage.label')}</div></div>`;
+    const ben = document.getElementById('signup-benefits'); if(ben) ben.innerHTML = _buildBasicBenefitsHTML();
+  }
+
+  // Tabs
+  document.getElementById('tab-login').textContent  = _tl('tab.signin');
+  document.getElementById('tab-signup').textContent = _tl('tab.signup');
+
+  // Form labels
+  ['login-email','forgot-email','signup-email'].forEach(f => { const l=lbl(f); if(l) l.textContent=_tl('label.email'); });
+  ['login-password','signup-password'].forEach(f => { const l=lbl(f); if(l) l.textContent=_tl('label.password'); });
+  const ln=lbl('signup-name'); if(ln) ln.textContent=_tl('label.fullname');
+  const lc=lbl('signup-country'); if(lc) lc.textContent=_tl('label.country');
+
+  // Placeholders & hints
+  const inp = (id) => document.getElementById(id);
+  if(inp('signup-name'))     inp('signup-name').placeholder     = _tl('ph.name');
+  if(inp('signup-password')) inp('signup-password').placeholder = _tl('ph.password.new');
+  const opt=$('#signup-country option[value=""]'); if(opt) opt.textContent=_tl('ph.country');
+  const hint=$('.form-hint'); if(hint) hint.textContent=_tl('hint.password');
+
+  // Buttons (only if not mid-flight)
+  const bl=document.getElementById('btn-login');   if(bl&&!bl.disabled) bl.textContent = PRO_FLOW ? _tl('btn.login.pro')  : _tl('btn.login.basic');
+  const bs=document.getElementById('btn-signup');  if(bs&&!bs.disabled) bs.textContent = PRO_FLOW ? _tl('btn.signup.pro') : _tl('btn.signup.basic');
+  const bf=document.getElementById('btn-forgot');  if(bf&&!bf.disabled) bf.textContent = _tl('btn.forgot');
+
+  // Links
+  const fl=$('.forgot-link'); if(fl) fl.textContent=_tl('link.forgot');
+  const bkl=$('.back-link');  if(bkl) bkl.textContent=_tl('link.back.login');
+  const rl=$('.resend-link'); if(rl) rl.textContent=_tl('link.resend');
+
+  // Footer note & bottom bar
+  const fn=$('.auth-footer-note'); if(fn) fn.innerHTML=_tl('link.terms.agree');
+  const fb=$('.form-bottom');
+  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); if(as[2]) as[2].textContent=_tl('footer.pricing'); }
+
+  // Refresh form title/sub
+  const forgotVisible = document.getElementById('form-forgot').style.display !== 'none';
+  if (forgotVisible) {
+    document.getElementById('form-title').textContent = _tl('form.title.forgot');
+    document.getElementById('form-sub').textContent   = _tl('form.sub.forgot');
+  } else {
+    const activeTab = document.getElementById('tab-login').classList.contains('active') ? 'login' : 'signup';
+    showTab(activeTab);
   }
 }
 
@@ -766,6 +1062,8 @@ async function handleResendVerification() {
 if (_params.get('plan') === 'pro') showTab('signup');
 else if (location.search.includes('signup')) showTab('signup');
 _initProFlow();
+_applyAuthTranslations();
+
 function _tpwd(id, btn) {
   const inp = document.getElementById(id);
   if (!inp) return;
