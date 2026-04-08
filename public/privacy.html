@@ -121,19 +121,21 @@ footer a:hover{color:var(--accent);}
     <div class="nav-logo-icon"></div>
     <div>
       <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
-      <div class="nav-logo-sub">Real-time Market Intelligence</div>
+      <div class="nav-logo-sub" id="logo-sub">Real-time Market Intelligence</div>
     </div>
   </a>
-  <a href="/" class="nav-back">← Back to home</a>
+  <a href="/" class="nav-back" id="nav-back">← Back to home</a>
 </nav>
+
+<div id="lang-notice" style="display:none;background:rgba(167,139,250,0.08);border-bottom:1px solid rgba(167,139,250,0.2);padding:10px 32px;font-size:12px;color:#a78bfa;text-align:center;"></div>
 
 <div class="page-wrap">
 
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-scroll">
-      <div class="sidebar-label">Contents</div>
-      <nav class="sidebar-nav">
+      <div class="sidebar-label" id="sidebar-label">Contents</div>
+      <nav class="sidebar-nav" id="sidebar-nav">
         <a href="#controller" class="sidebar-link">1. Data Controller</a>
         <a href="#data-collected" class="sidebar-link">2. Data We Collect</a>
         <a href="#legal-basis" class="sidebar-link">3. Legal Basis</a>
@@ -151,15 +153,15 @@ footer a:hover{color:var(--accent);}
     </div>
     <div class="sidebar-footer">
       <div class="sidebar-meta">
-        <p>Effective: 1 April 2026<br>Last updated: 6 April 2026</p>
-        <a href="/terms">→ Terms of Use</a>
+        <p id="sidebar-dates">Effective: 1 April 2026<br>Last updated: 6 April 2026</p>
+        <a href="/terms" id="sidebar-terms">→ Terms of Use</a>
       </div>
       <div class="gdpr-box">
-        <div class="gdpr-box-title">Your GDPR Rights</div>
-        <a href="#your-rights">→ Right of Access</a>
-        <a href="#your-rights">→ Right to Erasure</a>
-        <a href="#your-rights">→ Data Portability</a>
-        <a href="#contact-privacy">→ Submit a Request</a>
+        <div class="gdpr-box-title" id="gdpr-box-title">Your GDPR Rights</div>
+        <a href="#your-rights" id="gdpr-access">→ Right of Access</a>
+        <a href="#your-rights" id="gdpr-erasure">→ Right to Erasure</a>
+        <a href="#your-rights" id="gdpr-portability">→ Data Portability</a>
+        <a href="#contact-privacy" id="gdpr-submit">→ Submit a Request</a>
       </div>
     </div>
   </aside>
@@ -168,10 +170,10 @@ footer a:hover{color:var(--accent);}
   <main class="legal-content">
 
     <div class="legal-header">
-      <div class="legal-badge">GDPR Compliant</div>
-      <h1 class="legal-title">Privacy Policy</h1>
-      <p class="legal-subtitle">We are committed to protecting your personal data and respecting your privacy. This policy explains how Trading News Terminal collects, uses, stores, and protects your information in compliance with the General Data Protection Regulation (GDPR) and applicable Portuguese data protection law.</p>
-      <div class="legal-updated">Last updated: 6 April 2026 · Version 1.0</div>
+      <div class="legal-badge" id="legal-badge">GDPR Compliant</div>
+      <h1 class="legal-title" id="legal-title">Privacy Policy</h1>
+      <p class="legal-subtitle" id="legal-subtitle">We are committed to protecting your personal data and respecting your privacy. This policy explains how Trading News Terminal collects, uses, stores, and protects your information in compliance with the General Data Protection Regulation (GDPR) and applicable Portuguese data protection law.</p>
+      <div class="legal-updated" id="legal-updated">Last updated: 6 April 2026 · Version 1.0</div>
     </div>
 
     <!-- 1. Controller -->
@@ -485,16 +487,200 @@ footer a:hover{color:var(--accent);}
 </div>
 
 <footer>
-  <span>© 2026 Trading News Terminal. All rights reserved.</span>
+  <span id="footer-copy">© 2026 Trading News Terminal. All rights reserved.</span>
   <span>
-    <a href="/terms">Terms of Use</a>
-    <a href="/privacy">Privacy Policy</a>
-    <a href="/">Home</a>
-    <a href="/login.html">Sign In</a>
+    <a href="/terms" id="footer-terms">Terms of Use</a>
+    <a href="/privacy" id="footer-privacy">Privacy Policy</a>
+    <a href="/" id="footer-home">Home</a>
+    <a href="/login.html" id="footer-signin">Sign In</a>
   </span>
 </footer>
 
 <script>
+// ── PRIVACY i18n ──────────────────────────────────────────────────────────────
+const _PT = {
+  en: {
+    'logo.sub':'Real-time Market Intelligence','nav.back':'← Back to home',
+    'sidebar.label':'Contents','sidebar.dates':'Effective: 1 April 2026<br>Last updated: 6 April 2026',
+    'sidebar.terms':'→ Terms of Use',
+    'gdpr.title':'Your GDPR Rights','gdpr.access':'→ Right of Access','gdpr.erasure':'→ Right to Erasure',
+    'gdpr.portability':'→ Data Portability','gdpr.submit':'→ Submit a Request',
+    'legal.badge':'GDPR Compliant','legal.title':'Privacy Policy',
+    'legal.subtitle':'We are committed to protecting your personal data and respecting your privacy. This policy explains how Trading News Terminal collects, uses, stores, and protects your information in compliance with the General Data Protection Regulation (GDPR) and applicable Portuguese data protection law.',
+    'legal.updated':'Last updated: 6 April 2026 · Version 1.0',
+    's1':'Data Controller','s2':'Data We Collect','s3':'Legal Basis for Processing',
+    's4':'How We Use Your Data','s5':'Data Sharing & Third Parties','s6':'Data Retention',
+    's7':'Data Security','s8':'Your Rights Under GDPR','s9':'Cookies & Tracking Technologies',
+    's10':'International Data Transfers','s11':'Children\'s Privacy','s12':'Changes to This Policy',
+    's13':'Contact & Data Requests',
+    'footer.copy':'© 2026 Trading News Terminal. All rights reserved.',
+    'footer.terms':'Terms of Use','footer.privacy':'Privacy Policy','footer.home':'Home','footer.signin':'Sign In',
+    'notice':'',
+  },
+  pt: {
+    'logo.sub':'Inteligência de Mercado em Tempo Real','nav.back':'← Voltar para o início',
+    'sidebar.label':'Conteúdo','sidebar.dates':'Vigência: 1 de Abril de 2026<br>Última atualização: 6 de Abril de 2026',
+    'sidebar.terms':'→ Termos de Utilização',
+    'gdpr.title':'Os Teus Direitos RGPD','gdpr.access':'→ Direito de Acesso','gdpr.erasure':'→ Direito ao Apagamento',
+    'gdpr.portability':'→ Portabilidade de Dados','gdpr.submit':'→ Submeter um Pedido',
+    'legal.badge':'Conforme RGPD','legal.title':'Política de Privacidade',
+    'legal.subtitle':'Estamos comprometidos com a proteção dos teus dados pessoais e o respeito pela tua privacidade. Esta política explica como a Trading News Terminal recolhe, utiliza, armazena e protege as tuas informações em conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD) e a legislação portuguesa aplicável.',
+    'legal.updated':'Última atualização: 6 de Abril de 2026 · Versão 1.0',
+    's1':'Responsável pelo Tratamento','s2':'Dados que Recolhemos','s3':'Base Legal para o Tratamento',
+    's4':'Como Utilizamos os Teus Dados','s5':'Partilha de Dados e Terceiros','s6':'Retenção de Dados',
+    's7':'Segurança dos Dados','s8':'Os Teus Direitos ao Abrigo do RGPD','s9':'Cookies e Tecnologias de Rastreamento',
+    's10':'Transferências Internacionais de Dados','s11':'Privacidade de Menores','s12':'Alterações a Esta Política',
+    's13':'Contacto e Pedidos de Dados',
+    'footer.copy':'© 2026 Trading News Terminal. Todos os direitos reservados.',
+    'footer.terms':'Termos de Utilização','footer.privacy':'Política de Privacidade','footer.home':'Início','footer.signin':'Iniciar Sessão',
+    'notice':'Este documento legal é disponibilizado em inglês. A versão em inglês é a versão juridicamente vinculativa.',
+  },
+  es: {
+    'logo.sub':'Inteligencia de Mercado en Tiempo Real','nav.back':'← Volver al inicio',
+    'sidebar.label':'Contenido','sidebar.dates':'Vigencia: 1 de abril de 2026<br>Última actualización: 6 de abril de 2026',
+    'sidebar.terms':'→ Términos de Uso',
+    'gdpr.title':'Tus Derechos RGPD','gdpr.access':'→ Derecho de Acceso','gdpr.erasure':'→ Derecho al Olvido',
+    'gdpr.portability':'→ Portabilidad de Datos','gdpr.submit':'→ Enviar una Solicitud',
+    'legal.badge':'Conforme con RGPD','legal.title':'Política de Privacidad',
+    'legal.subtitle':'Nos comprometemos a proteger tus datos personales y respetar tu privacidad. Esta política explica cómo Trading News Terminal recopila, usa, almacena y protege tu información de conformidad con el Reglamento General de Protección de Datos (RGPD) y la legislación portuguesa aplicable.',
+    'legal.updated':'Última actualización: 6 de abril de 2026 · Versión 1.0',
+    's1':'Responsable del Tratamiento','s2':'Datos que Recopilamos','s3':'Base Legal para el Tratamiento',
+    's4':'Cómo Usamos tus Datos','s5':'Compartición de Datos y Terceros','s6':'Retención de Datos',
+    's7':'Seguridad de los Datos','s8':'Tus Derechos bajo el RGPD','s9':'Cookies y Tecnologías de Seguimiento',
+    's10':'Transferencias Internacionales de Datos','s11':'Privacidad de Menores','s12':'Cambios en Esta Política',
+    's13':'Contacto y Solicitudes de Datos',
+    'footer.copy':'© 2026 Trading News Terminal. Todos los derechos reservados.',
+    'footer.terms':'Términos de Uso','footer.privacy':'Política de Privacidad','footer.home':'Inicio','footer.signin':'Iniciar Sesión',
+    'notice':'Este documento legal se proporciona en inglés. La versión en inglés es la versión legalmente vinculante.',
+  },
+  fr: {
+    'logo.sub':'Intelligence de Marché en Temps Réel','nav.back':'← Retour à l\'accueil',
+    'sidebar.label':'Sommaire','sidebar.dates':'En vigueur : 1er avril 2026<br>Dernière mise à jour : 6 avril 2026',
+    'sidebar.terms':'→ Conditions d\'utilisation',
+    'gdpr.title':'Vos droits RGPD','gdpr.access':'→ Droit d\'accès','gdpr.erasure':'→ Droit à l\'effacement',
+    'gdpr.portability':'→ Portabilité des données','gdpr.submit':'→ Soumettre une demande',
+    'legal.badge':'Conforme au RGPD','legal.title':'Politique de Confidentialité',
+    'legal.subtitle':'Nous nous engageons à protéger vos données personnelles et à respecter votre vie privée. Cette politique explique comment Trading News Terminal collecte, utilise, stocke et protège vos informations conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi portugaise applicable.',
+    'legal.updated':'Dernière mise à jour : 6 avril 2026 · Version 1.0',
+    's1':'Responsable du traitement','s2':'Données collectées','s3':'Base légale du traitement',
+    's4':'Utilisation de vos données','s5':'Partage des données et tiers','s6':'Conservation des données',
+    's7':'Sécurité des données','s8':'Vos droits au titre du RGPD','s9':'Cookies et technologies de suivi',
+    's10':'Transferts internationaux de données','s11':'Protection des mineurs','s12':'Modifications de cette politique',
+    's13':'Contact et demandes de données',
+    'footer.copy':'© 2026 Trading News Terminal. Tous droits réservés.',
+    'footer.terms':'Conditions d\'utilisation','footer.privacy':'Politique de confidentialité','footer.home':'Accueil','footer.signin':'Connexion',
+    'notice':'Ce document juridique est fourni en anglais. La version anglaise est la version juridiquement contraignante.',
+  },
+  de: {
+    'logo.sub':'Echtzeit-Marktintelligenz','nav.back':'← Zurück zur Startseite',
+    'sidebar.label':'Inhalt','sidebar.dates':'Gültig ab: 1. April 2026<br>Zuletzt aktualisiert: 6. April 2026',
+    'sidebar.terms':'→ Nutzungsbedingungen',
+    'gdpr.title':'Deine DSGVO-Rechte','gdpr.access':'→ Auskunftsrecht','gdpr.erasure':'→ Recht auf Löschung',
+    'gdpr.portability':'→ Datenportabilität','gdpr.submit':'→ Anfrage stellen',
+    'legal.badge':'DSGVO-konform','legal.title':'Datenschutzrichtlinie',
+    'legal.subtitle':'Wir sind dem Schutz deiner persönlichen Daten und der Achtung deiner Privatsphäre verpflichtet. Diese Richtlinie erklärt, wie Trading News Terminal deine Informationen gemäß der Datenschutz-Grundverordnung (DSGVO) und dem geltenden portugiesischen Datenschutzrecht erhebt, verwendet, speichert und schützt.',
+    'legal.updated':'Zuletzt aktualisiert: 6. April 2026 · Version 1.0',
+    's1':'Verantwortlicher','s2':'Erhobene Daten','s3':'Rechtsgrundlage der Verarbeitung',
+    's4':'Verwendung deiner Daten','s5':'Datenweitergabe und Dritte','s6':'Datenspeicherung',
+    's7':'Datensicherheit','s8':'Deine Rechte nach der DSGVO','s9':'Cookies und Tracking-Technologien',
+    's10':'Internationale Datenübertragungen','s11':'Datenschutz für Minderjährige','s12':'Änderungen dieser Richtlinie',
+    's13':'Kontakt und Datenanfragen',
+    'footer.copy':'© 2026 Trading News Terminal. Alle Rechte vorbehalten.',
+    'footer.terms':'Nutzungsbedingungen','footer.privacy':'Datenschutzrichtlinie','footer.home':'Startseite','footer.signin':'Anmelden',
+    'notice':'Dieses rechtliche Dokument wird auf Englisch bereitgestellt. Die englische Version ist die rechtsverbindliche Version.',
+  },
+  it: {
+    'logo.sub':'Intelligence di Mercato in Tempo Reale','nav.back':'← Torna alla home',
+    'sidebar.label':'Contenuto','sidebar.dates':'In vigore: 1 aprile 2026<br>Ultimo aggiornamento: 6 aprile 2026',
+    'sidebar.terms':'→ Termini di Utilizzo',
+    'gdpr.title':'I tuoi diritti GDPR','gdpr.access':'→ Diritto di accesso','gdpr.erasure':'→ Diritto alla cancellazione',
+    'gdpr.portability':'→ Portabilità dei dati','gdpr.submit':'→ Invia una richiesta',
+    'legal.badge':'Conforme al GDPR','legal.title':'Politica sulla Privacy',
+    'legal.subtitle':'Ci impegniamo a proteggere i tuoi dati personali e a rispettare la tua privacy. Questa politica spiega come Trading News Terminal raccoglie, utilizza, archivia e protegge le tue informazioni in conformità con il Regolamento Generale sulla Protezione dei Dati (GDPR) e la legge portoghese applicabile.',
+    'legal.updated':'Ultimo aggiornamento: 6 aprile 2026 · Versione 1.0',
+    's1':'Titolare del trattamento','s2':'Dati raccolti','s3':'Base giuridica del trattamento',
+    's4':'Come utilizziamo i tuoi dati','s5':'Condivisione dei dati e terze parti','s6':'Conservazione dei dati',
+    's7':'Sicurezza dei dati','s8':'I tuoi diritti ai sensi del GDPR','s9':'Cookie e tecnologie di tracciamento',
+    's10':'Trasferimenti internazionali di dati','s11':'Privacy dei minori','s12':'Modifiche a questa politica',
+    's13':'Contatto e richieste di dati',
+    'footer.copy':'© 2026 Trading News Terminal. Tutti i diritti riservati.',
+    'footer.terms':'Termini di Utilizzo','footer.privacy':'Politica sulla Privacy','footer.home':'Home','footer.signin':'Accedi',
+    'notice':'Questo documento legale è fornito in inglese. La versione in inglese è la versione legalmente vincolante.',
+  }
+};
+function _tl(key) {
+  const lang = (localStorage.getItem('tnt_lang')||'en').toLowerCase();
+  const dict = _PT[lang] || _PT['en'];
+  return (dict && dict[key] !== undefined) ? dict[key] : (_PT['en'][key] || key);
+}
+function _applyPrivacyTranslations() {
+  const $=id=>document.getElementById(id);
+  const lang = (localStorage.getItem('tnt_lang')||'en').toLowerCase();
+
+  // Nav & logo
+  if($('logo-sub')) $('logo-sub').textContent=_tl('logo.sub');
+  if($('nav-back')) $('nav-back').textContent=_tl('nav.back');
+
+  // Sidebar
+  if($('sidebar-label')) $('sidebar-label').textContent=_tl('sidebar.label');
+  if($('sidebar-dates')) $('sidebar-dates').innerHTML=_tl('sidebar.dates');
+  if($('sidebar-terms')) $('sidebar-terms').textContent=_tl('sidebar.terms');
+
+  // GDPR box
+  if($('gdpr-box-title')) $('gdpr-box-title').textContent=_tl('gdpr.title');
+  if($('gdpr-access')) $('gdpr-access').textContent=_tl('gdpr.access');
+  if($('gdpr-erasure')) $('gdpr-erasure').textContent=_tl('gdpr.erasure');
+  if($('gdpr-portability')) $('gdpr-portability').textContent=_tl('gdpr.portability');
+  if($('gdpr-submit')) $('gdpr-submit').textContent=_tl('gdpr.submit');
+
+  // Legal header
+  if($('legal-badge')) $('legal-badge').textContent=_tl('legal.badge');
+  if($('legal-title')) $('legal-title').textContent=_tl('legal.title');
+  if($('legal-subtitle')) $('legal-subtitle').textContent=_tl('legal.subtitle');
+  if($('legal-updated')) $('legal-updated').textContent=_tl('legal.updated');
+
+  // Section headings (preserve section-num span)
+  const secMap = {
+    'controller':'s1','data-collected':'s2','legal-basis':'s3','how-we-use':'s4',
+    'sharing':'s5','retention':'s6','security':'s7','your-rights':'s8',
+    'cookies':'s9','international':'s10','children':'s11','changes-privacy':'s12','contact-privacy':'s13'
+  };
+  Object.entries(secMap).forEach(([id,key]) => {
+    const sec=document.getElementById(id); if(!sec) return;
+    const h2=sec.querySelector('h2'); if(!h2) return;
+    const num=h2.querySelector('.section-num');
+    if(num) { h2.innerHTML=''; h2.appendChild(num); h2.appendChild(document.createTextNode(' '+_tl(key))); }
+    else { h2.textContent=_tl(key); }
+  });
+
+  // Sidebar nav links (by href matching section IDs)
+  const sidebarNav=document.getElementById('sidebar-nav');
+  if(sidebarNav) {
+    Object.entries(secMap).forEach(([id,key]) => {
+      const a=sidebarNav.querySelector('a[href="#'+id+'"]');
+      if(a) {
+        const numMatch=a.textContent.match(/^\d+\.\s*/);
+        const prefix=numMatch?numMatch[0]:'';
+        a.textContent=prefix+_tl(key);
+      }
+    });
+  }
+
+  // Footer
+  if($('footer-copy')) $('footer-copy').textContent=_tl('footer.copy');
+  if($('footer-terms')) $('footer-terms').textContent=_tl('footer.terms');
+  if($('footer-privacy')) $('footer-privacy').textContent=_tl('footer.privacy');
+  if($('footer-home')) $('footer-home').textContent=_tl('footer.home');
+  if($('footer-signin')) $('footer-signin').textContent=_tl('footer.signin');
+
+  // Language notice
+  const notice=$('lang-notice');
+  const noticeText=_tl('notice');
+  if(notice) { if(lang!=='en'&&noticeText){ notice.textContent=noticeText; notice.style.display='block'; } else { notice.style.display='none'; } }
+}
+_applyPrivacyTranslations();
+
+// ── ACTIVE SIDEBAR LINK (intersection observer) ───────────────────────────────
 const sections = document.querySelectorAll('.legal-section');
 const links = document.querySelectorAll('.sidebar-link');
 const observer = new IntersectionObserver((entries) => {

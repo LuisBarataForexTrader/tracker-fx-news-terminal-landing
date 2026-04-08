@@ -466,8 +466,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
       <span>© 2026 Trading News Terminal</span>
       <span>
         <a href="/terms">Terms</a> &nbsp;·&nbsp;
-        <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
-        <a href="#pricing">Pricing</a>
+        <a href="/privacy">Privacy</a>
       </span>
     </div>
 
@@ -1019,11 +1018,14 @@ function _applyAuthTranslations() {
   document.getElementById('tab-login').textContent  = _tl('tab.signin');
   document.getElementById('tab-signup').textContent = _tl('tab.signup');
 
-  // Form labels
-  ['login-email','forgot-email','signup-email'].forEach(f => { const l=lbl(f); if(l) l.textContent=_tl('label.email'); });
-  ['login-password','signup-password'].forEach(f => { const l=lbl(f); if(l) l.textContent=_tl('label.password'); });
-  const ln=lbl('signup-name'); if(ln) ln.textContent=_tl('label.fullname');
-  const lc=lbl('signup-country'); if(lc) lc.textContent=_tl('label.country');
+  // Form labels (signup labels keep the required asterisk via innerHTML)
+  const _star='<span style="color:#ff3b5c;">*</span>';
+  ['login-email','forgot-email'].forEach(f => { const l=lbl(f); if(l) l.textContent=_tl('label.email'); });
+  const seL=lbl('signup-email'); if(seL) seL.innerHTML=_tl('label.email')+' '+_star;
+  const lpL=lbl('login-password'); if(lpL) lpL.textContent=_tl('label.password');
+  const spL=lbl('signup-password'); if(spL) spL.innerHTML=_tl('label.password')+' '+_star;
+  const ln=lbl('signup-name'); if(ln) ln.innerHTML=_tl('label.fullname')+' '+_star;
+  const lc=lbl('signup-country'); if(lc) lc.innerHTML=_tl('label.country')+' '+_star;
 
   // Placeholders & hints
   const inp = (id) => document.getElementById(id);
@@ -1045,7 +1047,7 @@ function _applyAuthTranslations() {
   // Footer note & bottom bar
   const fn=$('.auth-footer-note'); if(fn) fn.innerHTML=_tl('link.terms.agree');
   const fb=$('.form-bottom');
-  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); if(as[2]) as[2].textContent=_tl('footer.pricing'); }
+  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); }
 
   // Refresh form title/sub
   const forgotVisible = document.getElementById('form-forgot').style.display !== 'none';

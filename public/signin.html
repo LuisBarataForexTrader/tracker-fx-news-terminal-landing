@@ -366,8 +366,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
       <span>© 2026 Trading News Terminal</span>
       <span>
         <a href="/terms">Terms</a> &nbsp;·&nbsp;
-        <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
-        <a href="/#pricing">Pricing</a>
+        <a href="/privacy">Privacy</a>
       </span>
     </div>
 
@@ -671,7 +670,7 @@ function _applyAuthTranslations() {
   // Footer note & bottom bar
   const fn=$('.auth-footer-note'); if(fn) fn.innerHTML=_tl('link.no.account');
   const fb=$('.form-bottom');
-  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); if(as[2]) as[2].textContent=_tl('footer.pricing'); }
+  if(fb) { const as=fb.querySelectorAll('a'); if(as[0]) as[0].textContent=_tl('footer.terms'); if(as[1]) as[1].textContent=_tl('footer.privacy'); }
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
