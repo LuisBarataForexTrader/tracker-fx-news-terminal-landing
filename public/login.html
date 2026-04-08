@@ -1066,6 +1066,12 @@ else if (location.search.includes('signup')) showTab('signup');
 _initProFlow();
 _applyAuthTranslations();
 
+// ── Track login page visit (admin analytics) ──────────────────
+(function(){
+  fetch('https://trading-news-terminal-backend-production.up.railway.app/admin/track/visit?source=login',
+    { method: 'POST' }).catch(()=>{});
+}());
+
 function _tpwd(id, btn) {
   const inp = document.getElementById(id);
   if (!inp) return;

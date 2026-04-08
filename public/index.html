@@ -2643,6 +2643,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(0,0,0,0.4)' : '';
 });
+
+// ── Track landing page visit (admin analytics) ────────────────
+(function(){
+  fetch('https://trading-news-terminal-backend-production.up.railway.app/admin/track/visit?source=landing',
+    { method: 'POST' }).catch(()=>{});
+}());
 </script>
 </body>
 </html>
