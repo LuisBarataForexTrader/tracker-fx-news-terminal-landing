@@ -609,6 +609,30 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   .mockup-item { grid-template-columns:48px 1fr; }
   .mi-badge { display:none; }
 }
+
+/* ── Contact Section ── */
+.contact-section { background:var(--bg2); border-top:1px solid var(--border); padding:96px 24px; }
+.contact-inner { max-width:680px; margin:0 auto; }
+.contact-header { text-align:center; margin-bottom:52px; }
+.contact-header h2 { font-size:clamp(28px,4vw,42px); font-weight:800; letter-spacing:-0.02em; margin-bottom:16px; }
+.contact-header p { font-size:16px; color:var(--text-dim); line-height:1.7; }
+.contact-form { display:flex; flex-direction:column; gap:20px; }
+.contact-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:600px){ .contact-row { grid-template-columns:1fr; } }
+.contact-group { display:flex; flex-direction:column; gap:7px; }
+.contact-group label { font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); }
+.contact-group input,
+.contact-group textarea { background:var(--bg3); border:1px solid var(--border2); border-radius:4px; padding:12px 16px; font-family:var(--font); font-size:14px; color:var(--text); outline:none; transition:border-color .15s,box-shadow .15s; resize:none; width:100%; }
+.contact-group input:focus,
+.contact-group textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,212,255,0.12); }
+.contact-group input::placeholder,
+.contact-group textarea::placeholder { color:var(--text-muted); }
+.contact-submit { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.contact-status { font-size:13px; line-height:1.5; padding:0; }
+.contact-status.success { color:#10b981; }
+.contact-status.error { color:#ff3b5c; }
+.contact-or { text-align:center; font-size:13px; color:var(--text-muted); margin-top:8px; }
+.contact-or a { color:var(--accent); }
 </style>
 </head>
 <body>
@@ -628,6 +652,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
     <a href="#compare" data-i18n="nav.compare">Compare</a>
     <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
     <a href="/signin" data-i18n="nav.signin">Sign In ↗</a>
   </div>
   <div style="display:flex;gap:8px;align-items:center;">
@@ -1468,6 +1493,45 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   </div>
 </section>
 
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-header">
+      <p class="section-eyebrow" data-i18n="contact.eyebrow">Get in Touch</p>
+      <h2 data-i18n="contact.h2">Contact Us</h2>
+      <p data-i18n="contact.sub">Have a question or need support? We're here to help.</p>
+    </div>
+    <form class="contact-form" id="contactForm" onsubmit="submitContactForm(event)">
+      <div class="contact-row">
+        <div class="contact-group">
+          <label for="cName" data-i18n="contact.name">Name</label>
+          <input type="text" id="cName" name="name" data-i18n-placeholder="contact.name_ph" placeholder="Your name" required autocomplete="name">
+        </div>
+        <div class="contact-group">
+          <label for="cEmail" data-i18n="contact.email_label">Email</label>
+          <input type="email" id="cEmail" name="email" data-i18n-placeholder="contact.email_ph" placeholder="your@email.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="contact-group">
+        <label for="cSubject" data-i18n="contact.subject">Subject</label>
+        <input type="text" id="cSubject" name="subject" data-i18n-placeholder="contact.subject_ph" placeholder="How can we help?">
+      </div>
+      <div class="contact-group">
+        <label for="cMessage" data-i18n="contact.message">Message</label>
+        <textarea id="cMessage" name="message" rows="6" data-i18n-placeholder="contact.message_ph" placeholder="Your message..." required></textarea>
+      </div>
+      <div class="contact-submit">
+        <button type="submit" class="btn-primary" id="contactBtn" data-i18n="contact.send">Send Message →</button>
+        <p class="contact-status" id="contactStatus"></p>
+      </div>
+    </form>
+    <p class="contact-or" style="margin-top:28px;">
+      <span data-i18n="contact.or_email">Or email us directly at</span>
+      <a href="mailto:support@tradingnewsterminal.com">support@tradingnewsterminal.com</a>
+    </p>
+  </div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer role="contentinfo">
   <div class="footer-grid">
@@ -1520,7 +1584,7 @@ const _LS = {
   en: {
     'nav.tagline':'Real-time Market Intelligence',
     'nav.features':'Features','nav.charts':'Charts','nav.pricing':'Pricing',
-    'nav.compare':'Compare','nav.faq':'FAQ','nav.signin':'Sign In ↗',
+    'nav.compare':'Compare','nav.faq':'FAQ','nav.contact':'Contact','nav.signin':'Sign In ↗',
     'nav.login':'Login','nav.launch_free':'Launch Free →','nav.get_pro':'Get Pro',
     'nav.launch':'Launch →',
     'hero.eyebrow':'Live Now — Real-Time Feed Active',
@@ -1697,11 +1761,21 @@ const _LS = {
     'footer.live_squawk':'Live Squawk','footer.bloomberg_alt':'Bloomberg Alternative',
     'footer.terms':'Terms of Use','footer.privacy':'Privacy Policy',
     'footer.contact':'Contact','footer.copyright':'© 2026 Trading News Terminal. All rights reserved.',
+    'contact.eyebrow':'Get in Touch','contact.h2':'Contact Us',
+    'contact.sub':'Have a question or need support? We\'re here to help.',
+    'contact.name':'Name','contact.name_ph':'Your name',
+    'contact.email_label':'Email','contact.email_ph':'your@email.com',
+    'contact.subject':'Subject','contact.subject_ph':'How can we help?',
+    'contact.message':'Message','contact.message_ph':'Your message...',
+    'contact.send':'Send Message →','contact.sending':'Sending...',
+    'contact.success':'Message sent! We\'ll get back to you soon.',
+    'contact.error':'Something went wrong. Please try again or email us directly.',
+    'contact.or_email':'Or email us directly at',
   },
   pt: {
     'nav.tagline':'Inteligência de Mercado em Tempo Real',
     'nav.features':'Funcionalidades','nav.charts':'Gráficos','nav.pricing':'Preços',
-    'nav.compare':'Comparar','nav.faq':'FAQ','nav.signin':'Entrar ↗',
+    'nav.compare':'Comparar','nav.faq':'FAQ','nav.contact':'Contacto','nav.signin':'Entrar ↗',
     'nav.login':'Login','nav.launch_free':'Começar Grátis →','nav.get_pro':'Obter Pro',
     'nav.launch':'Abrir →',
     'hero.eyebrow':'Ao Vivo — Feed em Tempo Real Ativo',
@@ -1878,11 +1952,21 @@ const _LS = {
     'footer.live_squawk':'Squawk Ao Vivo','footer.bloomberg_alt':'Alternativa ao Bloomberg',
     'footer.terms':'Termos de Uso','footer.privacy':'Política de Privacidade',
     'footer.contact':'Contacto','footer.copyright':'© 2026 Trading News Terminal. Todos os direitos reservados.',
+    'contact.eyebrow':'Fala Connosco','contact.h2':'Contacto',
+    'contact.sub':'Tens alguma dúvida ou precisas de suporte? Estamos aqui para ajudar.',
+    'contact.name':'Nome','contact.name_ph':'O teu nome',
+    'contact.email_label':'Email','contact.email_ph':'o.teu@email.com',
+    'contact.subject':'Assunto','contact.subject_ph':'Como podemos ajudar?',
+    'contact.message':'Mensagem','contact.message_ph':'A tua mensagem...',
+    'contact.send':'Enviar Mensagem →','contact.sending':'A enviar...',
+    'contact.success':'Mensagem enviada! Responderemos em breve.',
+    'contact.error':'Ocorreu um erro. Tenta novamente ou envia-nos um email diretamente.',
+    'contact.or_email':'Ou envia-nos um email diretamente para',
   },
   es: {
     'nav.tagline':'Inteligencia de Mercado en Tiempo Real',
     'nav.features':'Características','nav.charts':'Gráficos','nav.pricing':'Precios',
-    'nav.compare':'Comparar','nav.faq':'FAQ','nav.signin':'Iniciar Sesión ↗',
+    'nav.compare':'Comparar','nav.faq':'FAQ','nav.contact':'Contacto','nav.signin':'Iniciar Sesión ↗',
     'nav.login':'Login','nav.launch_free':'Empezar Gratis →','nav.get_pro':'Obtener Pro',
     'nav.launch':'Abrir →',
     'hero.eyebrow':'En Vivo — Feed en Tiempo Real Activo',
@@ -2046,11 +2130,21 @@ const _LS = {
     'footer.live_squawk':'Squawk en Vivo','footer.bloomberg_alt':'Alternativa a Bloomberg',
     'footer.terms':'Términos de Uso','footer.privacy':'Política de Privacidad',
     'footer.contact':'Contacto','footer.copyright':'© 2026 Trading News Terminal. Todos los derechos reservados.',
+    'contact.eyebrow':'Contáctanos','contact.h2':'Contacto',
+    'contact.sub':'¿Tienes alguna pregunta o necesitas soporte? Estamos aquí para ayudarte.',
+    'contact.name':'Nombre','contact.name_ph':'Tu nombre',
+    'contact.email_label':'Email','contact.email_ph':'tu@email.com',
+    'contact.subject':'Asunto','contact.subject_ph':'¿Cómo podemos ayudarte?',
+    'contact.message':'Mensaje','contact.message_ph':'Tu mensaje...',
+    'contact.send':'Enviar Mensaje →','contact.sending':'Enviando...',
+    'contact.success':'¡Mensaje enviado! Te responderemos pronto.',
+    'contact.error':'Algo salió mal. Inténtalo de nuevo o escríbenos directamente.',
+    'contact.or_email':'O escríbenos directamente a',
   },
   fr: {
     'nav.tagline':'Intelligence de Marché en Temps Réel',
     'nav.features':'Fonctionnalités','nav.charts':'Graphiques','nav.pricing':'Tarifs',
-    'nav.compare':'Comparer','nav.faq':'FAQ','nav.signin':'Se Connecter ↗',
+    'nav.compare':'Comparer','nav.faq':'FAQ','nav.contact':'Contact','nav.signin':'Se Connecter ↗',
     'nav.login':'Connexion','nav.launch_free':'Commencer Gratuitement →','nav.get_pro':'Obtenir Pro',
     'nav.launch':'Ouvrir →',
     'hero.eyebrow':'En Direct — Flux en Temps Réel Actif',
@@ -2214,11 +2308,21 @@ const _LS = {
     'footer.live_squawk':'Squawk en Direct','footer.bloomberg_alt':'Alternative à Bloomberg',
     'footer.terms':'Conditions d\'Utilisation','footer.privacy':'Politique de Confidentialité',
     'footer.contact':'Contact','footer.copyright':'© 2026 Trading News Terminal. Tous droits réservés.',
+    'contact.eyebrow':'Contactez-nous','contact.h2':'Contact',
+    'contact.sub':'Une question ou besoin d\'aide ? Nous sommes là pour vous.',
+    'contact.name':'Nom','contact.name_ph':'Votre nom',
+    'contact.email_label':'Email','contact.email_ph':'votre@email.com',
+    'contact.subject':'Sujet','contact.subject_ph':'Comment pouvons-nous vous aider ?',
+    'contact.message':'Message','contact.message_ph':'Votre message...',
+    'contact.send':'Envoyer →','contact.sending':'Envoi en cours...',
+    'contact.success':'Message envoyé ! Nous vous répondrons bientôt.',
+    'contact.error':'Une erreur s\'est produite. Réessayez ou contactez-nous directement.',
+    'contact.or_email':'Ou écrivez-nous directement à',
   },
   de: {
     'nav.tagline':'Echtzeit-Marktintelligenz',
     'nav.features':'Funktionen','nav.charts':'Charts','nav.pricing':'Preise',
-    'nav.compare':'Vergleich','nav.faq':'FAQ','nav.signin':'Anmelden ↗',
+    'nav.compare':'Vergleich','nav.faq':'FAQ','nav.contact':'Kontakt','nav.signin':'Anmelden ↗',
     'nav.login':'Login','nav.launch_free':'Kostenlos starten →','nav.get_pro':'Pro holen',
     'nav.launch':'Öffnen →',
     'hero.eyebrow':'Live — Echtzeit-Feed aktiv',
@@ -2382,11 +2486,21 @@ const _LS = {
     'footer.live_squawk':'Live-Squawk','footer.bloomberg_alt':'Bloomberg-Alternative',
     'footer.terms':'Nutzungsbedingungen','footer.privacy':'Datenschutzrichtlinie',
     'footer.contact':'Kontakt','footer.copyright':'© 2026 Trading News Terminal. Alle Rechte vorbehalten.',
+    'contact.eyebrow':'Kontakt','contact.h2':'Kontaktieren Sie uns',
+    'contact.sub':'Haben Sie Fragen oder brauchen Sie Unterstützung? Wir helfen Ihnen gerne.',
+    'contact.name':'Name','contact.name_ph':'Ihr Name',
+    'contact.email_label':'E-Mail','contact.email_ph':'ihre@email.com',
+    'contact.subject':'Betreff','contact.subject_ph':'Wie können wir helfen?',
+    'contact.message':'Nachricht','contact.message_ph':'Ihre Nachricht...',
+    'contact.send':'Nachricht senden →','contact.sending':'Wird gesendet...',
+    'contact.success':'Nachricht gesendet! Wir melden uns bald.',
+    'contact.error':'Etwas ist schiefgelaufen. Bitte erneut versuchen oder direkt per E-Mail.',
+    'contact.or_email':'Oder schreiben Sie uns direkt an',
   },
   it: {
     'nav.tagline':'Intelligenza di Mercato in Tempo Reale',
     'nav.features':'Funzionalità','nav.charts':'Grafici','nav.pricing':'Prezzi',
-    'nav.compare':'Confronta','nav.faq':'FAQ','nav.signin':'Accedi ↗',
+    'nav.compare':'Confronta','nav.faq':'FAQ','nav.contact':'Contatto','nav.signin':'Accedi ↗',
     'nav.login':'Login','nav.launch_free':'Inizia Gratis →','nav.get_pro':'Ottieni Pro',
     'nav.launch':'Apri →',
     'hero.eyebrow':'In Diretta — Feed in Tempo Reale Attivo',
@@ -2550,6 +2664,16 @@ const _LS = {
     'footer.live_squawk':'Squawk in Diretta','footer.bloomberg_alt':'Alternativa a Bloomberg',
     'footer.terms':'Termini di Utilizzo','footer.privacy':'Informativa sulla Privacy',
     'footer.contact':'Contatto','footer.copyright':'© 2026 Trading News Terminal. Tutti i diritti riservati.',
+    'contact.eyebrow':'Contattaci','contact.h2':'Contatto',
+    'contact.sub':'Hai una domanda o hai bisogno di supporto? Siamo qui per aiutarti.',
+    'contact.name':'Nome','contact.name_ph':'Il tuo nome',
+    'contact.email_label':'Email','contact.email_ph':'tua@email.com',
+    'contact.subject':'Oggetto','contact.subject_ph':'Come possiamo aiutarti?',
+    'contact.message':'Messaggio','contact.message_ph':'Il tuo messaggio...',
+    'contact.send':'Invia Messaggio →','contact.sending':'Invio in corso...',
+    'contact.success':'Messaggio inviato! Ti risponderemo presto.',
+    'contact.error':'Qualcosa è andato storto. Riprova o scrivici direttamente.',
+    'contact.or_email':'O scrivici direttamente a',
   },
 };
 
@@ -2661,6 +2785,104 @@ window.addEventListener('scroll', () => {
   _ping();
   setInterval(_ping, 30000);
 }());
+
+// ─── Contact Form ─────────────────────────────────────────────────────────────
+async function submitContactForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contactBtn');
+  const status = document.getElementById('contactStatus');
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value.trim();
+  const message = document.getElementById('cMessage').value.trim();
+
+  btn.disabled = true;
+  btn.textContent = _tl('contact.sending');
+  status.textContent = '';
+  status.className = 'contact-status';
+
+  try {
+    const res = await fetch('https://trading-news-terminal-backend-production.up.railway.app/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, subject, message }),
+    });
+    if (res.ok) {
+      status.textContent = _tl('contact.success');
+      status.classList.add('success');
+      document.getElementById('contactForm').reset();
+    } else {
+      const d = await res.json().catch(() => ({}));
+      status.textContent = d.detail || _tl('contact.error');
+      status.classList.add('error');
+    }
+  } catch {
+    status.textContent = _tl('contact.error');
+    status.classList.add('error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = _tl('contact.send');
+  }
+}
+
+// ─── Flag images for Windows (Twemoji) ───────────────────────────────────────
+(function() {
+  // Map language code → Twemoji SVG filename
+  const _flagMap = {
+    en: '1f1ec-1f1e7', // 🇬🇧
+    pt: '1f1f5-1f1f9', // 🇵🇹
+    es: '1f1ea-1f1f8', // 🇪🇸
+    fr: '1f1eb-1f1f7', // 🇫🇷
+    de: '1f1e9-1f1ea', // 🇩🇪
+    it: '1f1ee-1f1f9', // 🇮🇹
+  };
+  const _base = 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/';
+
+  // Only replace on Windows where flag emoji don't render
+  const isWindows = navigator.userAgent.indexOf('Win') !== -1;
+  if (!isWindows) return;
+
+  function _flagImg(code, size) {
+    const f = _flagMap[code];
+    if (!f) return null;
+    const img = document.createElement('img');
+    img.src = _base + f + '.svg';
+    img.width = size; img.height = size;
+    img.style.cssText = 'vertical-align:middle;display:inline-block;';
+    img.alt = code.toUpperCase();
+    return img;
+  }
+
+  // Replace in nav picker and dropdown
+  function _applyFlagImages(lang) {
+    const flag = document.getElementById('landingLangFlag');
+    if (flag) {
+      flag.textContent = '';
+      const img = _flagImg(lang, 16);
+      if (img) flag.appendChild(img);
+    }
+    document.querySelectorAll('#landingLangMenu .lang-opt').forEach(btn => {
+      const l = btn.getAttribute('data-lang');
+      const span = btn.querySelector('.lang-opt-flag');
+      if (span && _flagMap[l]) {
+        span.textContent = '';
+        const img = _flagImg(l, 18);
+        if (img) span.appendChild(img);
+      }
+    });
+  }
+
+  // Patch setLandingLang to also apply flag images after language change
+  const _origSetLang = window.setLandingLang;
+  window.setLandingLang = function(l) {
+    _origSetLang(l);
+    _applyFlagImages(l);
+  };
+
+  // Apply on init
+  const _initLang = localStorage.getItem('tnt_lang') || 'en';
+  _applyFlagImages(_initLang);
+})();
 </script>
 </body>
 </html>
