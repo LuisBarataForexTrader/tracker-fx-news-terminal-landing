@@ -904,9 +904,11 @@ async function handleLogin(e) {
       }
       return;
     }
-    if (PRO_CHECKOUT) {
+    const alreadyPro = ['pro','trial'].includes(data.plan);
+    if (PRO_CHECKOUT && !alreadyPro) {
       await _redirectToCheckout(data.token);
     } else {
+      localStorage.removeItem('pendingPro'); // clear any stale pro-flow flag
       showMsg(_tl('msg.welcome.back'), 'success');
       const user = encodeURIComponent(JSON.stringify({id:data.id, email:data.email, name:data.name, plan:data.plan}));
       setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
