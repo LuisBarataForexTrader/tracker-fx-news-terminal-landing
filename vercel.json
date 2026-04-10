@@ -1,12 +1,25 @@
 {
   "outputDirectory": "public",
   "alias": ["tradingnewsterminal.com", "www.tradingnewsterminal.com"],
+  "redirects": [
+    { "source": "/login.html",          "destination": "/login",          "permanent": true },
+    { "source": "/signin.html",         "destination": "/signin",         "permanent": true },
+    { "source": "/signup.html",         "destination": "/signup",         "permanent": true },
+    { "source": "/terms.html",          "destination": "/terms",          "permanent": true },
+    { "source": "/privacy.html",        "destination": "/privacy",        "permanent": true },
+    { "source": "/reset-password.html", "destination": "/reset-password", "permanent": true },
+    { "source": "/verify-email.html",   "destination": "/verify-email",   "permanent": true },
+    { "source": "/admin.html",          "destination": "/admin",          "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/terms",   "destination": "/terms.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/login",   "destination": "/login.html" },
-    { "source": "/signup",  "destination": "/login.html" },
-    { "source": "/signin",  "destination": "/signin.html" }
+    { "source": "/login",          "destination": "/login.html" },
+    { "source": "/signup",         "destination": "/login.html" },
+    { "source": "/signin",         "destination": "/signin.html" },
+    { "source": "/terms",          "destination": "/terms.html" },
+    { "source": "/privacy",        "destination": "/privacy.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" },
+    { "source": "/verify-email",   "destination": "/verify-email.html" },
+    { "source": "/admin",          "destination": "/admin.html" }
   ],
   "headers": [
     {
