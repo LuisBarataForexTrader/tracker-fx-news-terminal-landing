@@ -1170,46 +1170,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
     <p style="font-size:16px;color:var(--text-dim);line-height:1.7;max-width:680px;margin-bottom:48px;" data-i18n="sc.desc">The built-in market screener lets you scan Forex, Stocks, Crypto, Indices, Commodities and Bonds in one place — ranked by news activity, economic event proximity and market impact. Know exactly what's in play before you trade.</p>
 
-    <!-- Screener tabs row -->
-    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:6px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);margin-bottom:48px;">
-      <div class="screener-bar">
-        <div class="screener-bar-dot"></div>
-        Market Screener — Live Feed
-        <span style="margin-left:auto;font-size:10px;color:var(--accent)">Basic + Pro</span>
-      </div>
-      <!-- Asset class tabs -->
-      <div style="display:flex;border-bottom:1px solid var(--border);overflow-x:auto;background:var(--bg3);">
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);border-right:1px solid var(--border);white-space:nowrap;cursor:default;">💱 Forex</div>
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);border-right:1px solid var(--border);background:rgba(0,212,255,0.06);white-space:nowrap;cursor:default;">📈 Stocks</div>
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);border-right:1px solid var(--border);white-space:nowrap;cursor:default;">₿ Crypto</div>
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);border-right:1px solid var(--border);white-space:nowrap;cursor:default;">📊 Indices</div>
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);border-right:1px solid var(--border);white-space:nowrap;cursor:default;">🌾 Commodities</div>
-        <div style="padding:11px 20px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;cursor:default;">🏦 Bonds</div>
-      </div>
-      <!-- Stocks tab content -->
-      <div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:9px 16px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">
-          <span data-i18n="sc.col_stock">Stock</span><span data-i18n="sc.col_change">Change</span><span data-i18n="sc.col_news">News</span><span data-i18n="sc.col_earnings">Earnings</span><span data-i18n="sc.col_signal">Signal</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--high);background:rgba(255,59,92,0.04);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">NVDA</span><span style="color:var(--low)">+4.82%</span><span style="color:var(--text-dim)">23</span><span style="color:var(--high);font-size:10px">28 May</span><span class="screener-tag hot">HOT</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--high);background:rgba(255,59,92,0.03);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">TSLA</span><span style="color:var(--high)">−3.14%</span><span style="color:var(--text-dim)">19</span><span style="color:var(--medium);font-size:10px">Q2 June</span><span class="screener-tag hot">HOT</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--medium);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">AAPL</span><span style="color:var(--low)">+1.08%</span><span style="color:var(--text-dim)">11</span><span style="color:var(--medium);font-size:10px">Q3 July</span><span class="screener-tag watch">WATCH</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--medium);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">MSFT</span><span style="color:var(--low)">+0.74%</span><span style="color:var(--text-dim)">8</span><span style="color:var(--text-muted);font-size:10px">None</span><span class="screener-tag watch">WATCH</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-bottom:1px solid var(--border);border-left:3px solid var(--low);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">META</span><span style="color:var(--low)">+0.31%</span><span style="color:var(--text-dim)">4</span><span style="color:var(--text-muted);font-size:10px">None</span><span class="screener-tag calm">CALM</span>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 70px 70px 80px 90px;padding:11px 16px;border-left:3px solid var(--low);font-family:var(--font-mono);font-size:11px;align-items:center;">
-          <span style="font-weight:600;color:var(--text)">AMZN</span><span style="color:var(--high)">−0.22%</span><span style="color:var(--text-dim)">3</span><span style="color:var(--text-muted);font-size:10px">None</span><span class="screener-tag calm">CALM</span>
-        </div>
-      </div>
+    <!-- Screener screenshot -->
+    <div style="border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);margin-bottom:48px;border:1px solid var(--border2);">
+      <img src="screener-screenshot.png" alt="Market Screener — Trading News Terminal" style="width:100%;display:block;" loading="lazy">
     </div>
 
     <!-- Feature cards row -->
