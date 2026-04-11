@@ -300,6 +300,8 @@ nav {
 .btn-pro:hover { box-shadow:0 4px 40px rgba(124,58,237,0.5); transform:translateY(-2px); }
 .btn-secondary { padding:14px 28px; background:transparent; color:var(--text-dim); font-family:var(--font); font-size:13px; font-weight:600; letter-spacing:0.06em; border:1px solid var(--border2); cursor:pointer; border-radius:3px; transition:all .2s; }
 .btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
+.btn-trial { padding:14px 32px; background:linear-gradient(135deg,#b91c1c,#ef4444); color:#fff; font-family:var(--font); font-size:13px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; border:none; cursor:pointer; border-radius:3px; transition:all .2s; box-shadow:0 0 28px rgba(239,68,68,0.35); display:inline-flex; align-items:center; gap:8px; }
+.btn-trial:hover { background:linear-gradient(135deg,#dc2626,#f87171); box-shadow:0 4px 36px rgba(239,68,68,0.55); transform:translateY(-2px); }
 .hero-trust { display:flex; align-items:center; gap:24px; flex-wrap:wrap; justify-content:center; position:relative; z-index:1; margin-bottom:56px; }
 .hero-trust-item { display:flex; align-items:center; gap:7px; font-size:11px; color:var(--text-muted); font-weight:500; letter-spacing:0.04em; }
 .hero-trust-item .check { color:var(--low); font-size:13px; }
@@ -752,7 +754,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <div class="hero-actions">
     <a href="/signup" class="btn-primary" data-i18n="hero.btn_open">▶ Open Terminal — Free</a>
     <a href="/login?plan=pro" class="btn-pro" data-i18n="hero.btn_pro">Get Pro — €40/mo</a>
-    <a href="#features" class="btn-secondary" data-i18n="hero.btn_explore">Explore Features</a>
+    <a href="/login?plan=trial" class="btn-trial" data-i18n="hero.btn_explore">🎁 Start 7-Day Free Trial</a>
   </div>
 
   <div class="hero-trust">
@@ -1620,7 +1622,7 @@ const _LS = {
     'hero.h1_line3':'Built for Active Traders',
     'hero.sub':'Real-time financial news, live economic calendar, squawk box, TradingView charts and live financial TV — all in one zero-clutter terminal. The affordable alternative to Bloomberg. <strong>Free to start.</strong>',
     'hero.btn_open':'▶ Open Terminal — Free','hero.btn_pro':'Get Pro — €40/mo',
-    'hero.btn_explore':'Explore Features',
+    'hero.btn_explore':'🎁 Start 7-Day Free Trial',
     'hero.trust1':'Free account in 30 seconds','hero.trust2':'No credit card required',
     'hero.trust3':'Economic calendar with live releases','hero.trust4':'TradingView charts included',
     'hero.trust5':'Live squawk on Pro',
@@ -1816,7 +1818,7 @@ const _LS = {
     'hero.h1_line3':'Para Traders Ativos',
     'hero.sub':'Notícias financeiras em tempo real, calendário económico ao vivo, squawk box, gráficos TradingView e TV financeira — tudo num terminal sem distração. A alternativa acessível ao Bloomberg. <strong>Grátis para começar.</strong>',
     'hero.btn_open':'▶ Abrir Terminal — Grátis','hero.btn_pro':'Obter Pro — €40/mês',
-    'hero.btn_explore':'Ver Funcionalidades',
+    'hero.btn_explore':'🎁 Experimentar 7 Dias Grátis',
     'hero.trust1':'Conta grátis em 30 segundos','hero.trust2':'Sem cartão de crédito',
     'hero.trust3':'Calendário económico com releases ao vivo','hero.trust4':'Gráficos TradingView incluídos',
     'hero.trust5':'Squawk ao vivo no Pro',
@@ -2012,7 +2014,7 @@ const _LS = {
     'hero.h1_line3':'Para Traders Activos',
     'hero.sub':'Noticias financieras en tiempo real, calendario económico en vivo, squawk box, gráficos TradingView y TV financiera — todo en un terminal sin distracciones. La alternativa asequible a Bloomberg. <strong>Gratis para empezar.</strong>',
     'hero.btn_open':'▶ Abrir Terminal — Gratis','hero.btn_pro':'Obtener Pro — €40/mes',
-    'hero.btn_explore':'Ver Características',
+    'hero.btn_explore':'🎁 Prueba Gratis 7 Días',
     'hero.trust1':'Cuenta gratis en 30 segundos','hero.trust2':'Sin tarjeta de crédito',
     'hero.trust3':'Calendario económico con publicaciones en vivo','hero.trust4':'Gráficos TradingView incluidos',
     'hero.trust5':'Squawk en vivo en Pro',
@@ -2195,7 +2197,7 @@ const _LS = {
     'hero.h1_line3':'Pour les Traders Actifs',
     'hero.sub':'Actualités financières en temps réel, calendrier économique en direct, squawk box, graphiques TradingView et TV financière — tout dans un terminal sans encombrement. L\'alternative abordable à Bloomberg. <strong>Gratuit pour commencer.</strong>',
     'hero.btn_open':'▶ Ouvrir Terminal — Gratuit','hero.btn_pro':'Obtenir Pro — €40/mois',
-    'hero.btn_explore':'Voir les Fonctionnalités',
+    'hero.btn_explore':'🎁 Essai Gratuit 7 Jours',
     'hero.trust1':'Compte gratuit en 30 secondes','hero.trust2':'Sans carte de crédit',
     'hero.trust3':'Calendrier économique avec publications en direct','hero.trust4':'Graphiques TradingView inclus',
     'hero.trust5':'Squawk en direct sur Pro',
@@ -2378,7 +2380,7 @@ const _LS = {
     'hero.h1_line3':'Für aktive Trader',
     'hero.sub':'Echtzeit-Finanznachrichten, Live-Wirtschaftskalender, Squawk-Box, TradingView-Charts und Live-Finanz-TV — alles in einem aufgeräumten Terminal. Die erschwingliche Alternative zu Bloomberg. <strong>Kostenlos starten.</strong>',
     'hero.btn_open':'▶ Terminal öffnen — Kostenlos','hero.btn_pro':'Pro holen — €40/Monat',
-    'hero.btn_explore':'Funktionen erkunden',
+    'hero.btn_explore':'🎁 7 Tage kostenlos testen',
     'hero.trust1':'Kostenloses Konto in 30 Sekunden','hero.trust2':'Keine Kreditkarte erforderlich',
     'hero.trust3':'Wirtschaftskalender mit Live-Veröffentlichungen','hero.trust4':'TradingView-Charts inklusive',
     'hero.trust5':'Live-Squawk auf Pro',
@@ -2561,7 +2563,7 @@ const _LS = {
     'hero.h1_line3':'Per Trader Attivi',
     'hero.sub':'Notizie finanziarie in tempo reale, calendario economico in diretta, squawk box, grafici TradingView e TV finanziaria — tutto in un terminale senza ingombro. L\'alternativa conveniente a Bloomberg. <strong>Gratis per iniziare.</strong>',
     'hero.btn_open':'▶ Apri Terminale — Gratis','hero.btn_pro':'Ottieni Pro — €40/mese',
-    'hero.btn_explore':'Scopri le Funzionalità',
+    'hero.btn_explore':'🎁 Prova Gratuita 7 Giorni',
     'hero.trust1':'Account gratuito in 30 secondi','hero.trust2':'Nessuna carta di credito richiesta',
     'hero.trust3':'Calendario economico con pubblicazioni in diretta','hero.trust4':'Grafici TradingView inclusi',
     'hero.trust5':'Squawk in diretta su Pro',
