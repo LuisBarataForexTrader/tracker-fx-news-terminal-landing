@@ -24,8 +24,8 @@
   --font-mono:'IBM Plex Mono','Courier New',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;}
 
 /* ── NAV ── */
 nav{background:rgba(10,12,15,0.96);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
@@ -99,10 +99,23 @@ footer a:hover{color:var(--accent);}
 
 /* responsive */
 @media(max-width:800px){
-  .page-wrap{grid-template-columns:1fr;gap:32px;padding:32px 20px 60px;}
-  .sidebar{position:static;}
-  .sidebar-nav{flex-direction:row;flex-wrap:wrap;gap:4px;}
+  .page-wrap{grid-template-columns:1fr;gap:0;padding:40px 24px 64px;}
+  .sidebar{display:none;}
   nav{padding:0 20px;}
+}
+@media(max-width:600px){
+  nav{padding:0 16px;height:56px;}
+  .nav-logo-sub{display:none;}
+  .page-wrap{padding:28px 16px 52px;}
+  .legal-header{margin-bottom:32px;padding-bottom:24px;}
+  .legal-title{font-size:clamp(22px,7vw,34px);}
+  .legal-subtitle{font-size:14px;}
+  .legal-section{margin-bottom:32px;}
+  .legal-section h2{font-size:16px;}
+  .plan-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .callout{padding:12px 14px;}
+  footer{padding:20px 16px;}
+  footer a{display:inline-block;margin:4px 5px;}
 }
 </style>
 </head>
@@ -252,6 +265,11 @@ footer a:hover{color:var(--accent);}
       </div>
       <h3>Price Changes</h3>
       <p>We reserve the right to modify subscription prices. We will provide at least 30 days' advance notice of any price increase via email. If you do not cancel before the change takes effect, your continued use constitutes acceptance of the new price.</p>
+      <h3>Free Trial</h3>
+      <p>The Pro plan offers a <strong>7-day free trial</strong> period. A valid credit card is required to start the trial. During the trial, you have full access to all Pro features.</p>
+      <p>After the 7-day trial period ends, your subscription automatically converts to a paid monthly subscription at <strong>€40/month</strong> plus applicable taxes (VAT/IVA). You can cancel at any time during the trial period through your account settings or the <a href="https://billing.stripe.com" target="_blank" rel="noopener">Stripe billing portal</a>.</p>
+      <p>If you cancel during the trial, you will not be charged and your Pro access will remain active until the trial period ends.</p>
+      <p>Each account is limited to <strong>one free trial</strong>. We reserve the right to modify or discontinue the free trial offer at any time without prior notice.</p>
     </section>
 
     <!-- 5. Acceptable Use -->

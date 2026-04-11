@@ -760,12 +760,14 @@ let _lastUnverifiedEmail = '';
 
 // ── PRO FLOW DETECTION ──────────────────────────────────────────────────────
 const _params = new URLSearchParams(location.search);
-const PRO_FROM_URL = _params.get('plan') === 'pro';
-const PRO_PENDING  = localStorage.getItem('pendingPro') === '1';
-// Visual Pro theme ONLY shown when ?plan=pro is in the URL
-// Checkout redirect also fires if pendingPro is saved (returning after email verification)
-const PRO_FLOW    = PRO_FROM_URL;
-const PRO_CHECKOUT = PRO_FROM_URL || PRO_PENDING;
+const PRO_FROM_URL   = _params.get('plan') === 'pro';
+const TRIAL_FROM_URL = _params.get('plan') === 'trial';
+const PRO_PENDING    = localStorage.getItem('pendingPro') === '1';
+const TRIAL_PENDING  = localStorage.getItem('pendingTrial') === '1';
+// Visual Pro theme ONLY shown when ?plan=pro or ?plan=trial is in the URL
+// Checkout redirect also fires if pendingPro/pendingTrial is saved (returning after email verification)
+const PRO_FLOW    = PRO_FROM_URL || TRIAL_FROM_URL;
+const PRO_CHECKOUT = PRO_FROM_URL || TRIAL_FROM_URL || PRO_PENDING || TRIAL_PENDING;
 
 function _buildProFeaturesHTML() {
   return `
@@ -800,18 +802,36 @@ function _buildBasicBenefitsHTML() {
 
 function _initProFlow() {
   if (!PRO_FLOW) return;
-  localStorage.setItem('pendingPro', '1');
+  if (TRIAL_FROM_URL) localStorage.setItem('pendingTrial', '1');
+  else localStorage.setItem('pendingPro', '1');
   // Apply Pro theme to entire layout
   document.getElementById('auth-layout').classList.add('pro-flow');
   // Update left panel
-  document.getElementById('panel-badge').textContent = _tl('panel.badge.pro');
-  document.getElementById('panel-title').innerHTML = _tl('panel.title.pro');
-  document.getElementById('panel-desc').textContent = _tl('panel.desc.pro');
-  document.getElementById('panel-features').innerHTML = _buildProFeaturesHTML();
-  document.getElementById('panel-stats').innerHTML = `
-    <div class="panel-stat"><div class="panel-stat-num">€40</div><div class="panel-stat-label">${_tl('panel.stat.price.label.pro')}</div></div>
-    <div class="panel-stat"><div class="panel-stat-num">6</div><div class="panel-stat-label">${_tl('panel.stat.assets.label')}</div></div>
-    <div class="panel-stat"><div class="panel-stat-num">7</div><div class="panel-stat-label">${_tl('panel.stat.tv.label')}</div></div>`;
+  if (TRIAL_FROM_URL) {
+    document.getElementById('panel-badge').textContent = '7-DAY FREE TRIAL';
+    document.getElementById('panel-title').innerHTML = 'Try Pro free for 7 days';
+    document.getElementById('panel-desc').textContent = 'Full access to all Pro features';
+    document.getElementById('panel-features').innerHTML = _buildProFeaturesHTML();
+    document.getElementById('panel-stats').innerHTML = `
+      <div class="panel-stat"><div class="panel-stat-num">€0</div><div class="panel-stat-label">for 7 days</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">6</div><div class="panel-stat-label">${_tl('panel.stat.assets.label')}</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">7</div><div class="panel-stat-label">${_tl('panel.stat.tv.label')}</div></div>`;
+    // Add note below stats
+    const statsEl = document.getElementById('panel-stats');
+    const noteEl = document.createElement('div');
+    noteEl.style.cssText = 'text-align:center;font-size:0.85rem;color:rgba(255,255,255,0.7);margin-top:0.5rem;';
+    noteEl.textContent = 'Then €40/month + VAT \u00b7 Cancel anytime';
+    statsEl.parentNode.insertBefore(noteEl, statsEl.nextSibling);
+  } else {
+    document.getElementById('panel-badge').textContent = _tl('panel.badge.pro');
+    document.getElementById('panel-title').innerHTML = _tl('panel.title.pro');
+    document.getElementById('panel-desc').textContent = _tl('panel.desc.pro');
+    document.getElementById('panel-features').innerHTML = _buildProFeaturesHTML();
+    document.getElementById('panel-stats').innerHTML = `
+      <div class="panel-stat"><div class="panel-stat-num">€40</div><div class="panel-stat-label">${_tl('panel.stat.price.label.pro')}</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">6</div><div class="panel-stat-label">${_tl('panel.stat.assets.label')}</div></div>
+      <div class="panel-stat"><div class="panel-stat-num">7</div><div class="panel-stat-label">${_tl('panel.stat.tv.label')}</div></div>`;
+  }
   // Update signup benefits
   document.getElementById('signup-benefits').innerHTML = _buildProBenefitsHTML();
 }
@@ -820,19 +840,22 @@ function _initProFlow() {
 async function _redirectToCheckout(token) {
   showMsg(_tl('msg.checkout.redirecting'), 'success');
   try {
+    const isTrial = TRIAL_FROM_URL || localStorage.getItem('pendingTrial') === '1';
     const r = await fetch(BACKEND + '/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({})
+      body: JSON.stringify(isTrial ? { trial: true } : {})
     });
     const data = await r.json();
     if (r.ok && data.url) {
       localStorage.removeItem('pendingPro');
+      localStorage.removeItem('pendingTrial');
       window.location.href = data.url;
     } else {
       showMsg(_tl('msg.checkout.error'), 'error');
       setTimeout(() => {
         localStorage.removeItem('pendingPro');
+        localStorage.removeItem('pendingTrial');
         window.location.href = APP_URL + '#token=' + encodeURIComponent(token);
       }, 2500);
     }
@@ -909,6 +932,7 @@ async function handleLogin(e) {
       await _redirectToCheckout(data.token);
     } else {
       localStorage.removeItem('pendingPro'); // clear any stale pro-flow flag
+      localStorage.removeItem('pendingTrial');
       showMsg(_tl('msg.welcome.back'), 'success');
       const user = encodeURIComponent(JSON.stringify({id:data.id, email:data.email, name:data.name, plan:data.plan}));
       setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);

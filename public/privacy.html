@@ -24,8 +24,8 @@
   --font-mono:'IBM Plex Mono','Courier New',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;}
 
 /* ── NAV ── */
 nav{background:rgba(10,12,15,0.96);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
@@ -106,11 +106,24 @@ footer a{color:var(--text-muted);text-decoration:none;margin:0 8px;}
 footer a:hover{color:var(--accent);}
 
 @media(max-width:800px){
-  .page-wrap{grid-template-columns:1fr;gap:32px;padding:32px 20px 60px;}
-  .sidebar{position:static;}
-  .sidebar-nav{flex-direction:row;flex-wrap:wrap;gap:4px;}
-  .rights-grid{grid-template-columns:1fr;}
+  .page-wrap{grid-template-columns:1fr;gap:0;padding:40px 24px 64px;}
+  .sidebar{display:none;}
   nav{padding:0 20px;}
+}
+@media(max-width:600px){
+  nav{padding:0 16px;height:56px;}
+  .nav-logo-sub{display:none;}
+  .page-wrap{padding:28px 16px 52px;}
+  .legal-header{margin-bottom:32px;padding-bottom:24px;}
+  .legal-title{font-size:clamp(22px,7vw,34px);}
+  .legal-subtitle{font-size:14px;}
+  .legal-section{margin-bottom:32px;}
+  .legal-section h2{font-size:16px;}
+  .rights-grid{grid-template-columns:1fr;}
+  .data-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .callout{padding:12px 14px;}
+  footer{padding:20px 16px;}
+  footer a{display:inline-block;margin:4px 5px;}
 }
 </style>
 </head>
@@ -210,13 +223,14 @@ footer a:hover{color:var(--accent);}
       </table>
 
       <h3>Billing & Payment Data</h3>
-      <p>For Pro plan subscribers, payment processing is handled entirely by <strong>Stripe, Inc.</strong> We do not store your credit card number, CVV, or full card details on our servers. We receive and store only:</p>
+      <p>For Pro plan subscribers, payment processing is handled entirely by <strong>Stripe, Inc.</strong>, our PCI-compliant payment processor. We do not store your credit card number, CVV, or full card details on our servers. We receive and store only:</p>
       <ul>
         <li>Subscription status (active, cancelled, past due)</li>
         <li>Plan type and billing period</li>
         <li>Stripe customer ID (a tokenised reference, not your card data)</li>
         <li>Transaction timestamps and amounts for invoicing</li>
       </ul>
+      <p>During the free trial signup, your credit card information is collected and processed securely by Stripe. Stripe may store tokenised payment information for recurring billing purposes. For more information about how Stripe handles your data, visit <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a>.</p>
 
       <h3>Usage & Technical Data</h3>
       <ul>

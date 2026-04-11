@@ -234,8 +234,8 @@
   --max:1200px;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { background:var(--bg); color:var(--text); font-family:var(--font); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+html { scroll-behavior:smooth; overflow-x:hidden; max-width:100%; }
+body { background:var(--bg); color:var(--text); font-family:var(--font); -webkit-font-smoothing:antialiased; overflow-x:hidden; max-width:100%; }
 a { color:inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
 
@@ -413,7 +413,8 @@ section { padding:100px 24px; }
 /* ── TESTIMONIALS ── */
 .testimonials-section { background:var(--bg2); }
 .testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; }
-@media(max-width:900px) { .testimonials-grid { grid-template-columns:1fr; } }
+@media(max-width:900px) { .testimonials-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:600px) { .testimonials-grid { grid-template-columns:1fr; } }
 .testimonial-card { background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:28px; position:relative; }
 .testimonial-card::before { content:'"'; position:absolute; top:16px; right:20px; font-size:48px; color:var(--accent); opacity:0.15; font-family:Georgia,serif; line-height:1; }
 .testimonial-stars { display:flex; gap:3px; margin-bottom:14px; }
@@ -435,7 +436,7 @@ section { padding:100px 24px; }
 
 /* ── PRICING ── */
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:56px;max-width:900px;margin-left:auto;margin-right:auto;border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-@media(max-width:680px){.pricing-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr;}}
 .plan-card{background:var(--bg3);padding:44px 40px;position:relative;display:flex;flex-direction:column;}
 .plan-card-basic{border-right:1px solid var(--border2);}
 .plan-card-pro{background:linear-gradient(160deg,#0f1420 0%,#110d1e 100%);border-left:1px solid var(--pro-border);}
@@ -468,6 +469,7 @@ section { padding:100px 24px; }
 
 /* ── SCREENER TEASER ── */
 .screener-section{background:var(--bg);}
+.sfc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);}
 .screener-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:64px;}
 @media(max-width:900px){.screener-grid{grid-template-columns:1fr;}}
 .screener-visual{background:var(--bg2);border:1px solid var(--border2);border-radius:6px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -546,7 +548,7 @@ section { padding:100px 24px; }
 .cta-card-free .cta-card-features li::before { color:var(--accent); }
 .cta-card-pro .cta-card-features li::before { color:#a78bfa; }
 .cta-card .btn-primary, .cta-card .btn-pro { width:100%; justify-content:center; }
-@media(max-width:640px){ .cta-dual{grid-template-columns:1fr;} }
+@media(max-width:768px){ .cta-dual{grid-template-columns:1fr;} }
 
 /* ── FOOTER ── */
 footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px 24px 40px; }
@@ -587,27 +589,78 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 .lang-opt-flag{font-size:16px;line-height:1;}
 
 /* ── RESPONSIVE ── */
+
+/* Tablet wide (≤900px) — nav collapse, 2-col features */
 @media(max-width:900px) {
+  .sfc-grid { grid-template-columns:1fr; }
   .nav-links { display:none; }
-  .nav-mobile-cta { display:block; }
+  .nav-btn-login { display:none; }
+  .nav-pro-cta { display:none; }
+  .nav-mobile-cta { display:none; }
   .stats-grid { grid-template-columns:repeat(3,1fr); }
   .stat-item:nth-child(3) { border-right:none; }
-  .features-grid { grid-template-columns:1fr; }
-  .how-grid { grid-template-columns:1fr; }
+  .features-grid { grid-template-columns:repeat(2,1fr); }
+  .how-grid { grid-template-columns:1fr; gap:40px; }
   .how-grid::before { display:none; }
-  .footer-grid { grid-template-columns:1fr 1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
   .mockup-ticker { display:none; }
 }
+
+/* Tablet (≤768px) — 2-col stats, single-col pricing, screener scroll */
+@media(max-width:768px) {
+  .hero { padding:100px 18px 60px; }
+  .hero-glow { width:420px; height:420px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .stat-item:nth-child(2) { border-right:none; }
+  .stat-item:nth-child(3) { border-top:1px solid var(--border); }
+  .features-grid { grid-template-columns:repeat(2,1fr); }
+  .how-grid { gap:32px; }
+  .photo-strip { height:220px; }
+  .screener-visual { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .screener-row { min-width:380px; font-size:10.5px; }
+  .screener-bar { min-width:380px; }
+  .plan-card { padding:36px 28px; }
+}
+
+/* Phone (≤600px) — single column layout, condensed */
 @media(max-width:600px) {
-  section { padding:70px 18px; }
-  .stats-grid { grid-template-columns:repeat(2,1fr); gap:0; }
-  .stat-item { padding:16px; }
-  .footer-grid { grid-template-columns:1fr; }
-  .footer-bottom { flex-direction:column; text-align:center; }
+  section { padding:64px 16px; }
+  .hero { padding:90px 16px 52px; }
+  .hero-glow { width:280px; height:280px; }
   .hero-actions { flex-direction:column; align-items:stretch; }
-  .btn-primary, .btn-secondary { text-align:center; }
+  .hero-trust { gap:14px; }
+  .btn-primary, .btn-secondary, .btn-pro { text-align:center; width:100%; justify-content:center; }
+  .stats-grid { grid-template-columns:1fr; gap:0; }
+  .stat-item { padding:18px 16px; border-right:none !important; border-top:none !important; border-bottom:1px solid var(--border); }
+  .stat-item:last-child { border-bottom:none; }
+  .features-grid { grid-template-columns:1fr; }
+  .feature-card { padding:28px 22px; }
+  .how-grid { gap:28px; }
+  .photo-strip { height:170px; }
+  .photo-strip-content h3 { font-size:20px; }
+  .photo-strip-content p { font-size:13px; }
+  .footer-grid { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; text-align:center; }
   .mockup-item { grid-template-columns:48px 1fr; }
   .mi-badge { display:none; }
+  .screener-section .section-sub { font-size:15px; }
+  .plan-card { padding:32px 20px; }
+  .plan-price { font-size:42px; }
+  .nav-btn-launch { display:none; }
+  .nav-mobile-cta { display:flex; }
+  .cta-section { padding:72px 16px; }
+  .cta-card { padding:28px 22px; }
+  .contact-section { padding:72px 16px; }
+  .mockup-tabs { overflow-x:auto; padding-bottom:2px; }
+  .mockup-tab { padding:10px 14px; font-size:10px; white-space:nowrap; }
+  .charts-tabs-row { overflow-x:auto; }
+  .sources-grid { gap:8px; }
+  .source-chip { font-size:11px; padding:7px 12px; }
+  .section-sub { font-size:15px; }
+  .screener-visual { overflow-x:unset; }
+  .screener-row { grid-template-columns:2fr 1fr 1fr 1fr 1.3fr; min-width:unset; font-size:10px; padding:9px 12px; }
+  .screener-bar { min-width:unset; padding:9px 12px; }
+  .sfc-grid { grid-template-columns:1fr; }
 }
 
 /* ── Contact Section ── */
@@ -671,8 +724,8 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <button class="lang-opt" data-lang="it" onclick="setLandingLang('it')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="18" height="18" alt="IT" style="vertical-align:middle;display:inline-block;"></span><span>Italiano</span></button>
       </div>
     </div>
-    <a href="/signin" class="nav-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text-dim);" data-i18n="nav.login">Login</a>
-    <a href="/signup" class="nav-cta" data-i18n="nav.launch_free">Launch Free →</a>
+    <a href="/signin" class="nav-cta nav-btn-login" style="background:transparent;border:1px solid var(--border2);color:var(--text-dim);" data-i18n="nav.login">Login</a>
+    <a href="/signup" class="nav-cta nav-btn-launch" data-i18n="nav.launch_free">Launch Free →</a>
     <a href="/login?plan=pro" class="nav-pro-cta" data-i18n="nav.get_pro">Get Pro</a>
   </div>
   <a href="/signup" class="nav-mobile-cta nav-cta" data-i18n="nav.launch">Launch →</a>
@@ -1147,7 +1200,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li class="pf-yes pf-pro-item" data-i18n="ppf.adfree">100% ad-free · No upgrade prompts</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.support">Priority support</li>
         </ul>
-        <a href="/login?plan=pro" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="plan.pro_btn">Get Pro Access →</a>
+        <a href="/login?plan=trial" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or subscribe now →</a>
       </div>
     </div>
   </div>
@@ -1176,7 +1231,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     </div>
 
     <!-- Feature cards row -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);">
+    <div class="sfc-grid">
       <div class="screener-feat" style="background:var(--bg2);padding:28px 28px;display:flex;flex-direction:column;gap:0;">
         <div class="screener-feat-icon" style="margin-bottom:16px;">📋</div>
         <div class="screener-feat-title" style="font-size:15px;margin-bottom:8px;" data-i18n="sfc1.title">6 Asset Class Tabs</div>
@@ -1363,7 +1418,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <span data-i18n="faq.q3">Is the Basic plan really free?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a" data-i18n="faq.a3">Yes. The Basic plan is free forever — no credit card required, no trial period, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal.</div>
+      <div class="faq-a" data-i18n="faq.a3">Yes. The Basic plan is free forever — no credit card required, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal. For Pro, we offer a 7-day free trial with credit card. After 7 days you're charged €40/month + VAT. Cancel anytime during the trial.</div>
     </div>
 
     <div class="faq-item" role="listitem">
@@ -1414,6 +1469,14 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       <div class="faq-a" data-i18n-html="faq.a9">Mobile and tablet support is <strong>coming soon</strong>. The terminal is currently optimised for desktop and laptop browsers. A fully native mobile experience is in development.</div>
     </div>
 
+    <div class="faq-item" role="listitem">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-i18n="faq.q10">How do I cancel during the free trial?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </div>
+      <div class="faq-a" data-i18n="faq.a10">You can cancel anytime from your account settings or billing portal. If you cancel within 7 days, you won't be charged. Your Pro access will remain until the trial period ends.</div>
+    </div>
+
   </div>
 </section>
 
@@ -1449,7 +1512,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
         </ul>
-        <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
+        <a href="/login?plan=trial" class="btn-pro" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or subscribe now →</a>
       </div>
     </div>
     <p class="cta-note" style="margin-top:28px;" data-i18n="cta.note">Works in Chrome, Firefox, Safari, Edge · No installation required</p>
@@ -1687,7 +1752,7 @@ const _LS = {
     'faq.q2':'What is the difference between Basic and Pro?',
     'faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (free)</strong> includes: news feed with 2-minute delay, live economic calendar, TradingView charts, asset watchlist, smart search and multilingual interface.</p><p><strong>Pro (€40/month)</strong> adds: <strong>Real-time zero-delay news</strong> — <strong>Macro & Bonds Hub</strong> — <strong>Earnings Calendar</strong> — <strong>Central Banks Tracker</strong> — <strong>Market Sentiment</strong> — <strong>Market Screener</strong> — <strong>Live Squawk</strong> — <strong>7 Live TV channels</strong> — comprehensive sources — 100% ad-free — priority support.</p>',
     'faq.q3':'Is the Basic plan really free?',
-    'faq.a3':'Yes. The Basic plan is free forever — no credit card required, no trial period, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal.',
+    'faq.a3':'Yes. The Basic plan is free forever — no credit card required, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal. For Pro, we offer a 7-day free trial with credit card. After 7 days you\'re charged €40/month + VAT. Cancel anytime during the trial.',
     'faq.q4':'What is the Squawk feature?',
     'faq.a4':"Squawk uses your browser's Web Speech API to read every new headline aloud as it arrives — just like a professional trading desk squawk box. Enable it with one click. The terminal highlights the card being read in real time. Squawk is a Pro-only feature.",
     'faq.q5':'Which news sources does the terminal aggregate?',
@@ -1700,6 +1765,11 @@ const _LS = {
     'faq.a8':'Yes. Bloomberg Terminal costs approximately €1,800 per month. Trading News Terminal Pro delivers real-time financial news, economic calendar, live squawk, 7 live TV channels and TradingView charts for €40/month — the professional-grade Bloomberg alternative at a fraction of the cost.',
     'faq.q9':'Does it work on mobile and tablet?',
     'faq.a9':'Mobile and tablet support is <strong>coming soon</strong>. The terminal is currently optimised for desktop and laptop browsers. A fully native mobile experience is in development.',
+    'faq.q10':'How do I cancel during the free trial?',
+    'faq.a10':'You can cancel anytime from your account settings or billing portal. If you cancel within 7 days, you won\'t be charged. Your Pro access will remain until the trial period ends.',
+    'pricing.trial_btn':'Start 7-Day Free Trial →',
+    'pricing.trial_note':'Then €40/month + VAT · Cancel anytime',
+    'pricing.subscribe_now':'Or subscribe now →',
     'cta.h2':'Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span>',
     'cta.sub':'Free to start. Upgrade to Pro when you need more.',
     'cta.free_badge':'Basic — Free','cta.forever':'/ forever',
@@ -1878,7 +1948,7 @@ const _LS = {
     'faq.q2':'Qual a diferença entre Basic e Pro?',
     'faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (grátis)</strong> inclui: feed de notícias com atraso de 2 minutos, calendário económico ao vivo, gráficos TradingView, watchlist de ativos, pesquisa inteligente e interface multilingue.</p><p><strong>Pro (€40/mês)</strong> adiciona: <strong>Notícias em tempo real sem atraso</strong> — <strong>Hub Macro & Obrigações</strong> — <strong>Calendário de Resultados</strong> — <strong>Tracker de Bancos Centrais</strong> — <strong>Sentimento de Mercado</strong> — <strong>Screener de Mercado</strong> — <strong>Squawk Ao Vivo</strong> — <strong>7 canais de TV</strong> — cobertura abrangente — 100% sem anúncios — suporte prioritário.</p>',
     'faq.q3':'O plano Basic é mesmo gratuito?',
-    'faq.a3':'Sim. O plano Basic é gratuito para sempre — sem cartão de crédito, sem período de teste, sem upgrade automático. Cria uma conta com o teu email em menos de 30 segundos e tem acesso imediato ao terminal completo.',
+    'faq.a3':'Sim. O plano Basic é gratuito para sempre — sem cartão de crédito, sem upgrade automático. Cria uma conta com o teu email em menos de 30 segundos e tem acesso imediato ao terminal completo. Para o Pro, oferecemos 7 dias de teste grátis com cartão de crédito. Após 7 dias, és cobrado €40/mês + IVA. Cancela a qualquer momento durante o teste.',
     'faq.q4':'O que é a funcionalidade Squawk?',
     'faq.a4':'O Squawk usa a Web Speech API do teu browser para ler cada nova manchete em voz alta assim que chega — exatamente como um squawk box profissional de trading. Ativa com um clique. O terminal destaca o card a ser lido em tempo real. O Squawk é uma funcionalidade exclusiva do Pro.',
     'faq.q5':'Quais as fontes de notícias que o terminal agrega?',
@@ -1891,6 +1961,11 @@ const _LS = {
     'faq.a8':'Sim. O Bloomberg Terminal custa aproximadamente €1.800 por mês. O Trading News Terminal Pro entrega notícias financeiras em tempo real, calendário económico, squawk ao vivo, 7 canais de TV e gráficos TradingView por €40/mês — a alternativa profissional ao Bloomberg a uma fração do custo.',
     'faq.q9':'Funciona em mobile e tablet?',
     'faq.a9':'Suporte mobile e tablet está <strong>a chegar em breve</strong>. O terminal está atualmente otimizado para browsers de desktop e laptop. Uma experiência mobile nativa completa está em desenvolvimento.',
+    'faq.q10':'Como cancelo durante o período de teste grátis?',
+    'faq.a10':'Podes cancelar a qualquer momento nas definições da tua conta ou portal de faturação. Se cancelares dentro de 7 dias, não serás cobrado. O teu acesso Pro continua até ao fim do período de teste.',
+    'pricing.trial_btn':'Iniciar 7 Dias Grátis →',
+    'pricing.trial_note':'Depois €40/mês + IVA · Cancele a qualquer momento',
+    'pricing.subscribe_now':'Ou subscrever agora →',
     'cta.h2':'Começa a negociar de forma mais inteligente.<br><span style="color:var(--accent)">Escolhe o teu plano.</span>',
     'cta.sub':'Grátis para começar. Faz upgrade para Pro quando precisares de mais.',
     'cta.free_badge':'Basic — Grátis','cta.forever':'/ para sempre',
@@ -2062,13 +2137,18 @@ const _LS = {
     'faq.sub':'Todo lo que necesitas saber sobre Trading News Terminal.',
     'faq.q1':'¿Qué es Trading News Terminal?','faq.a1':'Trading News Terminal es una plataforma profesional de noticias financieras en tiempo real para traders activos. Agrega noticias en vivo de fuentes institucionales en forex, macro, cripto, acciones y materias primas, clasifica cada elemento por impacto de mercado (HIGH, MEDIUM, LOW) y combina con calendario económico, squawk box, gráficos TradingView y TV financiera.',
     'faq.q2':'¿Cuál es la diferencia entre Basic y Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con retraso de 2 min, calendario económico, gráficos TradingView, watchlist, búsqueda inteligente e interfaz multilingüe.</p><p><strong>Pro (€40/mes)</strong> añade: <strong>Noticias en tiempo real</strong> — <strong>Hub Macro & Bonos</strong> — <strong>Calendario de Resultados</strong> — <strong>Tracker Bancos Centrales</strong> — <strong>Sentimiento de Mercado</strong> — <strong>Screener</strong> — <strong>Squawk en Vivo</strong> — <strong>7 canales TV</strong> — sin anuncios — soporte prioritario.</p>',
-    'faq.q3':'¿El plan Basic es realmente gratuito?','faq.a3':'Sí. El plan Basic es gratuito para siempre — sin tarjeta de crédito, sin período de prueba, sin upgrade automático. Crea una cuenta con tu email en menos de 30 segundos.',
+    'faq.q3':'¿El plan Basic es realmente gratuito?','faq.a3':'Sí. El plan Basic es gratuito para siempre — sin tarjeta de crédito, sin upgrade automático. Crea una cuenta con tu email en menos de 30 segundos. Para Pro, ofrecemos una prueba gratuita de 7 días con tarjeta de crédito. Después de 7 días se te cobra €40/mes + IVA. Cancela en cualquier momento durante la prueba.',
     'faq.q4':'¿Qué es la función Squawk?','faq.a4':'Squawk usa la Web Speech API de tu navegador para leer cada nuevo titular en voz alta al llegar — exactamente como un squawk box profesional. Actívalo con un clic. Es una función exclusiva de Pro.',
     'faq.q5':'¿Qué fuentes de noticias agrega el terminal?','faq.a5':'Agregamos cientos de fuentes institucionales y profesionales. Mantenemos nuestra lista de fuentes confidencial por razones competitivas. Basic cubre las fuentes de mayor impacto; Pro desbloquea cobertura completa.',
     'faq.q6':'¿Tiene gráficos en vivo?','faq.a6':'Sí. El terminal incluye gráficos TradingView para pares de forex, criptomonedas, índices principales, metales y energía, y materias primas agrícolas. Disponible en planes Basic y Pro.',
     'faq.q7':'¿Cómo funciona el calendario económico?','faq.a7':'El calendario económico muestra 7 días de eventos con temporizadores en vivo, valores anteriores y previsiones. Cuando se publican datos reales, el resultado se inyecta automáticamente en el feed con señales de color beat/miss.',
     'faq.q8':'¿Es Trading News Terminal una alternativa a Bloomberg?','faq.a8':'Sí. Bloomberg Terminal cuesta aproximadamente €1.800 al mes. Trading News Terminal Pro ofrece noticias financieras en tiempo real, calendario económico, squawk, 7 canales de TV y gráficos TradingView por €40/mes.',
     'faq.q9':'¿Funciona en móvil y tablet?','faq.a9':'El soporte para móvil y tablet está <strong>próximamente</strong>. El terminal está optimizado para navegadores de escritorio y portátil.',
+    'faq.q10':'¿Cómo cancelo durante la prueba gratuita?',
+    'faq.a10':'Puedes cancelar en cualquier momento desde la configuración de tu cuenta o el portal de facturación. Si cancelas dentro de los 7 días, no se te cobrará. Tu acceso Pro continuará hasta que termine el período de prueba.',
+    'pricing.trial_btn':'Iniciar Prueba Gratis de 7 Días →',
+    'pricing.trial_note':'Después €40/mes + IVA · Cancela en cualquier momento',
+    'pricing.subscribe_now':'O suscribirse ahora →',
     'cta.h2':'Empieza a operar de forma más inteligente.<br><span style="color:var(--accent)">Elige tu plan.</span>',
     'cta.sub':'Gratis para empezar. Actualiza a Pro cuando necesites más.',
     'cta.free_badge':'Basic — Gratis','cta.forever':'/ para siempre',
@@ -2240,13 +2320,18 @@ const _LS = {
     'faq.sub':'Tout ce que vous devez savoir sur Trading News Terminal.',
     'faq.q1':'Qu\'est-ce que Trading News Terminal?','faq.a1':'Trading News Terminal est une plateforme professionnelle d\'actualités financières en temps réel pour les traders actifs. Elle agrège des actualités en direct de sources institutionnelles en forex, macro, crypto, actions et matières premières.',
     'faq.q2':'Quelle est la différence entre Basic et Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratuit)</strong>: flux avec délai de 2 min, calendrier économique, graphiques TradingView, watchlist, recherche intelligente et interface multilingue.</p><p><strong>Pro (€40/mois)</strong> ajoute: actualités en temps réel — Hub Macro & Obligations — Calendrier Résultats — Suivi Banques Centrales — Sentiment — Screener — Squawk — 7 chaînes TV — sans publicité — support prioritaire.</p>',
-    'faq.q3':'Le plan Basic est-il vraiment gratuit?','faq.a3':'Oui. Le plan Basic est gratuit pour toujours — sans carte de crédit, sans période d\'essai. Créez un compte en moins de 30 secondes.',
+    'faq.q3':'Le plan Basic est-il vraiment gratuit?','faq.a3':'Oui. Le plan Basic est gratuit pour toujours — sans carte de crédit, sans mise à niveau automatique. Créez un compte en moins de 30 secondes. Pour le Pro, nous offrons un essai gratuit de 7 jours avec carte de crédit. Après 7 jours, vous serez facturé €40/mois + TVA. Annulez à tout moment pendant l\'essai.',
     'faq.q4':'Qu\'est-ce que la fonction Squawk?','faq.a4':'Squawk utilise l\'API Web Speech de votre navigateur pour lire chaque nouveau titre à voix haute à son arrivée. Activez en un clic. C\'est une fonctionnalité exclusive Pro.',
     'faq.q5':'Quelles sources d\'actualités le terminal agrège-t-il?','faq.a5':'Nous agrégeons des centaines de sources institutionnelles et professionnelles. Notre liste de sources est confidentielle. Basic couvre les sources à plus fort impact; Pro déverrouille une couverture complète.',
     'faq.q6':'Le terminal a-t-il des graphiques en direct?','faq.a6':'Oui. Le terminal inclut des graphiques TradingView pour paires forex, cryptomonnaies, indices principaux, métaux et énergie, et matières premières agricoles.',
     'faq.q7':'Comment fonctionne le calendrier économique?','faq.a7':'Le calendrier économique affiche 7 jours d\'événements avec minuteries en direct, valeurs précédentes et prévisions. Quand les données réelles sont publiées, le résultat s\'injecte automatiquement dans le flux.',
     'faq.q8':'Trading News Terminal est-il une alternative à Bloomberg?','faq.a8':'Oui. Bloomberg Terminal coûte environ €1.800 par mois. Trading News Terminal Pro offre actualités en temps réel, calendrier économique, squawk, 7 chaînes TV et graphiques TradingView pour €40/mois.',
     'faq.q9':'Fonctionne-t-il sur mobile et tablette?','faq.a9':'Le support mobile et tablette est <strong>à venir</strong>. Le terminal est actuellement optimisé pour les navigateurs de bureau.',
+    'faq.q10':'Comment annuler pendant l\'essai gratuit ?',
+    'faq.a10':'Vous pouvez annuler à tout moment depuis les paramètres de votre compte ou le portail de facturation. Si vous annulez dans les 7 jours, vous ne serez pas facturé. Votre accès Pro restera actif jusqu\'à la fin de la période d\'essai.',
+    'pricing.trial_btn':'Essai Gratuit de 7 Jours →',
+    'pricing.trial_note':'Puis €40/mois + TVA · Annulez à tout moment',
+    'pricing.subscribe_now':'Ou s\'abonner maintenant →',
     'cta.h2':'Commencez à trader plus intelligemment.<br><span style="color:var(--accent)">Choisissez votre plan.</span>',
     'cta.sub':'Gratuit pour commencer. Mettez à niveau vers Pro quand vous en avez besoin.',
     'cta.free_badge':'Basic — Gratuit','cta.forever':'/ pour toujours',
@@ -2418,13 +2503,18 @@ const _LS = {
     'faq.sub':'Alles, was du über Trading News Terminal wissen musst.',
     'faq.q1':'Was ist Trading News Terminal?','faq.a1':'Trading News Terminal ist eine professionelle Echtzeit-Finanznachrichtenplattform für aktive Trader. Es aggregiert Live-Nachrichten aus institutionellen Quellen in Forex, Makro, Krypto, Aktien und Rohstoffen und kombiniert sie mit Live-Wirtschaftskalender, Squawk-Box, TradingView-Charts und Finanz-TV.',
     'faq.q2':'Was ist der Unterschied zwischen Basic und Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (kostenlos)</strong>: Feed mit 2 Min. Verzögerung, Live-Wirtschaftskalender, TradingView-Charts, Watchlist, intelligente Suche und mehrsprachige Oberfläche.</p><p><strong>Pro (€40/Monat)</strong> fügt hinzu: Echtzeit-Nachrichten — Makro & Anleihen Hub — Ergebniskalender — Zentralbank-Tracker — Marktsentiment — Marktscreener — Live-Squawk — 7 TV-Kanäle — werbefrei — Prioritätssupport.</p>',
-    'faq.q3':'Ist der Basic-Plan wirklich kostenlos?','faq.a3':'Ja. Der Basic-Plan ist für immer kostenlos — keine Kreditkarte, kein Testzeitraum. Erstelle ein Konto mit deiner E-Mail in unter 30 Sekunden.',
+    'faq.q3':'Ist der Basic-Plan wirklich kostenlos?','faq.a3':'Ja. Der Basic-Plan ist für immer kostenlos — keine Kreditkarte, kein automatisches Upgrade. Erstelle ein Konto mit deiner E-Mail in unter 30 Sekunden. Für Pro bieten wir eine 7-tägige kostenlose Testphase mit Kreditkarte. Nach 7 Tagen wird dir €40/Monat + MwSt berechnet. Jederzeit während der Testphase kündbar.',
     'faq.q4':'Was ist die Squawk-Funktion?','faq.a4':'Squawk verwendet die Web Speech API deines Browsers, um jede neue Schlagzeile laut vorzulesen — genau wie eine professionelle Trading-Squawk-Box. Mit einem Klick aktivieren. Squawk ist eine exklusive Pro-Funktion.',
     'faq.q5':'Welche Nachrichtenquellen aggregiert das Terminal?','faq.a5':'Wir aggregieren aus Hunderten von institutionellen und professionellen Nachrichtenquellen. Unsere Quellenliste ist aus Wettbewerbsgründen vertraulich. Basic deckt die wirkungsvollsten Quellen ab; Pro schaltet vollständige Abdeckung frei.',
     'faq.q6':'Hat Trading News Terminal Live-Charts?','faq.a6':'Ja. Das Terminal enthält eingebettete TradingView-Charts für Forex-Paare, Kryptowährungen, wichtige Indizes, Metalle und Energie sowie Agrarrohstoffe.',
     'faq.q7':'Wie funktioniert der Wirtschaftskalender?','faq.a7':'Der Wirtschaftskalender zeigt 7 Tage bevorstehender Ereignisse mit Live-Timern, Vorwerten und Prognosen. Wenn Ist-Daten veröffentlicht werden, wird das Ergebnis automatisch in den Feed eingefügt.',
     'faq.q8':'Ist Trading News Terminal eine Bloomberg-Alternative?','faq.a8':'Ja. Das Bloomberg Terminal kostet etwa €1.800 pro Monat. Trading News Terminal Pro bietet Echtzeit-Finanznachrichten, Wirtschaftskalender, Live-Squawk, 7 TV-Kanäle und TradingView-Charts für €40/Monat.',
     'faq.q9':'Funktioniert es auf Mobilgeräten und Tablets?','faq.a9':'Mobile und Tablet-Unterstützung kommt <strong>bald</strong>. Das Terminal ist derzeit für Desktop- und Laptop-Browser optimiert.',
+    'faq.q10':'Wie kündige ich während der kostenlosen Testphase?',
+    'faq.a10':'Du kannst jederzeit in deinen Kontoeinstellungen oder im Abrechnungsportal kündigen. Wenn du innerhalb von 7 Tagen kündigst, wird dir nichts berechnet. Dein Pro-Zugang bleibt bis zum Ende der Testphase bestehen.',
+    'pricing.trial_btn':'7-Tage Kostenlos Testen →',
+    'pricing.trial_note':'Danach €40/Monat + MwSt · Jederzeit kündbar',
+    'pricing.subscribe_now':'Oder jetzt abonnieren →',
     'cta.h2':'Fange an, intelligenter zu handeln.<br><span style="color:var(--accent)">Wähle deinen Plan.</span>',
     'cta.sub':'Kostenlos starten. Upgraden zu Pro wenn du mehr benötigst.',
     'cta.free_badge':'Basic — Kostenlos','cta.forever':'/ für immer',
@@ -2596,13 +2686,18 @@ const _LS = {
     'faq.sub':'Tutto ciò che devi sapere su Trading News Terminal.',
     'faq.q1':'Che cos\'è Trading News Terminal?','faq.a1':'Trading News Terminal è una piattaforma professionale di notizie finanziarie in tempo reale per trader attivi. Aggrega notizie in diretta da fonti istituzionali in forex, macro, cripto, azioni e materie prime, classifica ogni elemento per impatto di mercato (HIGH, MEDIUM, LOW) e combina con calendario economico, squawk box, grafici TradingView e TV finanziaria.',
     'faq.q2':'Qual è la differenza tra Basic e Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con ritardo di 2 min, calendario economico, grafici TradingView, watchlist, ricerca intelligente e interfaccia multilingue.</p><p><strong>Pro (€40/mese)</strong> aggiunge: notizie in tempo reale — Hub Macro & Obbligazioni — Calendario Utili — Tracker Banche Centrali — Sentiment — Screener — Squawk — 7 canali TV — senza pubblicità — supporto prioritario.</p>',
-    'faq.q3':'Il piano Basic è davvero gratuito?','faq.a3':'Sì. Il piano Basic è gratuito per sempre — nessuna carta di credito, nessun periodo di prova. Crea un account con la tua email in meno di 30 secondi.',
+    'faq.q3':'Il piano Basic è davvero gratuito?','faq.a3':'Sì. Il piano Basic è gratuito per sempre — nessuna carta di credito, nessun upgrade automatico. Crea un account con la tua email in meno di 30 secondi. Per il Pro, offriamo una prova gratuita di 7 giorni con carta di credito. Dopo 7 giorni ti verranno addebitati €40/mese + IVA. Cancella in qualsiasi momento durante la prova.',
     'faq.q4':'Cos\'è la funzione Squawk?','faq.a4':'Squawk usa la Web Speech API del tuo browser per leggere ogni nuovo titolo ad alta voce al suo arrivo — esattamente come uno squawk box professionale. Attiva con un clic. È una funzione esclusiva Pro.',
     'faq.q5':'Quali fonti di notizie aggrega il terminale?','faq.a5':'Aggreghiamo da centinaia di fonti istituzionali e professionali. Il nostro elenco di fonti è riservato per ragioni competitive. Basic copre le fonti ad alto impatto; Pro sblocca la copertura completa.',
     'faq.q6':'Il Trading News Terminal ha grafici in diretta?','faq.a6':'Sì. Il terminale include grafici TradingView per coppie forex, criptovalute, indici principali, metalli e energia, e materie prime agricole.',
     'faq.q7':'Come funziona il calendario economico?','faq.a7':'Il calendario economico mostra 7 giorni di eventi con timer in diretta, valori precedenti e previsioni. Quando vengono pubblicati i dati reali, il risultato viene automaticamente iniettato nel feed con segnali di colore beat/miss.',
     'faq.q8':'Il Trading News Terminal è un\'alternativa a Bloomberg?','faq.a8':'Sì. Il Bloomberg Terminal costa circa €1.800 al mese. Trading News Terminal Pro offre notizie finanziarie in tempo reale, calendario economico, squawk, 7 canali TV e grafici TradingView per €40/mese.',
     'faq.q9':'Funziona su mobile e tablet?','faq.a9':'Il supporto mobile e tablet è <strong>in arrivo</strong>. Il terminale è attualmente ottimizzato per browser desktop e laptop.',
+    'faq.q10':'Come cancello durante la prova gratuita?',
+    'faq.a10':'Puoi cancellare in qualsiasi momento dalle impostazioni del tuo account o dal portale di fatturazione. Se cancelli entro 7 giorni, non ti verrà addebitato nulla. Il tuo accesso Pro rimarrà attivo fino alla fine del periodo di prova.',
+    'pricing.trial_btn':'Prova Gratuita di 7 Giorni →',
+    'pricing.trial_note':'Poi €40/mese + IVA · Cancella in qualsiasi momento',
+    'pricing.subscribe_now':'O iscriviti ora →',
     'cta.h2':'Inizia a fare trading in modo più intelligente.<br><span style="color:var(--accent)">Scegli il tuo piano.</span>',
     'cta.sub':'Gratis per iniziare. Fai upgrade a Pro quando ne hai bisogno.',
     'cta.free_badge':'Basic — Gratis','cta.forever':'/ per sempre',
