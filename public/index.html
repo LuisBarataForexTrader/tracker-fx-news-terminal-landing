@@ -754,7 +754,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <div class="hero-actions">
     <a href="/signup" class="btn-primary" data-i18n="hero.btn_open">▶ Open Terminal — Free</a>
     <a href="/login?plan=pro" class="btn-pro" data-i18n="hero.btn_pro">Get Pro — €40/mo</a>
-    <a href="/login?plan=trial" class="btn-trial" data-i18n="hero.btn_explore">🎁 Start 7-Day Free Trial</a>
+    <a href="/login?plan=trial" class="btn-trial" data-i18n="hero.btn_explore">Start 7-Day Free Trial</a>
   </div>
 
   <div class="hero-trust">
@@ -1202,9 +1202,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li class="pf-yes pf-pro-item" data-i18n="ppf.adfree">100% ad-free · No upgrade prompts</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.support">Priority support</li>
         </ul>
-        <a href="/login?plan=trial" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
-        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or subscribe now →</a>
+        <a href="/login?plan=pro" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="plan.pro_btn">Get Pro Access →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=trial" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or try free for 7 days →</a>
       </div>
     </div>
   </div>
@@ -1514,9 +1514,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
         </ul>
-        <a href="/login?plan=trial" class="btn-pro" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
-        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or subscribe now →</a>
+        <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=trial" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or try free for 7 days →</a>
       </div>
     </div>
     <p class="cta-note" style="margin-top:28px;" data-i18n="cta.note">Works in Chrome, Firefox, Safari, Edge · No installation required</p>
@@ -1622,7 +1622,7 @@ const _LS = {
     'hero.h1_line3':'Built for Active Traders',
     'hero.sub':'Real-time financial news, live economic calendar, squawk box, TradingView charts and live financial TV — all in one zero-clutter terminal. The affordable alternative to Bloomberg. <strong>Free to start.</strong>',
     'hero.btn_open':'▶ Open Terminal — Free','hero.btn_pro':'Get Pro — €40/mo',
-    'hero.btn_explore':'🎁 Start 7-Day Free Trial',
+    'hero.btn_explore':'Start 7-Day Free Trial',
     'hero.trust1':'Free account in 30 seconds','hero.trust2':'No credit card required',
     'hero.trust3':'Economic calendar with live releases','hero.trust4':'TradingView charts included',
     'hero.trust5':'Live squawk on Pro',
@@ -1770,8 +1770,8 @@ const _LS = {
     'faq.q10':'How do I cancel during the free trial?',
     'faq.a10':'You can cancel anytime from your account settings or billing portal. If you cancel within 7 days, you won\'t be charged. Your Pro access will remain until the trial period ends.',
     'pricing.trial_btn':'Start 7-Day Free Trial →',
-    'pricing.trial_note':'Then €40/month + VAT · Cancel anytime',
-    'pricing.subscribe_now':'Or subscribe now →',
+    'pricing.trial_note':'€40/month + VAT · Cancel anytime',
+    'pricing.subscribe_now':'Or try free for 7 days →',
     'cta.h2':'Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span>',
     'cta.sub':'Free to start. Upgrade to Pro when you need more.',
     'cta.free_badge':'Basic — Free','cta.forever':'/ forever',
@@ -1818,7 +1818,7 @@ const _LS = {
     'hero.h1_line3':'Para Traders Ativos',
     'hero.sub':'Notícias financeiras em tempo real, calendário económico ao vivo, squawk box, gráficos TradingView e TV financeira — tudo num terminal sem distração. A alternativa acessível ao Bloomberg. <strong>Grátis para começar.</strong>',
     'hero.btn_open':'▶ Abrir Terminal — Grátis','hero.btn_pro':'Obter Pro — €40/mês',
-    'hero.btn_explore':'🎁 Experimentar 7 Dias Grátis',
+    'hero.btn_explore':'Experimentar 7 Dias Grátis',
     'hero.trust1':'Conta grátis em 30 segundos','hero.trust2':'Sem cartão de crédito',
     'hero.trust3':'Calendário económico com releases ao vivo','hero.trust4':'Gráficos TradingView incluídos',
     'hero.trust5':'Squawk ao vivo no Pro',
@@ -1966,8 +1966,8 @@ const _LS = {
     'faq.q10':'Como cancelo durante o período de teste grátis?',
     'faq.a10':'Podes cancelar a qualquer momento nas definições da tua conta ou portal de faturação. Se cancelares dentro de 7 dias, não serás cobrado. O teu acesso Pro continua até ao fim do período de teste.',
     'pricing.trial_btn':'Iniciar 7 Dias Grátis →',
-    'pricing.trial_note':'Depois €40/mês + IVA · Cancele a qualquer momento',
-    'pricing.subscribe_now':'Ou subscrever agora →',
+    'pricing.trial_note':'€40/mês + IVA · Cancele a qualquer momento',
+    'pricing.subscribe_now':'Ou experimentar 7 dias grátis →',
     'cta.h2':'Começa a negociar de forma mais inteligente.<br><span style="color:var(--accent)">Escolhe o teu plano.</span>',
     'cta.sub':'Grátis para começar. Faz upgrade para Pro quando precisares de mais.',
     'cta.free_badge':'Basic — Grátis','cta.forever':'/ para sempre',
@@ -2014,7 +2014,7 @@ const _LS = {
     'hero.h1_line3':'Para Traders Activos',
     'hero.sub':'Noticias financieras en tiempo real, calendario económico en vivo, squawk box, gráficos TradingView y TV financiera — todo en un terminal sin distracciones. La alternativa asequible a Bloomberg. <strong>Gratis para empezar.</strong>',
     'hero.btn_open':'▶ Abrir Terminal — Gratis','hero.btn_pro':'Obtener Pro — €40/mes',
-    'hero.btn_explore':'🎁 Prueba Gratis 7 Días',
+    'hero.btn_explore':'Prueba Gratis 7 Días',
     'hero.trust1':'Cuenta gratis en 30 segundos','hero.trust2':'Sin tarjeta de crédito',
     'hero.trust3':'Calendario económico con publicaciones en vivo','hero.trust4':'Gráficos TradingView incluidos',
     'hero.trust5':'Squawk en vivo en Pro',
@@ -2149,8 +2149,8 @@ const _LS = {
     'faq.q10':'¿Cómo cancelo durante la prueba gratuita?',
     'faq.a10':'Puedes cancelar en cualquier momento desde la configuración de tu cuenta o el portal de facturación. Si cancelas dentro de los 7 días, no se te cobrará. Tu acceso Pro continuará hasta que termine el período de prueba.',
     'pricing.trial_btn':'Iniciar Prueba Gratis de 7 Días →',
-    'pricing.trial_note':'Después €40/mes + IVA · Cancela en cualquier momento',
-    'pricing.subscribe_now':'O suscribirse ahora →',
+    'pricing.trial_note':'€40/mes + IVA · Cancela en cualquier momento',
+    'pricing.subscribe_now':'O probar gratis 7 días →',
     'cta.h2':'Empieza a operar de forma más inteligente.<br><span style="color:var(--accent)">Elige tu plan.</span>',
     'cta.sub':'Gratis para empezar. Actualiza a Pro cuando necesites más.',
     'cta.free_badge':'Basic — Gratis','cta.forever':'/ para siempre',
@@ -2197,7 +2197,7 @@ const _LS = {
     'hero.h1_line3':'Pour les Traders Actifs',
     'hero.sub':'Actualités financières en temps réel, calendrier économique en direct, squawk box, graphiques TradingView et TV financière — tout dans un terminal sans encombrement. L\'alternative abordable à Bloomberg. <strong>Gratuit pour commencer.</strong>',
     'hero.btn_open':'▶ Ouvrir Terminal — Gratuit','hero.btn_pro':'Obtenir Pro — €40/mois',
-    'hero.btn_explore':'🎁 Essai Gratuit 7 Jours',
+    'hero.btn_explore':'Essai Gratuit 7 Jours',
     'hero.trust1':'Compte gratuit en 30 secondes','hero.trust2':'Sans carte de crédit',
     'hero.trust3':'Calendrier économique avec publications en direct','hero.trust4':'Graphiques TradingView inclus',
     'hero.trust5':'Squawk en direct sur Pro',
@@ -2332,8 +2332,8 @@ const _LS = {
     'faq.q10':'Comment annuler pendant l\'essai gratuit ?',
     'faq.a10':'Vous pouvez annuler à tout moment depuis les paramètres de votre compte ou le portail de facturation. Si vous annulez dans les 7 jours, vous ne serez pas facturé. Votre accès Pro restera actif jusqu\'à la fin de la période d\'essai.',
     'pricing.trial_btn':'Essai Gratuit de 7 Jours →',
-    'pricing.trial_note':'Puis €40/mois + TVA · Annulez à tout moment',
-    'pricing.subscribe_now':'Ou s\'abonner maintenant →',
+    'pricing.trial_note':'€40/mois + TVA · Annulez à tout moment',
+    'pricing.subscribe_now':'Ou essayer gratuitement 7 jours →',
     'cta.h2':'Commencez à trader plus intelligemment.<br><span style="color:var(--accent)">Choisissez votre plan.</span>',
     'cta.sub':'Gratuit pour commencer. Mettez à niveau vers Pro quand vous en avez besoin.',
     'cta.free_badge':'Basic — Gratuit','cta.forever':'/ pour toujours',
@@ -2380,7 +2380,7 @@ const _LS = {
     'hero.h1_line3':'Für aktive Trader',
     'hero.sub':'Echtzeit-Finanznachrichten, Live-Wirtschaftskalender, Squawk-Box, TradingView-Charts und Live-Finanz-TV — alles in einem aufgeräumten Terminal. Die erschwingliche Alternative zu Bloomberg. <strong>Kostenlos starten.</strong>',
     'hero.btn_open':'▶ Terminal öffnen — Kostenlos','hero.btn_pro':'Pro holen — €40/Monat',
-    'hero.btn_explore':'🎁 7 Tage kostenlos testen',
+    'hero.btn_explore':'7 Tage kostenlos testen',
     'hero.trust1':'Kostenloses Konto in 30 Sekunden','hero.trust2':'Keine Kreditkarte erforderlich',
     'hero.trust3':'Wirtschaftskalender mit Live-Veröffentlichungen','hero.trust4':'TradingView-Charts inklusive',
     'hero.trust5':'Live-Squawk auf Pro',
@@ -2515,8 +2515,8 @@ const _LS = {
     'faq.q10':'Wie kündige ich während der kostenlosen Testphase?',
     'faq.a10':'Du kannst jederzeit in deinen Kontoeinstellungen oder im Abrechnungsportal kündigen. Wenn du innerhalb von 7 Tagen kündigst, wird dir nichts berechnet. Dein Pro-Zugang bleibt bis zum Ende der Testphase bestehen.',
     'pricing.trial_btn':'7-Tage Kostenlos Testen →',
-    'pricing.trial_note':'Danach €40/Monat + MwSt · Jederzeit kündbar',
-    'pricing.subscribe_now':'Oder jetzt abonnieren →',
+    'pricing.trial_note':'€40/Monat + MwSt · Jederzeit kündbar',
+    'pricing.subscribe_now':'Oder 7 Tage kostenlos testen →',
     'cta.h2':'Fange an, intelligenter zu handeln.<br><span style="color:var(--accent)">Wähle deinen Plan.</span>',
     'cta.sub':'Kostenlos starten. Upgraden zu Pro wenn du mehr benötigst.',
     'cta.free_badge':'Basic — Kostenlos','cta.forever':'/ für immer',
@@ -2563,7 +2563,7 @@ const _LS = {
     'hero.h1_line3':'Per Trader Attivi',
     'hero.sub':'Notizie finanziarie in tempo reale, calendario economico in diretta, squawk box, grafici TradingView e TV finanziaria — tutto in un terminale senza ingombro. L\'alternativa conveniente a Bloomberg. <strong>Gratis per iniziare.</strong>',
     'hero.btn_open':'▶ Apri Terminale — Gratis','hero.btn_pro':'Ottieni Pro — €40/mese',
-    'hero.btn_explore':'🎁 Prova Gratuita 7 Giorni',
+    'hero.btn_explore':'Prova Gratuita 7 Giorni',
     'hero.trust1':'Account gratuito in 30 secondi','hero.trust2':'Nessuna carta di credito richiesta',
     'hero.trust3':'Calendario economico con pubblicazioni in diretta','hero.trust4':'Grafici TradingView inclusi',
     'hero.trust5':'Squawk in diretta su Pro',
@@ -2698,8 +2698,8 @@ const _LS = {
     'faq.q10':'Come cancello durante la prova gratuita?',
     'faq.a10':'Puoi cancellare in qualsiasi momento dalle impostazioni del tuo account o dal portale di fatturazione. Se cancelli entro 7 giorni, non ti verrà addebitato nulla. Il tuo accesso Pro rimarrà attivo fino alla fine del periodo di prova.',
     'pricing.trial_btn':'Prova Gratuita di 7 Giorni →',
-    'pricing.trial_note':'Poi €40/mese + IVA · Cancella in qualsiasi momento',
-    'pricing.subscribe_now':'O iscriviti ora →',
+    'pricing.trial_note':'€40/mese + IVA · Cancella in qualsiasi momento',
+    'pricing.subscribe_now':'O prova gratis per 7 giorni →',
     'cta.h2':'Inizia a fare trading in modo più intelligente.<br><span style="color:var(--accent)">Scegli il tuo piano.</span>',
     'cta.sub':'Gratis per iniziare. Fai upgrade a Pro quando ne hai bisogno.',
     'cta.free_badge':'Basic — Gratis','cta.forever':'/ per sempre',
