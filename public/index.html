@@ -492,6 +492,35 @@ section { padding:100px 24px; }
 .screener-feat-title{font-size:13px;font-weight:700;margin-bottom:3px;}
 .screener-feat-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
 
+/* ── AI SHOWCASE ── */
+.ai-section{background:var(--bg2);}
+.ai-showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:64px;}
+@media(max-width:900px){.ai-showcase-grid{grid-template-columns:1fr;}}
+.ai-showcase-visual{background:var(--bg);border:1px solid var(--border2);border-radius:6px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.ai-showcase-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted);}
+.ai-showcase-bar-dot{width:8px;height:8px;border-radius:50%;background:#a78bfa;animation:blink 2s ease-in-out infinite;}
+.ai-headline-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.ai-hl-tag{font-size:9px;font-weight:800;letter-spacing:0.1em;padding:2px 7px;border-radius:2px;text-transform:uppercase;background:rgba(255,59,92,0.12);border:1px solid rgba(255,59,92,0.25);color:var(--high);flex-shrink:0;}
+.ai-hl-text{font-size:11px;color:var(--text);font-weight:500;line-height:1.4;flex:1;}
+.ai-hl-btn{font-size:9px;font-weight:700;letter-spacing:0.04em;padding:3px 10px;background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(167,139,250,0.15));border:1px solid rgba(167,139,250,0.4);color:#c4b5fd;border-radius:2px;flex-shrink:0;}
+.ai-result-mock{padding:14px 16px;background:rgba(124,58,237,0.05);border-top:1px solid rgba(167,139,250,0.15);}
+.ai-result-mock-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:10px;}
+.ai-asset-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:10px;}
+.ai-asset-name{color:var(--text);font-weight:600;font-family:var(--font-mono);width:60px;flex-shrink:0;}
+.ai-asset-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px;text-transform:uppercase;letter-spacing:0.06em;}
+.ai-badge-bull{background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:var(--low);}
+.ai-badge-bear{background:rgba(255,59,92,0.12);border:1px solid rgba(255,59,92,0.25);color:var(--high);}
+.ai-badge-neut{background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.3);color:var(--text-muted);}
+.ai-asset-desc{color:var(--text-muted);font-size:10px;line-height:1.4;flex:1;}
+.ai-result-footer-mock{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.ai-conf-mock{font-size:9px;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:0.08em;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:var(--low);}
+.ai-key-mock{font-size:9px;color:var(--text-muted);}
+.ai-feats{display:flex;flex-direction:column;gap:16px;margin-top:0;}
+.ai-feat{display:flex;align-items:flex-start;gap:14px;}
+.ai-feat-icon{width:38px;height:38px;background:rgba(124,58,237,0.08);border:1px solid rgba(167,139,250,0.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.ai-feat-title{font-size:13px;font-weight:700;margin-bottom:3px;}
+.ai-feat-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
+
 /* ── HOW IT WORKS ── */
 .how-section { background:var(--bg2); }
 .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:64px; position:relative; }
@@ -842,6 +871,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.earnings">Earnings Calendar</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.macro">Macro &amp; Bonds Hub</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.screener">Market Screener — 6 Asset Classes</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.ai">✦ AI News Analysis</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sources">Comprehensive Source Coverage</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.adfree">100% Ad-Free</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.noprompts">No Upgrade Prompts</span></div>
@@ -855,6 +885,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.earnings">Earnings Calendar</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.macro">Macro &amp; Bonds Hub</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.screener">Market Screener — 6 Asset Classes</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.ai">✦ AI News Analysis</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sources">Comprehensive Source Coverage</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.adfree">100% Ad-Free</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.noprompts">No Upgrade Prompts</span></div>
@@ -946,6 +977,12 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <div class="feature-icon" aria-hidden="true">🏦</div>
         <h3 class="feature-title" data-i18n="fc13.title">Central Banks Tracker</h3>
         <p class="feature-desc" data-i18n="fc13.desc">Dedicated Central Banks tab monitors all major central bank decisions, speeches and rate path signals — Fed, ECB, BOE, BOJ, SNB, RBA, BOC and more. Rate decisions auto-inject into the live feed the instant they're announced, with prior vs current rate comparison and immediate market context.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
+      </div>
+      <div class="feature-card" role="listitem">
+        <div class="feature-icon" aria-hidden="true">✦</div>
+        <h3 class="feature-title" data-i18n="fc14.title">AI News Analysis</h3>
+        <p class="feature-desc" data-i18n="fc14.desc">One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.</p>
         <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
     </div>
@@ -1198,6 +1235,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.squawk"><strong>Live Squawk</strong> — hands-free voice alerts</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.tv"><strong>Live Financial TV</strong> — 7 channels</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.screener"><strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.ai"><strong>✦ AI News Analysis</strong> — full article · asset impact</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.sources">Comprehensive source coverage</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.adfree">100% ad-free · No upgrade prompts</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.support">Priority support</li>
@@ -1251,6 +1289,93 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ── AI SHOWCASE ── -->
+<section class="ai-section" id="ai-analysis" aria-labelledby="ai-heading">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="ai.eyebrow">AI News Analysis</div>
+    <h2 class="section-title" id="ai-heading" data-i18n-html="ai.h2">Reads the article.<br>Tells you what moves.</h2>
+    <p class="section-sub" data-i18n="ai.sub">Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.</p>
+
+    <div class="ai-showcase-grid">
+      <div class="ai-showcase-visual">
+        <div class="ai-showcase-bar">
+          <div class="ai-showcase-bar-dot"></div>
+          <span data-i18n="ai.bar_label">AI Analysis — Live Feed</span>
+          <span style="margin-left:auto;font-size:10px;color:#a78bfa">Pro Only</span>
+        </div>
+        <!-- headline row -->
+        <div class="ai-headline-row">
+          <span class="ai-hl-tag">HIGH</span>
+          <span class="ai-hl-text">Fed Chair Powell signals rate cut timeline may shift amid persistent inflation data</span>
+          <span class="ai-hl-btn">✦ AI ✦</span>
+        </div>
+        <!-- AI result panel mock -->
+        <div class="ai-result-mock">
+          <div class="ai-result-mock-title">✦ AI Analysis</div>
+          <div class="ai-asset-row">
+            <span class="ai-asset-name">EUR/USD</span>
+            <span class="ai-asset-badge ai-badge-bull">Bullish</span>
+            <span class="ai-asset-desc">Dollar weakness expected on delayed cut signals — EUR/USD upside bias.</span>
+          </div>
+          <div class="ai-asset-row">
+            <span class="ai-asset-name">USD/JPY</span>
+            <span class="ai-asset-badge ai-badge-bear">Bearish</span>
+            <span class="ai-asset-desc">BOJ divergence widens — yen likely to strengthen vs dollar.</span>
+          </div>
+          <div class="ai-asset-row">
+            <span class="ai-asset-name">GOLD</span>
+            <span class="ai-asset-badge ai-badge-bull">Bullish</span>
+            <span class="ai-asset-desc">Rate uncertainty lifts safe-haven demand — watch 2,380 resistance.</span>
+          </div>
+          <div class="ai-asset-row">
+            <span class="ai-asset-name">S&amp;P 500</span>
+            <span class="ai-asset-badge ai-badge-neut">Neutral</span>
+            <span class="ai-asset-desc">Mixed signals — markets already pricing some delay.</span>
+          </div>
+          <div class="ai-result-footer-mock">
+            <span class="ai-conf-mock">CONF: HIGH</span>
+            <span class="ai-key-mock">Key level: EUR/USD 1.0920</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="ai-feats">
+          <div class="ai-feat">
+            <div class="ai-feat-icon">📄</div>
+            <div>
+              <div class="ai-feat-title" data-i18n="aif1.title">Full Article Read</div>
+              <div class="ai-feat-desc" data-i18n="aif1.desc">The AI fetches and reads the complete source article — not just the headline. You get analysis based on the actual content, so the context is always accurate.</div>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon">🎯</div>
+            <div>
+              <div class="ai-feat-title" data-i18n="aif2.title">Asset Impact per Instrument</div>
+              <div class="ai-feat-desc" data-i18n="aif2.desc">Every analysis lists the affected instruments with a clear Bullish / Bearish / Neutral rating plus a one-line explanation. Know exactly which pairs and assets to watch.</div>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon">📊</div>
+            <div>
+              <div class="ai-feat-title" data-i18n="aif3.title">Confidence Rating &amp; Key Levels</div>
+              <div class="ai-feat-desc" data-i18n="aif3.desc">Each analysis includes a confidence score (HIGH / MEDIUM / LOW) and the most important price level to watch — so you can size your trade accordingly.</div>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon">⚡</div>
+            <div>
+              <div class="ai-feat-title" data-i18n="aif4.title">Results in Under 5 Seconds</div>
+              <div class="ai-feat-desc" data-i18n="aif4.desc">Powered by Llama 3.3 70B via Groq. Lightning-fast inference means you get structured market intelligence before the price has moved — not after.</div>
+            </div>
+          </div>
+        </div>
+        <a href="/login?plan=pro" class="btn-primary" style="margin-top:32px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;" data-i18n="ai.cta">Try AI Analysis — Upgrade to Pro →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1338,6 +1463,13 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.screener_6">6 asset classes</span></td>
             <td><span class="check-no">✗</span></td>
             <td><span class="check-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name" data-i18n="vs.ai">✦ AI news analysis</td>
+            <td class="ours"><span class="check-no">✗</span></td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.ai_detail">Full article · asset impact</span></td>
+            <td><span class="check-no">✗</span></td>
+            <td><span class="check-no">✗</span></td>
           </tr>
           <tr>
             <td class="feature-name" data-i18n="vs.sentiment">Market sentiment</td>
@@ -1629,7 +1761,7 @@ const _LS = {
     'ticker.realtime':'Real-Time Zero-Delay News Feed','ticker.squawk':'Live Squawk Box',
     'ticker.sentiment':'Market Sentiment Analysis','ticker.tv':'7 Live Financial TV Channels',
     'ticker.centralbanks':'Central Banks Tracker','ticker.earnings':'Earnings Calendar',
-    'ticker.macro':'Macro & Bonds Hub','ticker.screener':'Market Screener — 6 Asset Classes',
+    'ticker.macro':'Macro & Bonds Hub','ticker.screener':'Market Screener — 6 Asset Classes','ticker.ai':'AI News Analysis',
     'ticker.sources':'Comprehensive Source Coverage','ticker.adfree':'100% Ad-Free',
     'ticker.noprompts':'No Upgrade Prompts','ticker.support':'Priority Support',
     'feat.eyebrow':'Everything you need',
@@ -1715,6 +1847,7 @@ const _LS = {
     'ppf.squawk':'<strong>Live Squawk</strong> — hands-free voice alerts',
     'ppf.tv':'<strong>Live Financial TV</strong> — 7 channels',
     'ppf.screener':'<strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…',
+    'ppf.ai':'<strong>✦ AI News Analysis</strong> — full article · asset impact',
     'ppf.sources':'Comprehensive source coverage',
     'ppf.adfree':'100% ad-free · No upgrade prompts','ppf.support':'Priority support',
     'sc.eyebrow':'Market Screener',
@@ -1728,6 +1861,21 @@ const _LS = {
     'sfc2.desc':'Every instrument shows a live <strong>RSI score</strong> and directional signal — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> or <strong>Oversold</strong>. Instantly identify momentum and potential reversals across all markets.',
     'sfc3.title':'Advanced Filters & Multi-View',
     'sfc3.desc':'Filter by sector, market cap, signal, RSI range, P/E, beta and more. Stocks offer 4 views: Overview, Performance, Valuation and Dividends. Every column is sortable.',
+    'fc14.title':'AI News Analysis',
+    'fc14.desc':'One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.',
+    'ai.eyebrow':'AI News Analysis',
+    'ai.h2':'Reads the article.<br>Tells you what moves.',
+    'ai.sub':'Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.',
+    'ai.bar_label':'AI Analysis — Live Feed',
+    'ai.cta':'Try AI Analysis — Upgrade to Pro →',
+    'aif1.title':'Full Article Read',
+    'aif1.desc':'The AI fetches and reads the complete source article — not just the headline. You get analysis based on the actual content, so the context is always accurate.',
+    'aif2.title':'Asset Impact per Instrument',
+    'aif2.desc':'Every analysis lists the affected instruments with a clear Bullish / Bearish / Neutral rating plus a one-line explanation. Know exactly which pairs and assets to watch.',
+    'aif3.title':'Confidence Rating & Key Levels',
+    'aif3.desc':'Each analysis includes a confidence score (HIGH / MEDIUM / LOW) and the most important price level to watch — so you can size your trade accordingly.',
+    'aif4.title':'Results in Under 5 Seconds',
+    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Lightning-fast inference means you get structured market intelligence before the price has moved — not after.',
     'how.eyebrow':'How it works','how.h2':'Up and running in 60 seconds',
     'how.step1_title':'Create a Free Account',
     'how.step1_desc':'Sign up at <strong>tradingnewsterminal.com</strong> with your email — no credit card required. Your session is saved so you return straight to the terminal on every visit. Account creation takes under 30 seconds.',
@@ -1743,7 +1891,7 @@ const _LS = {
     'vs.calendar':'Economic calendar','vs.live_releases':'Live releases',
     'vs.macro':'Macro & bonds hub','vs.centralbanks':'Central banks tracker',
     'vs.earnings':'Earnings calendar','vs.screener':'Market screener',
-    'vs.screener_6':'6 asset classes','vs.sentiment':'Market sentiment',
+    'vs.screener_6':'6 asset classes','vs.ai':'✦ AI news analysis','vs.ai_detail':'Full article · asset impact','vs.sentiment':'Market sentiment',
     'vs.squawk':'Live squawk','vs.included':'Included','vs.tv':'Live financial TV',
     'vs.tv_7':'7 channels','vs.charts':'TradingView charts','vs.builtin':'Built-in',
     'vs.adfree':'Ad-free','vs.price':'Monthly price','vs.free':'Free','vs.limited':'Limited',
@@ -1825,7 +1973,7 @@ const _LS = {
     'ticker.realtime':'Feed de Notícias em Tempo Real','ticker.squawk':'Squawk Box Ao Vivo',
     'ticker.sentiment':'Análise de Sentimento de Mercado','ticker.tv':'7 Canais de TV Financeira',
     'ticker.centralbanks':'Tracker de Bancos Centrais','ticker.earnings':'Calendário de Resultados',
-    'ticker.macro':'Hub Macro & Obrigações','ticker.screener':'Screener de Mercado — 6 Classes de Ativos',
+    'ticker.macro':'Hub Macro & Obrigações','ticker.screener':'Screener de Mercado — 6 Classes de Ativos','ticker.ai':'Análise AI de Notícias',
     'ticker.sources':'Cobertura Abrangente de Fontes','ticker.adfree':'100% Sem Anúncios',
     'ticker.noprompts':'Sem Pedidos de Upgrade','ticker.support':'Suporte Prioritário',
     'feat.eyebrow':'Tudo o que precisas',
@@ -1911,6 +2059,7 @@ const _LS = {
     'ppf.squawk':'<strong>Squawk Ao Vivo</strong> — alertas de voz mãos-livres',
     'ppf.tv':'<strong>TV Financeira Ao Vivo</strong> — 7 canais',
     'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Ações, Cripto, Índices…',
+    'ppf.ai':'<strong>✦ Análise AI de Notícias</strong> — artigo completo · impacto por ativo',
     'ppf.sources':'Cobertura abrangente de fontes',
     'ppf.adfree':'100% sem anúncios · Sem pedidos de upgrade','ppf.support':'Suporte prioritário',
     'sc.eyebrow':'Screener de Mercado',
@@ -1924,6 +2073,21 @@ const _LS = {
     'sfc2.desc':'Cada instrumento mostra um <strong>RSI em tempo real</strong> e sinal direcional — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> ou <strong>Oversold</strong>. Identifica momentum e reversões potenciais em todos os mercados.',
     'sfc3.title':'Filtros Avançados & Multi-Vista',
     'sfc3.desc':'Filtra por setor, capitalização, sinal, RSI, P/E, beta e mais. As ações têm 4 vistas: Visão Geral, Performance, Avaliação e Dividendos. Todas as colunas são ordenáveis.',
+    'fc14.title':'Análise AI de Notícias',
+    'fc14.desc':'Um clique em qualquer notícia desencadeia uma análise completa por IA: lê o artigo completo, identifica quais os ativos afetados (bullish / bearish / neutro), avalia o nível de confiança e assinala os níveis de preço a observar. Feito para ser rápido — resultados em menos de 5 segundos.',
+    'ai.eyebrow':'Análise AI de Notícias',
+    'ai.h2':'Lê o artigo.<br>Diz-te o que move.',
+    'ai.sub':'Clica ✦ AI em qualquer notícia e obtém uma análise estruturada completa em menos de 5 segundos — impacto por ativo, nível de confiança e níveis de preço a observar.',
+    'ai.bar_label':'Análise AI — Feed ao Vivo',
+    'ai.cta':'Experimentar Análise AI — Upgrade para Pro →',
+    'aif1.title':'Leitura do Artigo Completo',
+    'aif1.desc':'A IA vai buscar e lê o artigo-fonte completo — não só o título. Obtens uma análise baseada no conteúdo real, por isso o contexto é sempre preciso.',
+    'aif2.title':'Impacto por Instrumento',
+    'aif2.desc':'Cada análise lista os instrumentos afetados com uma classificação clara Bullish / Bearish / Neutro mais uma explicação numa linha. Sabe exatamente que pares e ativos observar.',
+    'aif3.title':'Classificação de Confiança e Níveis-Chave',
+    'aif3.desc':'Cada análise inclui uma pontuação de confiança (ALTO / MÉDIO / BAIXO) e o nível de preço mais importante a observar — para poderes dimensionar a tua posição em conformidade.',
+    'aif4.title':'Resultados em Menos de 5 Segundos',
+    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferência ultra-rápida para obteres inteligência de mercado estruturada antes de o preço se mover.',
     'how.eyebrow':'Como funciona','how.h2':'Pronto em 60 segundos',
     'how.step1_title':'Cria uma Conta Grátis',
     'how.step1_desc':'Regista-te em <strong>tradingnewsterminal.com</strong> com o teu email — sem cartão de crédito. A tua sessão é guardada para voltares direto ao terminal em cada visita. A criação de conta demora menos de 30 segundos.',
@@ -1939,7 +2103,7 @@ const _LS = {
     'vs.calendar':'Calendário económico','vs.live_releases':'Releases ao vivo',
     'vs.macro':'Hub macro & obrigações','vs.centralbanks':'Tracker bancos centrais',
     'vs.earnings':'Calendário de resultados','vs.screener':'Screener de mercado',
-    'vs.screener_6':'6 classes de ativos','vs.sentiment':'Sentimento de mercado',
+    'vs.screener_6':'6 classes de ativos','vs.ai':'✦ Análise AI de notícias','vs.ai_detail':'Artigo completo · impacto por ativo','vs.sentiment':'Sentimento de mercado',
     'vs.squawk':'Squawk ao vivo','vs.included':'Incluído','vs.tv':'TV financeira ao vivo',
     'vs.tv_7':'7 canais','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
     'vs.adfree':'Sem anúncios','vs.price':'Preço mensal','vs.free':'Grátis','vs.limited':'Limitado',
@@ -2021,7 +2185,7 @@ const _LS = {
     'ticker.realtime':'Feed de Noticias en Tiempo Real','ticker.squawk':'Squawk Box en Vivo',
     'ticker.sentiment':'Análisis de Sentimiento de Mercado','ticker.tv':'7 Canales de TV Financiera',
     'ticker.centralbanks':'Tracker de Bancos Centrales','ticker.earnings':'Calendario de Resultados',
-    'ticker.macro':'Hub Macro & Bonos','ticker.screener':'Screener de Mercado — 6 Clases de Activos',
+    'ticker.macro':'Hub Macro & Bonos','ticker.screener':'Screener de Mercado — 6 Clases de Activos','ticker.ai':'Análisis AI de Noticias',
     'ticker.sources':'Cobertura Completa de Fuentes','ticker.adfree':'100% Sin Anuncios',
     'ticker.noprompts':'Sin Solicitudes de Upgrade','ticker.support':'Soporte Prioritario',
     'feat.eyebrow':'Todo lo que necesitas',
@@ -2103,6 +2267,7 @@ const _LS = {
     'ppf.squawk':'<strong>Squawk en Vivo</strong> — alertas de voz manos libres',
     'ppf.tv':'<strong>TV Financiera en Vivo</strong> — 7 canales',
     'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Acciones, Cripto, Índices…',
+    'ppf.ai':'<strong>✦ Análisis AI de Noticias</strong> — artículo completo · impacto por activo',
     'ppf.sources':'Cobertura completa de fuentes',
     'ppf.adfree':'100% sin anuncios · Sin solicitudes de upgrade','ppf.support':'Soporte prioritario',
     'sc.eyebrow':'Screener de Mercado',
@@ -2116,6 +2281,21 @@ const _LS = {
     'sfc2.desc':'Cada instrumento muestra un <strong>RSI en tiempo real</strong> y señal direccional — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> u <strong>Oversold</strong>. Identifica momentum y reversiones en todos los mercados.',
     'sfc3.title':'Filtros Avanzados & Multi-Vista',
     'sfc3.desc':'Filtra por sector, capitalización, señal, RSI, P/E, beta y más. Las acciones tienen 4 vistas: General, Rendimiento, Valoración y Dividendos. Todas las columnas son ordenables.',
+    'fc14.title':'Análisis AI de Noticias',
+    'fc14.desc':'Un clic en cualquier titular activa un análisis completo de IA: lee el artículo completo, identifica los activos afectados (alcista / bajista / neutral), evalúa el nivel de confianza y señala los niveles de precio a vigilar. Resultados en menos de 5 segundos.',
+    'ai.eyebrow':'Análisis AI de Noticias',
+    'ai.h2':'Lee el artículo.<br>Te dice qué mueve.',
+    'ai.sub':'Haz clic en ✦ AI en cualquier titular y obtén un análisis estructurado completo en menos de 5 segundos — impacto por activo, nivel de confianza y niveles de precio clave.',
+    'ai.bar_label':'Análisis AI — Feed en Vivo',
+    'ai.cta':'Probar Análisis AI — Actualizar a Pro →',
+    'aif1.title':'Lectura del Artículo Completo',
+    'aif1.desc':'La IA obtiene y lee el artículo fuente completo, no solo el titular. Obtienes análisis basado en el contenido real, por lo que el contexto es siempre preciso.',
+    'aif2.title':'Impacto por Instrumento',
+    'aif2.desc':'Cada análisis lista los instrumentos afectados con una clasificación clara Alcista / Bajista / Neutral más una explicación de una línea.',
+    'aif3.title':'Puntuación de Confianza y Niveles Clave',
+    'aif3.desc':'Cada análisis incluye una puntuación de confianza (ALTO / MEDIO / BAJO) y el nivel de precio más importante a vigilar.',
+    'aif4.title':'Resultados en Menos de 5 Segundos',
+    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferencia ultrarrápida para obtener inteligencia de mercado estructurada antes de que el precio se mueva.',
     'how.eyebrow':'Cómo funciona','how.h2':'Listo en 60 segundos',
     'how.step1_title':'Crea una Cuenta Gratis',
     'how.step1_desc':'Regístrate en <strong>tradingnewsterminal.com</strong> con tu email — sin tarjeta de crédito. La creación de cuenta tarda menos de 30 segundos.',
@@ -2131,7 +2311,7 @@ const _LS = {
     'vs.calendar':'Calendario económico','vs.live_releases':'Publicaciones en vivo',
     'vs.macro':'Hub macro & bonos','vs.centralbanks':'Tracker bancos centrales',
     'vs.earnings':'Calendario de resultados','vs.screener':'Screener de mercado',
-    'vs.screener_6':'6 clases de activos','vs.sentiment':'Sentimiento de mercado',
+    'vs.screener_6':'6 clases de activos','vs.ai':'✦ Análisis AI de noticias','vs.ai_detail':'Artículo completo · impacto por activo','vs.sentiment':'Sentimiento de mercado',
     'vs.squawk':'Squawk en vivo','vs.included':'Incluido','vs.tv':'TV financiera en vivo',
     'vs.tv_7':'7 canales','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
     'vs.adfree':'Sin anuncios','vs.price':'Precio mensual','vs.free':'Gratis','vs.limited':'Limitado',
@@ -2204,7 +2384,7 @@ const _LS = {
     'ticker.realtime':'Flux d\'Actualités en Temps Réel','ticker.squawk':'Squawk Box en Direct',
     'ticker.sentiment':'Analyse du Sentiment de Marché','ticker.tv':'7 Chaînes TV Financières',
     'ticker.centralbanks':'Suivi des Banques Centrales','ticker.earnings':'Calendrier des Résultats',
-    'ticker.macro':'Hub Macro & Obligations','ticker.screener':'Screener de Marché — 6 Classes d\'Actifs',
+    'ticker.macro':'Hub Macro & Obligations','ticker.screener':'Screener de Marché — 6 Classes d\'Actifs','ticker.ai':'Analyse AI des Actualités',
     'ticker.sources':'Couverture Complète des Sources','ticker.adfree':'100% Sans Publicité',
     'ticker.noprompts':'Sans Sollicitations de Mise à Niveau','ticker.support':'Support Prioritaire',
     'feat.eyebrow':'Tout ce dont vous avez besoin',
@@ -2286,6 +2466,7 @@ const _LS = {
     'ppf.squawk':'<strong>Squawk en Direct</strong> — alertes vocales mains libres',
     'ppf.tv':'<strong>TV Financière en Direct</strong> — 7 chaînes',
     'ppf.screener':'<strong>Screener de Marché</strong> — Forex, Actions, Crypto, Indices…',
+    'ppf.ai':'<strong>✦ Analyse AI des Actualités</strong> — article complet · impact par actif',
     'ppf.sources':'Couverture complète des sources',
     'ppf.adfree':'100% sans publicité · Sans sollicitations','ppf.support':'Support prioritaire',
     'sc.eyebrow':'Screener de Marché',
@@ -2299,6 +2480,21 @@ const _LS = {
     'sfc2.desc':'Chaque instrument affiche un <strong>RSI en temps réel</strong> et un signal directionnel — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> ou <strong>Oversold</strong>. Identifiez le momentum sur tous les marchés.',
     'sfc3.title':'Filtres Avancés & Multi-Vue',
     'sfc3.desc':'Filtrez par secteur, capitalisation, signal, RSI, P/E, beta et plus. Les actions offrent 4 vues : Aperçu, Performance, Valorisation et Dividendes. Chaque colonne est triable.',
+    'fc14.title':'Analyse AI des Actualités',
+    'fc14.desc':'Un clic sur n\'importe quel titre déclenche une analyse IA complète : lit l\'article complet, identifie les actifs affectés (haussier / baissier / neutre), évalue le niveau de confiance et signale les niveaux de prix à surveiller. Résultats en moins de 5 secondes.',
+    'ai.eyebrow':'Analyse AI des Actualités',
+    'ai.h2':'Lit l\'article.<br>Vous dit ce qui bouge.',
+    'ai.sub':'Cliquez ✦ AI sur n\'importe quel titre et obtenez une analyse structurée complète en moins de 5 secondes — impact par actif, niveau de confiance et niveaux de prix clés.',
+    'ai.bar_label':'Analyse AI — Flux en Direct',
+    'ai.cta':'Essayer l\'Analyse AI — Passer à Pro →',
+    'aif1.title':'Lecture de l\'Article Complet',
+    'aif1.desc':'L\'IA récupère et lit l\'article source complet, pas seulement le titre. Vous obtenez une analyse basée sur le contenu réel, le contexte est donc toujours précis.',
+    'aif2.title':'Impact par Instrument',
+    'aif2.desc':'Chaque analyse liste les instruments affectés avec une note claire Haussier / Baissier / Neutre plus une explication en une ligne.',
+    'aif3.title':'Score de Confiance et Niveaux Clés',
+    'aif3.desc':'Chaque analyse inclut un score de confiance (ÉLEVÉ / MOYEN / FAIBLE) et le niveau de prix le plus important à surveiller.',
+    'aif4.title':'Résultats en Moins de 5 Secondes',
+    'aif4.desc':'Propulsé par Llama 3.3 70B via Groq. Inférence ultra-rapide pour obtenir des renseignements de marché structurés avant que le prix ne bouge.',
     'how.eyebrow':'Comment ça fonctionne','how.h2':'Opérationnel en 60 secondes',
     'how.step1_title':'Créez un Compte Gratuit',
     'how.step1_desc':'Inscrivez-vous sur <strong>tradingnewsterminal.com</strong> avec votre email — sans carte de crédit. La création de compte prend moins de 30 secondes.',
@@ -2314,7 +2510,7 @@ const _LS = {
     'vs.calendar':'Calendrier économique','vs.live_releases':'Publications en direct',
     'vs.macro':'Hub macro & obligations','vs.centralbanks':'Suivi banques centrales',
     'vs.earnings':'Calendrier des résultats','vs.screener':'Screener de marché',
-    'vs.screener_6':'6 classes d\'actifs','vs.sentiment':'Sentiment de marché',
+    'vs.screener_6':'6 classes d\'actifs','vs.ai':'✦ Analyse AI des actualités','vs.ai_detail':'Article complet · impact par actif','vs.sentiment':'Sentiment de marché',
     'vs.squawk':'Squawk en direct','vs.included':'Inclus','vs.tv':'TV financière en direct',
     'vs.tv_7':'7 chaînes','vs.charts':'Graphiques TradingView','vs.builtin':'Intégré',
     'vs.adfree':'Sans publicité','vs.price':'Prix mensuel','vs.free':'Gratuit','vs.limited':'Limité',
@@ -2387,7 +2583,7 @@ const _LS = {
     'ticker.realtime':'Echtzeit-Nachrichtenfeed ohne Verzögerung','ticker.squawk':'Live-Squawk-Box',
     'ticker.sentiment':'Marktsentiment-Analyse','ticker.tv':'7 Live-Finanz-TV-Kanäle',
     'ticker.centralbanks':'Zentralbank-Tracker','ticker.earnings':'Ergebniskalender',
-    'ticker.macro':'Makro & Anleihen Hub','ticker.screener':'Marktscreener — 6 Asset-Klassen',
+    'ticker.macro':'Makro & Anleihen Hub','ticker.screener':'Marktscreener — 6 Asset-Klassen','ticker.ai':'KI-Nachrichtenanalyse',
     'ticker.sources':'Umfassende Quellenabdeckung','ticker.adfree':'100% Werbefrei',
     'ticker.noprompts':'Keine Upgrade-Aufforderungen','ticker.support':'Prioritätssupport',
     'feat.eyebrow':'Alles, was du brauchst',
@@ -2469,6 +2665,7 @@ const _LS = {
     'ppf.squawk':'<strong>Live-Squawk</strong> — freihändige Sprachalarme',
     'ppf.tv':'<strong>Live-Finanz-TV</strong> — 7 Kanäle',
     'ppf.screener':'<strong>Marktscreener</strong> — Forex, Aktien, Krypto, Indizes…',
+    'ppf.ai':'<strong>✦ KI-Nachrichtenanalyse</strong> — vollständiger Artikel · Asset-Impact',
     'ppf.sources':'Umfassende Quellenabdeckung',
     'ppf.adfree':'100% werbefrei · Keine Upgrade-Aufforderungen','ppf.support':'Prioritätssupport',
     'sc.eyebrow':'Marktscreener',
@@ -2482,6 +2679,21 @@ const _LS = {
     'sfc2.desc':'Jedes Instrument zeigt einen Live-<strong>RSI-Score</strong> und Richtungssignal — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> oder <strong>Oversold</strong>. Erkenne Momentum und Umkehrungen auf allen Märkten.',
     'sfc3.title':'Erweiterte Filter & Multi-Ansicht',
     'sfc3.desc':'Filtere nach Sektor, Marktkapitalisierung, Signal, RSI, KGV, Beta und mehr. Aktien bieten 4 Ansichten: Übersicht, Performance, Bewertung und Dividenden. Alle Spalten sortierbar.',
+    'fc14.title':'KI-Nachrichtenanalyse',
+    'fc14.desc':'Ein Klick auf eine Schlagzeile startet eine vollständige KI-Analyse: liest den kompletten Artikel, identifiziert betroffene Assets (bullish / bearish / neutral), bewertet das Konfidenzniveau und markiert wichtige Preisniveaus. Ergebnisse in unter 5 Sekunden.',
+    'ai.eyebrow':'KI-Nachrichtenanalyse',
+    'ai.h2':'Liest den Artikel.<br>Sagt was sich bewegt.',
+    'ai.sub':'Klicke ✦ AI auf eine Schlagzeile und erhalte eine vollständige strukturierte Analyse in unter 5 Sekunden — Asset-Impact, Konfidenz-Rating und wichtige Preisniveaus.',
+    'ai.bar_label':'KI-Analyse — Live-Feed',
+    'ai.cta':'KI-Analyse ausprobieren — Auf Pro upgraden →',
+    'aif1.title':'Vollständiger Artikel-Abruf',
+    'aif1.desc':'Die KI ruft den kompletten Quellartikel ab und liest ihn — nicht nur die Schlagzeile. Die Analyse basiert auf dem tatsächlichen Inhalt, der Kontext ist daher immer präzise.',
+    'aif2.title':'Asset-Impact pro Instrument',
+    'aif2.desc':'Jede Analyse listet die betroffenen Instrumente mit einer klaren Bullish / Bearish / Neutral-Bewertung plus einer einzeiligen Erklärung auf.',
+    'aif3.title':'Konfidenz-Score und Key-Levels',
+    'aif3.desc':'Jede Analyse enthält einen Konfidenz-Score (HOCH / MITTEL / NIEDRIG) und das wichtigste zu beobachtende Preisniveau.',
+    'aif4.title':'Ergebnisse in unter 5 Sekunden',
+    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Blitzschnelle Inferenz liefert strukturierte Marktintelligenz bevor der Preis sich bewegt hat.',
     'how.eyebrow':'So funktioniert es','how.h2':'In 60 Sekunden einsatzbereit',
     'how.step1_title':'Kostenloses Konto erstellen',
     'how.step1_desc':'Registriere dich auf <strong>tradingnewsterminal.com</strong> mit deiner E-Mail — keine Kreditkarte erforderlich. Die Kontoerstellung dauert weniger als 30 Sekunden.',
@@ -2497,7 +2709,7 @@ const _LS = {
     'vs.calendar':'Wirtschaftskalender','vs.live_releases':'Live-Veröffentlichungen',
     'vs.macro':'Makro & Anleihen Hub','vs.centralbanks':'Zentralbank-Tracker',
     'vs.earnings':'Ergebniskalender','vs.screener':'Marktscreener',
-    'vs.screener_6':'6 Asset-Klassen','vs.sentiment':'Marktsentiment',
+    'vs.screener_6':'6 Asset-Klassen','vs.ai':'✦ KI-Nachrichtenanalyse','vs.ai_detail':'Vollständiger Artikel · Asset-Impact','vs.sentiment':'Marktsentiment',
     'vs.squawk':'Live-Squawk','vs.included':'Inklusive','vs.tv':'Live-Finanz-TV',
     'vs.tv_7':'7 Kanäle','vs.charts':'TradingView-Charts','vs.builtin':'Eingebaut',
     'vs.adfree':'Werbefrei','vs.price':'Monatspreis','vs.free':'Kostenlos','vs.limited':'Begrenzt',
@@ -2570,7 +2782,7 @@ const _LS = {
     'ticker.realtime':'Feed di Notizie in Tempo Reale','ticker.squawk':'Squawk Box in Diretta',
     'ticker.sentiment':'Analisi del Sentiment di Mercato','ticker.tv':'7 Canali TV Finanziaria',
     'ticker.centralbanks':'Tracker Banche Centrali','ticker.earnings':'Calendario Utili',
-    'ticker.macro':'Hub Macro & Obbligazioni','ticker.screener':'Screener di Mercato — 6 Classi di Attivi',
+    'ticker.macro':'Hub Macro & Obbligazioni','ticker.screener':'Screener di Mercato — 6 Classi di Attivi','ticker.ai':'Analisi AI delle Notizie',
     'ticker.sources':'Copertura Completa delle Fonti','ticker.adfree':'100% Senza Pubblicità',
     'ticker.noprompts':'Nessuna Sollecitazione di Upgrade','ticker.support':'Supporto Prioritario',
     'feat.eyebrow':'Tutto ciò di cui hai bisogno',
@@ -2652,6 +2864,7 @@ const _LS = {
     'ppf.squawk':'<strong>Squawk in Diretta</strong> — avvisi vocali hands-free',
     'ppf.tv':'<strong>TV Finanziaria in Diretta</strong> — 7 canali',
     'ppf.screener':'<strong>Screener di Mercato</strong> — Forex, Azioni, Cripto, Indici…',
+    'ppf.ai':'<strong>✦ Analisi AI delle Notizie</strong> — articolo completo · impatto per asset',
     'ppf.sources':'Copertura completa delle fonti',
     'ppf.adfree':'100% senza pubblicità · Nessuna sollecitazione di upgrade','ppf.support':'Supporto prioritario',
     'sc.eyebrow':'Screener di Mercato',
@@ -2665,6 +2878,21 @@ const _LS = {
     'sfc2.desc':'Ogni strumento mostra un <strong>RSI in tempo reale</strong> e un segnale direzionale — <strong>Bullish</strong>, <strong>Bearish</strong>, <strong>Neutral</strong>, <strong>Overbought</strong> o <strong>Oversold</strong>. Identifica momentum e inversioni su tutti i mercati.',
     'sfc3.title':'Filtri Avanzati & Multi-Vista',
     'sfc3.desc':'Filtra per settore, capitalizzazione, segnale, RSI, P/E, beta e altro. Le azioni offrono 4 viste: Panoramica, Performance, Valutazione e Dividendi. Ogni colonna è ordinabile.',
+    'fc14.title':'Analisi AI delle Notizie',
+    'fc14.desc':'Un clic su qualsiasi titolo avvia un\'analisi AI completa: legge l\'articolo completo, identifica gli asset interessati (rialzista / ribassista / neutro), valuta il livello di confidenza e segnala i livelli di prezzo chiave. Risultati in meno di 5 secondi.',
+    'ai.eyebrow':'Analisi AI delle Notizie',
+    'ai.h2':'Legge l\'articolo.<br>Ti dice cosa si muove.',
+    'ai.sub':'Clicca ✦ AI su qualsiasi titolo e ottieni un\'analisi strutturata completa in meno di 5 secondi — impatto per asset, rating di confidenza e livelli di prezzo chiave.',
+    'ai.bar_label':'Analisi AI — Feed in Diretta',
+    'ai.cta':'Prova l\'Analisi AI — Passa a Pro →',
+    'aif1.title':'Lettura dell\'Articolo Completo',
+    'aif1.desc':'L\'AI recupera e legge l\'articolo sorgente completo, non solo il titolo. Ottieni un\'analisi basata sul contenuto reale, il contesto è quindi sempre preciso.',
+    'aif2.title':'Impatto per Strumento',
+    'aif2.desc':'Ogni analisi elenca gli strumenti interessati con una chiara valutazione Rialzista / Ribassista / Neutro più una spiegazione in una riga.',
+    'aif3.title':'Score di Confidenza e Livelli Chiave',
+    'aif3.desc':'Ogni analisi include uno score di confidenza (ALTO / MEDIO / BASSO) e il livello di prezzo più importante da monitorare.',
+    'aif4.title':'Risultati in Meno di 5 Secondi',
+    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferenza fulminea per ottenere intelligence di mercato strutturata prima che il prezzo si sia mosso.',
     'how.eyebrow':'Come funziona','how.h2':'Operativo in 60 secondi',
     'how.step1_title':'Crea un Account Gratuito',
     'how.step1_desc':'Registrati su <strong>tradingnewsterminal.com</strong> con la tua email — nessuna carta di credito richiesta. La creazione dell\'account richiede meno di 30 secondi.',
@@ -2680,7 +2908,7 @@ const _LS = {
     'vs.calendar':'Calendario economico','vs.live_releases':'Pubblicazioni in diretta',
     'vs.macro':'Hub macro & obbligazioni','vs.centralbanks':'Tracker banche centrali',
     'vs.earnings':'Calendario utili','vs.screener':'Screener di mercato',
-    'vs.screener_6':'6 classi di attivi','vs.sentiment':'Sentiment di mercato',
+    'vs.screener_6':'6 classi di attivi','vs.ai':'✦ Analisi AI delle notizie','vs.ai_detail':'Articolo completo · impatto per asset','vs.sentiment':'Sentiment di mercato',
     'vs.squawk':'Squawk in diretta','vs.included':'Incluso','vs.tv':'TV finanziaria in diretta',
     'vs.tv_7':'7 canali','vs.charts':'Grafici TradingView','vs.builtin':'Integrato',
     'vs.adfree':'Senza pubblicità','vs.price':'Prezzo mensile','vs.free':'Gratis','vs.limited':'Limitato',
