@@ -80,7 +80,8 @@
     "@type": "AggregateRating",
     "ratingValue": "4.8",
     "ratingCount": "47",
-    "bestRating": "5"
+    "bestRating": "5",
+    "worstRating": "1"
   }
 }
 </script>
@@ -141,10 +142,10 @@
     },
     {
       "@type": "Question",
-      "name": "Which financial news sources does the terminal aggregate?",
+      "name": "Which financial news sources does the terminal aggregate, and what is the difference between Basic and Pro?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trading News Terminal aggregates from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the most impactful sources; Pro unlocks full comprehensive coverage across all categories."
+        "text": "Speed: Basic news arrives with a fixed 2-minute delay — prices can move 30–50 pips in those 2 minutes after a major headline. Pro delivers all news in real-time with zero delay. Volume: Basic covers the highest-impact sources — around 30–50 news items on a typical trading day. Pro unlocks up to 10× more sources: on a high-impact day (NFP, FOMC, CPI), a Basic user receives roughly 40 items while a Pro user receives 400+ — including central bank signals, cross-asset reactions, institutional commentary and second-tier macro data that Basic never surfaces."
       }
     },
     {
@@ -1090,6 +1091,8 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
     <div class="testimonials-grid" role="list">
       <div class="testimonial-card" role="listitem" itemscope itemtype="https://schema.org/Review">
+        <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/SoftwareApplication"><meta itemprop="name" content="Trading News Terminal"></span>
+        <span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5"></span>
         <div class="testimonial-stars" aria-label="5 out of 5 stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
@@ -1097,7 +1100,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <div class="testimonial-author">
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&q=80" alt="James K. — Forex day trader, London" loading="lazy" width="40" height="40">
           <div>
-            <div class="testimonial-name" itemprop="author">James K.</div>
+            <div class="testimonial-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">James K.</span></div>
             <div class="testimonial-role" data-i18n="test.role1">Forex Day Trader · London</div>
             <span class="testimonial-badge tb-pro">Pro</span>
           </div>
@@ -1105,6 +1108,8 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       </div>
 
       <div class="testimonial-card" role="listitem" itemscope itemtype="https://schema.org/Review">
+        <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/SoftwareApplication"><meta itemprop="name" content="Trading News Terminal"></span>
+        <span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5"></span>
         <div class="testimonial-stars" aria-label="5 out of 5 stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
@@ -1112,7 +1117,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <div class="testimonial-author">
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&q=80" alt="Sofia R. — Macro trader, Lisbon" loading="lazy" width="40" height="40">
           <div>
-            <div class="testimonial-name" itemprop="author">Sofia R.</div>
+            <div class="testimonial-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Sofia R.</span></div>
             <div class="testimonial-role" data-i18n="test.role2">Macro Trader · Lisbon</div>
             <span class="testimonial-badge tb-pro">Pro</span>
           </div>
@@ -1120,6 +1125,8 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       </div>
 
       <div class="testimonial-card" role="listitem" itemscope itemtype="https://schema.org/Review">
+        <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/SoftwareApplication"><meta itemprop="name" content="Trading News Terminal"></span>
+        <span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5"></span>
         <div class="testimonial-stars" aria-label="5 out of 5 stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
@@ -1127,7 +1134,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <div class="testimonial-author">
           <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&q=80" alt="Marco T. — Swing trader, Milan" loading="lazy" width="40" height="40">
           <div>
-            <div class="testimonial-name" itemprop="author">Marco T.</div>
+            <div class="testimonial-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Marco T.</span></div>
             <div class="testimonial-role" data-i18n="test.role3">Swing Trader · Milan</div>
             <span class="testimonial-badge tb-free">Basic</span>
           </div>
@@ -1202,9 +1209,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li class="pf-yes pf-pro-item" data-i18n="ppf.adfree">100% ad-free · No upgrade prompts</li>
           <li class="pf-yes pf-pro-item" data-i18n="ppf.support">Priority support</li>
         </ul>
-        <a href="/login?plan=pro" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="plan.pro_btn">Get Pro Access →</a>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
-        <a href="/login?plan=trial" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or try free for 7 days →</a>
+        <a href="/login?plan=trial" class="plan-btn plan-btn-pro" id="pro-cta" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="plan.pro_btn">Get Pro Access →</a>
       </div>
     </div>
   </div>
@@ -1433,10 +1440,10 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
     <div class="faq-item" role="listitem">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span data-i18n="faq.q5">Which news sources does the terminal aggregate?</span>
+        <span data-i18n="faq.q5">Basic vs Pro: how many news items do I get and is it real-time?</span>
         <span class="faq-icon" aria-hidden="true">+</span>
       </div>
-      <div class="faq-a" data-i18n="faq.a5">We aggregate from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the highest-impact sources; the Pro plan unlocks full comprehensive coverage across every category and asset class.</div>
+      <div class="faq-a" data-i18n-html="faq.a5"><p style="margin-bottom:10px;"><strong>Speed:</strong> Basic news arrives with a fixed <strong>2-minute delay</strong> — prices can move 30–50 pips in those 2 minutes after a major headline breaks. Pro delivers all news <strong>in real-time with zero delay</strong>.</p><p><strong>Volume:</strong> Basic covers the highest-impact sources — around <strong>30–50 news items</strong> on a typical trading day. Pro unlocks up to <strong>10× more sources</strong>: on a high-impact day (NFP, FOMC, CPI), a Basic user receives roughly <strong>40 items</strong> while a Pro user receives <strong>400+</strong> — including central bank signals, cross-asset reactions, institutional commentary and second-tier macro data that Basic never surfaces.</p></div>
     </div>
 
     <div class="faq-item" role="listitem">
@@ -1514,9 +1521,9 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
         </ul>
-        <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
-        <a href="/login?plan=trial" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="pricing.subscribe_now">Or try free for 7 days →</a>
+        <a href="/login?plan=trial" class="btn-pro" data-i18n="pricing.trial_btn">Start 7-Day Free Trial →</a>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">Then €40/month + VAT · Cancel anytime</div>
+        <a href="/login?plan=pro" style="display:block;text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;text-decoration:underline;opacity:0.7" data-i18n="plan.pro_btn">Get Pro Access →</a>
       </div>
     </div>
     <p class="cta-note" style="margin-top:28px;" data-i18n="cta.note">Works in Chrome, Firefox, Safari, Edge · No installation required</p>
@@ -1757,8 +1764,8 @@ const _LS = {
     'faq.a3':'Yes. The Basic plan is free forever — no credit card required, no auto-upgrade. Simply create an account with your email address in under 30 seconds and get immediate access to the full terminal. For Pro, we offer a 7-day free trial with credit card. After 7 days you\'re charged €40/month + VAT. Cancel anytime during the trial.',
     'faq.q4':'What is the Squawk feature?',
     'faq.a4':"Squawk uses your browser's Web Speech API to read every new headline aloud as it arrives — just like a professional trading desk squawk box. Enable it with one click. The terminal highlights the card being read in real time. Squawk is a Pro-only feature.",
-    'faq.q5':'Which news sources does the terminal aggregate?',
-    'faq.a5':'We aggregate from hundreds of institutional and professional news sources across forex, macro, equities, crypto and commodities. We keep our source list confidential for competitive reasons. The Basic plan covers the highest-impact sources; Pro unlocks full comprehensive coverage.',
+    'faq.q5':'Basic vs Pro: how many news items do I get and is it real-time?',
+    'faq.a5':'<p style="margin-bottom:10px;"><strong>Speed:</strong> Basic news arrives with a fixed <strong>2-minute delay</strong> — prices can move 30–50 pips in those 2 minutes after a major headline breaks. Pro delivers all news <strong>in real-time with zero delay</strong>.</p><p><strong>Volume:</strong> Basic covers the highest-impact sources — around <strong>30–50 news items</strong> on a typical trading day. Pro unlocks up to <strong>10× more sources</strong>: on a high-impact day (NFP, FOMC, CPI), a Basic user receives roughly <strong>40 items</strong> while a Pro user receives <strong>400+</strong> — including central bank signals, cross-asset reactions, institutional commentary and second-tier macro data that Basic never surfaces.</p>',
     'faq.q6':'Does Trading News Terminal have live charts?',
     'faq.a6':'Yes. The terminal includes embedded TradingView charts for forex pairs (EUR/USD, GBP/USD, USD/JPY and more), cryptocurrencies (BTC, ETH, XRP), major indices (S&P 500, DAX, Nikkei, FTSE), metals and energy (Gold, Silver, WTI, Brent, Natural Gas), and agricultural commodities. Available on both Basic and Pro plans.',
     'faq.q7':'How does the economic calendar work?',
@@ -1770,7 +1777,7 @@ const _LS = {
     'faq.q10':'How do I cancel during the free trial?',
     'faq.a10':'You can cancel anytime from your account settings or billing portal. If you cancel within 7 days, you won\'t be charged. Your Pro access will remain until the trial period ends.',
     'pricing.trial_btn':'Start 7-Day Free Trial →',
-    'pricing.trial_note':'€40/month + VAT · Cancel anytime',
+    'pricing.trial_note':'Then €40/month + VAT · Cancel anytime',
     'pricing.subscribe_now':'Or try free for 7 days →',
     'cta.h2':'Start trading smarter.<br><span style="color:var(--accent)">Pick your plan.</span>',
     'cta.sub':'Free to start. Upgrade to Pro when you need more.',
@@ -1953,8 +1960,8 @@ const _LS = {
     'faq.a3':'Sim. O plano Basic é gratuito para sempre — sem cartão de crédito, sem upgrade automático. Cria uma conta com o teu email em menos de 30 segundos e tem acesso imediato ao terminal completo. Para o Pro, oferecemos 7 dias de teste grátis com cartão de crédito. Após 7 dias, és cobrado €40/mês + IVA. Cancela a qualquer momento durante o teste.',
     'faq.q4':'O que é a funcionalidade Squawk?',
     'faq.a4':'O Squawk usa a Web Speech API do teu browser para ler cada nova manchete em voz alta assim que chega — exatamente como um squawk box profissional de trading. Ativa com um clique. O terminal destaca o card a ser lido em tempo real. O Squawk é uma funcionalidade exclusiva do Pro.',
-    'faq.q5':'Quais as fontes de notícias que o terminal agrega?',
-    'faq.a5':'Agregamos centenas de fontes institucionais e profissionais de notícias em forex, macro, ações, cripto e commodities. Mantemos a lista de fontes confidencial por razões competitivas. O Basic cobre as fontes de maior impacto; o Pro desbloqueia cobertura abrangente completa.',
+    'faq.q5':'Basic vs Pro: quantas notícias recebo e são em tempo real?',
+    'faq.a5':'<p style="margin-bottom:10px;"><strong>Velocidade:</strong> As notícias no Basic chegam com um atraso fixo de <strong>2 minutos</strong> — o preço pode mover 30–50 pips nesses 2 minutos após uma manchete importante. O Pro entrega todas as notícias <strong>em tempo real, sem qualquer atraso</strong>.</p><p><strong>Volume:</strong> O Basic cobre as fontes de maior impacto — cerca de <strong>30–50 notícias por dia</strong> num dia de mercado típico. O Pro desbloqueia até <strong>10× mais fontes</strong>: num dia de alto impacto (NFP, FOMC, IPC), um utilizador Basic recebe cerca de <strong>40 notícias</strong> enquanto um utilizador Pro recebe <strong>400+</strong> — incluindo sinais de bancos centrais, reações cross-asset, comentários institucionais e dados macro de segunda linha que o Basic nunca mostra.</p>',
     'faq.q6':'O Trading News Terminal tem gráficos ao vivo?',
     'faq.a6':'Sim. O terminal inclui gráficos TradingView incorporados para pares de forex (EUR/USD, GBP/USD, USD/JPY e mais), criptomoedas (BTC, ETH, XRP), índices principais (S&P 500, DAX, Nikkei, FTSE), metais e energia (Ouro, Prata, WTI, Brent, Gás Natural) e commodities agrícolas. Disponível nos planos Basic e Pro.',
     'faq.q7':'Como funciona o calendário económico?',
@@ -1966,7 +1973,7 @@ const _LS = {
     'faq.q10':'Como cancelo durante o período de teste grátis?',
     'faq.a10':'Podes cancelar a qualquer momento nas definições da tua conta ou portal de faturação. Se cancelares dentro de 7 dias, não serás cobrado. O teu acesso Pro continua até ao fim do período de teste.',
     'pricing.trial_btn':'Iniciar 7 Dias Grátis →',
-    'pricing.trial_note':'€40/mês + IVA · Cancele a qualquer momento',
+    'pricing.trial_note':'Depois €40/mês + IVA · Cancele a qualquer momento',
     'pricing.subscribe_now':'Ou experimentar 7 dias grátis →',
     'cta.h2':'Começa a negociar de forma mais inteligente.<br><span style="color:var(--accent)">Escolhe o teu plano.</span>',
     'cta.sub':'Grátis para começar. Faz upgrade para Pro quando precisares de mais.',
@@ -2141,7 +2148,7 @@ const _LS = {
     'faq.q2':'¿Cuál es la diferencia entre Basic y Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con retraso de 2 min, calendario económico, gráficos TradingView, watchlist, búsqueda inteligente e interfaz multilingüe.</p><p><strong>Pro (€40/mes)</strong> añade: <strong>Noticias en tiempo real</strong> — <strong>Hub Macro & Bonos</strong> — <strong>Calendario de Resultados</strong> — <strong>Tracker Bancos Centrales</strong> — <strong>Sentimiento de Mercado</strong> — <strong>Screener</strong> — <strong>Squawk en Vivo</strong> — <strong>7 canales TV</strong> — sin anuncios — soporte prioritario.</p>',
     'faq.q3':'¿El plan Basic es realmente gratuito?','faq.a3':'Sí. El plan Basic es gratuito para siempre — sin tarjeta de crédito, sin upgrade automático. Crea una cuenta con tu email en menos de 30 segundos. Para Pro, ofrecemos una prueba gratuita de 7 días con tarjeta de crédito. Después de 7 días se te cobra €40/mes + IVA. Cancela en cualquier momento durante la prueba.',
     'faq.q4':'¿Qué es la función Squawk?','faq.a4':'Squawk usa la Web Speech API de tu navegador para leer cada nuevo titular en voz alta al llegar — exactamente como un squawk box profesional. Actívalo con un clic. Es una función exclusiva de Pro.',
-    'faq.q5':'¿Qué fuentes de noticias agrega el terminal?','faq.a5':'Agregamos cientos de fuentes institucionales y profesionales. Mantenemos nuestra lista de fuentes confidencial por razones competitivas. Basic cubre las fuentes de mayor impacto; Pro desbloquea cobertura completa.',
+    'faq.q5':'Basic vs Pro: ¿cuántas noticias recibo y son en tiempo real?','faq.a5':'<p style="margin-bottom:10px;"><strong>Velocidad:</strong> Las noticias en Basic llegan con un retraso fijo de <strong>2 minutos</strong> — el precio puede moverse 30–50 pips en esos 2 minutos tras un titular importante. Pro entrega todas las noticias <strong>en tiempo real, sin ningún retraso</strong>.</p><p><strong>Volumen:</strong> Basic cubre las fuentes de mayor impacto — unas <strong>30–50 noticias por día</strong> en un día de trading típico. Pro desbloquea hasta <strong>10× más fuentes</strong>: en un día de alto impacto (NFP, FOMC, IPC), un usuario Basic recibe unas <strong>40 noticias</strong> mientras un usuario Pro recibe <strong>400+</strong>, incluyendo señales de bancos centrales, reacciones cross-asset, comentarios institucionales y datos macro que Basic nunca muestra.</p>',
     'faq.q6':'¿Tiene gráficos en vivo?','faq.a6':'Sí. El terminal incluye gráficos TradingView para pares de forex, criptomonedas, índices principales, metales y energía, y materias primas agrícolas. Disponible en planes Basic y Pro.',
     'faq.q7':'¿Cómo funciona el calendario económico?','faq.a7':'El calendario económico muestra 7 días de eventos con temporizadores en vivo, valores anteriores y previsiones. Cuando se publican datos reales, el resultado se inyecta automáticamente en el feed con señales de color beat/miss.',
     'faq.q8':'¿Es Trading News Terminal una alternativa a Bloomberg?','faq.a8':'Sí. Bloomberg Terminal cuesta aproximadamente €1.800 al mes. Trading News Terminal Pro ofrece noticias financieras en tiempo real, calendario económico, squawk, 7 canales de TV y gráficos TradingView por €40/mes.',
@@ -2149,7 +2156,7 @@ const _LS = {
     'faq.q10':'¿Cómo cancelo durante la prueba gratuita?',
     'faq.a10':'Puedes cancelar en cualquier momento desde la configuración de tu cuenta o el portal de facturación. Si cancelas dentro de los 7 días, no se te cobrará. Tu acceso Pro continuará hasta que termine el período de prueba.',
     'pricing.trial_btn':'Iniciar Prueba Gratis de 7 Días →',
-    'pricing.trial_note':'€40/mes + IVA · Cancela en cualquier momento',
+    'pricing.trial_note':'Luego €40/mes + IVA · Cancela en cualquier momento',
     'pricing.subscribe_now':'O probar gratis 7 días →',
     'cta.h2':'Empieza a operar de forma más inteligente.<br><span style="color:var(--accent)">Elige tu plan.</span>',
     'cta.sub':'Gratis para empezar. Actualiza a Pro cuando necesites más.',
@@ -2324,7 +2331,7 @@ const _LS = {
     'faq.q2':'Quelle est la différence entre Basic et Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratuit)</strong>: flux avec délai de 2 min, calendrier économique, graphiques TradingView, watchlist, recherche intelligente et interface multilingue.</p><p><strong>Pro (€40/mois)</strong> ajoute: actualités en temps réel — Hub Macro & Obligations — Calendrier Résultats — Suivi Banques Centrales — Sentiment — Screener — Squawk — 7 chaînes TV — sans publicité — support prioritaire.</p>',
     'faq.q3':'Le plan Basic est-il vraiment gratuit?','faq.a3':'Oui. Le plan Basic est gratuit pour toujours — sans carte de crédit, sans mise à niveau automatique. Créez un compte en moins de 30 secondes. Pour le Pro, nous offrons un essai gratuit de 7 jours avec carte de crédit. Après 7 jours, vous serez facturé €40/mois + TVA. Annulez à tout moment pendant l\'essai.',
     'faq.q4':'Qu\'est-ce que la fonction Squawk?','faq.a4':'Squawk utilise l\'API Web Speech de votre navigateur pour lire chaque nouveau titre à voix haute à son arrivée. Activez en un clic. C\'est une fonctionnalité exclusive Pro.',
-    'faq.q5':'Quelles sources d\'actualités le terminal agrège-t-il?','faq.a5':'Nous agrégeons des centaines de sources institutionnelles et professionnelles. Notre liste de sources est confidentielle. Basic couvre les sources à plus fort impact; Pro déverrouille une couverture complète.',
+    'faq.q5':'Basic vs Pro : combien d\'actualités je reçois et sont-elles en temps réel ?','faq.a5':'<p style="margin-bottom:10px;"><strong>Vitesse :</strong> Les actualités en Basic arrivent avec un délai fixe de <strong>2 minutes</strong> — le prix peut bouger de 30 à 50 pips pendant ces 2 minutes après un titre important. Pro délivre toutes les actualités <strong>en temps réel, sans aucun délai</strong>.</p><p><strong>Volume :</strong> Basic couvre les sources à plus fort impact — environ <strong>30–50 actualités par jour</strong> lors d\'un jour de trading typique. Pro débloque jusqu\'à <strong>10× plus de sources</strong> : lors d\'une journée à fort impact (NFP, FOMC, IPC), un utilisateur Basic reçoit environ <strong>40 éléments</strong> tandis qu\'un utilisateur Pro en reçoit <strong>400+</strong> — incluant signaux de banques centrales, réactions cross-asset, commentaires institutionnels et données macro secondaires.</p>',
     'faq.q6':'Le terminal a-t-il des graphiques en direct?','faq.a6':'Oui. Le terminal inclut des graphiques TradingView pour paires forex, cryptomonnaies, indices principaux, métaux et énergie, et matières premières agricoles.',
     'faq.q7':'Comment fonctionne le calendrier économique?','faq.a7':'Le calendrier économique affiche 7 jours d\'événements avec minuteries en direct, valeurs précédentes et prévisions. Quand les données réelles sont publiées, le résultat s\'injecte automatiquement dans le flux.',
     'faq.q8':'Trading News Terminal est-il une alternative à Bloomberg?','faq.a8':'Oui. Bloomberg Terminal coûte environ €1.800 par mois. Trading News Terminal Pro offre actualités en temps réel, calendrier économique, squawk, 7 chaînes TV et graphiques TradingView pour €40/mois.',
@@ -2332,7 +2339,7 @@ const _LS = {
     'faq.q10':'Comment annuler pendant l\'essai gratuit ?',
     'faq.a10':'Vous pouvez annuler à tout moment depuis les paramètres de votre compte ou le portail de facturation. Si vous annulez dans les 7 jours, vous ne serez pas facturé. Votre accès Pro restera actif jusqu\'à la fin de la période d\'essai.',
     'pricing.trial_btn':'Essai Gratuit de 7 Jours →',
-    'pricing.trial_note':'€40/mois + TVA · Annulez à tout moment',
+    'pricing.trial_note':'Puis €40/mois + TVA · Annulez à tout moment',
     'pricing.subscribe_now':'Ou essayer gratuitement 7 jours →',
     'cta.h2':'Commencez à trader plus intelligemment.<br><span style="color:var(--accent)">Choisissez votre plan.</span>',
     'cta.sub':'Gratuit pour commencer. Mettez à niveau vers Pro quand vous en avez besoin.',
@@ -2507,7 +2514,7 @@ const _LS = {
     'faq.q2':'Was ist der Unterschied zwischen Basic und Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (kostenlos)</strong>: Feed mit 2 Min. Verzögerung, Live-Wirtschaftskalender, TradingView-Charts, Watchlist, intelligente Suche und mehrsprachige Oberfläche.</p><p><strong>Pro (€40/Monat)</strong> fügt hinzu: Echtzeit-Nachrichten — Makro & Anleihen Hub — Ergebniskalender — Zentralbank-Tracker — Marktsentiment — Marktscreener — Live-Squawk — 7 TV-Kanäle — werbefrei — Prioritätssupport.</p>',
     'faq.q3':'Ist der Basic-Plan wirklich kostenlos?','faq.a3':'Ja. Der Basic-Plan ist für immer kostenlos — keine Kreditkarte, kein automatisches Upgrade. Erstelle ein Konto mit deiner E-Mail in unter 30 Sekunden. Für Pro bieten wir eine 7-tägige kostenlose Testphase mit Kreditkarte. Nach 7 Tagen wird dir €40/Monat + MwSt berechnet. Jederzeit während der Testphase kündbar.',
     'faq.q4':'Was ist die Squawk-Funktion?','faq.a4':'Squawk verwendet die Web Speech API deines Browsers, um jede neue Schlagzeile laut vorzulesen — genau wie eine professionelle Trading-Squawk-Box. Mit einem Klick aktivieren. Squawk ist eine exklusive Pro-Funktion.',
-    'faq.q5':'Welche Nachrichtenquellen aggregiert das Terminal?','faq.a5':'Wir aggregieren aus Hunderten von institutionellen und professionellen Nachrichtenquellen. Unsere Quellenliste ist aus Wettbewerbsgründen vertraulich. Basic deckt die wirkungsvollsten Quellen ab; Pro schaltet vollständige Abdeckung frei.',
+    'faq.q5':'Basic vs Pro: Wie viele Nachrichten erhalte ich und sind sie in Echtzeit?','faq.a5':'<p style="margin-bottom:10px;"><strong>Geschwindigkeit:</strong> Basic-Nachrichten kommen mit einer festen Verzögerung von <strong>2 Minuten</strong> — der Kurs kann sich in diesen 2 Minuten nach einer wichtigen Schlagzeile um 30–50 Pips bewegen. Pro liefert alle Nachrichten <strong>in Echtzeit ohne jede Verzögerung</strong>.</p><p><strong>Volumen:</strong> Basic deckt die wirkungsvollsten Quellen ab — ca. <strong>30–50 Meldungen pro Tag</strong> an einem typischen Handelstag. Pro schaltet bis zu <strong>10× mehr Quellen</strong> frei: An einem Hochimpakttag (NFP, FOMC, VPI) erhält ein Basic-Nutzer etwa <strong>40 Meldungen</strong>, ein Pro-Nutzer dagegen <strong>400+</strong> — einschließlich Zentralbanksignalen, Cross-Asset-Reaktionen, institutionellen Kommentaren und Makrodaten zweiter Reihe.</p>',
     'faq.q6':'Hat Trading News Terminal Live-Charts?','faq.a6':'Ja. Das Terminal enthält eingebettete TradingView-Charts für Forex-Paare, Kryptowährungen, wichtige Indizes, Metalle und Energie sowie Agrarrohstoffe.',
     'faq.q7':'Wie funktioniert der Wirtschaftskalender?','faq.a7':'Der Wirtschaftskalender zeigt 7 Tage bevorstehender Ereignisse mit Live-Timern, Vorwerten und Prognosen. Wenn Ist-Daten veröffentlicht werden, wird das Ergebnis automatisch in den Feed eingefügt.',
     'faq.q8':'Ist Trading News Terminal eine Bloomberg-Alternative?','faq.a8':'Ja. Das Bloomberg Terminal kostet etwa €1.800 pro Monat. Trading News Terminal Pro bietet Echtzeit-Finanznachrichten, Wirtschaftskalender, Live-Squawk, 7 TV-Kanäle und TradingView-Charts für €40/Monat.',
@@ -2515,7 +2522,7 @@ const _LS = {
     'faq.q10':'Wie kündige ich während der kostenlosen Testphase?',
     'faq.a10':'Du kannst jederzeit in deinen Kontoeinstellungen oder im Abrechnungsportal kündigen. Wenn du innerhalb von 7 Tagen kündigst, wird dir nichts berechnet. Dein Pro-Zugang bleibt bis zum Ende der Testphase bestehen.',
     'pricing.trial_btn':'7-Tage Kostenlos Testen →',
-    'pricing.trial_note':'€40/Monat + MwSt · Jederzeit kündbar',
+    'pricing.trial_note':'Dann €40/Monat + MwSt · Jederzeit kündbar',
     'pricing.subscribe_now':'Oder 7 Tage kostenlos testen →',
     'cta.h2':'Fange an, intelligenter zu handeln.<br><span style="color:var(--accent)">Wähle deinen Plan.</span>',
     'cta.sub':'Kostenlos starten. Upgraden zu Pro wenn du mehr benötigst.',
@@ -2690,7 +2697,7 @@ const _LS = {
     'faq.q2':'Qual è la differenza tra Basic e Pro?','faq.a2':'<p style="margin-bottom:12px;"><strong>Basic (gratis)</strong>: feed con ritardo di 2 min, calendario economico, grafici TradingView, watchlist, ricerca intelligente e interfaccia multilingue.</p><p><strong>Pro (€40/mese)</strong> aggiunge: notizie in tempo reale — Hub Macro & Obbligazioni — Calendario Utili — Tracker Banche Centrali — Sentiment — Screener — Squawk — 7 canali TV — senza pubblicità — supporto prioritario.</p>',
     'faq.q3':'Il piano Basic è davvero gratuito?','faq.a3':'Sì. Il piano Basic è gratuito per sempre — nessuna carta di credito, nessun upgrade automatico. Crea un account con la tua email in meno di 30 secondi. Per il Pro, offriamo una prova gratuita di 7 giorni con carta di credito. Dopo 7 giorni ti verranno addebitati €40/mese + IVA. Cancella in qualsiasi momento durante la prova.',
     'faq.q4':'Cos\'è la funzione Squawk?','faq.a4':'Squawk usa la Web Speech API del tuo browser per leggere ogni nuovo titolo ad alta voce al suo arrivo — esattamente come uno squawk box professionale. Attiva con un clic. È una funzione esclusiva Pro.',
-    'faq.q5':'Quali fonti di notizie aggrega il terminale?','faq.a5':'Aggreghiamo da centinaia di fonti istituzionali e professionali. Il nostro elenco di fonti è riservato per ragioni competitive. Basic copre le fonti ad alto impatto; Pro sblocca la copertura completa.',
+    'faq.q5':'Basic vs Pro: quante notizie ricevo e sono in tempo reale?','faq.a5':'<p style="margin-bottom:10px;"><strong>Velocità:</strong> Le notizie in Basic arrivano con un ritardo fisso di <strong>2 minuti</strong> — il prezzo può muoversi di 30–50 pip in quei 2 minuti dopo un titolo importante. Pro consegna tutte le notizie <strong>in tempo reale, senza alcun ritardo</strong>.</p><p><strong>Volume:</strong> Basic copre le fonti ad alto impatto — circa <strong>30–50 notizie al giorno</strong> in una giornata di trading tipica. Pro sblocca fino a <strong>10× più fonti</strong>: in una giornata ad alto impatto (NFP, FOMC, CPI), un utente Basic riceve circa <strong>40 notizie</strong> mentre un utente Pro ne riceve <strong>400+</strong> — inclusi segnali delle banche centrali, reazioni cross-asset, commenti istituzionali e dati macro secondari.</p>',
     'faq.q6':'Il Trading News Terminal ha grafici in diretta?','faq.a6':'Sì. Il terminale include grafici TradingView per coppie forex, criptovalute, indici principali, metalli e energia, e materie prime agricole.',
     'faq.q7':'Come funziona il calendario economico?','faq.a7':'Il calendario economico mostra 7 giorni di eventi con timer in diretta, valori precedenti e previsioni. Quando vengono pubblicati i dati reali, il risultato viene automaticamente iniettato nel feed con segnali di colore beat/miss.',
     'faq.q8':'Il Trading News Terminal è un\'alternativa a Bloomberg?','faq.a8':'Sì. Il Bloomberg Terminal costa circa €1.800 al mese. Trading News Terminal Pro offre notizie finanziarie in tempo reale, calendario economico, squawk, 7 canali TV e grafici TradingView per €40/mese.',
@@ -2698,7 +2705,7 @@ const _LS = {
     'faq.q10':'Come cancello durante la prova gratuita?',
     'faq.a10':'Puoi cancellare in qualsiasi momento dalle impostazioni del tuo account o dal portale di fatturazione. Se cancelli entro 7 giorni, non ti verrà addebitato nulla. Il tuo accesso Pro rimarrà attivo fino alla fine del periodo di prova.',
     'pricing.trial_btn':'Prova Gratuita di 7 Giorni →',
-    'pricing.trial_note':'€40/mese + IVA · Cancella in qualsiasi momento',
+    'pricing.trial_note':'Poi €40/mese + IVA · Cancella in qualsiasi momento',
     'pricing.subscribe_now':'O prova gratis per 7 giorni →',
     'cta.h2':'Inizia a fare trading in modo più intelligente.<br><span style="color:var(--accent)">Scegli il tuo piano.</span>',
     'cta.sub':'Gratis per iniziare. Fai upgrade a Pro quando ne hai bisogno.',

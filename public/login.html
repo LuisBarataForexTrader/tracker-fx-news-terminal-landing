@@ -764,6 +764,14 @@ const PRO_FROM_URL   = _params.get('plan') === 'pro';
 const TRIAL_FROM_URL = _params.get('plan') === 'trial';
 const PRO_PENDING    = localStorage.getItem('pendingPro') === '1';
 const TRIAL_PENDING  = localStorage.getItem('pendingTrial') === '1';
+// SECURITY: pendingPro/pendingTrial must be tied to a specific email to prevent
+// stale localStorage flags from redirecting other users to Stripe checkout.
+// pendingEmail is stored during signup so the flag only fires for that exact user.
+// Flags without a stored email (legacy/stale) are cleared immediately on load.
+if ((PRO_PENDING || TRIAL_PENDING) && !localStorage.getItem('pendingEmail')) {
+  localStorage.removeItem('pendingPro');
+  localStorage.removeItem('pendingTrial');
+}
 // Visual Pro theme ONLY shown when ?plan=pro or ?plan=trial is in the URL
 // Checkout redirect also fires if pendingPro/pendingTrial is saved (returning after email verification)
 const PRO_FLOW    = PRO_FROM_URL || TRIAL_FROM_URL;
@@ -850,12 +858,14 @@ async function _redirectToCheckout(token) {
     if (r.ok && data.url) {
       localStorage.removeItem('pendingPro');
       localStorage.removeItem('pendingTrial');
+      localStorage.removeItem('pendingEmail');
       window.location.href = data.url;
     } else {
       showMsg(_tl('msg.checkout.error'), 'error');
       setTimeout(() => {
         localStorage.removeItem('pendingPro');
         localStorage.removeItem('pendingTrial');
+        localStorage.removeItem('pendingEmail');
         window.location.href = APP_URL + '#token=' + encodeURIComponent(token);
       }, 2500);
     }
@@ -928,11 +938,18 @@ async function handleLogin(e) {
       return;
     }
     const alreadyPro = ['pro','trial'].includes(data.plan);
-    if (PRO_CHECKOUT && !alreadyPro) {
+    // Only allow pending flags to trigger checkout if they were bound to THIS user's email.
+    // PRO_FROM_URL / TRIAL_FROM_URL are always safe (user explicitly visited ?plan=pro/trial).
+    const _pendingEmail = localStorage.getItem('pendingEmail') || '';
+    const _pendingMatchesUser = _pendingEmail && _pendingEmail === email.toLowerCase();
+    const _safeCheckout = PRO_FROM_URL || TRIAL_FROM_URL ||
+      (PRO_PENDING && _pendingMatchesUser) || (TRIAL_PENDING && _pendingMatchesUser);
+    if (_safeCheckout && !alreadyPro) {
       await _redirectToCheckout(data.token);
     } else {
-      localStorage.removeItem('pendingPro'); // clear any stale pro-flow flag
+      localStorage.removeItem('pendingPro'); // clear any stale pro-flow flags
       localStorage.removeItem('pendingTrial');
+      localStorage.removeItem('pendingEmail');
       showMsg(_tl('msg.welcome.back'), 'success');
       const user = encodeURIComponent(JSON.stringify({id:data.id, email:data.email, name:data.name, plan:data.plan}));
       setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
@@ -969,6 +986,9 @@ async function handleSignup(e) {
     const data = await r.json();
     if (!r.ok) { showMsg(data.detail || 'Signup failed. Please try again.', 'error'); return; }
     _lastUnverifiedEmail = email;
+    // Bind the pending checkout flag to this specific email so other users
+    // logging in on the same browser are never accidentally redirected to Stripe.
+    if (PRO_CHECKOUT) localStorage.setItem('pendingEmail', email.toLowerCase());
     showMsg(PRO_CHECKOUT ? _tl('msg.signup.pro') : _tl('msg.signup.basic'), 'success');
     setTimeout(() => { document.getElementById('resend-wrap').style.display = 'block'; }, 3000);
   } catch(err) {
