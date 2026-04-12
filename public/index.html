@@ -494,8 +494,10 @@ section { padding:100px 24px; }
 
 /* ── AI SHOWCASE ── */
 .ai-section{background:var(--bg2);}
-.ai-showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:64px;}
-@media(max-width:900px){.ai-showcase-grid{grid-template-columns:1fr;}}
+.ai-showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:64px;}
+.ai-showcase-left{display:flex;flex-direction:column;gap:28px;}
+@media(max-width:900px){.ai-showcase-grid{grid-template-columns:1fr;gap:40px;}
+.ai-showcase-left .btn-primary{width:100%;justify-content:center;}}
 .ai-showcase-visual{background:var(--bg);border:1px solid var(--border2);border-radius:6px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
 .ai-showcase-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted);}
 .ai-showcase-bar-dot{width:8px;height:8px;border-radius:50%;background:#a78bfa;animation:blink 2s ease-in-out infinite;}
@@ -1300,80 +1302,80 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <p class="section-sub" data-i18n="ai.sub">Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.</p>
 
     <div class="ai-showcase-grid">
-      <div class="ai-showcase-visual">
-        <div class="ai-showcase-bar">
-          <div class="ai-showcase-bar-dot"></div>
-          <span data-i18n="ai.bar_label">AI Analysis — Live Feed</span>
-          <span style="margin-left:auto;font-size:10px;color:#a78bfa">Pro Only</span>
+      <div class="ai-showcase-left">
+        <div class="ai-showcase-visual">
+          <div class="ai-showcase-bar">
+            <div class="ai-showcase-bar-dot"></div>
+            <span data-i18n="ai.bar_label">AI Analysis — Live Feed</span>
+            <span style="margin-left:auto;font-size:10px;color:#a78bfa">Pro Only</span>
+          </div>
+          <!-- headline row -->
+          <div class="ai-headline-row">
+            <span class="ai-hl-tag">HIGH</span>
+            <span class="ai-hl-text">Fed Chair Powell signals rate cut timeline may shift amid persistent inflation data</span>
+            <span class="ai-hl-btn">✦ AI ✦</span>
+          </div>
+          <!-- AI result panel mock -->
+          <div class="ai-result-mock">
+            <div class="ai-result-mock-title">✦ AI Analysis</div>
+            <div class="ai-asset-row">
+              <span class="ai-asset-name">EUR/USD</span>
+              <span class="ai-asset-badge ai-badge-bull">Bullish</span>
+              <span class="ai-asset-desc">Dollar weakness expected on delayed cut signals — EUR/USD upside bias.</span>
+            </div>
+            <div class="ai-asset-row">
+              <span class="ai-asset-name">USD/JPY</span>
+              <span class="ai-asset-badge ai-badge-bear">Bearish</span>
+              <span class="ai-asset-desc">BOJ divergence widens — yen likely to strengthen vs dollar.</span>
+            </div>
+            <div class="ai-asset-row">
+              <span class="ai-asset-name">GOLD</span>
+              <span class="ai-asset-badge ai-badge-bull">Bullish</span>
+              <span class="ai-asset-desc">Rate uncertainty lifts safe-haven demand — watch 2,380 resistance.</span>
+            </div>
+            <div class="ai-asset-row">
+              <span class="ai-asset-name">S&amp;P 500</span>
+              <span class="ai-asset-badge ai-badge-neut">Neutral</span>
+              <span class="ai-asset-desc">Mixed signals — markets already pricing some delay.</span>
+            </div>
+            <div class="ai-result-footer-mock">
+              <span class="ai-conf-mock">CONF: HIGH</span>
+              <span class="ai-key-mock">Key level: EUR/USD 1.0920</span>
+            </div>
+          </div>
         </div>
-        <!-- headline row -->
-        <div class="ai-headline-row">
-          <span class="ai-hl-tag">HIGH</span>
-          <span class="ai-hl-text">Fed Chair Powell signals rate cut timeline may shift amid persistent inflation data</span>
-          <span class="ai-hl-btn">✦ AI ✦</span>
-        </div>
-        <!-- AI result panel mock -->
-        <div class="ai-result-mock">
-          <div class="ai-result-mock-title">✦ AI Analysis</div>
-          <div class="ai-asset-row">
-            <span class="ai-asset-name">EUR/USD</span>
-            <span class="ai-asset-badge ai-badge-bull">Bullish</span>
-            <span class="ai-asset-desc">Dollar weakness expected on delayed cut signals — EUR/USD upside bias.</span>
-          </div>
-          <div class="ai-asset-row">
-            <span class="ai-asset-name">USD/JPY</span>
-            <span class="ai-asset-badge ai-badge-bear">Bearish</span>
-            <span class="ai-asset-desc">BOJ divergence widens — yen likely to strengthen vs dollar.</span>
-          </div>
-          <div class="ai-asset-row">
-            <span class="ai-asset-name">GOLD</span>
-            <span class="ai-asset-badge ai-badge-bull">Bullish</span>
-            <span class="ai-asset-desc">Rate uncertainty lifts safe-haven demand — watch 2,380 resistance.</span>
-          </div>
-          <div class="ai-asset-row">
-            <span class="ai-asset-name">S&amp;P 500</span>
-            <span class="ai-asset-badge ai-badge-neut">Neutral</span>
-            <span class="ai-asset-desc">Mixed signals — markets already pricing some delay.</span>
-          </div>
-          <div class="ai-result-footer-mock">
-            <span class="ai-conf-mock">CONF: HIGH</span>
-            <span class="ai-key-mock">Key level: EUR/USD 1.0920</span>
-          </div>
-        </div>
+        <a href="/login?plan=pro" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;" data-i18n="ai.cta">Try AI Analysis — Upgrade to Pro →</a>
       </div>
 
-      <div>
-        <div class="ai-feats">
-          <div class="ai-feat">
-            <div class="ai-feat-icon">📄</div>
-            <div>
-              <div class="ai-feat-title" data-i18n="aif1.title">Full Article Read</div>
-              <div class="ai-feat-desc" data-i18n="aif1.desc">The AI fetches and reads the complete source article — not just the headline. You get analysis based on the actual content, so the context is always accurate.</div>
-            </div>
-          </div>
-          <div class="ai-feat">
-            <div class="ai-feat-icon">🎯</div>
-            <div>
-              <div class="ai-feat-title" data-i18n="aif2.title">Asset Impact per Instrument</div>
-              <div class="ai-feat-desc" data-i18n="aif2.desc">Every analysis lists the affected instruments with a clear Bullish / Bearish / Neutral rating plus a one-line explanation. Know exactly which pairs and assets to watch.</div>
-            </div>
-          </div>
-          <div class="ai-feat">
-            <div class="ai-feat-icon">📊</div>
-            <div>
-              <div class="ai-feat-title" data-i18n="aif3.title">Confidence Rating &amp; Key Levels</div>
-              <div class="ai-feat-desc" data-i18n="aif3.desc">Each analysis includes a confidence score (HIGH / MEDIUM / LOW) and the most important price level to watch — so you can size your trade accordingly.</div>
-            </div>
-          </div>
-          <div class="ai-feat">
-            <div class="ai-feat-icon">⚡</div>
-            <div>
-              <div class="ai-feat-title" data-i18n="aif4.title">Results in Under 5 Seconds</div>
-              <div class="ai-feat-desc" data-i18n="aif4.desc">Powered by Llama 3.3 70B via Groq. Lightning-fast inference means you get structured market intelligence before the price has moved — not after.</div>
-            </div>
+      <div class="ai-feats">
+        <div class="ai-feat">
+          <div class="ai-feat-icon">📄</div>
+          <div>
+            <div class="ai-feat-title" data-i18n="aif1.title">Full Article Read</div>
+            <div class="ai-feat-desc" data-i18n="aif1.desc">The AI fetches and reads the complete source article — not just the headline. You get analysis based on the actual content, so the context is always accurate.</div>
           </div>
         </div>
-        <a href="/login?plan=pro" class="btn-primary" style="margin-top:32px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;" data-i18n="ai.cta">Try AI Analysis — Upgrade to Pro →</a>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">🎯</div>
+          <div>
+            <div class="ai-feat-title" data-i18n="aif2.title">Asset Impact per Instrument</div>
+            <div class="ai-feat-desc" data-i18n="aif2.desc">Every analysis lists the affected instruments with a clear Bullish / Bearish / Neutral rating plus a one-line explanation. Know exactly which pairs and assets to watch.</div>
+          </div>
+        </div>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">📊</div>
+          <div>
+            <div class="ai-feat-title" data-i18n="aif3.title">Confidence Rating &amp; Key Levels</div>
+            <div class="ai-feat-desc" data-i18n="aif3.desc">Each analysis includes a confidence score (HIGH / MEDIUM / LOW) and the most important price level to watch — so you can size your trade accordingly.</div>
+          </div>
+        </div>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">⚡</div>
+          <div>
+            <div class="ai-feat-title" data-i18n="aif4.title">Results in Under 5 Seconds</div>
+            <div class="ai-feat-desc" data-i18n="aif4.desc">Lightning-fast inference means you get structured market intelligence before the price has moved — not after.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1875,7 +1877,7 @@ const _LS = {
     'aif3.title':'Confidence Rating & Key Levels',
     'aif3.desc':'Each analysis includes a confidence score (HIGH / MEDIUM / LOW) and the most important price level to watch — so you can size your trade accordingly.',
     'aif4.title':'Results in Under 5 Seconds',
-    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Lightning-fast inference means you get structured market intelligence before the price has moved — not after.',
+    'aif4.desc':'Lightning-fast inference means you get structured market intelligence before the price has moved — not after.',
     'how.eyebrow':'How it works','how.h2':'Up and running in 60 seconds',
     'how.step1_title':'Create a Free Account',
     'how.step1_desc':'Sign up at <strong>tradingnewsterminal.com</strong> with your email — no credit card required. Your session is saved so you return straight to the terminal on every visit. Account creation takes under 30 seconds.',
@@ -2087,7 +2089,7 @@ const _LS = {
     'aif3.title':'Classificação de Confiança e Níveis-Chave',
     'aif3.desc':'Cada análise inclui uma pontuação de confiança (ALTO / MÉDIO / BAIXO) e o nível de preço mais importante a observar — para poderes dimensionar a tua posição em conformidade.',
     'aif4.title':'Resultados em Menos de 5 Segundos',
-    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferência ultra-rápida para obteres inteligência de mercado estruturada antes de o preço se mover.',
+    'aif4.desc':'Inferência ultra-rápida para obteres inteligência de mercado estruturada antes de o preço se mover.',
     'how.eyebrow':'Como funciona','how.h2':'Pronto em 60 segundos',
     'how.step1_title':'Cria uma Conta Grátis',
     'how.step1_desc':'Regista-te em <strong>tradingnewsterminal.com</strong> com o teu email — sem cartão de crédito. A tua sessão é guardada para voltares direto ao terminal em cada visita. A criação de conta demora menos de 30 segundos.',
@@ -2295,7 +2297,7 @@ const _LS = {
     'aif3.title':'Puntuación de Confianza y Niveles Clave',
     'aif3.desc':'Cada análisis incluye una puntuación de confianza (ALTO / MEDIO / BAJO) y el nivel de precio más importante a vigilar.',
     'aif4.title':'Resultados en Menos de 5 Segundos',
-    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferencia ultrarrápida para obtener inteligencia de mercado estructurada antes de que el precio se mueva.',
+    'aif4.desc':'Inferencia ultrarrápida para obtener inteligencia de mercado estructurada antes de que el precio se mueva.',
     'how.eyebrow':'Cómo funciona','how.h2':'Listo en 60 segundos',
     'how.step1_title':'Crea una Cuenta Gratis',
     'how.step1_desc':'Regístrate en <strong>tradingnewsterminal.com</strong> con tu email — sin tarjeta de crédito. La creación de cuenta tarda menos de 30 segundos.',
@@ -2494,7 +2496,7 @@ const _LS = {
     'aif3.title':'Score de Confiance et Niveaux Clés',
     'aif3.desc':'Chaque analyse inclut un score de confiance (ÉLEVÉ / MOYEN / FAIBLE) et le niveau de prix le plus important à surveiller.',
     'aif4.title':'Résultats en Moins de 5 Secondes',
-    'aif4.desc':'Propulsé par Llama 3.3 70B via Groq. Inférence ultra-rapide pour obtenir des renseignements de marché structurés avant que le prix ne bouge.',
+    'aif4.desc':'Inférence ultra-rapide pour obtenir des renseignements de marché structurés avant que le prix ne bouge.',
     'how.eyebrow':'Comment ça fonctionne','how.h2':'Opérationnel en 60 secondes',
     'how.step1_title':'Créez un Compte Gratuit',
     'how.step1_desc':'Inscrivez-vous sur <strong>tradingnewsterminal.com</strong> avec votre email — sans carte de crédit. La création de compte prend moins de 30 secondes.',
@@ -2693,7 +2695,7 @@ const _LS = {
     'aif3.title':'Konfidenz-Score und Key-Levels',
     'aif3.desc':'Jede Analyse enthält einen Konfidenz-Score (HOCH / MITTEL / NIEDRIG) und das wichtigste zu beobachtende Preisniveau.',
     'aif4.title':'Ergebnisse in unter 5 Sekunden',
-    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Blitzschnelle Inferenz liefert strukturierte Marktintelligenz bevor der Preis sich bewegt hat.',
+    'aif4.desc':'Blitzschnelle Inferenz liefert strukturierte Marktintelligenz bevor der Preis sich bewegt hat.',
     'how.eyebrow':'So funktioniert es','how.h2':'In 60 Sekunden einsatzbereit',
     'how.step1_title':'Kostenloses Konto erstellen',
     'how.step1_desc':'Registriere dich auf <strong>tradingnewsterminal.com</strong> mit deiner E-Mail — keine Kreditkarte erforderlich. Die Kontoerstellung dauert weniger als 30 Sekunden.',
@@ -2892,7 +2894,7 @@ const _LS = {
     'aif3.title':'Score di Confidenza e Livelli Chiave',
     'aif3.desc':'Ogni analisi include uno score di confidenza (ALTO / MEDIO / BASSO) e il livello di prezzo più importante da monitorare.',
     'aif4.title':'Risultati in Meno di 5 Secondi',
-    'aif4.desc':'Powered by Llama 3.3 70B via Groq. Inferenza fulminea per ottenere intelligence di mercato strutturata prima che il prezzo si sia mosso.',
+    'aif4.desc':'Inferenza fulminea per ottenere intelligence di mercato strutturata prima che il prezzo si sia mosso.',
     'how.eyebrow':'Come funziona','how.h2':'Operativo in 60 secondi',
     'how.step1_title':'Crea un Account Gratuito',
     'how.step1_desc':'Registrati su <strong>tradingnewsterminal.com</strong> con la tua email — nessuna carta di credito richiesta. La creazione dell\'account richiede meno di 30 secondi.',
