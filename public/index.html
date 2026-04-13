@@ -70,6 +70,7 @@
     "Real-time financial news feed",
     "Economic calendar with live releases",
     "Live squawk voice alerts",
+    "Telegram mobile alerts for HIGH impact news",
     "TradingView charts for forex, crypto and commodities",
     "Live financial TV — Bloomberg, CNBC, Al Jazeera",
     "Asset watchlist and smart search",
@@ -867,6 +868,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   <div class="pro-ticker-track">
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.realtime">Real-Time Zero-Delay News Feed</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.squawk">Live Squawk Box</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.telegram">Telegram Mobile Alerts</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sentiment">Market Sentiment Analysis</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.tv">7 Live Financial TV Channels</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.centralbanks">Central Banks Tracker</span></div>
@@ -881,6 +883,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <!-- Duplicate for seamless loop -->
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.realtime">Real-Time Zero-Delay News Feed</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.squawk">Live Squawk Box</span></div>
+    <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.telegram">Telegram Mobile Alerts</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.sentiment">Market Sentiment Analysis</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.tv">7 Live Financial TV Channels</span></div>
     <div class="pro-ticker-item"><span class="ti">✦</span> <span data-i18n="ticker.centralbanks">Central Banks Tracker</span></div>
@@ -985,6 +988,12 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
         <div class="feature-icon" aria-hidden="true">✦</div>
         <h3 class="feature-title" data-i18n="fc14.title">AI News Analysis</h3>
         <p class="feature-desc" data-i18n="fc14.desc">One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.</p>
+        <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
+      </div>
+      <div class="feature-card" role="listitem">
+        <div class="feature-icon" aria-hidden="true" style="background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.25);">📲</div>
+        <h3 class="feature-title" data-i18n="fc15.title">Telegram Mobile Alerts</h3>
+        <p class="feature-desc" data-i18n="fc15.desc">Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Connect in seconds, choose which assets to follow (EUR, USD, GOLD, OIL…) and set a daily limit to avoid notification fatigue. Never miss a market-moving headline again.</p>
         <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
     </div>
@@ -1235,6 +1244,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.centralbanks"><strong>Central Banks Tracker</strong> — Fed, ECB, BOE, BOJ…</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.sentiment"><strong>Market Sentiment</strong> — risk-on / risk-off</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.squawk"><strong>Live Squawk</strong> — hands-free voice alerts</li>
+          <li class="pf-yes pf-pro-item" data-i18n-html="ppf.telegram"><strong>Telegram Alerts</strong> — HIGH impact on mobile</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.tv"><strong>Live Financial TV</strong> — 7 channels</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.screener"><strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…</li>
           <li class="pf-yes pf-pro-item" data-i18n-html="ppf.ai"><strong>✦ AI News Analysis</strong> — full article · asset impact</li>
@@ -1488,6 +1498,13 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
             <td><span class="check-yes">✓</span> Paid add-on</td>
           </tr>
           <tr>
+            <td class="feature-name" data-i18n="vs.telegram">Telegram mobile alerts</td>
+            <td class="ours"><span class="check-no">✗</span></td>
+            <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.included">Included</span></td>
+            <td><span class="check-no">✗</span></td>
+            <td><span class="check-no">✗</span></td>
+          </tr>
+          <tr>
             <td class="feature-name" data-i18n="vs.tv">Live financial TV</td>
             <td class="ours"><span class="check-no">✗</span></td>
             <td style="background:rgba(167,139,250,0.03)"><span class="check-yes">✓</span> <span data-i18n="vs.tv_7">7 channels</span></td>
@@ -1545,7 +1562,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       </div>
       <div class="faq-a" data-i18n-html="faq.a2">
         <p style="margin-bottom:12px;"><strong>Basic (free)</strong> includes: news feed with 2-minute delay, live economic calendar, TradingView charts, asset watchlist, smart search and multilingual interface.</p>
-        <p><strong>Pro (€40/month)</strong> adds everything in Basic plus: <strong>Real-time zero-delay news feed</strong> — <strong>Macro &amp; Bonds Hub</strong> (GDP, PMI, yields) — <strong>Earnings Calendar</strong> (EPS beat/miss live) — <strong>Central Banks Tracker</strong> (Fed, ECB, BOE, BOJ, SNB…) — <strong>Market Sentiment</strong> (risk-on / risk-off) — <strong>Market Screener</strong> (Forex, Stocks, Crypto, Indices, Commodities &amp; Bonds) — <strong>Live Squawk</strong> (hands-free voice alerts) — <strong>7 Live Financial TV channels</strong> — comprehensive source coverage — 100% ad-free — no upgrade prompts — priority support.</p>
+        <p><strong>Pro (€40/month)</strong> adds everything in Basic plus: <strong>Real-time zero-delay news feed</strong> — <strong>Macro &amp; Bonds Hub</strong> (GDP, PMI, yields) — <strong>Earnings Calendar</strong> (EPS beat/miss live) — <strong>Central Banks Tracker</strong> (Fed, ECB, BOE, BOJ, SNB…) — <strong>Market Sentiment</strong> (risk-on / risk-off) — <strong>Market Screener</strong> (Forex, Stocks, Crypto, Indices, Commodities &amp; Bonds) — <strong>Live Squawk</strong> (hands-free voice alerts) — <strong>Telegram mobile alerts</strong> (HIGH impact news on your phone, with asset filters) — <strong>7 Live Financial TV channels</strong> — comprehensive source coverage — 100% ad-free — no upgrade prompts — priority support.</p>
       </div>
     </div>
 
@@ -1647,6 +1664,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p3">Central Banks Tracker · Sentiment</li>
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
+          <li data-i18n="cta.p6">Telegram mobile alerts · Asset filters</li>
         </ul>
         <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
@@ -1760,7 +1778,7 @@ const _LS = {
     'hero.trust1':'Free account in 30 seconds','hero.trust2':'No credit card required',
     'hero.trust3':'Economic calendar with live releases','hero.trust4':'TradingView charts included',
     'hero.trust5':'Live squawk on Pro',
-    'ticker.realtime':'Real-Time Zero-Delay News Feed','ticker.squawk':'Live Squawk Box',
+    'ticker.realtime':'Real-Time Zero-Delay News Feed','ticker.squawk':'Live Squawk Box','ticker.telegram':'Telegram Mobile Alerts',
     'ticker.sentiment':'Market Sentiment Analysis','ticker.tv':'7 Live Financial TV Channels',
     'ticker.centralbanks':'Central Banks Tracker','ticker.earnings':'Earnings Calendar',
     'ticker.macro':'Macro & Bonds Hub','ticker.screener':'Market Screener — 6 Asset Classes','ticker.ai':'AI News Analysis',
@@ -1847,6 +1865,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Central Banks Tracker</strong> — Fed, ECB, BOE, BOJ…',
     'ppf.sentiment':'<strong>Market Sentiment</strong> — risk-on / risk-off',
     'ppf.squawk':'<strong>Live Squawk</strong> — hands-free voice alerts',
+    'ppf.telegram':'<strong>Telegram Alerts</strong> — HIGH impact on mobile',
     'ppf.tv':'<strong>Live Financial TV</strong> — 7 channels',
     'ppf.screener':'<strong>Market Screener</strong> — Forex, Stocks, Crypto, Indices…',
     'ppf.ai':'<strong>✦ AI News Analysis</strong> — full article · asset impact',
@@ -1865,6 +1884,8 @@ const _LS = {
     'sfc3.desc':'Filter by sector, market cap, signal, RSI range, P/E, beta and more. Stocks offer 4 views: Overview, Performance, Valuation and Dividends. Every column is sortable.',
     'fc14.title':'AI News Analysis',
     'fc14.desc':'One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.',
+    'fc15.title':'Telegram Mobile Alerts',
+    'fc15.desc':'Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Connect in seconds, choose which assets to follow (EUR, USD, GOLD, OIL…) and set a daily limit to avoid notification fatigue. Never miss a market-moving headline again.',
     'ai.eyebrow':'AI News Analysis',
     'ai.h2':'Reads the article.<br>Tells you what moves.',
     'ai.sub':'Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.',
@@ -1894,7 +1915,7 @@ const _LS = {
     'vs.macro':'Macro & bonds hub','vs.centralbanks':'Central banks tracker',
     'vs.earnings':'Earnings calendar','vs.screener':'Market screener',
     'vs.screener_6':'6 asset classes','vs.ai':'✦ AI news analysis','vs.ai_detail':'Full article · asset impact','vs.sentiment':'Market sentiment',
-    'vs.squawk':'Live squawk','vs.included':'Included','vs.tv':'Live financial TV',
+    'vs.squawk':'Live squawk','vs.telegram':'Telegram mobile alerts','vs.included':'Included','vs.tv':'Live financial TV',
     'vs.tv_7':'7 channels','vs.charts':'TradingView charts','vs.builtin':'Built-in',
     'vs.adfree':'Ad-free','vs.price':'Monthly price','vs.free':'Free','vs.limited':'Limited',
     'faq.eyebrow':'FAQ','faq.h2':'Frequently asked questions',
@@ -1936,6 +1957,7 @@ const _LS = {
     'cta.p3':'Central Banks Tracker · Sentiment',
     'cta.p4':'Market Screener — 6 asset classes',
     'cta.p5':'Live Squawk · 7 TV channels · Ad-free',
+    'cta.p6':'Telegram mobile alerts · Asset filters',
     'cta.note':'Works in Chrome, Firefox, Safari, Edge · No installation required',
     'footer.brand_tagline':'Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.',
     'footer.col_product':'Product','footer.open_terminal':'Open Terminal',
@@ -1972,7 +1994,7 @@ const _LS = {
     'hero.trust1':'Conta grátis em 30 segundos','hero.trust2':'Sem cartão de crédito',
     'hero.trust3':'Calendário económico com releases ao vivo','hero.trust4':'Gráficos TradingView incluídos',
     'hero.trust5':'Squawk ao vivo no Pro',
-    'ticker.realtime':'Feed de Notícias em Tempo Real','ticker.squawk':'Squawk Box Ao Vivo',
+    'ticker.realtime':'Feed de Notícias em Tempo Real','ticker.squawk':'Squawk Box Ao Vivo','ticker.telegram':'Alertas Telegram no Telemóvel',
     'ticker.sentiment':'Análise de Sentimento de Mercado','ticker.tv':'7 Canais de TV Financeira',
     'ticker.centralbanks':'Tracker de Bancos Centrais','ticker.earnings':'Calendário de Resultados',
     'ticker.macro':'Hub Macro & Obrigações','ticker.screener':'Screener de Mercado — 6 Classes de Ativos','ticker.ai':'Análise AI de Notícias',
@@ -2059,6 +2081,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Tracker de Bancos Centrais</strong> — Fed, BCE, BOE, BOJ…',
     'ppf.sentiment':'<strong>Sentimento de Mercado</strong> — risk-on / risk-off',
     'ppf.squawk':'<strong>Squawk Ao Vivo</strong> — alertas de voz mãos-livres',
+    'ppf.telegram':'<strong>Alertas Telegram</strong> — impacto ALTO no telemóvel',
     'ppf.tv':'<strong>TV Financeira Ao Vivo</strong> — 7 canais',
     'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Ações, Cripto, Índices…',
     'ppf.ai':'<strong>✦ Análise AI de Notícias</strong> — artigo completo · impacto por ativo',
@@ -2077,6 +2100,8 @@ const _LS = {
     'sfc3.desc':'Filtra por setor, capitalização, sinal, RSI, P/E, beta e mais. As ações têm 4 vistas: Visão Geral, Performance, Avaliação e Dividendos. Todas as colunas são ordenáveis.',
     'fc14.title':'Análise AI de Notícias',
     'fc14.desc':'Um clique em qualquer notícia desencadeia uma análise completa por IA: lê o artigo completo, identifica quais os ativos afetados (bullish / bearish / neutro), avalia o nível de confiança e assinala os níveis de preço a observar. Feito para ser rápido — resultados em menos de 5 segundos.',
+    'fc15.title':'Alertas Telegram no Telemóvel',
+    'fc15.desc':'Recebe alertas de notícias de impacto ALTO diretamente no teu telemóvel via Telegram — mesmo quando o terminal está fechado. Liga em segundos, escolhe quais os ativos a seguir (EUR, USD, GOLD, OIL…) e define um limite diário para evitar excesso de notificações.',
     'ai.eyebrow':'Análise AI de Notícias',
     'ai.h2':'Lê o artigo.<br>Diz-te o que move.',
     'ai.sub':'Clica ✦ AI em qualquer notícia e obtém uma análise estruturada completa em menos de 5 segundos — impacto por ativo, nível de confiança e níveis de preço a observar.',
@@ -2106,7 +2131,7 @@ const _LS = {
     'vs.macro':'Hub macro & obrigações','vs.centralbanks':'Tracker bancos centrais',
     'vs.earnings':'Calendário de resultados','vs.screener':'Screener de mercado',
     'vs.screener_6':'6 classes de ativos','vs.ai':'✦ Análise AI de notícias','vs.ai_detail':'Artigo completo · impacto por ativo','vs.sentiment':'Sentimento de mercado',
-    'vs.squawk':'Squawk ao vivo','vs.included':'Incluído','vs.tv':'TV financeira ao vivo',
+    'vs.squawk':'Squawk ao vivo','vs.telegram':'Alertas Telegram no telemóvel','vs.included':'Incluído','vs.tv':'TV financeira ao vivo',
     'vs.tv_7':'7 canais','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
     'vs.adfree':'Sem anúncios','vs.price':'Preço mensal','vs.free':'Grátis','vs.limited':'Limitado',
     'faq.eyebrow':'FAQ','faq.h2':'Perguntas frequentes',
@@ -2148,6 +2173,7 @@ const _LS = {
     'cta.p3':'Tracker de Bancos Centrais · Sentimento',
     'cta.p4':'Screener de Mercado — 6 classes de ativos',
     'cta.p5':'Squawk Ao Vivo · 7 canais TV · Sem anúncios',
+    'cta.p6':'Alertas Telegram · Filtros por ativo',
     'cta.note':'Funciona no Chrome, Firefox, Safari, Edge · Sem instalação',
     'footer.brand_tagline':'Terminal profissional de notícias financeiras em tempo real para traders de forex, cripto e macro. Calendário económico ao vivo, squawk box, gráficos TradingView e TV num só lugar.',
     'footer.col_product':'Produto','footer.open_terminal':'Abrir Terminal',
@@ -2184,7 +2210,7 @@ const _LS = {
     'hero.trust1':'Cuenta gratis en 30 segundos','hero.trust2':'Sin tarjeta de crédito',
     'hero.trust3':'Calendario económico con publicaciones en vivo','hero.trust4':'Gráficos TradingView incluidos',
     'hero.trust5':'Squawk en vivo en Pro',
-    'ticker.realtime':'Feed de Noticias en Tiempo Real','ticker.squawk':'Squawk Box en Vivo',
+    'ticker.realtime':'Feed de Noticias en Tiempo Real','ticker.squawk':'Squawk Box en Vivo','ticker.telegram':'Alertas Telegram en Móvil',
     'ticker.sentiment':'Análisis de Sentimiento de Mercado','ticker.tv':'7 Canales de TV Financiera',
     'ticker.centralbanks':'Tracker de Bancos Centrales','ticker.earnings':'Calendario de Resultados',
     'ticker.macro':'Hub Macro & Bonos','ticker.screener':'Screener de Mercado — 6 Clases de Activos','ticker.ai':'Análisis AI de Noticias',
@@ -2267,6 +2293,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Tracker Bancos Centrales</strong> — Fed, BCE, BOE, BOJ…',
     'ppf.sentiment':'<strong>Sentimiento de Mercado</strong> — risk-on / risk-off',
     'ppf.squawk':'<strong>Squawk en Vivo</strong> — alertas de voz manos libres',
+    'ppf.telegram':'<strong>Alertas Telegram</strong> — impacto ALTO en móvil',
     'ppf.tv':'<strong>TV Financiera en Vivo</strong> — 7 canales',
     'ppf.screener':'<strong>Screener de Mercado</strong> — Forex, Acciones, Cripto, Índices…',
     'ppf.ai':'<strong>✦ Análisis AI de Noticias</strong> — artículo completo · impacto por activo',
@@ -2284,6 +2311,8 @@ const _LS = {
     'sfc3.title':'Filtros Avanzados & Multi-Vista',
     'sfc3.desc':'Filtra por sector, capitalización, señal, RSI, P/E, beta y más. Las acciones tienen 4 vistas: General, Rendimiento, Valoración y Dividendos. Todas las columnas son ordenables.',
     'fc14.title':'Análisis AI de Noticias',
+    'fc15.title':'Alertas Telegram en Móvil',
+    'fc15.desc':'Recibe alertas de noticias de alto impacto directamente en tu móvil vía Telegram — incluso con el terminal cerrado. Conéctate en segundos, elige los activos a seguir (EUR, USD, GOLD, OIL…) y establece un límite diario para evitar el exceso de notificaciones.',
     'fc14.desc':'Un clic en cualquier titular activa un análisis completo de IA: lee el artículo completo, identifica los activos afectados (alcista / bajista / neutral), evalúa el nivel de confianza y señala los niveles de precio a vigilar. Resultados en menos de 5 segundos.',
     'ai.eyebrow':'Análisis AI de Noticias',
     'ai.h2':'Lee el artículo.<br>Te dice qué mueve.',
@@ -2314,7 +2343,7 @@ const _LS = {
     'vs.macro':'Hub macro & bonos','vs.centralbanks':'Tracker bancos centrales',
     'vs.earnings':'Calendario de resultados','vs.screener':'Screener de mercado',
     'vs.screener_6':'6 clases de activos','vs.ai':'✦ Análisis AI de noticias','vs.ai_detail':'Artículo completo · impacto por activo','vs.sentiment':'Sentimiento de mercado',
-    'vs.squawk':'Squawk en vivo','vs.included':'Incluido','vs.tv':'TV financiera en vivo',
+    'vs.squawk':'Squawk en vivo','vs.telegram':'Alertas Telegram en móvil','vs.included':'Incluido','vs.tv':'TV financiera en vivo',
     'vs.tv_7':'7 canales','vs.charts':'Gráficos TradingView','vs.builtin':'Integrado',
     'vs.adfree':'Sin anuncios','vs.price':'Precio mensual','vs.free':'Gratis','vs.limited':'Limitado',
     'faq.eyebrow':'FAQ','faq.h2':'Preguntas frecuentes',
@@ -2347,6 +2376,7 @@ const _LS = {
     'cta.p3':'Tracker Bancos Centrales · Sentimiento',
     'cta.p4':'Screener de Mercado — 6 clases de activos',
     'cta.p5':'Squawk en Vivo · 7 canales TV · Sin anuncios',
+    'cta.p6':'Alertas Telegram · Filtros por activo',
     'cta.note':'Funciona en Chrome, Firefox, Safari, Edge · Sin instalación requerida',
     'footer.brand_tagline':'Terminal profesional de noticias financieras en tiempo real para traders de forex, cripto y macro.',
     'footer.col_product':'Producto','footer.open_terminal':'Abrir Terminal',
@@ -2383,7 +2413,7 @@ const _LS = {
     'hero.trust1':'Compte gratuit en 30 secondes','hero.trust2':'Sans carte de crédit',
     'hero.trust3':'Calendrier économique avec publications en direct','hero.trust4':'Graphiques TradingView inclus',
     'hero.trust5':'Squawk en direct sur Pro',
-    'ticker.realtime':'Flux d\'Actualités en Temps Réel','ticker.squawk':'Squawk Box en Direct',
+    'ticker.realtime':'Flux d\'Actualités en Temps Réel','ticker.squawk':'Squawk Box en Direct','ticker.telegram':'Alertes Telegram sur Mobile',
     'ticker.sentiment':'Analyse du Sentiment de Marché','ticker.tv':'7 Chaînes TV Financières',
     'ticker.centralbanks':'Suivi des Banques Centrales','ticker.earnings':'Calendrier des Résultats',
     'ticker.macro':'Hub Macro & Obligations','ticker.screener':'Screener de Marché — 6 Classes d\'Actifs','ticker.ai':'Analyse AI des Actualités',
@@ -2466,6 +2496,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Suivi Banques Centrales</strong> — Fed, BCE, BOE, BOJ…',
     'ppf.sentiment':'<strong>Sentiment de Marché</strong> — risk-on / risk-off',
     'ppf.squawk':'<strong>Squawk en Direct</strong> — alertes vocales mains libres',
+    'ppf.telegram':'<strong>Alertes Telegram</strong> — impact ÉLEVÉ sur mobile',
     'ppf.tv':'<strong>TV Financière en Direct</strong> — 7 chaînes',
     'ppf.screener':'<strong>Screener de Marché</strong> — Forex, Actions, Crypto, Indices…',
     'ppf.ai':'<strong>✦ Analyse AI des Actualités</strong> — article complet · impact par actif',
@@ -2483,6 +2514,8 @@ const _LS = {
     'sfc3.title':'Filtres Avancés & Multi-Vue',
     'sfc3.desc':'Filtrez par secteur, capitalisation, signal, RSI, P/E, beta et plus. Les actions offrent 4 vues : Aperçu, Performance, Valorisation et Dividendes. Chaque colonne est triable.',
     'fc14.title':'Analyse AI des Actualités',
+    'fc15.title':'Alertes Telegram sur Mobile',
+    'fc15.desc':'Recevez des alertes d\'actualités à fort impact directement sur votre téléphone via Telegram — même lorsque le terminal est fermé. Connectez-vous en quelques secondes, choisissez les actifs à suivre (EUR, USD, GOLD, OIL…) et définissez une limite quotidienne pour éviter la surcharge de notifications.',
     'fc14.desc':'Un clic sur n\'importe quel titre déclenche une analyse IA complète : lit l\'article complet, identifie les actifs affectés (haussier / baissier / neutre), évalue le niveau de confiance et signale les niveaux de prix à surveiller. Résultats en moins de 5 secondes.',
     'ai.eyebrow':'Analyse AI des Actualités',
     'ai.h2':'Lit l\'article.<br>Vous dit ce qui bouge.',
@@ -2513,7 +2546,7 @@ const _LS = {
     'vs.macro':'Hub macro & obligations','vs.centralbanks':'Suivi banques centrales',
     'vs.earnings':'Calendrier des résultats','vs.screener':'Screener de marché',
     'vs.screener_6':'6 classes d\'actifs','vs.ai':'✦ Analyse AI des actualités','vs.ai_detail':'Article complet · impact par actif','vs.sentiment':'Sentiment de marché',
-    'vs.squawk':'Squawk en direct','vs.included':'Inclus','vs.tv':'TV financière en direct',
+    'vs.squawk':'Squawk en direct','vs.telegram':'Alertes Telegram sur mobile','vs.included':'Inclus','vs.tv':'TV financière en direct',
     'vs.tv_7':'7 chaînes','vs.charts':'Graphiques TradingView','vs.builtin':'Intégré',
     'vs.adfree':'Sans publicité','vs.price':'Prix mensuel','vs.free':'Gratuit','vs.limited':'Limité',
     'faq.eyebrow':'FAQ','faq.h2':'Questions fréquemment posées',
@@ -2546,6 +2579,7 @@ const _LS = {
     'cta.p3':'Suivi Banques Centrales · Sentiment',
     'cta.p4':'Screener de Marché — 6 classes d\'actifs',
     'cta.p5':'Squawk en Direct · 7 chaînes TV · Sans publicité',
+    'cta.p6':'Alertes Telegram · Filtres par actif',
     'cta.note':'Fonctionne sur Chrome, Firefox, Safari, Edge · Aucune installation requise',
     'footer.brand_tagline':'Terminal professionnel d\'actualités financières en temps réel pour les traders forex, crypto et macro.',
     'footer.col_product':'Produit','footer.open_terminal':'Ouvrir Terminal',
@@ -2582,7 +2616,7 @@ const _LS = {
     'hero.trust1':'Kostenloses Konto in 30 Sekunden','hero.trust2':'Keine Kreditkarte erforderlich',
     'hero.trust3':'Wirtschaftskalender mit Live-Veröffentlichungen','hero.trust4':'TradingView-Charts inklusive',
     'hero.trust5':'Live-Squawk auf Pro',
-    'ticker.realtime':'Echtzeit-Nachrichtenfeed ohne Verzögerung','ticker.squawk':'Live-Squawk-Box',
+    'ticker.realtime':'Echtzeit-Nachrichtenfeed ohne Verzögerung','ticker.squawk':'Live-Squawk-Box','ticker.telegram':'Telegram-Mobilbenachrichtigungen',
     'ticker.sentiment':'Marktsentiment-Analyse','ticker.tv':'7 Live-Finanz-TV-Kanäle',
     'ticker.centralbanks':'Zentralbank-Tracker','ticker.earnings':'Ergebniskalender',
     'ticker.macro':'Makro & Anleihen Hub','ticker.screener':'Marktscreener — 6 Asset-Klassen','ticker.ai':'KI-Nachrichtenanalyse',
@@ -2665,6 +2699,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Zentralbank-Tracker</strong> — Fed, EZB, BOE, BOJ…',
     'ppf.sentiment':'<strong>Marktsentiment</strong> — Risk-on / Risk-off',
     'ppf.squawk':'<strong>Live-Squawk</strong> — freihändige Sprachalarme',
+    'ppf.telegram':'<strong>Telegram-Alarme</strong> — HOHE Auswirkung auf Mobilgerät',
     'ppf.tv':'<strong>Live-Finanz-TV</strong> — 7 Kanäle',
     'ppf.screener':'<strong>Marktscreener</strong> — Forex, Aktien, Krypto, Indizes…',
     'ppf.ai':'<strong>✦ KI-Nachrichtenanalyse</strong> — vollständiger Artikel · Asset-Impact',
@@ -2682,6 +2717,8 @@ const _LS = {
     'sfc3.title':'Erweiterte Filter & Multi-Ansicht',
     'sfc3.desc':'Filtere nach Sektor, Marktkapitalisierung, Signal, RSI, KGV, Beta und mehr. Aktien bieten 4 Ansichten: Übersicht, Performance, Bewertung und Dividenden. Alle Spalten sortierbar.',
     'fc14.title':'KI-Nachrichtenanalyse',
+    'fc15.title':'Telegram-Mobilbenachrichtigungen',
+    'fc15.desc':'Erhalten Sie sofortige Nachrichten mit HOHER Auswirkung direkt auf Ihr Handy über Telegram — auch wenn das Terminal geschlossen ist. Verbinden Sie sich in Sekunden, wählen Sie die zu verfolgenden Assets (EUR, USD, GOLD, ÖL…) und legen Sie ein tägliches Limit fest.',
     'fc14.desc':'Ein Klick auf eine Schlagzeile startet eine vollständige KI-Analyse: liest den kompletten Artikel, identifiziert betroffene Assets (bullish / bearish / neutral), bewertet das Konfidenzniveau und markiert wichtige Preisniveaus. Ergebnisse in unter 5 Sekunden.',
     'ai.eyebrow':'KI-Nachrichtenanalyse',
     'ai.h2':'Liest den Artikel.<br>Sagt was sich bewegt.',
@@ -2712,7 +2749,7 @@ const _LS = {
     'vs.macro':'Makro & Anleihen Hub','vs.centralbanks':'Zentralbank-Tracker',
     'vs.earnings':'Ergebniskalender','vs.screener':'Marktscreener',
     'vs.screener_6':'6 Asset-Klassen','vs.ai':'✦ KI-Nachrichtenanalyse','vs.ai_detail':'Vollständiger Artikel · Asset-Impact','vs.sentiment':'Marktsentiment',
-    'vs.squawk':'Live-Squawk','vs.included':'Inklusive','vs.tv':'Live-Finanz-TV',
+    'vs.squawk':'Live-Squawk','vs.telegram':'Telegram-Mobilbenachrichtigungen','vs.included':'Inklusive','vs.tv':'Live-Finanz-TV',
     'vs.tv_7':'7 Kanäle','vs.charts':'TradingView-Charts','vs.builtin':'Eingebaut',
     'vs.adfree':'Werbefrei','vs.price':'Monatspreis','vs.free':'Kostenlos','vs.limited':'Begrenzt',
     'faq.eyebrow':'FAQ','faq.h2':'Häufig gestellte Fragen',
@@ -2745,6 +2782,7 @@ const _LS = {
     'cta.p3':'Zentralbank-Tracker · Sentiment',
     'cta.p4':'Marktscreener — 6 Asset-Klassen',
     'cta.p5':'Live-Squawk · 7 TV-Kanäle · Werbefrei',
+    'cta.p6':'Telegram-Alarme · Asset-Filter',
     'cta.note':'Funktioniert in Chrome, Firefox, Safari, Edge · Keine Installation erforderlich',
     'footer.brand_tagline':'Professionelles Echtzeit-Finanznachrichten-Terminal für Forex-, Krypto- und Makro-Trader.',
     'footer.col_product':'Produkt','footer.open_terminal':'Terminal öffnen',
@@ -2781,7 +2819,7 @@ const _LS = {
     'hero.trust1':'Account gratuito in 30 secondi','hero.trust2':'Nessuna carta di credito richiesta',
     'hero.trust3':'Calendario economico con pubblicazioni in diretta','hero.trust4':'Grafici TradingView inclusi',
     'hero.trust5':'Squawk in diretta su Pro',
-    'ticker.realtime':'Feed di Notizie in Tempo Reale','ticker.squawk':'Squawk Box in Diretta',
+    'ticker.realtime':'Feed di Notizie in Tempo Reale','ticker.squawk':'Squawk Box in Diretta','ticker.telegram':'Avvisi Telegram su Mobile',
     'ticker.sentiment':'Analisi del Sentiment di Mercato','ticker.tv':'7 Canali TV Finanziaria',
     'ticker.centralbanks':'Tracker Banche Centrali','ticker.earnings':'Calendario Utili',
     'ticker.macro':'Hub Macro & Obbligazioni','ticker.screener':'Screener di Mercato — 6 Classi di Attivi','ticker.ai':'Analisi AI delle Notizie',
@@ -2864,6 +2902,7 @@ const _LS = {
     'ppf.centralbanks':'<strong>Tracker Banche Centrali</strong> — Fed, BCE, BOE, BOJ…',
     'ppf.sentiment':'<strong>Sentiment di Mercato</strong> — risk-on / risk-off',
     'ppf.squawk':'<strong>Squawk in Diretta</strong> — avvisi vocali hands-free',
+    'ppf.telegram':'<strong>Avvisi Telegram</strong> — impatto ALTO su mobile',
     'ppf.tv':'<strong>TV Finanziaria in Diretta</strong> — 7 canali',
     'ppf.screener':'<strong>Screener di Mercato</strong> — Forex, Azioni, Cripto, Indici…',
     'ppf.ai':'<strong>✦ Analisi AI delle Notizie</strong> — articolo completo · impatto per asset',
@@ -2881,6 +2920,8 @@ const _LS = {
     'sfc3.title':'Filtri Avanzati & Multi-Vista',
     'sfc3.desc':'Filtra per settore, capitalizzazione, segnale, RSI, P/E, beta e altro. Le azioni offrono 4 viste: Panoramica, Performance, Valutazione e Dividendi. Ogni colonna è ordinabile.',
     'fc14.title':'Analisi AI delle Notizie',
+    'fc15.title':'Avvisi Telegram su Mobile',
+    'fc15.desc':'Ricevi avvisi di notizie ad ALTO impatto direttamente sul tuo telefono via Telegram — anche quando il terminale è chiuso. Collegati in pochi secondi, scegli gli asset da seguire (EUR, USD, GOLD, OIL…) e imposta un limite giornaliero per evitare il sovraccarico di notifiche.',
     'fc14.desc':'Un clic su qualsiasi titolo avvia un\'analisi AI completa: legge l\'articolo completo, identifica gli asset interessati (rialzista / ribassista / neutro), valuta il livello di confidenza e segnala i livelli di prezzo chiave. Risultati in meno di 5 secondi.',
     'ai.eyebrow':'Analisi AI delle Notizie',
     'ai.h2':'Legge l\'articolo.<br>Ti dice cosa si muove.',
@@ -2911,7 +2952,7 @@ const _LS = {
     'vs.macro':'Hub macro & obbligazioni','vs.centralbanks':'Tracker banche centrali',
     'vs.earnings':'Calendario utili','vs.screener':'Screener di mercato',
     'vs.screener_6':'6 classi di attivi','vs.ai':'✦ Analisi AI delle notizie','vs.ai_detail':'Articolo completo · impatto per asset','vs.sentiment':'Sentiment di mercato',
-    'vs.squawk':'Squawk in diretta','vs.included':'Incluso','vs.tv':'TV finanziaria in diretta',
+    'vs.squawk':'Squawk in diretta','vs.telegram':'Avvisi Telegram su mobile','vs.included':'Incluso','vs.tv':'TV finanziaria in diretta',
     'vs.tv_7':'7 canali','vs.charts':'Grafici TradingView','vs.builtin':'Integrato',
     'vs.adfree':'Senza pubblicità','vs.price':'Prezzo mensile','vs.free':'Gratis','vs.limited':'Limitato',
     'faq.eyebrow':'FAQ','faq.h2':'Domande frequenti',
@@ -2944,6 +2985,7 @@ const _LS = {
     'cta.p3':'Tracker Banche Centrali · Sentiment',
     'cta.p4':'Screener di Mercato — 6 classi di attivi',
     'cta.p5':'Squawk in Diretta · 7 canali TV · Senza pubblicità',
+    'cta.p6':'Avvisi Telegram · Filtri per asset',
     'cta.note':'Funziona in Chrome, Firefox, Safari, Edge · Nessuna installazione richiesta',
     'footer.brand_tagline':'Terminale professionale di notizie finanziarie in tempo reale per trader forex, cripto e macro.',
     'footer.col_product':'Prodotto','footer.open_terminal':'Apri Terminale',
