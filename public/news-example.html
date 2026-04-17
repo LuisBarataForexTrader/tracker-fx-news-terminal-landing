@@ -110,10 +110,28 @@ a:hover{text-decoration:underline}
 /* ── Top bar ── */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}
 .topbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.04em}
-.brand-dot{width:10px;height:10px;background:var(--accent);border-radius:2px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--text)}
+.brand:hover{text-decoration:none}
+.brand-logo{width:28px;height:28px;border-radius:6px}
+.brand-name{display:flex;flex-direction:column;line-height:1.1}
+.brand-name-top{color:var(--text);font-size:13px;letter-spacing:.08em}
+.brand-name-top .accent{color:var(--accent)}
+.brand-name-sub{color:var(--text-muted);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
 .topbar-cta{background:var(--accent);color:#000;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.04em}
 .topbar-cta:hover{text-decoration:none;background:#00b8dd}
+
+/* ── Micro intro ribbon ── appears on every news page so SEO visitors
+    understand what TNT is in <3 seconds without clicking away. */
+.intro-ribbon{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);border-bottom:1px solid var(--border);padding:20px 24px}
+.intro-ribbon-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.intro-ribbon-text{flex:1;min-width:260px}
+.intro-ribbon-headline{font-size:13px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:4px}
+.intro-ribbon-sub{font-size:11px;color:var(--text-muted);line-height:1.5}
+.intro-ribbon-features{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-dim)}
+.intro-ribbon-feat{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.intro-ribbon-feat::before{content:'';display:inline-block;width:5px;height:5px;background:var(--accent);border-radius:50%}
+.intro-ribbon-cta{font-size:11px;font-weight:700;color:var(--accent);padding:6px 12px;border:1px solid rgba(0,212,255,.35);border-radius:4px;white-space:nowrap}
+.intro-ribbon-cta:hover{background:rgba(0,212,255,.08);text-decoration:none}
 
 /* ── Breadcrumb ── */
 .breadcrumb{padding:18px 0 6px;font-size:11px;color:var(--text-muted);letter-spacing:.03em}
@@ -188,13 +206,33 @@ footer a{color:var(--text-muted)}
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a href="/" class="brand" style="color:var(--text)">
-      <span class="brand-dot"></span>
-      TRADING NEWS TERMINAL
+    <a href="/" class="brand">
+      <img src="/favicon-192x192.png" alt="Trading News Terminal" class="brand-logo" width="28" height="28">
+      <span class="brand-name">
+        <span class="brand-name-top">TRADING <span class="accent">NEWS</span> TERMINAL</span>
+        <span class="brand-name-sub">Real-Time Market Intelligence</span>
+      </span>
     </a>
     <a href="https://app.tradingnewsterminal.com" class="topbar-cta">Open terminal →</a>
   </div>
 </header>
+
+<!-- Micro-intro: on-page primer for visitors landing from search -->
+<section class="intro-ribbon" aria-label="About Trading News Terminal">
+  <div class="intro-ribbon-inner">
+    <div class="intro-ribbon-text">
+      <div class="intro-ribbon-headline">Trading News Terminal is a real-time market-intelligence app for active traders.</div>
+      <div class="intro-ribbon-sub">Wire-grade headlines, AI-classified impact, live squawk, economic calendar and TradingView charts — in one distraction-free terminal.</div>
+    </div>
+    <div class="intro-ribbon-features" aria-hidden="true">
+      <span class="intro-ribbon-feat">Live wire news</span>
+      <span class="intro-ribbon-feat">Squawk &amp; alerts</span>
+      <span class="intro-ribbon-feat">Economic calendar</span>
+      <span class="intro-ribbon-feat">Free forever tier</span>
+    </div>
+    <a href="https://app.tradingnewsterminal.com" class="intro-ribbon-cta">Start free →</a>
+  </div>
+</section>
 
 <main class="container">
 
