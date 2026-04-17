@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Economic Calendar — Real-Time Market Data Releases</title>
+  <meta name="description" content="Live economic calendar with countdown timers, beat/miss signals &amp; instant news. Track NFP, CPI, FOMC and 50+ data releases in real-time.">
+  <link rel="canonical" href="https://www.tradingnewsterminal.com/economic-calendar">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+  <meta property="og:title" content="Live Economic Calendar — Real-Time Market Data Releases">
+  <meta property="og:description" content="Live economic calendar with countdown timers, beat/miss signals &amp; instant news. Track NFP, CPI, FOMC and 50+ data releases in real-time.">
+  <meta property="og:url" content="https://www.tradingnewsterminal.com/economic-calendar">
+  <meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live Economic Calendar — Real-Time Market Data Releases">
+  <meta name="twitter:description" content="Live economic calendar with real-time data releases, countdown timers, beat/miss signals and instant news injection. Free for all traders.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Trading News Terminal",
+        "url": "https://www.tradingnewsterminal.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "Live economic calendar with real-time data releases, countdown timers, beat/miss color signals, audio alerts, and automatic news injection for active traders.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Basic",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "description": "Free tier with full economic calendar access including countdown timers and beat/miss signals."
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "40",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "billingDuration": "P1M"
+            },
+            "description": "Pro: full calendar plus zero-delay news injection, squawk alerts, live TV."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an economic calendar for trading?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An economic calendar is a schedule of upcoming macroeconomic data releases and events that are likely to move financial markets. It shows the date, time, country, event name, previous reading, market forecast, and the actual result as it's published. Traders use economic calendars to prepare for volatility around events like Non-Farm Payrolls, CPI, rate decisions, and GDP releases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which economic calendar is best for forex trading?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The best forex economic calendar provides real-time data as soon as figures are released, shows beat/miss signals (actual vs forecast), includes countdown timers to upcoming events, and integrates directly with a news feed so you see the market reaction and commentary immediately. Trading News Terminal's economic calendar does all of this and is free for all users."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do economic releases affect currency prices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Economic releases affect currency prices by changing expectations about a central bank's future interest rate decisions. For example, a higher-than-expected CPI print increases the likelihood of rate hikes, which tends to strengthen that currency. Conversely, a weak NFP report may signal rate cuts ahead, weakening the USD. The magnitude of the price move depends on how far the actual result deviates from the market's forecast."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are HIGH impact economic events?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HIGH impact economic events are data releases and central bank decisions that historically cause the largest price moves in financial markets. These include: FOMC rate decisions, ECB/BOE/BOJ rate decisions, US Non-Farm Payrolls, CPI/PPI inflation data, GDP growth figures, retail sales, and central bank governor speeches. Trading News Terminal marks these in red and triggers audio alerts when they occur."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Trading News Terminal economic calendar free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The economic calendar is fully available on the free Basic plan — no credit card required. You get 7 days of upcoming events, countdown timers, actual vs forecast vs previous data, and beat/miss color signals. The Pro plan adds zero-delay news injection alongside each calendar event and the squawk box audio alert system."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0c0f; --bg2: #0d1117; --card: #111827; --border: #1e2a3a;
+      --accent: #00d4ff; --accent2: #0099bb; --text: #e0e8f0; --muted: #8899aa;
+      --green: #00c853; --red: #ff3d57; --yellow: #ffc107;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,12,15,0.97);
+      border-bottom: 1px solid #1e2a3a;
+      padding: 0 24px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+    .nav-logo-text span { color:#00d4ff; }
+    .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+    .btn { display: inline-block; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.15s, transform 0.15s; border: none; text-decoration: none; }
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .hero { padding: 72px 0 56px; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-badge { display: inline-block; background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.03em; }
+    .hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 8px; }
+    .price-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .price-note strong { color: var(--text); }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 16px; }
+    .section-intro { color: var(--muted); font-size: 17px; margin-bottom: 40px; max-width: 700px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent2); }
+    .card-icon { font-size: 28px; margin-bottom: 14px; }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    /* CALENDAR DEMO */
+    .cal-demo { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .cal-header { background: var(--bg2); padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .cal-title { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+    .cal-date { font-size: 13px; color: var(--accent); font-weight: 600; }
+    .cal-row { display: grid; grid-template-columns: 70px 30px 1fr 80px 80px 80px; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--border); align-items: center; font-size: 14px; }
+    .cal-row:last-child { border-bottom: none; }
+    .cal-row:hover { background: rgba(255,255,255,0.02); }
+    .cal-time { color: var(--muted); font-family: monospace; font-size: 13px; }
+    .flag { font-size: 16px; }
+    .cal-event { color: var(--text); font-weight: 500; }
+    .cal-num { text-align: right; font-family: monospace; font-size: 13px; }
+    .prev { color: var(--muted); }
+    .forecast { color: var(--muted); }
+    .actual-beat { color: var(--green); font-weight: 700; }
+    .actual-miss { color: var(--red); font-weight: 700; }
+    .actual-inline { color: var(--yellow); font-weight: 700; }
+    .impact-pill { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+    .pill-high { color: var(--red); background: rgba(255,61,87,0.12); }
+    .pill-med { color: var(--yellow); background: rgba(255,193,7,0.12); }
+    .pill-low { color: var(--muted); background: rgba(136,153,170,0.1); }
+    .countdown { font-size: 12px; color: var(--accent); font-family: monospace; font-weight: 700; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { background: var(--card); color: var(--text); font-weight: 700; padding: 14px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+    th.accent-col { color: var(--accent); }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: var(--red); }
+    td:first-child { color: var(--text); font-weight: 500; }
+    .steps { display: grid; gap: 24px; }
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num { min-width: 40px; height: 40px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--accent); font-size: 16px; }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .step-body p { color: var(--muted); font-size: 15px; }
+    .faq { display: grid; gap: 16px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .faq-item p { font-size: 15px; color: var(--muted); line-height: 1.65; }
+    .explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .explore-link { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; color: var(--text); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .explore-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .explore-link .arrow { color: var(--accent); font-size: 16px; }
+    .footer-cta { padding: 72px 0; text-align: center; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, var(--bg) 0%, rgba(0,212,255,0.03) 100%); }
+    .footer-cta h2 { font-size: clamp(24px, 4vw, 38px); margin-bottom: 16px; }
+    .footer-cta p { color: var(--muted); font-size: 17px; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    @media (max-width: 700px) {
+      .cal-row { grid-template-columns: 60px 24px 1fr 60px; }
+      .cal-row .forecast, .cal-row .prev { display: none; }
+      .hero { padding: 48px 0 40px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-lg { width: 100%; max-width: 320px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=header" class="nav-logo" data-seo-track="economic-calendar">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=header" class="btn btn-primary" data-seo-track="economic-calendar"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge" data-i18n="hero.badge">Live Economic Calendar</div>
+    <h1 data-i18n-html="hero.h1">Live <span>Economic Calendar</span> with Real-Time Data Releases</h1>
+    <p class="hero-sub" data-i18n="hero.sub">7 days of upcoming events. Live countdown timers. Actual vs forecast vs previous — with beat/miss color signals the instant data drops. High-impact audio alerts. Fully free.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=hero" class="btn btn-primary btn-lg" data-seo-track="economic-calendar"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=hero" class="btn btn-outline btn-lg" data-seo-track="economic-calendar"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+    <p class="price-note" data-i18n-html="hero.price_note">Economic calendar is <strong>free on all plans</strong> · No credit card required</p>
+  </div>
+</section>
+
+<section style="padding:40px 0 48px;border-bottom:1px solid #1e2a3a;">
+  <div class="container">
+    <div class="section-label" data-i18n="preview.label">Terminal Preview</div>
+    <h2 style="margin-bottom:24px;" data-i18n="preview.h2">Economic Calendar — Live Data</h2>
+    <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:monospace;font-size:12px;">
+      <div style="background:#111827;padding:10px 16px;border-bottom:1px solid #1e2a3a;display:flex;align-items:center;gap:8px;">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff3d57;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffc107;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#00c853;display:inline-block;"></span>
+        <span style="color:#556677;margin-left:8px;font-size:11px;letter-spacing:0.08em;">ECONOMIC CALENDAR · TODAY · ALL ECONOMIES</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;min-width:560px;">
+          <thead><tr style="background:#111827;">
+            <th style="padding:9px 12px;text-align:left;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">TIME</th>
+            <th style="padding:9px 12px;text-align:left;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">CCY</th>
+            <th style="padding:9px 12px;text-align:left;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">EVENT</th>
+            <th style="padding:9px 12px;text-align:center;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">IMP</th>
+            <th style="padding:9px 12px;text-align:right;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">PREV</th>
+            <th style="padding:9px 12px;text-align:right;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">FCST</th>
+            <th style="padding:9px 12px;text-align:right;color:#556677;font-weight:600;border-bottom:1px solid #1e2a3a;">ACTUAL</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #1e2a3a;">
+              <td style="padding:10px 12px;color:#8899aa;">08:30</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">🇺🇸 USD</td>
+              <td style="padding:10px 12px;color:#e0e8f0;font-weight:600;">Non-Farm Payrolls</td>
+              <td style="padding:10px 12px;text-align:center;"><span style="color:#ff3d57;font-weight:700;">HIGH</span></td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">200K</td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">185K</td>
+              <td style="padding:10px 12px;text-align:right;color:#00c853;font-weight:700;">227K ▲</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1e2a3a;">
+              <td style="padding:10px 12px;color:#8899aa;">10:00</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">🇪🇺 EUR</td>
+              <td style="padding:10px 12px;color:#e0e8f0;font-weight:600;">ECB Rate Decision</td>
+              <td style="padding:10px 12px;text-align:center;"><span style="color:#ff3d57;font-weight:700;">HIGH</span></td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">3.65%</td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">3.40%</td>
+              <td style="padding:10px 12px;text-align:right;color:#ff3d57;font-weight:700;">3.65% ✗</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1e2a3a;">
+              <td style="padding:10px 12px;color:#8899aa;">13:30</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">🇬🇧 GBP</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">UK CPI YoY</td>
+              <td style="padding:10px 12px;text-align:center;"><span style="color:#ff3d57;font-weight:700;">HIGH</span></td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">2.6%</td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">2.8%</td>
+              <td style="padding:10px 12px;text-align:right;color:#00d4ff;font-weight:700;">in 02:14:07</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1e2a3a;">
+              <td style="padding:10px 12px;color:#8899aa;">14:45</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">🇺🇸 USD</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">ISM Manufacturing PMI</td>
+              <td style="padding:10px 12px;text-align:center;"><span style="color:#ffc107;font-weight:700;">MED</span></td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">47.2</td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">47.8</td>
+              <td style="padding:10px 12px;text-align:right;color:#00d4ff;font-weight:700;">in 04:29:07</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;color:#8899aa;">16:30</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">🇨🇦 CAD</td>
+              <td style="padding:10px 12px;color:#e0e8f0;">Retail Sales MoM</td>
+              <td style="padding:10px 12px;text-align:center;"><span style="color:#556677;font-weight:700;">LOW</span></td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">0.4%</td>
+              <td style="padding:10px 12px;text-align:right;color:#556677;">0.3%</td>
+              <td style="padding:10px 12px;text-align:right;color:#00d4ff;font-weight:700;">in 06:14:07</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="demo.label">Live Preview</div>
+    <h2 data-i18n="demo.h2">The Economic Calendar in Action</h2>
+    <p class="section-intro" data-i18n="demo.intro">Real-time beat/miss signals, impact flags, and countdown timers — all in a clean terminal interface designed for rapid decision-making.</p>
+    <div class="cal-demo">
+      <div class="cal-header">
+        <span class="cal-title">Economic Calendar</span>
+        <span class="cal-date">Today · All Economies</span>
+      </div>
+      <div class="cal-row">
+        <span class="cal-time">08:30</span>
+        <span class="flag">🇺🇸</span>
+        <span class="cal-event">Non-Farm Payrolls</span>
+        <span class="cal-num prev">200K</span>
+        <span class="cal-num forecast">185K</span>
+        <span class="cal-num actual-beat">227K ▲</span>
+      </div>
+      <div class="cal-row">
+        <span class="cal-time">08:30</span>
+        <span class="flag">🇺🇸</span>
+        <span class="cal-event">Unemployment Rate</span>
+        <span class="cal-num prev">4.1%</span>
+        <span class="cal-num forecast">4.1%</span>
+        <span class="cal-num actual-inline">4.1% —</span>
+      </div>
+      <div class="cal-row">
+        <span class="cal-time">10:00</span>
+        <span class="flag">🇪🇺</span>
+        <span class="cal-event">ECB Rate Decision</span>
+        <span class="cal-num prev">3.65%</span>
+        <span class="cal-num forecast">3.40%</span>
+        <span class="cal-num actual-miss">3.65% ✗</span>
+      </div>
+      <div class="cal-row">
+        <span class="cal-time">13:30</span>
+        <span class="flag">🇬🇧</span>
+        <span class="cal-event">UK CPI YoY</span>
+        <span class="cal-num prev">2.6%</span>
+        <span class="cal-num forecast">2.8%</span>
+        <span class="countdown">in 02:14:07</span>
+      </div>
+      <div class="cal-row">
+        <span class="cal-time">15:00</span>
+        <span class="flag">🇺🇸</span>
+        <span class="cal-event">ISM Manufacturing PMI</span>
+        <span class="cal-num prev">47.2</span>
+        <span class="cal-num forecast">47.8</span>
+        <span class="countdown">in 04:44:07</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="features.label">Key Features</div>
+    <h2 data-i18n="features.h2">Everything You Need to Trade Economic Data</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⏱️</div>
+        <h3 data-i18n="card1.title">Live Countdown Timers</h3>
+        <p data-i18n="card1.desc">Every upcoming event shows a real-time countdown so you're always prepared — whether it's 4 hours to NFP or 30 seconds to the Fed decision. Never be caught off-guard by a release again.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🟢</div>
+        <h3 data-i18n="card2.title">Beat / Miss / Inline Signals</h3>
+        <p data-i18n="card2.desc">When data drops, the actual figure turns green (beat), red (miss), or amber (inline) the instant it's published. Your eyes get the signal in under a second — no reading required.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔔</div>
+        <h3 data-i18n="card3.title">HIGH Impact Audio Alerts</h3>
+        <p data-i18n="card3.desc">HIGH impact events trigger an audio alert the moment results are published — ideal for traders who can't watch the screen constantly. Combined with the squawk box on Pro for full hands-free coverage.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📰</div>
+        <h3 data-i18n="card4.title">Instant News Injection</h3>
+        <p data-i18n="card4.desc">The moment an economic release publishes, related news headlines appear alongside the calendar row — giving you immediate market context and commentary without switching tabs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 data-i18n="how.h2">From Scheduled Event to Market Intelligence in Real Time</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="step1.title">Full 7-day event schedule</h3>
+          <p data-i18n="step1.desc">The calendar displays all major economic events for the next 7 days — across all economies including the US, Eurozone, UK, Japan, Australia, Canada, and Switzerland. Events are sorted by time and flagged by country, with previous readings and market forecasts pre-populated so you can prepare your trade thesis in advance.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="step2.title">Live data injection the moment it publishes</h3>
+          <p data-i18n="step2.desc">As soon as a statistical agency or central bank publishes a figure, the actual number populates in real time — with an instant beat/miss signal (green/red/amber) and a deviation indicator. For HIGH impact events, an audio alert fires regardless of whether the squawk box is active. The economic calendar for trading is only useful if the data is truly live — ours is.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="step3.title">Automatic context from the news feed</h3>
+          <p data-i18n="step3.desc">Immediately after a data release, relevant headlines from the forex news feed are injected next to the calendar event — so you see analyst reactions, market commentary, and follow-up central bank statements in the same view. On Pro, the squawk box reads these headlines aloud while you focus on executing trades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="coverage.label">Coverage</div>
+    <h2 data-i18n="coverage.h2">What the Calendar Covers</h2>
+    <p class="section-intro" data-i18n="coverage.intro">The Trading News Terminal economic calendar tracks all market-moving releases across every major economy and asset class.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.col1">Category</th>
+            <th data-i18n="table.col2">Events Covered</th>
+            <th class="accent-col" data-i18n="table.col3">Impact Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="table.row1.cat">Central Bank Decisions</td>
+            <td>FOMC, ECB, BOE, BOJ, RBA, SNB, BOC, RBNZ</td>
+            <td style="color:var(--red);font-weight:700">HIGH</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row2.cat">Labour Market</td>
+            <td data-i18n="table.row2.events">NFP, unemployment rate, jobless claims, JOLTS</td>
+            <td style="color:var(--red);font-weight:700">HIGH</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row3.cat">Inflation</td>
+            <td data-i18n="table.row3.events">CPI, PPI, PCE, core inflation readings</td>
+            <td style="color:var(--red);font-weight:700">HIGH</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row4.cat">Growth</td>
+            <td data-i18n="table.row4.events">GDP (flash, preliminary, final), trade balance</td>
+            <td style="color:var(--red);font-weight:700">HIGH</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row5.cat">Consumer &amp; Business</td>
+            <td data-i18n="table.row5.events">Retail sales, consumer confidence, ISM, PMI</td>
+            <td style="color:var(--yellow);font-weight:700">MEDIUM</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row6.cat">Housing</td>
+            <td data-i18n="table.row6.events">Building permits, housing starts, existing home sales</td>
+            <td style="color:var(--yellow);font-weight:700">MEDIUM</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row7.cat">Central Bank Speeches</td>
+            <td data-i18n="table.row7.events">Fed Chair, ECB President, BOE Governor statements</td>
+            <td style="color:var(--yellow);font-weight:700">MEDIUM–HIGH</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row8.cat">Geopolitical / Other</td>
+            <td data-i18n="table.row8.events">Treasury auctions, G7/G20 meetings, emergency decisions</td>
+            <td style="color:var(--muted);font-weight:700">VARIABLE</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="faq_title">Frequently Asked Questions</div>
+    <h2 data-i18n="faq.h2">Economic Calendar for Trading — Common Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3 data-i18n="faq1.q">What is an economic calendar for trading?</h3>
+        <p data-i18n="faq1.a">An economic calendar is a schedule of upcoming macroeconomic data releases and events that are likely to cause significant price moves in financial markets. It shows the date, time, country, event name, previous reading, the market's consensus forecast, and — once published — the actual result. Forex traders, futures traders, and equity traders all use economic calendars to manage risk around volatile events and position for data-driven trades. Trading News Terminal's live economic calendar includes real-time data injection, beat/miss signals, and countdown timers — all for free.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq2.q">Which economic calendar is best for forex trading?</h3>
+        <p data-i18n="faq2.a">The best forex economic calendar publishes actual data the instant it's released — not minutes later — and provides immediate beat/miss signals. It should also integrate with a news feed so you see market commentary alongside raw numbers. Trading News Terminal's calendar meets all these criteria and adds countdown timers, audio alerts for HIGH impact events, and automatic news injection next to each event row. It's available free on all plans.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq3.q">How do economic releases affect currency prices?</h3>
+        <p data-i18n="faq3.a">Economic releases affect currency prices by updating market expectations about a central bank's future interest rate path. Strong inflation (CPI beat) increases rate-hike expectations, typically strengthening the currency. Weak employment data (NFP miss) increases rate-cut expectations, typically weakening the currency. The size of the price move depends on how far the actual result deviates from the consensus forecast — which is why knowing the forecast before the event is just as important as seeing the actual number.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq4.q">What are HIGH impact economic events?</h3>
+        <p data-i18n="faq4.a">HIGH impact events are data releases and central bank decisions that historically cause the largest and most sustained price moves across forex, equity, and fixed income markets. These include: FOMC, ECB, BOE, and BOJ rate decisions; US Non-Farm Payrolls; US and UK CPI; GDP growth readings; and major central bank governor speeches. Trading News Terminal marks these events with a red HIGH badge, triggers audio alerts when they publish, and injects related news headlines in real time so you can react within seconds.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq5.q">Is the Trading News Terminal economic calendar free?</h3>
+        <p data-i18n="faq5.a">Yes. The full economic calendar — including countdown timers, 7-day event view, actual vs forecast vs previous data, and beat/miss color signals — is available on the free Basic plan with no credit card required. The Pro plan at €40/month adds zero-delay news injection next to each event, squawk box audio read-aloud of related headlines, and access to all 7 live financial TV channels.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="explore_title">Explore Other Features</div>
+    <h2 data-i18n="explore.h2">Everything in the Trading News Terminal</h2>
+    <div class="explore-grid">
+      <a href="/bloomberg-alternative" class="explore-link"><span class="arrow">→</span> Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="explore-link"><span class="arrow">→</span> Forex News Feed</a>
+      <a href="/economic-calendar" class="explore-link"><span class="arrow">→</span> Economic Calendar</a>
+      <a href="/squawk-box" class="explore-link"><span class="arrow">→</span> Live Squawk Box</a>
+      <a href="/live-financial-tv" class="explore-link"><span class="arrow">→</span> Live Financial TV</a>
+      <a href="/market-screener" class="explore-link"><span class="arrow">→</span> Market Screener</a>
+      <a href="/central-banks-tracker" class="explore-link"><span class="arrow">→</span> Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="explore-link"><span class="arrow">→</span> Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="explore-link"><span class="arrow">→</span> Earnings Calendar</a>
+      <a href="/trading-charts" class="explore-link"><span class="arrow">→</span> Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="cta.h2">Trade Every Data Release With Confidence</h2>
+    <p data-i18n="cta.desc">Get real-time economic data, beat/miss signals, countdown timers, and instant news injection — all in one live trading terminal. Free on all plans.</p>
+    <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=bottom" class="btn btn-primary btn-lg" data-seo-track="economic-calendar"><span data-i18n="cta.btn">Open Free Calendar Now</span></a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p data-i18n="footer.copy">© 2026 Trading News Terminal · Live Economic Calendar</p>
+    <div class="footer-links">
+      <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=economic-calendar&utm_content=footer" data-seo-track="economic-calendar">tradingnewsterminal.com</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/login">Sign In</a>
+      <a href="/signup">Sign Up</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    'try_btn':'Try Free \u2192','trial_btn':'Start Free Trial','free_btn':'Open Free Terminal',
+    'tagline':'Real-time Market Intelligence','active':'EN',
+    'how_title':'How It Works','faq_title':'Frequently Asked Questions',
+    'explore_title':'Explore Other Features','cta_free':'Start Free \u2014 No Card Required',
+    'hero.badge':'Live Economic Calendar',
+    'hero.h1':'Live <span>Economic Calendar</span> with Real-Time Data Releases',
+    'hero.sub':'7 days of upcoming events. Live countdown timers. Actual vs forecast vs previous \u2014 with beat/miss color signals the instant data drops. High-impact audio alerts. Fully free.',
+    'hero.price_note':'Economic calendar is <strong>free on all plans</strong> \u00b7 No credit card required',
+    'preview.label':'Terminal Preview','preview.h2':'Economic Calendar \u2014 Live Data',
+    'demo.label':'Live Preview','demo.h2':'The Economic Calendar in Action',
+    'demo.intro':'Real-time beat/miss signals, impact flags, and countdown timers \u2014 all in a clean terminal interface designed for rapid decision-making.',
+    'features.label':'Key Features','features.h2':'Everything You Need to Trade Economic Data',
+    'card1.title':'Live Countdown Timers','card1.desc':'Every upcoming event shows a real-time countdown so you\'re always prepared \u2014 whether it\'s 4 hours to NFP or 30 seconds to the Fed decision. Never be caught off-guard by a release again.',
+    'card2.title':'Beat / Miss / Inline Signals','card2.desc':'When data drops, the actual figure turns green (beat), red (miss), or amber (inline) the instant it\'s published. Your eyes get the signal in under a second \u2014 no reading required.',
+    'card3.title':'HIGH Impact Audio Alerts','card3.desc':'HIGH impact events trigger an audio alert the moment results are published \u2014 ideal for traders who can\'t watch the screen constantly. Combined with the squawk box on Pro for full hands-free coverage.',
+    'card4.title':'Instant News Injection','card4.desc':'The moment an economic release publishes, related news headlines appear alongside the calendar row \u2014 giving you immediate market context and commentary without switching tabs.',
+    'how.h2':'From Scheduled Event to Market Intelligence in Real Time',
+    'step1.title':'Full 7-day event schedule','step1.desc':'The calendar displays all major economic events for the next 7 days \u2014 across all economies including the US, Eurozone, UK, Japan, Australia, Canada, and Switzerland. Events are sorted by time and flagged by country, with previous readings and market forecasts pre-populated so you can prepare your trade thesis in advance.',
+    'step2.title':'Live data injection the moment it publishes','step2.desc':'As soon as a statistical agency or central bank publishes a figure, the actual number populates in real time \u2014 with an instant beat/miss signal (green/red/amber) and a deviation indicator. For HIGH impact events, an audio alert fires regardless of whether the squawk box is active. The economic calendar for trading is only useful if the data is truly live \u2014 ours is.',
+    'step3.title':'Automatic context from the news feed','step3.desc':'Immediately after a data release, relevant headlines from the forex news feed are injected next to the calendar event \u2014 so you see analyst reactions, market commentary, and follow-up central bank statements in the same view. On Pro, the squawk box reads these headlines aloud while you focus on executing trades.',
+    'coverage.label':'Coverage','coverage.h2':'What the Calendar Covers',
+    'coverage.intro':'The Trading News Terminal economic calendar tracks all market-moving releases across every major economy and asset class.',
+    'table.col1':'Category','table.col2':'Events Covered','table.col3':'Impact Level',
+    'table.row1.cat':'Central Bank Decisions',
+    'table.row2.cat':'Labour Market','table.row2.events':'NFP, unemployment rate, jobless claims, JOLTS',
+    'table.row3.cat':'Inflation','table.row3.events':'CPI, PPI, PCE, core inflation readings',
+    'table.row4.cat':'Growth','table.row4.events':'GDP (flash, preliminary, final), trade balance',
+    'table.row5.cat':'Consumer & Business','table.row5.events':'Retail sales, consumer confidence, ISM, PMI',
+    'table.row6.cat':'Housing','table.row6.events':'Building permits, housing starts, existing home sales',
+    'table.row7.cat':'Central Bank Speeches','table.row7.events':'Fed Chair, ECB President, BOE Governor statements',
+    'table.row8.cat':'Geopolitical / Other','table.row8.events':'Treasury auctions, G7/G20 meetings, emergency decisions',
+    'faq.h2':'Economic Calendar for Trading \u2014 Common Questions',
+    'faq1.q':'What is an economic calendar for trading?','faq1.a':'An economic calendar is a schedule of upcoming macroeconomic data releases and events that are likely to cause significant price moves in financial markets. It shows the date, time, country, event name, previous reading, the market\'s consensus forecast, and \u2014 once published \u2014 the actual result. Forex traders, futures traders, and equity traders all use economic calendars to manage risk around volatile events and position for data-driven trades. Trading News Terminal\'s live economic calendar includes real-time data injection, beat/miss signals, and countdown timers \u2014 all for free.',
+    'faq2.q':'Which economic calendar is best for forex trading?','faq2.a':'The best forex economic calendar publishes actual data the instant it\'s released \u2014 not minutes later \u2014 and provides immediate beat/miss signals. It should also integrate with a news feed so you see market commentary alongside raw numbers. Trading News Terminal\'s calendar meets all these criteria and adds countdown timers, audio alerts for HIGH impact events, and automatic news injection next to each event row. It\'s available free on all plans.',
+    'faq3.q':'How do economic releases affect currency prices?','faq3.a':'Economic releases affect currency prices by updating market expectations about a central bank\'s future interest rate path. Strong inflation (CPI beat) increases rate-hike expectations, typically strengthening the currency. Weak employment data (NFP miss) increases rate-cut expectations, typically weakening the currency. The size of the price move depends on how far the actual result deviates from the consensus forecast \u2014 which is why knowing the forecast before the event is just as important as seeing the actual number.',
+    'faq4.q':'What are HIGH impact economic events?','faq4.a':'HIGH impact events are data releases and central bank decisions that historically cause the largest and most sustained price moves across forex, equity, and fixed income markets. These include: FOMC, ECB, BOE, and BOJ rate decisions; US Non-Farm Payrolls; US and UK CPI; GDP growth readings; and major central bank governor speeches. Trading News Terminal marks these events with a red HIGH badge, triggers audio alerts when they publish, and injects related news headlines in real time so you can react within seconds.',
+    'faq5.q':'Is the Trading News Terminal economic calendar free?','faq5.a':'Yes. The full economic calendar \u2014 including countdown timers, 7-day event view, actual vs forecast vs previous data, and beat/miss color signals \u2014 is available on the free Basic plan with no credit card required. The Pro plan at \u20ac40/month adds zero-delay news injection next to each event, squawk box audio read-aloud of related headlines, and access to all 7 live financial TV channels.',
+    'explore.h2':'Everything in the Trading News Terminal',
+    'cta.h2':'Trade Every Data Release With Confidence',
+    'cta.desc':'Get real-time economic data, beat/miss signals, countdown timers, and instant news injection \u2014 all in one live trading terminal. Free on all plans.',
+    'cta.btn':'Open Free Calendar Now',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Live Economic Calendar' },
+  pt:{
+    'try_btn':'Experimentar Gr\u00e1tis \u2192','trial_btn':'Iniciar Trial Gr\u00e1tis','free_btn':'Abrir Terminal Gr\u00e1tis',
+    'tagline':'Intelig\u00eancia de Mercado em Tempo Real','active':'PT',
+    'how_title':'Como Funciona','faq_title':'Perguntas Frequentes',
+    'explore_title':'Explorar Funcionalidades','cta_free':'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    'hero.badge':'Calend\u00e1rio Econ\u00f3mico ao Vivo',
+    'hero.h1':'Calend\u00e1rio <span>Econ\u00f3mico</span> ao Vivo com Dados em Tempo Real',
+    'hero.sub':'7 dias de eventos previstos. Contagens decrescentes em tempo real. Actual vs previs\u00e3o vs anterior \u2014 com sinais beat/miss assim que os dados s\u00e3o publicados. Alertas sonoros para eventos de alto impacto. Totalmente gratuito.',
+    'hero.price_note':'O calend\u00e1rio econ\u00f3mico \u00e9 <strong>gratuito em todos os planos</strong> \u00b7 Sem cart\u00e3o de cr\u00e9dito',
+    'preview.label':'Pr\u00e9-visualiza\u00e7\u00e3o do Terminal','preview.h2':'Calend\u00e1rio Econ\u00f3mico \u2014 Dados ao Vivo',
+    'demo.label':'Demo ao Vivo','demo.h2':'O Calend\u00e1rio Econ\u00f3mico em A\u00e7\u00e3o',
+    'demo.intro':'Sinais beat/miss em tempo real, indicadores de impacto e contagens decrescentes \u2014 numa interface terminal limpa, concebida para decis\u00f5es r\u00e1pidas.',
+    'features.label':'Funcionalidades Principais','features.h2':'Tudo o que Precisa para Negociar Dados Econ\u00f3micos',
+    'card1.title':'Contagens Decrescentes ao Vivo','card1.desc':'Cada evento pr\u00f3ximo mostra uma contagem decrescente em tempo real para estar sempre preparado \u2014 sejam 4 horas para o NFP ou 30 segundos para a decis\u00e3o da Fed. Nunca mais seja apanhado de surpresa por uma publica\u00e7\u00e3o.',
+    'card2.title':'Sinais Beat / Miss / Em Linha','card2.desc':'Quando os dados s\u00e3o publicados, o valor actual fica verde (beat), vermelho (miss) ou \u00e2mbar (em linha) no instante da publica\u00e7\u00e3o. O sinal chega aos seus olhos em menos de um segundo \u2014 sem necessidade de leitura.',
+    'card3.title':'Alertas Sonoros de Alto Impacto','card3.desc':'Os eventos de alto impacto disparam um alerta sonoro no momento em que os resultados s\u00e3o publicados \u2014 ideal para traders que n\u00e3o conseguem estar sempre a olhar para o ecr\u00e3. Combine com o squawk box Pro para cobertura total sem utilizar as m\u00e3os.',
+    'card4.title':'Inje\u00e7\u00e3o Instant\u00e2nea de Not\u00edcias','card4.desc':'No momento em que uma publica\u00e7\u00e3o econ\u00f3mica \u00e9 lan\u00e7ada, as not\u00edcias relacionadas aparecem ao lado da linha do calend\u00e1rio \u2014 fornecendo contexto de mercado imediato sem mudar de separador.',
+    'how.h2':'Do Evento Agendado \u00e0 Intelig\u00eancia de Mercado em Tempo Real',
+    'step1.title':'Agenda completa de 7 dias','step1.desc':'O calend\u00e1rio apresenta todos os principais eventos econ\u00f3micos dos pr\u00f3ximos 7 dias \u2014 para todas as economias, incluindo EUA, Zona Euro, Reino Unido, Jap\u00e3o, Austr\u00e1lia, Canad\u00e1 e Su\u00ed\u00e7a. Os eventos s\u00e3o ordenados por hora e sinalizados por pa\u00eds, com leituras anteriores e previs\u00f5es de mercado pr\u00e9-preenchidas para preparar a sua tese de neg\u00f3cio com anteced\u00eancia.',
+    'step2.title':'Inje\u00e7\u00e3o de dados ao vivo no momento da publica\u00e7\u00e3o','step2.desc':'Assim que uma ag\u00eancia estat\u00edstica ou banco central publica um valor, o n\u00famero actual aparece em tempo real \u2014 com sinal beat/miss instant\u00e2neo (verde/vermelho/\u00e2mbar) e indicador de desvio. Para eventos de alto impacto, o alerta sonoro dispara independentemente de o squawk box estar activo. O calend\u00e1rio econ\u00f3mico s\u00f3 \u00e9 \u00fatil se os dados forem verdadeiramente ao vivo \u2014 os nossos s\u00e3o.',
+    'step3.title':'Contexto autom\u00e1tico do feed de not\u00edcias','step3.desc':'Imediatamente ap\u00f3s uma publica\u00e7\u00e3o de dados, as not\u00edcias relevantes do feed forex s\u00e3o injectadas ao lado do evento no calend\u00e1rio \u2014 para ver rea\u00e7\u00f5es de analistas, coment\u00e1rio de mercado e declara\u00e7\u00f5es de bancos centrais na mesma vista. No Pro, o squawk box l\u00ea estas not\u00edcias em voz alta enquanto se foca na execu\u00e7\u00e3o de ordens.',
+    'coverage.label':'Cobertura','coverage.h2':'O que o Calend\u00e1rio Cobre',
+    'coverage.intro':'O calend\u00e1rio econ\u00f3mico do Trading News Terminal acompanha todas as publica\u00e7\u00f5es que movem o mercado nas principais economias e classes de activos.',
+    'table.col1':'Categoria','table.col2':'Eventos Cobertos','table.col3':'N\u00edvel de Impacto',
+    'table.row1.cat':'Decis\u00f5es de Bancos Centrais',
+    'table.row2.cat':'Mercado de Trabalho','table.row2.events':'NFP, taxa de desemprego, pedidos de subsidi\u00f3 de desemprego, JOLTS',
+    'table.row3.cat':'Infla\u00e7\u00e3o','table.row3.events':'CPI, PPI, PCE, leituras de infla\u00e7\u00e3o n\u00facleo',
+    'table.row4.cat':'Crescimento','table.row4.events':'GDP (flash, prelim., final), balan\u00e7a comercial',
+    'table.row5.cat':'Consumidor & Empresas','table.row5.events':'Vendas a retalho, confiança do consumidor, ISM, PMI',
+    'table.row6.cat':'Habitação','table.row6.events':'Licenças de construção, novas habitações, vendas de habitação existente',
+    'table.row7.cat':'Discursos de Bancos Centrais','table.row7.events':'Declarações do Presidente da Fed, Presidente do BCE, Governador do BOE',
+    'table.row8.cat':'Geopolítica / Outros','table.row8.events':'Leilões do Tesouro, reuniões G7/G20, decisões de emergência',
+    'faq.h2':'Calend\u00e1rio Econ\u00f3mico para Trading \u2014 Perguntas Comuns',
+    'faq1.q':'O que \u00e9 um calend\u00e1rio econ\u00f3mico para trading?','faq1.a':'Um calend\u00e1rio econ\u00f3mico \u00e9 uma agenda de publica\u00e7\u00f5es de dados macroecon\u00f3micos e eventos que poder\u00e3o causar movimentos significativos nos mercados financeiros. Mostra a data, hora, pa\u00eds, nome do evento, leitura anterior, previs\u00e3o de consenso do mercado e \u2014 ap\u00f3s a publica\u00e7\u00e3o \u2014 o resultado real. Traders de forex, futuros e acções utilizam calend\u00e1rios econ\u00f3micos para gerir o risco em torno de eventos vol\u00e1teis. O calend\u00e1rio ao vivo do Trading News Terminal inclui inje\u00e7\u00e3o de dados em tempo real, sinais beat/miss e contagens decrescentes \u2014 totalmente gratuito.',
+    'faq2.q':'Qual \u00e9 o melhor calend\u00e1rio econ\u00f3mico para forex?','faq2.a':'O melhor calend\u00e1rio econ\u00f3mico forex publica os dados reais no instante em que s\u00e3o divulgados \u2014 n\u00e3o minutos depois \u2014 e fornece sinais beat/miss imediatos. Deve ainda integrar-se com um feed de not\u00edcias para ver o coment\u00e1rio de mercado junto dos n\u00fameros brutos. O calend\u00e1rio do Trading News Terminal cumpre todos estes crit\u00e9rios e acrescenta contagens decrescentes, alertas sonoros para eventos de alto impacto e inje\u00e7\u00e3o autom\u00e1tica de not\u00edcias. Dispon\u00edvel gratuitamente em todos os planos.',
+    'faq3.q':'Como \u00e9 que as publica\u00e7\u00f5es econ\u00f3micas afectam os pre\u00e7os das divisas?','faq3.a':'As publica\u00e7\u00f5es econ\u00f3micas afectam as divisas ao actualizar as expectativas do mercado sobre o caminho futuro das taxas de juro dos bancos centrais. Uma infla\u00e7\u00e3o forte (beat do CPI) aumenta as expectativas de subida de taxas, tipicamente fortalecendo a divisa. Dados de emprego fracos (miss do NFP) aumentam as expectativas de corte de taxas, tipicamente enfraquecendo o USD. A magnitude do movimento depende do desvio entre o resultado real e a previs\u00e3o de consenso.',
+    'faq4.q':'O que s\u00e3o eventos econ\u00f3micos de ALTO impacto?','faq4.a':'Eventos de ALTO impacto s\u00e3o publica\u00e7\u00f5es e decis\u00f5es de bancos centrais que historicamente causam os maiores movimentos nos mercados de forex, ac\u00e7\u00f5es e obriga\u00e7\u00f5es. Incluem: decis\u00f5es de taxa do FOMC, BCE, BOE e BOJ; Non-Farm Payrolls dos EUA; CPI dos EUA e do Reino Unido; leituras de crescimento do GDP; e discursos dos governadores dos principais bancos centrais. O Trading News Terminal assinala estes eventos com um badge HIGH a vermelho e dispara alertas sonoros quando s\u00e3o publicados.',
+    'faq5.q':'O calend\u00e1rio econ\u00f3mico do Trading News Terminal \u00e9 gratuito?','faq5.a':'Sim. O calend\u00e1rio econ\u00f3mico completo \u2014 incluindo contagens decrescentes, vista de 7 dias, dados real vs previs\u00e3o vs anterior e sinais beat/miss \u2014 est\u00e1 dispon\u00edvel no plano Basic gratuito sem cart\u00e3o de cr\u00e9dito. O plano Pro a \u20ac40/m\u00eas acrescenta inje\u00e7\u00e3o de not\u00edcias sem atraso junto de cada evento, leitura em voz alta pelo squawk box e acesso aos 7 canais de TV financeira ao vivo.',
+    'explore.h2':'Tudo no Trading News Terminal',
+    'cta.h2':'Negocie Cada Publica\u00e7\u00e3o de Dados com Confian\u00e7a',
+    'cta.desc':'Obtenha dados econ\u00f3micos em tempo real, sinais beat/miss, contagens decrescentes e inje\u00e7\u00e3o instant\u00e2nea de not\u00edcias \u2014 tudo num terminal de trading ao vivo. Gratuito em todos os planos.',
+    'cta.btn':'Abrir Calend\u00e1rio Gratuito',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Calend\u00e1rio Econ\u00f3mico ao Vivo' },
+  es:{
+    'try_btn':'Probar Gratis \u2192','trial_btn':'Iniciar Prueba Gratis','free_btn':'Abrir Terminal Gratis',
+    'tagline':'Inteligencia de Mercado en Tiempo Real','active':'ES',
+    'how_title':'C\u00f3mo Funciona','faq_title':'Preguntas Frecuentes',
+    'explore_title':'Explorar Caracter\u00edsticas','cta_free':'Empezar Gratis \u2014 Sin Tarjeta',
+    'hero.badge':'Calendario Econ\u00f3mico en Vivo',
+    'hero.h1':'Calendario <span>Econ\u00f3mico</span> en Vivo con Datos en Tiempo Real',
+    'hero.sub':'7 d\u00edas de eventos pr\u00f3ximos. Contadores regresivos en tiempo real. Actual vs pron\u00f3stico vs anterior \u2014 con se\u00f1ales beat/miss en el instante en que se publican los datos. Alertas de audio de alto impacto. Completamente gratis.',
+    'hero.price_note':'El calendario econ\u00f3mico es <strong>gratuito en todos los planes</strong> \u00b7 Sin tarjeta de cr\u00e9dito',
+    'preview.label':'Vista Previa del Terminal','preview.h2':'Calendario Econ\u00f3mico \u2014 Datos en Vivo',
+    'demo.label':'Demo en Vivo','demo.h2':'El Calendario Econ\u00f3mico en Acci\u00f3n',
+    'demo.intro':'Se\u00f1ales beat/miss en tiempo real, indicadores de impacto y contadores regresivos \u2014 en una interfaz de terminal limpia dise\u00f1ada para la toma de decisiones r\u00e1pidas.',
+    'features.label':'Funcionalidades Clave','features.h2':'Todo lo que Necesitas para Operar Datos Econ\u00f3micos',
+    'card1.title':'Contadores Regresivos en Vivo','card1.desc':'Cada evento pr\u00f3ximo muestra una cuenta atr\u00e1s en tiempo real para estar siempre preparado \u2014 ya sean 4 horas para el NFP o 30 segundos para la decisi\u00f3n de la Fed. Nunca m\u00e1s seas sorprendido por una publicaci\u00f3n.',
+    'card2.title':'Se\u00f1ales Beat / Miss / En L\u00ednea','card2.desc':'Cuando se publican los datos, la cifra real se vuelve verde (beat), roja (miss) o \u00e1mbar (en l\u00ednea) en el instante de la publicaci\u00f3n. Recibes la se\u00f1al visualmente en menos de un segundo \u2014 sin necesidad de leer.',
+    'card3.title':'Alertas de Audio de Alto Impacto','card3.desc':'Los eventos de alto impacto activan una alerta de audio en el momento en que se publican los resultados \u2014 ideal para traders que no pueden estar mirando la pantalla constantemente. Comb\u00ednalo con el squawk box Pro para cobertura manos libres completa.',
+    'card4.title':'Inyecci\u00f3n Instant\u00e1nea de Noticias','card4.desc':'En el momento en que se publica una dato econ\u00f3mico, los titulares relacionados aparecen junto a la fila del calendario \u2014 proporcionando contexto de mercado inmediato sin cambiar de pesta\u00f1a.',
+    'how.h2':'Del Evento Programado a la Inteligencia de Mercado en Tiempo Real',
+    'step1.title':'Agenda completa de 7 d\u00edas','step1.desc':'El calendario muestra todos los eventos econ\u00f3micos principales de los pr\u00f3ximos 7 d\u00edas \u2014 en todas las econom\u00edas incluyendo EE.UU., Eurozona, Reino Unido, Jap\u00f3n, Australia, Canad\u00e1 y Suiza. Los eventos est\u00e1n ordenados por hora e identificados por pa\u00eds, con lecturas previas y pron\u00f3sticos de mercado precargados para preparar tu tesis de trading con antelaci\u00f3n.',
+    'step2.title':'Inyecci\u00f3n de datos en vivo en el momento de la publicaci\u00f3n','step2.desc':'En cuanto una agencia estad\u00edstica o banco central publica una cifra, el n\u00famero real se actualiza en tiempo real \u2014 con se\u00f1al beat/miss instant\u00e1nea (verde/rojo/\u00e1mbar) e indicador de desviaci\u00f3n. Para eventos de alto impacto, una alerta de audio se activa independientemente de si el squawk box est\u00e1 activo. El calendario econ\u00f3mico solo es \u00fatil si los datos son verdaderamente en vivo \u2014 los nuestros lo son.',
+    'step3.title':'Contexto autom\u00e1tico del feed de noticias','step3.desc':'Inmediatamente despu\u00e9s de una publicaci\u00f3n de datos, los titulares relevantes del feed de noticias forex se inyectan junto al evento del calendario \u2014 para ver reacciones de analistas, comentario de mercado y declaraciones posteriores de bancos centrales en la misma vista. En Pro, el squawk box lee estos titulares en voz alta mientras te concentras en ejecutar operaciones.',
+    'coverage.label':'Cobertura','coverage.h2':'Qu\u00e9 Cubre el Calendario',
+    'coverage.intro':'El calendario econ\u00f3mico de Trading News Terminal rastrea todas las publicaciones que mueven el mercado en las principales econom\u00edas y clases de activos.',
+    'table.col1':'Categor\u00eda','table.col2':'Eventos Cubiertos','table.col3':'Nivel de Impacto',
+    'table.row1.cat':'Decisiones de Bancos Centrales',
+    'table.row2.cat':'Mercado Laboral','table.row2.events':'NFP, tasa de desempleo, solicitudes de subsidio, JOLTS',
+    'table.row3.cat':'Inflaci\u00f3n','table.row3.events':'CPI, PPI, PCE, lecturas de inflaci\u00f3n n\u00facleo',
+    'table.row4.cat':'Crecimiento','table.row4.events':'GDP (flash, preliminar, final), balanza comercial',
+    'table.row5.cat':'Consumidor y Empresas','table.row5.events':'Ventas minoristas, confianza del consumidor, ISM, PMI',
+    'table.row6.cat':'Vivienda','table.row6.events':'Permisos de construcci\u00f3n, inicios de vivienda, ventas de vivienda existente',
+    'table.row7.cat':'Discursos de Bancos Centrales','table.row7.events':'Declaraciones del Presidente de la Fed, BCE, BOE',
+    'table.row8.cat':'Geopolítica / Otros','table.row8.events':'Subastas del Tesoro, reuniones G7/G20, decisiones de emergencia',
+    'faq.h2':'Calendario Econ\u00f3mico para Trading \u2014 Preguntas Comunes',
+    'faq1.q':'\u00bfQu\u00e9 es un calendario econ\u00f3mico para trading?','faq1.a':'Un calendario econ\u00f3mico es un programa de publicaciones de datos macroecon\u00f3micos y eventos que probablemente mover\u00e1n los mercados financeiros. Muestra la fecha, hora, pa\u00eds, nombre del evento, lectura anterior, el pron\u00f3stico de consenso del mercado y \u2014 una vez publicado \u2014 el resultado real. Traders de forex, futuros y acciones usan calendarios econ\u00f3micos para gestionar el riesgo en eventos vol\u00e1tiles. El calendario en vivo de Trading News Terminal incluye inyecci\u00f3n de datos en tiempo real, se\u00f1ales beat/miss y contadores regresivos \u2014 todo gratis.',
+    'faq2.q':'\u00bfCu\u00e1l es el mejor calendario econ\u00f3mico para forex?','faq2.a':'El mejor calendario econ\u00f3mico forex publica los datos reales en el instante en que se divulgan \u2014 no minutos despu\u00e9s \u2014 y proporciona se\u00f1ales beat/miss inmediatas. Tambi\u00e9n debe integrarse con un feed de noticias para ver el comentario de mercado junto a los n\u00fameros brutos. El calendario de Trading News Terminal cumple todos estos criterios y a\u00f1ade contadores, alertas de audio para eventos de alto impacto e inyecci\u00f3n autom\u00e1tica de noticias. Disponible gratis en todos los planes.',
+    'faq3.q':'\u00bfC\u00f3mo afectan las publicaciones econ\u00f3micas a los precios de las divisas?','faq3.a':'Las publicaciones econ\u00f3micas afectan a las divisas al actualizar las expectativas del mercado sobre el camino futuro de las tasas de inter\u00e9s de los bancos centrales. Una inflaci\u00f3n fuerte (beat del CPI) aumenta las expectativas de subida de tasas, fortaleciendo t\u00edpicamente la divisa. Datos de empleo d\u00e9biles (miss del NFP) aumentan las expectativas de recorte de tasas, debilitando t\u00edpicamente el USD. El tama\u00f1o del movimiento depende de cu\u00e1nto se desv\u00eda el resultado real del pron\u00f3stico de consenso.',
+    'faq4.q':'\u00bfQu\u00e9 son los eventos econ\u00f3micos de ALTO impacto?','faq4.a':'Los eventos de ALTO impacto son publicaciones y decisiones de bancos centrales que hist\u00f3ricamente causan los mayores movimientos en los mercados de forex, renta variable y renta fija. Incluyen: decisiones de tasa del FOMC, BCE, BOE y BOJ; Non-Farm Payrolls de EE.UU.; CPI de EE.UU. y el Reino Unido; lecturas de crecimiento del GDP; y discursos de los gobernadores de los principales bancos centrales. Trading News Terminal marca estos eventos con una insignia HIGH en rojo y activa alertas de audio cuando se publican.',
+    'faq5.q':'\u00bfEl calendario econ\u00f3mico de Trading News Terminal es gratuito?','faq5.a':'S\u00ed. El calendario econ\u00f3mico completo \u2014 incluidos contadores regresivos, vista de 7 d\u00edas, datos real vs pron\u00f3stico vs anterior y se\u00f1ales beat/miss \u2014 est\u00e1 disponible en el plan B\u00e1sico gratuito sin tarjeta de cr\u00e9dito. El plan Pro a \u20ac40/mes a\u00f1ade inyecci\u00f3n de noticias sin retraso junto a cada evento, lectura en voz alta por el squawk box y acceso a los 7 canales de TV financiera en vivo.',
+    'explore.h2':'Todo en el Trading News Terminal',
+    'cta.h2':'Opera Cada Publicaci\u00f3n de Datos con Confianza',
+    'cta.desc':'Obt\u00e9n datos econ\u00f3micos en tiempo real, se\u00f1ales beat/miss, contadores regresivos e inyecci\u00f3n instant\u00e1nea de noticias \u2014 todo en un terminal de trading en vivo. Gratis en todos los planes.',
+    'cta.btn':'Abrir Calendario Gratis Ahora',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Calendario Econ\u00f3mico en Vivo' },
+  fr:{
+    'try_btn':'Essai Gratuit \u2192','trial_btn':'D\u00e9marrer l\u2019Essai Gratuit','free_btn':'Ouvrir le Terminal Gratuit',
+    'tagline':'Intelligence March\u00e9 en Temps R\u00e9el','active':'FR',
+    'how_title':'Comment \u00e7a marche','faq_title':'Questions Fr\u00e9quentes',
+    'explore_title':'Explorer les Fonctionnalit\u00e9s','cta_free':'Commencer Gratuitement',
+    'hero.badge':'Calendrier \u00c9conomique en Direct',
+    'hero.h1':'Calendrier <span>\u00c9conomique</span> en Direct avec Donn\u00e9es en Temps R\u00e9el',
+    'hero.sub':'7 jours d\u2019\u00e9v\u00e9nements \u00e0 venir. Comptes \u00e0 rebours en temps r\u00e9el. R\u00e9el vs pr\u00e9vision vs pr\u00e9c\u00e9dent \u2014 avec signaux beat/miss d\u00e8s la publication des donn\u00e9es. Alertes audio \u00e0 fort impact. Enti\u00e8rement gratuit.',
+    'hero.price_note':'Le calendrier \u00e9conomique est <strong>gratuit sur tous les plans</strong> \u00b7 Sans carte de cr\u00e9dit',
+    'preview.label':'Aper\u00e7u du Terminal','preview.h2':'Calendrier \u00c9conomique \u2014 Donn\u00e9es en Direct',
+    'demo.label':'D\u00e9mo en Direct','demo.h2':'Le Calendrier \u00c9conomique en Action',
+    'demo.intro':'Signaux beat/miss en temps r\u00e9el, indicateurs d\u2019impact et comptes \u00e0 rebours \u2014 dans une interface terminal \u00e9pur\u00e9e con\u00e7ue pour la prise de d\u00e9cision rapide.',
+    'features.label':'Fonctionnalit\u00e9s Cl\u00e9s','features.h2':'Tout ce dont Vous Avez Besoin pour Trader les Donn\u00e9es \u00c9conomiques',
+    'card1.title':'Comptes \u00e0 Rebours en Direct','card1.desc':'Chaque \u00e9v\u00e9nement \u00e0 venir affiche un compte \u00e0 rebours en temps r\u00e9el pour toujours \u00eatre pr\u00e9par\u00e9 \u2014 que ce soit 4 heures avant le NFP ou 30 secondes avant la d\u00e9cision de la Fed. Ne soyez plus jamais pris au d\u00e9pourvu par une publication.',
+    'card2.title':'Signaux Beat / Miss / En Ligne','card2.desc':'Lorsque les donn\u00e9es sont publi\u00e9es, le chiffre r\u00e9el passe au vert (beat), rouge (miss) ou ambre (en ligne) instantan\u00e9ment. Votre r\u00e9action visuelle en moins d\u2019une seconde \u2014 sans lecture n\u00e9cessaire.',
+    'card3.title':'Alertes Audio \u00e0 Fort Impact','card3.desc':'Les \u00e9v\u00e9nements \u00e0 fort impact d\u00e9clenchent une alerte audio d\u00e8s la publication des r\u00e9sultats \u2014 id\u00e9al pour les traders qui ne peuvent pas surveiller l\u2019\u00e9cran en permanence. Combinez avec le squawk box Pro pour une couverture mains libres compl\u00e8te.',
+    'card4.title':'Injection Instantan\u00e9e de News','card4.desc':'D\u00e8s qu\u2019une publication \u00e9conomique para\u00eet, les titres connexes apparaissent \u00e0 c\u00f4t\u00e9 de la ligne du calendrier \u2014 vous donnant un contexte de march\u00e9 imm\u00e9diat sans changer d\u2019onglet.',
+    'how.h2':'De l\u2019\u00c9v\u00e9nement Programm\u00e9 \u00e0 l\u2019Intelligence de March\u00e9 en Temps R\u00e9el',
+    'step1.title':'Agenda complet sur 7 jours','step1.desc':'Le calendrier affiche tous les grands \u00e9v\u00e9nements \u00e9conomiques des 7 prochains jours \u2014 pour toutes les \u00e9conomies, dont les \u00c9tats-Unis, la Zone Euro, le Royaume-Uni, le Japon, l\u2019Australie, le Canada et la Suisse. Les \u00e9v\u00e9nements sont tri\u00e9s par heure et identifi\u00e9s par pays, avec lectures pr\u00e9c\u00e9dentes et pr\u00e9visions de march\u00e9 pr\u00e9remplies pour pr\u00e9parer votre strat\u00e9gie \u00e0 l\u2019avance.',
+    'step2.title':'Injection de donn\u00e9es en direct au moment de la publication','step2.desc':'D\u00e8s qu\u2019un organisme statistique ou une banque centrale publie un chiffre, le nombre r\u00e9el appara\u00eet en temps r\u00e9el \u2014 avec un signal beat/miss instantan\u00e9 (vert/rouge/ambre) et un indicateur de d\u00e9viation. Pour les \u00e9v\u00e9nements \u00e0 fort impact, une alerte audio se d\u00e9clenche ind\u00e9pendamment de l\u2019\u00e9tat du squawk box. Un calendrier \u00e9conomique n\u2019est utile que si les donn\u00e9es sont vraiment en direct \u2014 les n\u00f4tres le sont.',
+    'step3.title':'Contexte automatique depuis le fil de news','step3.desc':'Imm\u00e9diatement apr\u00e8s une publication de donn\u00e9es, les titres pertinents du fil de news forex sont inject\u00e9s \u00e0 c\u00f4t\u00e9 de l\u2019\u00e9v\u00e9nement \u2014 afin de voir les r\u00e9actions des analystes, le commentaire de march\u00e9 et les d\u00e9clarations des banques centrales dans la m\u00eame vue. En Pro, le squawk box lit ces titres \u00e0 voix haute pendant que vous vous concentrez sur l\u2019ex\u00e9cution des ordres.',
+    'coverage.label':'Couverture','coverage.h2':'Ce que Couvre le Calendrier',
+    'coverage.intro':'Le calendrier \u00e9conomique de Trading News Terminal suit toutes les publications susceptibles de mouvoir le march\u00e9 dans les principales \u00e9conomies et classes d\u2019actifs.',
+    'table.col1':'Cat\u00e9gorie','table.col2':'\u00c9v\u00e9nements Couverts','table.col3':'Niveau d\u2019Impact',
+    'table.row1.cat':'D\u00e9cisions des Banques Centrales',
+    'table.row2.cat':'March\u00e9 du Travail','table.row2.events':'NFP, taux de ch\u00f4mage, demandes d\u2019allocations, JOLTS',
+    'table.row3.cat':'Inflation','table.row3.events':'CPI, PPI, PCE, inflation sous-jacente',
+    'table.row4.cat':'Croissance','table.row4.events':'GDP (flash, pr\u00e9liminaire, final), balance commerciale',
+    'table.row5.cat':'Consommation & Entreprises','table.row5.events':'Ventes au d\u00e9tail, confiance du consommateur, ISM, PMI',
+    'table.row6.cat':'Immobilier','table.row6.events':'Permis de construire, mises en chantier, ventes de logements existants',
+    'table.row7.cat':'Discours des Banques Centrales','table.row7.events':'D\u00e9clarations du Pr\u00e9sident de la Fed, BCE, BOE',
+    'table.row8.cat':'G\u00e9opolitique / Autres','table.row8.events':'Adjudications du Tr\u00e9sor, sommets G7/G20, d\u00e9cisions d\u2019urgence',
+    'faq.h2':'Calendrier \u00c9conomique pour le Trading \u2014 Questions Courantes',
+    'faq1.q':'Qu\u2019est-ce qu\u2019un calendrier \u00e9conomique pour le trading\u00a0?','faq1.a':'Un calendrier \u00e9conomique est un planning des publications de donn\u00e9es macro\u00e9conomiques et des \u00e9v\u00e9nements susceptibles de provoquer des mouvements significatifs sur les march\u00e9s financiers. Il indique la date, l\u2019heure, le pays, le nom de l\u2019\u00e9v\u00e9nement, la lecture pr\u00e9c\u00e9dente, le consensus de march\u00e9 et \u2014 une fois publi\u00e9 \u2014 le r\u00e9sultat r\u00e9el. Les traders forex, futures et actions utilisent les calendriers \u00e9conomiques pour g\u00e9rer le risque autour des \u00e9v\u00e9nements volatils. Le calendrier en direct de Trading News Terminal inclut l\u2019injection de donn\u00e9es en temps r\u00e9el, les signaux beat/miss et les comptes \u00e0 rebours \u2014 le tout gratuitement.',
+    'faq2.q':'Quel est le meilleur calendrier \u00e9conomique pour le forex\u00a0?','faq2.a':'Le meilleur calendrier \u00e9conomique forex publie les donn\u00e9es r\u00e9elles d\u00e8s leur divulgation \u2014 pas des minutes plus tard \u2014 et fournit des signaux beat/miss imm\u00e9diats. Il doit \u00e9galement s\u2019int\u00e9grer \u00e0 un fil de news pour voir le commentaire de march\u00e9 aux c\u00f4t\u00e9s des chiffres bruts. Le calendrier de Trading News Terminal r\u00e9pond \u00e0 tous ces crit\u00e8res et ajoute des comptes \u00e0 rebours, des alertes audio pour les \u00e9v\u00e9nements \u00e0 fort impact et l\u2019injection automatique de news. Disponible gratuitement sur tous les plans.',
+    'faq3.q':'Comment les publications \u00e9conomiques affectent-elles les cours des devises\u00a0?','faq3.a':'Les publications \u00e9conomiques affectent les devises en mettant \u00e0 jour les anticipations du march\u00e9 concernant la trajectoire future des taux d\u2019int\u00e9r\u00eat des banques centrales. Une inflation forte (beat du CPI) augmente les anticipations de hausse des taux, renfor\u00e7ant g\u00e9n\u00e9ralement la devise. Des donn\u00e9es d\u2019emploi faibles (miss du NFP) augmentent les anticipations de baisse des taux, affaiblissant g\u00e9n\u00e9ralement l\u2019USD. L\u2019ampleur du mouvement d\u00e9pend de l\u2019\u00e9cart entre le r\u00e9sultat r\u00e9el et le consensus de march\u00e9.',
+    'faq4.q':'Quels sont les \u00e9v\u00e9nements \u00e9conomiques \u00e0 fort impact\u00a0?','faq4.a':'Les \u00e9v\u00e9nements \u00e0 fort impact sont des publications et d\u00e9cisions de banques centrales qui causent historiquement les plus grands mouvements sur les march\u00e9s forex, actions et obligations. Ils incluent\u00a0: d\u00e9cisions de taux du FOMC, BCE, BOE et BOJ ; Non-Farm Payrolls am\u00e9ricains ; CPI am\u00e9ricain et britannique ; lectures de croissance du GDP ; et discours des gouverneurs des principales banques centrales. Trading News Terminal marque ces \u00e9v\u00e9nements avec un badge HIGH rouge et d\u00e9clenche des alertes audio \u00e0 la publication.',
+    'faq5.q':'Le calendrier \u00e9conomique de Trading News Terminal est-il gratuit\u00a0?','faq5.a':'Oui. Le calendrier \u00e9conomique complet \u2014 incluant les comptes \u00e0 rebours, la vue sur 7 jours, les donn\u00e9es r\u00e9el vs pr\u00e9vision vs pr\u00e9c\u00e9dent et les signaux beat/miss \u2014 est disponible sur le plan Basic gratuit sans carte de cr\u00e9dit. Le plan Pro \u00e0 40\u20ac/mois ajoute l\u2019injection de news sans d\u00e9lai \u00e0 c\u00f4t\u00e9 de chaque \u00e9v\u00e9nement, la lecture \u00e0 voix haute par le squawk box et l\u2019acc\u00e8s aux 7 cha\u00eenes de TV financi\u00e8re en direct.',
+    'explore.h2':'Tout dans le Trading News Terminal',
+    'cta.h2':'Tradez Chaque Publication de Donn\u00e9es en Toute Confiance',
+    'cta.desc':'Obtenez des donn\u00e9es \u00e9conomiques en temps r\u00e9el, des signaux beat/miss, des comptes \u00e0 rebours et l\u2019injection instantan\u00e9e de news \u2014 le tout dans un terminal de trading en direct. Gratuit sur tous les plans.',
+    'cta.btn':'Ouvrir le Calendrier Gratuit',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Calendrier \u00c9conomique en Direct' },
+  de:{
+    'try_btn':'Kostenlos Testen \u2192','trial_btn':'Kostenlose Testphase','free_btn':'Terminal \u00d6ffnen',
+    'tagline':'Echtzeit-Marktintelligenz','active':'DE',
+    'how_title':'So funktioniert es','faq_title':'H\u00e4ufige Fragen',
+    'explore_title':'Weitere Funktionen','cta_free':'Kostenlos Starten',
+    'hero.badge':'Live Wirtschaftskalender',
+    'hero.h1':'Live <span>Wirtschaftskalender</span> mit Echtzeit-Datenver\u00f6ffentlichungen',
+    'hero.sub':'7 Tage bevorstehende Ereignisse. Live-Countdowns. Istwert vs. Prognose vs. Vorwert \u2014 mit Beat/Miss-Farbsignalen sofort bei Datenver\u00f6ffentlichung. Audioalarme f\u00fcr High-Impact-Ereignisse. Vollst\u00e4ndig kostenlos.',
+    'hero.price_note':'Der Wirtschaftskalender ist <strong>in allen Tarifen kostenlos</strong> \u00b7 Keine Kreditkarte erforderlich',
+    'preview.label':'Terminal-Vorschau','preview.h2':'Wirtschaftskalender \u2014 Live-Daten',
+    'demo.label':'Live-Demo','demo.h2':'Der Wirtschaftskalender in Aktion',
+    'demo.intro':'Echtzeit-Beat/Miss-Signale, Impact-Indikatoren und Countdowns \u2014 in einer klaren Terminal-Oberfl\u00e4che f\u00fcr schnelle Entscheidungen.',
+    'features.label':'Kernfunktionen','features.h2':'Alles, was Sie zum Handeln von Wirtschaftsdaten ben\u00f6tigen',
+    'card1.title':'Live-Countdown-Timer','card1.desc':'Jedes bevorstehende Ereignis zeigt einen Echtzeit-Countdown, damit Sie immer vorbereitet sind \u2014 ob 4 Stunden bis zum NFP oder 30 Sekunden bis zur Fed-Entscheidung. Werden Sie nie mehr von einer Ver\u00f6ffentlichung \u00fcberrascht.',
+    'card2.title':'Beat / Miss / Inline-Signale','card2.desc':'Wenn Daten ver\u00f6ffentlicht werden, f\u00e4rbt sich der Istwert sofort gr\u00fcn (Beat), rot (Miss) oder amber (inline). Das Signal erreicht Ihre Augen in unter einer Sekunde \u2014 kein Lesen erforderlich.',
+    'card3.title':'Audioalarme f\u00fcr High-Impact-Ereignisse','card3.desc':'High-Impact-Ereignisse l\u00f6sen einen Audioalarm aus, sobald Ergebnisse ver\u00f6ffentlicht werden \u2014 ideal f\u00fcr Trader, die nicht st\u00e4ndig auf den Bildschirm schauen k\u00f6nnen. Kombinieren Sie es mit der Pro-Squawk-Box f\u00fcr vollst\u00e4ndige Freisprechfunktion.',
+    'card4.title':'Sofortige News-Einspeisung','card4.desc':'Sobald eine Wirtschaftsmeldung ver\u00f6ffentlicht wird, erscheinen relevante News-Schlagzeilen neben der Kalenderzeile \u2014 so erhalten Sie unmittelbaren Marktkontext ohne Tab-Wechsel.',
+    'how.h2':'Vom geplanten Ereignis zur Marktintelligenz in Echtzeit',
+    'step1.title':'Vollst\u00e4ndiger 7-Tage-Veranstaltungskalender','step1.desc':'Der Kalender zeigt alle wichtigen Wirtschaftsereignisse der n\u00e4chsten 7 Tage \u2014 f\u00fcr alle Volkswirtschaften einschlie\u00dflich USA, Eurozone, UK, Japan, Australien, Kanada und Schweiz. Ereignisse sind nach Uhrzeit sortiert und nach Land gekennzeichnet, mit vorausgef\u00fcllten Vorwerten und Marktprognosen zur Vorbereitung Ihrer Handelsstrategie.',
+    'step2.title':'Live-Dateneinspeisung zum Zeitpunkt der Ver\u00f6ffentlichung','step2.desc':'Sobald eine Statistikbeh\u00f6rde oder Zentralbank eine Zahl ver\u00f6ffentlicht, erscheint der Istwert in Echtzeit \u2014 mit sofortigem Beat/Miss-Signal (gr\u00fcn/rot/amber) und Abweichungsindikator. F\u00fcr High-Impact-Ereignisse l\u00f6st ein Audioalarm aus, unabh\u00e4ngig vom Status der Squawk-Box. Ein Wirtschaftskalender ist nur n\u00fctzlich, wenn die Daten wirklich live sind \u2014 unsere sind es.',
+    'step3.title':'Automatischer Kontext aus dem News-Feed','step3.desc':'Unmittelbar nach einer Datenver\u00f6ffentlichung werden relevante Schlagzeilen aus dem Forex-News-Feed neben dem Kalendereintrag eingeblendet \u2014 damit Sie Analystenreaktionen, Marktkommentare und Folgeererkl\u00e4rungen von Zentralbanken in derselben Ansicht sehen. Im Pro-Tarif liest die Squawk-Box diese Schlagzeilen laut vor, w\u00e4hrend Sie sich auf die Order-Ausf\u00fchrung konzentrieren.',
+    'coverage.label':'Abdeckung','coverage.h2':'Was der Kalender Abdeckt',
+    'coverage.intro':'Der Wirtschaftskalender von Trading News Terminal verfolgt alle marktbewegenden Ver\u00f6ffentlichungen \u00fcber alle wichtigen Volkswirtschaften und Anlageklassen.',
+    'table.col1':'Kategorie','table.col2':'Erfasste Ereignisse','table.col3':'Impact-Level',
+    'table.row1.cat':'Zentralbankentscheidungen',
+    'table.row2.cat':'Arbeitsmarkt','table.row2.events':'NFP, Arbeitslosenquote, Erstantr\u00e4ge, JOLTS',
+    'table.row3.cat':'Inflation','table.row3.events':'CPI, PPI, PCE, Kerninflation',
+    'table.row4.cat':'Wachstum','table.row4.events':'GDP (Flash, Vorl\u00e4ufig, Final), Handelsbilanz',
+    'table.row5.cat':'Verbraucher & Unternehmen','table.row5.events':'Einzelhandelsumsatz, Verbrauchervertrauen, ISM, PMI',
+    'table.row6.cat':'Immobilien','table.row6.events':'Baugenehmigungen, Baubeginne, Bestehende Hausverkäufe',
+    'table.row7.cat':'Zentralbankreden','table.row7.events':'Erkl\u00e4rungen Fed-Vorsitzender, EZB-Pr\u00e4sident, BOE-Gouverneur',
+    'table.row8.cat':'Geopolitik / Sonstiges','table.row8.events':'Staatsanleihenauktionen, G7/G20-Gipfel, Notfallentscheidungen',
+    'faq.h2':'Wirtschaftskalender f\u00fcr den Handel \u2014 H\u00e4ufige Fragen',
+    'faq1.q':'Was ist ein Wirtschaftskalender f\u00fcr den Handel?','faq1.a':'Ein Wirtschaftskalender ist ein Zeitplan bevorstehender makro\u00f6konomischer Datenver\u00f6ffentlichungen und Ereignisse, die voraussichtlich erhebliche Preisbewegungen an den Finanzm\u00e4rkten verursachen. Er zeigt Datum, Uhrzeit, Land, Ereignisname, Vorwert, Marktkonsens und \u2014 nach Ver\u00f6ffentlichung \u2014 den Istwert. Forex-, Futures- und Aktienth\u00e4ndler nutzen Wirtschaftskalender, um Risiken rund um volatile Ereignisse zu managen. Der Live-Wirtschaftskalender von Trading News Terminal umfasst Echtzeit-Dateneinspeisung, Beat/Miss-Signale und Countdown-Timer \u2014 alles kostenlos.',
+    'faq2.q':'Welcher ist der beste Wirtschaftskalender f\u00fcr den Forex-Handel?','faq2.a':'Der beste Forex-Wirtschaftskalender ver\u00f6ffentlicht Istdaten sofort bei Freigabe \u2014 nicht Minuten sp\u00e4ter \u2014 und liefert unmittelbare Beat/Miss-Signale. Er sollte auch mit einem News-Feed integriert sein, damit Marktkommentare neben den Rohdaten sichtbar sind. Der Kalender von Trading News Terminal erf\u00fcllt alle diese Kriterien und erg\u00e4nzt Countdown-Timer, Audioalarme f\u00fcr High-Impact-Ereignisse sowie automatische News-Einspeisung. Kostenlos auf allen Tarifen verf\u00fcgbar.',
+    'faq3.q':'Wie beeinflussen Wirtschaftsmeldungen die W\u00e4hrungspreise?','faq3.a':'Wirtschaftsmeldungen beeinflussen W\u00e4hrungen, indem sie die Markterwartungen an den zuk\u00fcnftigen Zinspfad der Zentralbanken aktualisieren. Eine starke Inflation (CPI-Beat) erh\u00f6ht die Zinserhebungserwartungen und st\u00e4rkt typischerweise die W\u00e4hrung. Schwache Besch\u00e4ftigungsdaten (NFP-Miss) erh\u00f6hen die Zinssenkungserwartungen und schw\u00e4chen typischerweise den USD. Das Ausma\u00df der Preisbewegung h\u00e4ngt davon ab, wie weit das tats\u00e4chliche Ergebnis vom Marktkonsens abweicht.',
+    'faq4.q':'Was sind HIGH-Impact-Wirtschaftsereignisse?','faq4.a':'HIGH-Impact-Ereignisse sind Ver\u00f6ffentlichungen und Zentralbankentscheidungen, die historisch die gr\u00f6\u00dften und nachhaltigsten Preisbewegungen an Forex-, Aktien- und Rentenm\u00e4rkten verursachen. Dazu geh\u00f6ren: FOMC-, EZB-, BOE- und BOJ-Zinsentscheidungen; US Non-Farm Payrolls; US- und UK-CPI; GDP-Wachstumszahlen; und Reden f\u00fchrender Zentralbankgouverneure. Trading News Terminal markiert diese Ereignisse mit einem roten HIGH-Badge und l\u00f6st Audioalarme bei Ver\u00f6ffentlichung aus.',
+    'faq5.q':'Ist der Wirtschaftskalender von Trading News Terminal kostenlos?','faq5.a':'Ja. Der vollst\u00e4ndige Wirtschaftskalender \u2014 einschlie\u00dflich Countdown-Timer, 7-Tage-Ansicht, Istwert vs. Prognose vs. Vorwert und Beat/Miss-Signale \u2014 ist im kostenlosen Basic-Tarif ohne Kreditkarte verf\u00fcgbar. Der Pro-Tarif f\u00fcr 40\u20ac/Monat f\u00fcgt verz\u00f6gerungsfreie News-Einspeisung neben jedem Ereignis, laute Vorlesung durch die Squawk-Box und Zugang zu allen 7 Live-Finanz-TV-Kan\u00e4len hinzu.',
+    'explore.h2':'Alles im Trading News Terminal',
+    'cta.h2':'Handeln Sie jede Datenver\u00f6ffentlichung mit Zuversicht',
+    'cta.desc':'Erhalten Sie Echtzeit-Wirtschaftsdaten, Beat/Miss-Signale, Countdown-Timer und sofortige News-Einspeisung \u2014 alles in einem Live-Handelsterminal. Kostenlos in allen Tarifen.',
+    'cta.btn':'Kostenlosen Kalender \u00f6ffnen',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Live-Wirtschaftskalender' },
+  it:{
+    'try_btn':'Prova Gratuita \u2192','trial_btn':'Inizia la Prova Gratuita','free_btn':'Apri il Terminal',
+    'tagline':'Intelligenza di Mercato in Tempo Reale','active':'IT',
+    'how_title':'Come funziona','faq_title':'Domande Frequenti',
+    'explore_title':'Esplora Funzionalit\u00e0','cta_free':'Inizia Gratis',
+    'hero.badge':'Calendario Economico in Diretta',
+    'hero.h1':'Calendario <span>Economico</span> in Diretta con Dati in Tempo Reale',
+    'hero.sub':'7 giorni di eventi futuri. Conto alla rovescia in tempo reale. Effettivo vs previsione vs precedente \u2014 con segnali beat/miss nel momento in cui i dati vengono pubblicati. Avvisi audio ad alto impatto. Completamente gratuito.',
+    'hero.price_note':'Il calendario economico \u00e8 <strong>gratuito in tutti i piani</strong> \u00b7 Nessuna carta di credito richiesta',
+    'preview.label':'Anteprima del Terminal','preview.h2':'Calendario Economico \u2014 Dati in Diretta',
+    'demo.label':'Demo in Diretta','demo.h2':'Il Calendario Economico in Azione',
+    'demo.intro':'Segnali beat/miss in tempo reale, indicatori di impatto e conto alla rovescia \u2014 in un\u2019interfaccia terminal pulita progettata per decisioni rapide.',
+    'features.label':'Funzionalit\u00e0 Principali','features.h2':'Tutto ci\u00f2 che Ti Serve per Fare Trading con i Dati Economici',
+    'card1.title':'Conto alla Rovescia in Diretta','card1.desc':'Ogni evento imminente mostra un conto alla rovescia in tempo reale per essere sempre preparato \u2014 che siano 4 ore al NFP o 30 secondi alla decisione della Fed. Non farti pi\u00f9 cogliere di sorpresa da una pubblicazione.',
+    'card2.title':'Segnali Beat / Miss / In Linea','card2.desc':'Quando i dati vengono pubblicati, il valore effettivo diventa verde (beat), rosso (miss) o ambra (in linea) nell\u2019istante della pubblicazione. Il segnale raggiunge i tuoi occhi in meno di un secondo \u2014 senza necessit\u00e0 di leggere.',
+    'card3.title':'Avvisi Audio ad Alto Impatto','card3.desc':'Gli eventi ad alto impatto attivano un avviso audio nel momento in cui i risultati vengono pubblicati \u2014 ideale per i trader che non possono guardare lo schermo costantemente. Combinalo con la squawk box Pro per una copertura mani libere completa.',
+    'card4.title':'Iniezione Istantanea di Notizie','card4.desc':'Nel momento in cui una pubblicazione economica viene rilasciata, i titoli correlati appaiono accanto alla riga del calendario \u2014 fornendo contesto di mercato immediato senza cambiare scheda.',
+    'how.h2':'Dall\u2019Evento Programmato all\u2019Intelligenza di Mercato in Tempo Reale',
+    'step1.title':'Agenda completa di 7 giorni','step1.desc':'Il calendario mostra tutti i principali eventi economici dei prossimi 7 giorni \u2014 per tutte le economie, incluse USA, Eurozona, UK, Giappone, Australia, Canada e Svizzera. Gli eventi sono ordinati per orario e contrassegnati per paese, con letture precedenti e previsioni di mercato precompilate per preparare la tua tesi di trading in anticipo.',
+    'step2.title':'Iniezione di dati in diretta al momento della pubblicazione','step2.desc':'Non appena un\u2019agenzia statistica o una banca centrale pubblica un dato, il numero effettivo appare in tempo reale \u2014 con segnale beat/miss immediato (verde/rosso/ambra) e indicatore di scostamento. Per gli eventi ad alto impatto, un avviso audio scatta indipendentemente dallo stato della squawk box. Un calendario economico \u00e8 utile solo se i dati sono davvero in diretta \u2014 i nostri lo sono.',
+    'step3.title':'Contesto automatico dal feed di notizie','step3.desc':'Immediatamente dopo una pubblicazione di dati, i titoli pertinenti del feed di notizie forex vengono iniettati accanto all\u2019evento del calendario \u2014 cos\u00ec vedi le reazioni degli analisti, il commento di mercato e le successive dichiarazioni delle banche centrali nella stessa vista. Con Pro, la squawk box legge questi titoli ad alta voce mentre ti concentri sull\u2019esecuzione degli ordini.',
+    'coverage.label':'Copertura','coverage.h2':'Cosa Copre il Calendario',
+    'coverage.intro':'Il calendario economico di Trading News Terminal traccia tutte le pubblicazioni che muovono il mercato nelle principali economie e classi di attivi.',
+    'table.col1':'Categoria','table.col2':'Eventi Coperti','table.col3':'Livello di Impatto',
+    'table.row1.cat':'Decisioni delle Banche Centrali',
+    'table.row2.cat':'Mercato del Lavoro','table.row2.events':'NFP, tasso di disoccupazione, richieste di sussidio, JOLTS',
+    'table.row3.cat':'Inflazione','table.row3.events':'CPI, PPI, PCE, inflazione core',
+    'table.row4.cat':'Crescita','table.row4.events':'GDP (flash, preliminare, finale), bilancia commerciale',
+    'table.row5.cat':'Consumatori e Imprese','table.row5.events':'Vendite al dettaglio, fiducia dei consumatori, ISM, PMI',
+    'table.row6.cat':'Immobiliare','table.row6.events':'Permessi di costruzione, nuove abitazioni, vendite di abitazioni esistenti',
+    'table.row7.cat':'Discorsi delle Banche Centrali','table.row7.events':'Dichiarazioni del Presidente della Fed, BCE, BOE',
+    'table.row8.cat':'Geopolitica / Altro','table.row8.events':'Aste del Tesoro, vertici G7/G20, decisioni di emergenza',
+    'faq.h2':'Calendario Economico per il Trading \u2014 Domande Comuni',
+    'faq1.q':'Cos\u2019\u00e8 un calendario economico per il trading?','faq1.a':'Un calendario economico \u00e8 un programma di pubblicazioni di dati macroeconomici ed eventi che probabilmente causeranno movimenti di prezzo significativi sui mercati finanziari. Mostra data, orario, paese, nome dell\u2019evento, lettura precedente, previsione di consenso del mercato e \u2014 una volta pubblicato \u2014 il risultato effettivo. Trader forex, futures e azionari usano i calendari economici per gestire il rischio intorno a eventi volatili. Il calendario in diretta di Trading News Terminal include iniezione di dati in tempo reale, segnali beat/miss e conto alla rovescia \u2014 tutto gratuito.',
+    'faq2.q':'Qual \u00e8 il migliore calendario economico per il forex?','faq2.a':'Il miglior calendario economico forex pubblica i dati effettivi nell\u2019istante in cui vengono divulgati \u2014 non minuti dopo \u2014 e fornisce segnali beat/miss immediati. Dovrebbe anche integrarsi con un feed di notizie per vedere il commento di mercato accanto ai numeri grezzi. Il calendario di Trading News Terminal soddisfa tutti questi criteri e aggiunge conto alla rovescia, avvisi audio per eventi ad alto impatto e iniezione automatica di notizie. Disponibile gratuitamente in tutti i piani.',
+    'faq3.q':'Come influiscono le pubblicazioni economiche sui prezzi delle valute?','faq3.a':'Le pubblicazioni economiche influiscono sulle valute aggiornando le aspettative del mercato sul futuro percorso dei tassi di interesse delle banche centrali. Un\u2019inflazione elevata (beat del CPI) aumenta le aspettative di rialzo dei tassi, rafforzando tipicamente la valuta. Dati occupazionali deboli (miss del NFP) aumentano le aspettative di taglio dei tassi, indebolendo tipicamente l\u2019USD. L\u2019entit\u00e0 del movimento dipende da quanto il risultato effettivo si discosta dal consenso di mercato.',
+    'faq4.q':'Cosa sono gli eventi economici ad ALTO impatto?','faq4.a':'Gli eventi ad ALTO impatto sono pubblicazioni e decisioni delle banche centrali che storicamente causano i maggiori movimenti sui mercati forex, azionari e obbligazionari. Includono: decisioni sui tassi di FOMC, BCE, BOE e BOJ; Non-Farm Payrolls USA; CPI USA e UK; letture di crescita del GDP; e discorsi dei governatori delle principali banche centrali. Trading News Terminal contrassegna questi eventi con un badge HIGH rosso e attiva avvisi audio alla pubblicazione.',
+    'faq5.q':'Il calendario economico di Trading News Terminal \u00e8 gratuito?','faq5.a':'S\u00ec. Il calendario economico completo \u2014 inclusi conto alla rovescia, vista a 7 giorni, dati effettivo vs previsione vs precedente e segnali beat/miss \u2014 \u00e8 disponibile nel piano Basic gratuito senza carta di credito. Il piano Pro a 40\u20ac/mese aggiunge iniezione di notizie senza ritardo accanto a ogni evento, lettura ad alta voce dalla squawk box e accesso a tutti i 7 canali TV finanziaria in diretta.',
+    'explore.h2':'Tutto nel Trading News Terminal',
+    'cta.h2':'Fai Trading su Ogni Pubblicazione di Dati con Fiducia',
+    'cta.desc':'Ottieni dati economici in tempo reale, segnali beat/miss, conto alla rovescia e iniezione istantanea di notizie \u2014 tutto in un terminal di trading in diretta. Gratuito in tutti i piani.',
+    'cta.btn':'Apri il Calendario Gratuito',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Calendario Economico in Diretta' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='economic-calendar';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

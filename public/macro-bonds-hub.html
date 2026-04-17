@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro &amp; Bonds Hub — GDP, PMI, CPI &amp; Yields Live</title>
+<meta name="description" content="Live macro dashboard with GDP, PMI, CPI, bond yields &amp; spread analysis. Real-time macro news for institutional traders and market analysts.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.tradingnewsterminal.com/macro-bonds-hub">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+<meta property="og:title" content="Macro &amp; Bonds Hub — GDP, PMI, CPI &amp; Yields Live">
+<meta property="og:description" content="Live macro dashboard with GDP, PMI, CPI, bond yields &amp; spread analysis. Real-time macro news for institutional traders and market analysts.">
+<meta property="og:url" content="https://www.tradingnewsterminal.com/macro-bonds-hub">
+<meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Trading News Terminal — Macro &amp; Bonds Hub",
+  "url": "https://app.tradingnewsterminal.com",
+  "description": "Institutional-grade macro trading dashboard covering GDP, PMI, CPI, bond yields, yield spreads, DXY and real-time macro news aggregation.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web Browser",
+  "offers": [
+    {"@type": "Offer", "name": "Basic", "price": "0", "priceCurrency": "EUR"},
+    {"@type": "Offer", "name": "Pro", "price": "40", "priceCurrency": "EUR"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is macro trading?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Macro trading is a strategy based on broad economic and geopolitical themes rather than individual company fundamentals. Macro traders analyse GDP growth, inflation (CPI), interest rate differentials, bond yields and central bank policy to take positions in currencies, bonds, equities and commodities. The strategy is used by hedge funds, proprietary traders and institutional portfolio managers who need to anticipate how economic data will shift capital flows between countries and asset classes."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do bond yields affect currencies?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Bond yields represent the return investors demand for holding a country's debt. When a country's yields rise relative to another, its currency tends to strengthen as international investors sell lower-yielding bonds to buy higher-yielding ones — increasing demand for that currency. The US 10-year Treasury yield is the most-watched benchmark globally. Yield spread differentials (e.g. US 10Y minus German 10Y Bund) are a leading indicator for EUR/USD direction."}
+    },
+    {
+      "@type": "Question",
+      "name": "What is PMI and why does it matter?",
+      "acceptedAnswer": {"@type": "Answer", "text": "PMI (Purchasing Managers' Index) is a survey-based economic indicator measuring business activity in manufacturing and services sectors. A reading above 50 signals expansion; below 50 signals contraction. PMI data is released monthly and is one of the most timely leading indicators of economic momentum — it often moves currencies and equity indices significantly on release because it gives the earliest signal of whether an economy is accelerating or slowing before official GDP figures are available."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do I track macro economic data?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Trading News Terminal's Macro &amp; Bonds Hub aggregates all major macro data releases — GDP, PMI, CPI, retail sales, employment — into a single live dashboard. Data prints the instant they are released with the actual figure, consensus estimate and prior value shown side by side. The integrated macro news feed surfaces analyst reactions, central bank commentary and market implications within seconds of each release, giving you both the data and the context simultaneously."}
+    },
+    {
+      "@type": "Question",
+      "name": "What is yield curve inversion?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Yield curve inversion occurs when short-term bond yields rise above long-term yields — meaning investors demand more return to lend money for 2 years than for 10 years. This is abnormal and historically precedes recessions by 12–24 months. The most-watched inversion is the US 2-year vs 10-year Treasury spread (2s10s). TNT's Macro &amp; Bonds Hub displays real-time yield spreads including 2s10s, so macro traders can monitor this key recession signal continuously."}
+    }
+  ]
+}
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111827;
+    --border: #1e2a3a;
+    --accent: #00d4ff;
+    --accent-dim: rgba(0,212,255,0.12);
+    --text: #e0e8f0;
+    --muted: #8899aa;
+    --green: #00c896;
+    --red: #ff4d6a;
+    --yellow: #f5c518;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, 'Inter', -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,15,0.97);
+    border-bottom: 1px solid #1e2a3a;
+    padding: 0 24px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+  .nav-logo-text span { color:#00d4ff; }
+  .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity .15s, transform .15s; border: none; text-decoration: none; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero-tag { display: inline-block; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 24px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 14px; }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 620px; margin-bottom: 40px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .card-icon { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .card:hover { border-color: var(--accent); }
+
+  /* Yield dashboard */
+  .yield-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .yield-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .yield-card:hover { border-color: var(--accent); }
+  .yield-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .yield-val { font-size: 22px; font-weight: 700; color: var(--text); }
+  .yield-chg { font-size: 12px; margin-top: 4px; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+
+  /* Macro data table */
+  .macro-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .macro-table th { text-align: left; padding: 10px 14px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .macro-table td { padding: 12px 14px; border-bottom: 1px solid rgba(30,42,58,0.6); }
+  .macro-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .beat { color: var(--green); font-weight: 700; }
+  .miss { color: var(--red); font-weight: 700; }
+  .inline-beat { display: inline-block; background: rgba(0,200,150,0.15); color: var(--green); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .inline-miss { display: inline-block; background: rgba(255,77,106,0.15); color: var(--red); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+
+  .steps { display: grid; gap: 24px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.4); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--accent); }
+  .step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 14px; color: var(--muted); }
+
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table th { padding: 12px 16px; background: var(--bg2); text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--green); font-weight: 700; }
+  .compare-table .cross { color: var(--red); }
+  .compare-table .tnt-col { background: rgba(0,212,255,0.04); }
+
+  .faq-list { display: grid; gap: 16px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+  .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .faq-item p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  .cross-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .cross-link { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-size: 14px; font-weight: 600; color: var(--text); transition: border-color .15s; }
+  .cross-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  .footer-cta { background: linear-gradient(135deg, rgba(0,212,255,0.07) 0%, rgba(0,212,255,0.02) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 0; text-align: center; }
+  .footer-cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 14px; }
+  .footer-cta p { color: var(--muted); margin-bottom: 32px; font-size: 16px; }
+
+  .site-footer { padding: 24px 0; text-align: center; color: var(--muted); font-size: 13px; }
+  .site-footer a { color: var(--muted); margin: 0 8px; }
+  .site-footer a:hover { color: var(--accent); }
+
+  /* Highlight box */
+  .highlight-box { background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.25); border-radius: 10px; padding: 24px 28px; margin-bottom: 40px; }
+  .highlight-box p { color: var(--text); font-size: 15px; line-height: 1.7; }
+  .highlight-box strong { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .step { flex-direction: column; }
+    .site-header .logo-name { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=macro-bonds-hub&utm_content=header" class="nav-logo" data-seo-track="macro-bonds-hub">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=macro-bonds-hub&utm_content=header" class="btn btn-primary" data-seo-track="macro-bonds-hub"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag" data-i18n="hero_tag">Pro Feature</div>
+    <h1><span>Macro &amp; Bonds Hub</span> —<br><span data-i18n="hero_h1_sub">Institutional-Grade Macro Intelligence</span></h1>
+    <p data-i18n="hero_p">GDP, PMI, CPI, bond yields (2Y/10Y/30Y), yield spreads, DXY and real-time macro news — aggregated in one dashboard with zero delay. The macro layer every serious trader needs.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=macro-bonds-hub&utm_content=hero" class="btn btn-primary" data-seo-track="macro-bonds-hub"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=macro-bonds-hub&utm_content=hero" class="btn btn-outline" data-seo-track="macro-bonds-hub"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-val">20+</div><div class="stat-label" data-i18n="stat1">Macro Indicators</div></div>
+      <div><div class="stat-val">US &amp; EU</div><div class="stat-label" data-i18n="stat2">Yield Curves</div></div>
+      <div><div class="stat-val">Live</div><div class="stat-label" data-i18n="stat3">DXY Tracking</div></div>
+      <div><div class="stat-val">0s</div><div class="stat-label" data-i18n="stat4">Data Delay</div></div>
+      <div><div class="stat-val">50+</div><div class="stat-label" data-i18n="stat5">News Sources</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terminal Mockup -->
+<div style="background:#0d1117;border-top:1px solid #1e2a3a;border-bottom:1px solid #1e2a3a;padding:32px 24px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:'Courier New',monospace;">
+      <div style="background:#0a0c0f;border-bottom:1px solid #1e2a3a;padding:10px 16px;display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#ff4d6a;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#f5c518;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#00c896;"></div>
+        <span style="margin-left:12px;font-size:11px;color:#556677;letter-spacing:0.08em;">BOND YIELDS DASHBOARD — LIVE</span>
+        <span style="margin-left:auto;font-size:10px;color:#00d4ff;">● UPDATING</span>
+      </div>
+      <div style="padding:20px 20px 8px;">
+        <div style="font-size:10px;color:#556677;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Treasury &amp; Sovereign Yields</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px;">
+          <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:6px;padding:14px 16px;">
+            <div style="font-size:10px;color:#556677;margin-bottom:4px;">US 2Y</div>
+            <div style="font-size:20px;font-weight:700;color:#e0e8f0;">4.87%</div>
+            <div style="font-size:11px;color:#ff4d6a;margin-top:3px;">▲ +0.06bp</div>
+          </div>
+          <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:6px;padding:14px 16px;">
+            <div style="font-size:10px;color:#556677;margin-bottom:4px;">US 10Y</div>
+            <div style="font-size:20px;font-weight:700;color:#e0e8f0;">4.31%</div>
+            <div style="font-size:11px;color:#00c896;margin-top:3px;">▼ -0.03bp</div>
+          </div>
+          <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:6px;padding:14px 16px;">
+            <div style="font-size:10px;color:#556677;margin-bottom:4px;">US 30Y</div>
+            <div style="font-size:20px;font-weight:700;color:#e0e8f0;">4.48%</div>
+            <div style="font-size:11px;color:#00c896;margin-top:3px;">▼ -0.01bp</div>
+          </div>
+          <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:6px;padding:14px 16px;">
+            <div style="font-size:10px;color:#556677;margin-bottom:4px;">DE 10Y (Bund)</div>
+            <div style="font-size:20px;font-weight:700;color:#e0e8f0;">2.47%</div>
+            <div style="font-size:11px;color:#ff4d6a;margin-top:3px;">▲ +0.04bp</div>
+          </div>
+          <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:6px;padding:14px 16px;">
+            <div style="font-size:10px;color:#556677;margin-bottom:4px;">UK 10Y (Gilt)</div>
+            <div style="font-size:20px;font-weight:700;color:#e0e8f0;">4.12%</div>
+            <div style="font-size:11px;color:#00c896;margin-top:3px;">▼ -0.02bp</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #1e2a3a;padding-top:16px;margin-bottom:16px;">
+          <div style="font-size:10px;color:#556677;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Yield Curve Spread</div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div>
+              <span style="font-size:12px;color:#8899aa;">2s10s Spread: </span>
+              <span style="font-size:16px;font-weight:700;color:#ff4d6a;">−56bp</span>
+              <span style="font-size:11px;color:#ff4d6a;margin-left:6px;background:rgba(255,77,106,0.1);padding:2px 8px;border-radius:3px;">INVERTED</span>
+            </div>
+            <div style="flex:1;height:6px;background:#1e2a3a;border-radius:3px;min-width:120px;">
+              <div style="width:30%;height:100%;background:linear-gradient(90deg,#ff4d6a,#f5c518);border-radius:3px;"></div>
+            </div>
+            <span style="font-size:11px;color:#556677;">Recession signal active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#556677;margin-top:10px;text-align:center;letter-spacing:0.04em;">Illustrative data · Live yields update continuously in the Pro terminal</p>
+  </div>
+</div>
+
+<!-- Why macro matters -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="why_label">Why It Matters</div>
+    <h2 class="section-title" data-i18n="why_title">Macro Drives Every Asset Class</h2>
+
+    <div class="highlight-box">
+      <p data-i18n-html="why_highlight">Every trade you make — whether in forex, equities, commodities or crypto — is ultimately a macro trade. <strong>GDP prints move currencies.</strong> <strong>CPI misses trigger rate repricing.</strong> <strong>Yield curve inversions signal recessions.</strong> Traders who ignore the macro layer are operating blind in the most important dimension of market dynamics.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <h3 data-i18n="card1_h">GDP &amp; Growth Data</h3>
+        <p data-i18n="card1_p">Quarterly GDP prints and monthly proxy indicators (retail sales, industrial production) define the fundamental growth trajectory of an economy. TNT delivers these releases the instant they hit the wire, with prior and consensus figures side by side for immediate context.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <h3 data-i18n="card2_h">PMI — The Leading Indicator</h3>
+        <p data-i18n="card2_p">Manufacturing and Services PMI surveys are released monthly and are among the most timely economic signals available. Above 50 = expansion. Below 50 = contraction. TNT's macro news feed surfaces PMI results and analyst reactions within seconds, giving you the interpretation alongside the number.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔥</div>
+        <h3 data-i18n="card3_h">CPI &amp; Inflation Tracking</h3>
+        <p data-i18n="card3_p">Consumer Price Index (CPI) and Producer Price Index (PPI) releases are the most market-moving data events after central bank decisions. Inflation beats trigger hawkish repricing; misses fuel dovish bets. TNT tracks headline and core CPI across US, EU, UK and other major economies simultaneously.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💹</div>
+        <h3 data-i18n="card4_h">Bond Yields — 2Y, 10Y, 30Y</h3>
+        <p data-i18n="card4_p">US and EU benchmark yields update live. Track the 2-year, 10-year and 30-year Treasuries and Bunds in real time alongside the news that moves them — Fed commentary, inflation data, supply auctions — all in one panel.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <h3 data-i18n="card5_h">Yield Spread Analysis</h3>
+        <p data-i18n="card5_p">The 2s10s spread (US 2Y minus 10Y) is the most-watched recession signal in markets. TNT displays key yield differentials including 2s10s inversion depth, US-Germany spread (a EUR/USD driver) and other cross-market spread indicators used by macro traders and portfolio managers.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💵</div>
+        <h3 data-i18n="card6_h">DXY — Dollar Index Live</h3>
+        <p data-i18n="card6_p">The US Dollar Index (DXY) is the single most important cross-asset macro signal. A rising DXY pressures commodities, emerging markets and risk assets simultaneously. TNT tracks DXY live alongside the macro data and news driving it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Live yields preview -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="preview_label">Live Data Preview</div>
+    <h2 class="section-title" data-i18n="preview_title">Bond Yields &amp; Macro Indicators — Live View</h2>
+    <p class="section-sub" data-i18n="preview_sub">Illustrative snapshot of the TNT Macro &amp; Bonds Hub dashboard. Values update continuously in the Pro terminal.</p>
+
+    <h3 style="font-size:14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;">US Treasury Yields</h3>
+    <div class="yield-grid" style="margin-bottom: 32px;">
+      <div class="yield-card">
+        <div class="yield-label">US 2Y Treasury</div>
+        <div class="yield-val">4.87%</div>
+        <div class="yield-chg pos">▲ +0.04%</div>
+      </div>
+      <div class="yield-card">
+        <div class="yield-label">US 10Y Treasury</div>
+        <div class="yield-val">4.31%</div>
+        <div class="yield-chg neg">▼ -0.02%</div>
+      </div>
+      <div class="yield-card">
+        <div class="yield-label">US 30Y Treasury</div>
+        <div class="yield-val">4.48%</div>
+        <div class="yield-chg neg">▼ -0.01%</div>
+      </div>
+      <div class="yield-card">
+        <div class="yield-label">2s10s Spread</div>
+        <div class="yield-val" style="color: var(--red);">−56bp</div>
+        <div class="yield-chg" style="color: var(--muted);">Inverted</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;">Recent Macro Releases</h3>
+    <div style="overflow-x:auto; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;">
+      <table class="macro-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_event">Event</th>
+            <th data-i18n="th_country">Country</th>
+            <th data-i18n="th_actual">Actual</th>
+            <th data-i18n="th_consensus">Consensus</th>
+            <th data-i18n="th_prior">Prior</th>
+            <th data-i18n="th_result">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CPI YoY</strong></td>
+            <td>🇺🇸 US</td>
+            <td class="beat">3.2%</td>
+            <td>3.4%</td>
+            <td>3.5%</td>
+            <td><span class="inline-miss">MISS</span></td>
+          </tr>
+          <tr>
+            <td><strong>Manufacturing PMI</strong></td>
+            <td>🇪🇺 EU</td>
+            <td class="beat">46.1</td>
+            <td>45.8</td>
+            <td>45.7</td>
+            <td><span class="inline-beat">BEAT</span></td>
+          </tr>
+          <tr>
+            <td><strong>GDP QoQ</strong></td>
+            <td>🇬🇧 UK</td>
+            <td>0.2%</td>
+            <td>0.2%</td>
+            <td>-0.3%</td>
+            <td><span style="background: rgba(136,153,170,0.15); color: var(--muted); display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">IN-LINE</span></td>
+          </tr>
+          <tr>
+            <td><strong>Retail Sales MoM</strong></td>
+            <td>🇺🇸 US</td>
+            <td class="beat">0.7%</td>
+            <td>0.4%</td>
+            <td>0.6%</td>
+            <td><span class="inline-beat">BEAT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Services PMI</strong></td>
+            <td>🇺🇸 US</td>
+            <td class="miss">51.3</td>
+            <td>52.0</td>
+            <td>52.3</td>
+            <td><span class="inline-miss">MISS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px; color: var(--muted); margin-top: 10px;" data-i18n="data_note">Illustrative data. Live releases populate instantly in the Pro terminal.</p>
+  </div>
+</section>
+
+<!-- How it works -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_label">How It Works</div>
+    <h2 class="section-title" data-i18n="how_title_main">From Data Release to Trade Decision in Seconds</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="step1_h">Monitor the Macro Dashboard</h3>
+          <p data-i18n="step1_p">The Macro &amp; Bonds Hub displays live bond yields, the DXY, upcoming data release countdowns and the current state of all major yield spreads — all visible at a glance without navigating away from your main terminal view.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="step2_h">Receive the Data Print Instantly</h3>
+          <p data-i18n="step2_p">When GDP, CPI or PMI releases hit, TNT delivers the actual number alongside consensus and prior values in real time — the same speed as institutional Bloomberg terminals. The squawk box reads out the headline automatically, so you hear it before you see it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="step3_h">Read the Market Reaction &amp; Act</h3>
+          <p data-i18n="step3_p">Within seconds of a data print, the macro news feed surfaces analyst reactions, central bank commentary and asset-class implications from TNT's 50+ integrated sources. You see the data, the context and the market reaction — simultaneously, in one screen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who uses it -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="who_label">Who Uses It</div>
+    <h2 class="section-title" data-i18n="who_title">Built for Macro Traders and Portfolio Managers</h2>
+    <p class="section-sub" data-i18n="who_sub">The TNT Macro &amp; Bonds Hub is used by traders and professionals who need macro context as a core part of their workflow — not as an afterthought.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h3 data-i18n="who_card1_h">Macro Traders</h3>
+        <p data-i18n="who_card1_p">Currency and rates traders who build positions around economic divergence, inflation differentials and yield spreads. The hub provides the live data layer that macro theses are built on — GDP, PMI, CPI and yields in a single, integrated view.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3 data-i18n="who_card2_h">Portfolio Managers</h3>
+        <p data-i18n="who_card2_p">Multi-asset portfolio managers monitoring duration risk, cross-border yield differentials and macro regime shifts. TNT makes the global macro picture readable at a glance — without requiring a separate Bloomberg terminal subscription.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3 data-i18n="who_card3_h">Active Forex Traders</h3>
+        <p data-i18n="who_card3_p">Forex traders know that the biggest intraday moves come from macro data surprises. The hub ensures you see the actual figure and its implications the instant it hits — not 30 seconds later when the move is already done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="cmp_label">Comparison</div>
+    <h2 class="section-title" data-i18n="cmp_title">TNT Macro Hub vs. Alternatives</h2>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="cmp_th_feature">Feature</th>
+            <th class="tnt-col">TNT Pro</th>
+            <th>Investing.com</th>
+            <th>TradingEconomics</th>
+            <th>Bloomberg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="cmp_row1">Live bond yields (2Y/10Y/30Y)</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row2">Yield spread analysis (2s10s)</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row3">Integrated macro news feed</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row4">Live squawk audio alerts</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row5">DXY live tracking</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row6">Zero-delay data delivery</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp_row7">Price (monthly)</td>
+            <td class="tnt-col" style="color: var(--accent);">€40</td>
+            <td>Free / $34.99+</td>
+            <td>Free / $25+</td>
+            <td>$2,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="faq_label">FAQ</div>
+    <h2 class="section-title" data-i18n="faq_title_main">Macro &amp; Bonds Hub — Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 data-i18n="faq1_q">What is macro trading?</h3>
+        <p data-i18n="faq1_a">Macro trading is a strategy based on broad economic and geopolitical themes rather than individual company fundamentals. Macro traders analyse GDP growth, inflation (CPI), interest rate differentials, bond yields and central bank policy to take positions in currencies, bonds, equities and commodities. The strategy is used by hedge funds, proprietary traders and institutional portfolio managers who need to anticipate how economic data will shift capital flows between countries and asset classes. TNT's Macro &amp; Bonds Hub provides the real-time data layer that macro trading demands.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq2_q">How do bond yields affect currencies?</h3>
+        <p data-i18n="faq2_a">Bond yields represent the return investors demand for holding a country's debt. When a country's yields rise relative to another, its currency tends to strengthen as international investors sell lower-yielding bonds to buy higher-yielding ones — increasing demand for that currency in the process. The US 10-year Treasury yield is the most-watched benchmark globally. Yield spread differentials — such as US 10Y minus German 10Y Bund — are leading indicators for currency pair direction. TNT tracks these spreads live so you can see the relationship playing out in real time.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq3_q">What is PMI and why does it matter?</h3>
+        <p data-i18n="faq3_a">PMI (Purchasing Managers' Index) is a survey-based economic indicator measuring business activity in manufacturing and services sectors. A reading above 50 signals expansion; below 50 signals contraction. PMI data is released monthly and is one of the most timely leading indicators of economic momentum — it often moves currencies and equity indices significantly on release because it gives the earliest signal of whether an economy is accelerating or slowing, well before official GDP figures become available.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq4_q">How do I track macro economic data?</h3>
+        <p data-i18n="faq4_a">Trading News Terminal's Macro &amp; Bonds Hub aggregates all major macro data releases — GDP, PMI, CPI, retail sales, employment — into a single live dashboard. Data prints the instant they are released, with the actual figure, consensus estimate and prior value shown side by side for immediate context. The integrated macro news feed surfaces analyst reactions, central bank commentary and market implications within seconds of each release, giving you both the raw data and the interpretation simultaneously.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq5_q">What is yield curve inversion?</h3>
+        <p data-i18n="faq5_a">Yield curve inversion occurs when short-term bond yields rise above long-term yields — meaning investors demand more return to lend money for 2 years than for 10 years. This is abnormal and historically precedes recessions by 12–24 months. The most-watched inversion is the US 2-year vs 10-year Treasury spread (2s10s). An inverted 2s10s has preceded every US recession since the 1970s. TNT's Macro &amp; Bonds Hub displays real-time yield spreads including 2s10s depth, so macro traders can monitor this key recession signal continuously without a separate data terminal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-links -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="explore_label">Explore</div>
+    <h2 class="section-title" data-i18n="explore_title">Explore Other Features</h2>
+    <div class="cross-links">
+      <a href="/bloomberg-alternative" class="cross-link">Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="cross-link">Forex News Feed</a>
+      <a href="/economic-calendar" class="cross-link">Economic Calendar</a>
+      <a href="/squawk-box" class="cross-link">Squawk Box</a>
+      <a href="/live-financial-tv" class="cross-link">Live Financial TV</a>
+      <a href="/market-screener" class="cross-link">Market Screener</a>
+      <a href="/central-banks-tracker" class="cross-link">Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="cross-link" style="border-color: var(--accent); color: var(--accent);">Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="cross-link">Earnings Calendar</a>
+      <a href="/trading-charts" class="cross-link">Live Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="cta_h2">Access Institutional Macro Intelligence — Free for 7 Days</h2>
+    <p data-i18n="cta_p">Live bond yields, yield spreads, GDP/PMI/CPI data and real-time macro news. No credit card required.</p>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=macro-bonds-hub&utm_content=bottom" class="btn btn-primary" style="font-size:16px; padding: 14px 32px;" data-seo-track="macro-bonds-hub"><span data-i18n="cta_btn">Start Free Trial →</span></a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p data-i18n-html="footer_copy">© 2026 Trading News Terminal · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a></p>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    active:'EN',tagline:'Real-time Market Intelligence',
+    try_btn:'Try Free \u2192',trial_btn:'Start Free Trial',free_btn:'Open Free Terminal',
+    hero_tag:'Pro Feature',hero_h1_sub:'Institutional-Grade Macro Intelligence',
+    hero_p:'GDP, PMI, CPI, bond yields (2Y/10Y/30Y), yield spreads, DXY and real-time macro news \u2014 aggregated in one dashboard with zero delay. The macro layer every serious trader needs.',
+    stat1:'Macro Indicators',stat2:'Yield Curves',stat3:'DXY Tracking',stat4:'Data Delay',stat5:'News Sources',
+    why_label:'Why It Matters',why_title:'Macro Drives Every Asset Class',
+    why_highlight:'Every trade you make \u2014 whether in forex, equities, commodities or crypto \u2014 is ultimately a macro trade. <strong>GDP prints move currencies.</strong> <strong>CPI misses trigger rate repricing.</strong> <strong>Yield curve inversions signal recessions.</strong> Traders who ignore the macro layer are operating blind in the most important dimension of market dynamics.',
+    card1_h:'GDP & Growth Data',card1_p:'Quarterly GDP prints and monthly proxy indicators (retail sales, industrial production) define the fundamental growth trajectory of an economy. TNT delivers these releases the instant they hit the wire, with prior and consensus figures side by side for immediate context.',
+    card2_h:'PMI \u2014 The Leading Indicator',card2_p:'Manufacturing and Services PMI surveys are released monthly and are among the most timely economic signals available. Above 50 = expansion. Below 50 = contraction. TNT\u2019s macro news feed surfaces PMI results and analyst reactions within seconds, giving you the interpretation alongside the number.',
+    card3_h:'CPI & Inflation Tracking',card3_p:'Consumer Price Index (CPI) and Producer Price Index (PPI) releases are the most market-moving data events after central bank decisions. Inflation beats trigger hawkish repricing; misses fuel dovish bets. TNT tracks headline and core CPI across US, EU, UK and other major economies simultaneously.',
+    card4_h:'Bond Yields \u2014 2Y, 10Y, 30Y',card4_p:'US and EU benchmark yields update live. Track the 2-year, 10-year and 30-year Treasuries and Bunds in real time alongside the news that moves them \u2014 Fed commentary, inflation data, supply auctions \u2014 all in one panel.',
+    card5_h:'Yield Spread Analysis',card5_p:'The 2s10s spread (US 2Y minus 10Y) is the most-watched recession signal in markets. TNT displays key yield differentials including 2s10s inversion depth, US-Germany spread (a EUR/USD driver) and other cross-market spread indicators used by macro traders and portfolio managers.',
+    card6_h:'DXY \u2014 Dollar Index Live',card6_p:'The US Dollar Index (DXY) is the single most important cross-asset macro signal. A rising DXY pressures commodities, emerging markets and risk assets simultaneously. TNT tracks DXY live alongside the macro data and news driving it.',
+    preview_label:'Live Data Preview',preview_title:'Bond Yields & Macro Indicators \u2014 Live View',preview_sub:'Illustrative snapshot of the TNT Macro & Bonds Hub dashboard. Values update continuously in the Pro terminal.',
+    th_event:'Event',th_country:'Country',th_actual:'Actual',th_consensus:'Consensus',th_prior:'Prior',th_result:'Result',
+    data_note:'Illustrative data. Live releases populate instantly in the Pro terminal.',
+    how_label:'How It Works',how_title_main:'From Data Release to Trade Decision in Seconds',
+    step1_h:'Monitor the Macro Dashboard',step1_p:'The Macro & Bonds Hub displays live bond yields, the DXY, upcoming data release countdowns and the current state of all major yield spreads \u2014 all visible at a glance without navigating away from your main terminal view.',
+    step2_h:'Receive the Data Print Instantly',step2_p:'When GDP, CPI or PMI releases hit, TNT delivers the actual number alongside consensus and prior values in real time \u2014 the same speed as institutional Bloomberg terminals. The squawk box reads out the headline automatically, so you hear it before you see it.',
+    step3_h:'Read the Market Reaction & Act',step3_p:'Within seconds of a data print, the macro news feed surfaces analyst reactions, central bank commentary and asset-class implications from TNT\u2019s 50+ integrated sources. You see the data, the context and the market reaction \u2014 simultaneously, in one screen.',
+    who_label:'Who Uses It',who_title:'Built for Macro Traders and Portfolio Managers',who_sub:'The TNT Macro & Bonds Hub is used by traders and professionals who need macro context as a core part of their workflow \u2014 not as an afterthought.',
+    who_card1_h:'Macro Traders',who_card1_p:'Currency and rates traders who build positions around economic divergence, inflation differentials and yield spreads. The hub provides the live data layer that macro theses are built on \u2014 GDP, PMI, CPI and yields in a single, integrated view.',
+    who_card2_h:'Portfolio Managers',who_card2_p:'Multi-asset portfolio managers monitoring duration risk, cross-border yield differentials and macro regime shifts. TNT makes the global macro picture readable at a glance \u2014 without requiring a separate Bloomberg terminal subscription.',
+    who_card3_h:'Active Forex Traders',who_card3_p:'Forex traders know that the biggest intraday moves come from macro data surprises. The hub ensures you see the actual figure and its implications the instant it hits \u2014 not 30 seconds later when the move is already done.',
+    cmp_label:'Comparison',cmp_title:'TNT Macro Hub vs. Alternatives',cmp_th_feature:'Feature',
+    cmp_row1:'Live bond yields (2Y/10Y/30Y)',cmp_row2:'Yield spread analysis (2s10s)',cmp_row3:'Integrated macro news feed',
+    cmp_row4:'Live squawk audio alerts',cmp_row5:'DXY live tracking',cmp_row6:'Zero-delay data delivery',cmp_row7:'Price (monthly)',
+    faq_label:'FAQ',faq_title_main:'Macro & Bonds Hub \u2014 Frequently Asked Questions',
+    faq1_q:'What is macro trading?',faq1_a:'Macro trading is a strategy based on broad economic and geopolitical themes rather than individual company fundamentals. Macro traders analyse GDP growth, inflation (CPI), interest rate differentials, bond yields and central bank policy to take positions in currencies, bonds, equities and commodities. The strategy is used by hedge funds, proprietary traders and institutional portfolio managers who need to anticipate how economic data will shift capital flows between countries and asset classes. TNT\u2019s Macro & Bonds Hub provides the real-time data layer that macro trading demands.',
+    faq2_q:'How do bond yields affect currencies?',faq2_a:'Bond yields represent the return investors demand for holding a country\u2019s debt. When a country\u2019s yields rise relative to another, its currency tends to strengthen as international investors sell lower-yielding bonds to buy higher-yielding ones \u2014 increasing demand for that currency in the process. The US 10-year Treasury yield is the most-watched benchmark globally. Yield spread differentials \u2014 such as US 10Y minus German 10Y Bund \u2014 are leading indicators for currency pair direction. TNT tracks these spreads live so you can see the relationship playing out in real time.',
+    faq3_q:'What is PMI and why does it matter?',faq3_a:'PMI (Purchasing Managers\u2019 Index) is a survey-based economic indicator measuring business activity in manufacturing and services sectors. A reading above 50 signals expansion; below 50 signals contraction. PMI data is released monthly and is one of the most timely leading indicators of economic momentum \u2014 it often moves currencies and equity indices significantly on release because it gives the earliest signal of whether an economy is accelerating or slowing, well before official GDP figures become available.',
+    faq4_q:'How do I track macro economic data?',faq4_a:'Trading News Terminal\u2019s Macro & Bonds Hub aggregates all major macro data releases \u2014 GDP, PMI, CPI, retail sales, employment \u2014 into a single live dashboard. Data prints the instant they are released, with the actual figure, consensus estimate and prior value shown side by side for immediate context. The integrated macro news feed surfaces analyst reactions, central bank commentary and market implications within seconds of each release, giving you both the raw data and the interpretation simultaneously.',
+    faq5_q:'What is yield curve inversion?',faq5_a:'Yield curve inversion occurs when short-term bond yields rise above long-term yields \u2014 meaning investors demand more return to lend money for 2 years than for 10 years. This is abnormal and historically precedes recessions by 12\u201324 months. The most-watched inversion is the US 2-year vs 10-year Treasury spread (2s10s). An inverted 2s10s has preceded every US recession since the 1970s. TNT\u2019s Macro & Bonds Hub displays real-time yield spreads including 2s10s depth, so macro traders can monitor this key recession signal continuously without a separate data terminal.',
+    explore_label:'Explore',explore_title:'Explore Other Features',
+    cta_h2:'Access Institutional Macro Intelligence \u2014 Free for 7 Days',cta_p:'Live bond yields, yield spreads, GDP/PMI/CPI data and real-time macro news. No credit card required.',cta_btn:'Start Free Trial \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Terms</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  pt:{
+    active:'PT',tagline:'Intelig\u00eancia de Mercado em Tempo Real',
+    try_btn:'Experimentar Gr\u00e1tis \u2192',trial_btn:'Iniciar Trial Gr\u00e1tis',free_btn:'Abrir Terminal Gr\u00e1tis',
+    hero_tag:'Fun\u00e7\u00e3o Pro',hero_h1_sub:'Intelig\u00eancia Macro de N\u00edvel Institucional',
+    hero_p:'GDP, PMI, CPI, yields obrigacionistas (2A/10A/30A), spreads de yields, DXY e not\u00edcias macro em tempo real \u2014 agregados num s\u00f3 dashboard sem qualquer atraso. A camada macro que todo o trader s\u00e9rio precisa.',
+    stat1:'Indicadores Macro',stat2:'Curvas de Yield',stat3:'Tracking DXY',stat4:'Atraso de Dados',stat5:'Fontes de Not\u00edcias',
+    why_label:'Porque \u00e9 Importante',why_title:'O Macro Impulsiona Todas as Classes de Ativos',
+    why_highlight:'Cada trade que faz \u2014 seja em forex, a\u00e7\u00f5es, comodit\u00e1s ou cripto \u2014 \u00e9 em \u00faltima an\u00e1lise um trade macro. <strong>Os dados de GDP movem moedas.</strong> <strong>As surpresas negativas do CPI despoletam reprecifica\u00e7\u00e3o das taxas.</strong> <strong>As invers\u00f5es da curva de yield sinalizam recess\u00f5es.</strong> Os traders que ignoram a camada macro operam s cegos na dimens\u00e3o mais importante da din\u00e2mica de mercado.',
+    card1_h:'GDP e Dados de Crescimento',card1_p:'As publica\u00e7\u00f5es trimestrais de GDP e os indicadores mensais proxy (vendas a retalho, produ\u00e7\u00e3o industrial) definem a trajet\u00f3ria de crescimento fundamental de uma economia. O TNT entrega estas publica\u00e7\u00f5es no instante em que chegam ao wire, com valores anteriores e de consenso lado a lado.',
+    card2_h:'PMI \u2014 O Indicador Avan\u00e7ado',card2_p:'Os inqu\u00e9ritos PMI do setor transformador e de servi\u00e7os s\u00e3o publicados mensalmente e est\u00e3o entre os sinais econ\u00f3micos mais atempados dispon\u00edveis. Acima de 50 = expans\u00e3o. Abaixo de 50 = contra\u00e7\u00e3o. O feed de not\u00edcias macro do TNT apresenta os resultados PMI e rea\u00e7\u00f5es de analistas em segundos.',
+    card3_h:'CPI e Tracking de Infla\u00e7\u00e3o',card3_p:'As publica\u00e7\u00f5es do \u00cdndice de Pre\u00e7os no Consumidor (CPI) e do \u00cdndice de Pre\u00e7os no Produtor (PPI) s\u00e3o os eventos de dados mais impactantes no mercado ap\u00f3s as decis\u00f5es dos bancos centrais. O TNT acompanha o CPI global e de base nos EUA, UE, Reino Unido e outras economias principais simultaneamente.',
+    card4_h:'Yields Obrigacionistas \u2014 2A, 10A, 30A',card4_p:'Os yields de refer\u00eancia dos EUA e da UE atualizam em direto. Acompanhe os Treasuries e Bunds a 2, 10 e 30 anos em tempo real juntamente com as not\u00edcias que os movem \u2014 coment\u00e1rios do Fed, dados de infla\u00e7\u00e3o, leil\u00f5es \u2014 tudo num s\u00f3 painel.',
+    card5_h:'An\u00e1lise de Spread de Yield',card5_p:'O spread 2s10s (EUA 2A menos 10A) \u00e9 o sinal de recess\u00e3o mais acompanhado nos mercados. O TNT apresenta os principais diferenciais de yield incluindo a profundidade de invers\u00e3o do 2s10s, o spread EUA-Alemanha (um motor de EUR/USD) e outros indicadores de spread.',
+    card6_h:'DXY \u2014 \u00cdndice do D\u00f3lar em Direto',card6_p:'O \u00cdndice do D\u00f3lar Americano (DXY) \u00e9 o sinal macro cross-asset mais importante. Um DXY em alta pressiona comodit\u00e1s, mercados emergentes e ativos de risco simultaneamente. O TNT acompanha o DXY em direto juntamente com os dados e not\u00edcias macro que o impulsionam.',
+    preview_label:'Pr\u00e9-visualiza\u00e7\u00e3o de Dados',preview_title:'Yields Obrigacionistas e Indicadores Macro \u2014 Vista ao Vivo',preview_sub:'Instantâneo ilustrativo do dashboard TNT Macro & Bonds Hub. Os valores atualizam continuamente no terminal Pro.',
+    th_event:'Evento',th_country:'Pa\u00eds',th_actual:'Real',th_consensus:'Consenso',th_prior:'Anterior',th_result:'Resultado',
+    data_note:'Dados ilustrativos. As publica\u00e7\u00f5es ao vivo aparecem instantaneamente no terminal Pro.',
+    how_label:'Como Funciona',how_title_main:'Da Publica\u00e7\u00e3o de Dados \u00e0 Decis\u00e3o de Trade em Segundos',
+    step1_h:'Monitorize o Dashboard Macro',step1_p:'O Macro & Bonds Hub exibe yields obrigacionistas em direto, o DXY, contagens decrescentes para pr\u00f3ximas publica\u00e7\u00f5es de dados e o estado atual de todos os principais spreads de yield \u2014 tudo vis\u00edvel num relance sem sair da vista principal do terminal.',
+    step2_h:'Receba os Dados Instantaneamente',step2_p:'Quando chegam publica\u00e7\u00f5es de GDP, CPI ou PMI, o TNT entrega o n\u00famero real juntamente com os valores de consenso e anteriores em tempo real \u2014 \u00e0 mesma velocidade dos terminais Bloomberg institucionais. O squawk box l\u00ea o t\u00edtulo automaticamente.',
+    step3_h:'Leia a Rea\u00e7\u00e3o do Mercado e Atue',step3_p:'Segundos ap\u00f3s uma publica\u00e7\u00e3o, o feed de not\u00edcias macro apresenta rea\u00e7\u00f5es de analistas, coment\u00e1rios de bancos centrais e implica\u00e7\u00f5es por classe de ativo das 50+ fontes integradas do TNT. V\u00ea os dados, o contexto e a rea\u00e7\u00e3o do mercado \u2014 simultaneamente, num s\u00f3 ecr\u00e3.',
+    who_label:'Quem Utiliza',who_title:'Criado para Traders Macro e Gestores de Carteira',who_sub:'O TNT Macro & Bonds Hub \u00e9 utilizado por traders e profissionais que precisam do contexto macro como parte central do seu fluxo de trabalho \u2014 n\u00e3o como algo secund\u00e1rio.',
+    who_card1_h:'Traders Macro',who_card1_p:'Traders de divisas e taxas que constroem posi\u00e7\u00f5es com base na diverg\u00eancia econ\u00f3mica, diferenciais de infla\u00e7\u00e3o e spreads de yield. O hub fornece a camada de dados ao vivo sobre a qual se constroem as teses macro.',
+    who_card2_h:'Gestores de Carteira',who_card2_p:'Gestores de carteira multi-ativos que monitorizam o risco de dura\u00e7\u00e3o, diferenciais de yield transfronteiri\u00e7os e mudan\u00e7as de regime macro. O TNT torna o panorama macro global leg\u00edvel num relance \u2014 sem necessitar de uma subscrição separada do terminal Bloomberg.',
+    who_card3_h:'Traders Forex Ativos',who_card3_p:'Os traders forex sabem que os maiores movimentos intraday v\u00eam de surpresas em dados macro. O hub garante que v\u00ea o n\u00famero real e as suas implica\u00e7\u00f5es no instante em que chega \u2014 n\u00e3o 30 segundos depois quando o movimento j\u00e1 est\u00e1 feito.',
+    cmp_label:'Compara\u00e7\u00e3o',cmp_title:'TNT Macro Hub vs. Alternativas',cmp_th_feature:'Funcionalidade',
+    cmp_row1:'Yields obrigacionistas ao vivo (2A/10A/30A)',cmp_row2:'An\u00e1lise de spread de yield (2s10s)',cmp_row3:'Feed de not\u00edcias macro integrado',
+    cmp_row4:'Alertas squawk de \u00e1udio',cmp_row5:'Tracking DXY ao vivo',cmp_row6:'Entrega de dados sem atraso',cmp_row7:'Pre\u00e7o (mensal)',
+    faq_label:'FAQ',faq_title_main:'Macro & Bonds Hub \u2014 Perguntas Frequentes',
+    faq1_q:'O que \u00e9 o trading macro?',faq1_a:'O trading macro \u00e9 uma estrat\u00e9gia baseada em temas econ\u00f3micos e geopolíticos amplos, em vez dos fundamentos de empresas individuais. Os traders macro analisam o crescimento do GDP, a infla\u00e7\u00e3o (CPI), os diferenciais de taxas de juro, os yields obrigacionistas e a pol\u00edtica dos bancos centrais para tomar posi\u00e7\u00f5es em divisas, obriga\u00e7\u00f5es, a\u00e7\u00f5es e comodit\u00e1s.',
+    faq2_q:'Como os yields obrigacionistas afetam as divisas?',faq2_a:'Os yields obrigacionistas representam o retorno que os investidores exigem por deter a d\u00edvida de um pa\u00eds. Quando os yields de um pa\u00eds sobem em rela\u00e7\u00e3o a outro, a sua divisa tende a fortalecer \u00e0 medida que os investidores internacionais vendem obriga\u00e7\u00f5es de menor rendimento para comprar as de maior rendimento. O yield do Treasury americano a 10 anos \u00e9 o benchmark mais acompanhado globalmente.',
+    faq3_q:'O que \u00e9 o PMI e porque \u00e9 importante?',faq3_a:'O PMI (\u00cdndice de Gestores de Compras) \u00e9 um indicador econ\u00f3mico baseado em inqu\u00e9ritos que mede a atividade empresarial nos setores transformador e de servi\u00e7os. Uma leitura acima de 50 sinaliza expans\u00e3o; abaixo de 50 sinaliza contra\u00e7\u00e3o. Os dados PMI s\u00e3o publicados mensalmente e s\u00e3o dos indicadores avan\u00e7ados mais atempados dispon\u00edveis.',
+    faq4_q:'Como acompanho os dados macroecon\u00f3micos?',faq4_a:'O Macro & Bonds Hub do Trading News Terminal agrega todas as principais publica\u00e7\u00f5es de dados macro \u2014 GDP, PMI, CPI, vendas a retalho, emprego \u2014 num dashboard ao vivo. Os dados aparecem no instante em que s\u00e3o publicados, com o valor real, a estimativa de consenso e o valor anterior lado a lado.',
+    faq5_q:'O que \u00e9 a invers\u00e3o da curva de yield?',faq5_a:'A invers\u00e3o da curva de yield ocorre quando os yields obrigacionistas de curto prazo sobem acima dos de longo prazo \u2014 significando que os investidores exigem mais retorno para emprestar dinheiro por 2 anos do que por 10 anos. Isto \u00e9 anormal e historicamente precede recess\u00f5es por 12\u201324 meses. A invers\u00e3o mais observada \u00e9 o spread 2s10s do Tesouro americano.',
+    explore_label:'Explorar',explore_title:'Explorar Funcionalidades',
+    cta_h2:'Aceda \u00e0 Intelig\u00eancia Macro Institucional \u2014 Gr\u00e1tis por 7 Dias',cta_p:'Yields obrigacionistas ao vivo, spreads de yield, dados GDP/PMI/CPI e not\u00edcias macro em tempo real. Sem cart\u00e3o de cr\u00e9dito.',cta_btn:'Iniciar Trial Gr\u00e1tis \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidade</a> \u00b7 <a href="/terms">Termos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  es:{
+    active:'ES',tagline:'Inteligencia de Mercado en Tiempo Real',
+    try_btn:'Probar Gratis \u2192',trial_btn:'Iniciar Prueba Gratis',free_btn:'Abrir Terminal Gratis',
+    hero_tag:'Funci\u00f3n Pro',hero_h1_sub:'Inteligencia Macro de Nivel Institucional',
+    hero_p:'GDP, PMI, CPI, rendimientos de bonos (2A/10A/30A), diferenciales de rendimiento, DXY y noticias macro en tiempo real \u2014 agregados en un solo dashboard sin ninguna demora. La capa macro que todo trader serio necesita.',
+    stat1:'Indicadores Macro',stat2:'Curvas de Rendimiento',stat3:'Tracking DXY',stat4:'Retraso de Datos',stat5:'Fuentes de Noticias',
+    why_label:'Por Qu\u00e9 Importa',why_title:'El Macro Impulsa Todas las Clases de Activos',
+    why_highlight:'Cada operaci\u00f3n que realizas \u2014 ya sea en forex, acciones, materias primas o criptomonedas \u2014 es en \u00faltima instancia una operaci\u00f3n macro. <strong>Los datos de GDP mueven divisas.</strong> <strong>Los datos negativos del CPI desencadenan repricing de tasas.</strong> <strong>Las inversiones de la curva de rendimiento se\u00f1alan recesiones.</strong> Los traders que ignoran la capa macro operan a ciegas en la dimensi\u00f3n m\u00e1s importante de la din\u00e1mica del mercado.',
+    card1_h:'GDP y Datos de Crecimiento',card1_p:'Los datos trimestrales de GDP y los indicadores mensuales proxy (ventas minoristas, producci\u00f3n industrial) definen la trayectoria de crecimiento fundamental de una econom\u00eda. TNT entrega estas publicaciones en el instante en que llegan al wire, con valores previos y de consenso lado a lado.',
+    card2_h:'PMI \u2014 El Indicador Avan\u00e7ado',card2_p:'Las encuestas PMI de manufactura y servicios se publican mensualmente y est\u00e1n entre las se\u00f1ales econ\u00f3micas m\u00e1s oportunas disponibles. Por encima de 50 = expansi\u00f3n. Por debajo de 50 = contracci\u00f3n. El feed macro de TNT presenta los resultados PMI y las reacciones de analistas en segundos.',
+    card3_h:'CPI y Tracking de Inflaci\u00f3n',card3_p:'Las publicaciones del \u00cdndice de Precios al Consumidor (CPI) y del \u00cdndice de Precios al Productor (PPI) son los eventos de datos m\u00e1s impactantes despu\u00e9s de las decisiones de los bancos centrales. TNT rastrea el CPI general y subyacente en EE.UU., UE, Reino Unido y otras econom\u00edas principales simultáneamente.',
+    card4_h:'Rendimientos de Bonos \u2014 2A, 10A, 30A',card4_p:'Los rendimientos de referencia de EE.UU. y la UE se actualizan en vivo. Sigue los Treasuries y Bunds a 2, 10 y 30 a\u00f1os en tiempo real junto con las noticias que los mueven \u2014 comentarios del Fed, datos de inflaci\u00f3n, subastas \u2014 todo en un panel.',
+    card5_h:'An\u00e1lisis de Diferenciales de Rendimiento',card5_p:'El diferencial 2s10s (EE.UU. 2A menos 10A) es la se\u00f1al de recesi\u00f3n m\u00e1s vigilada en los mercados. TNT muestra los principales diferenciales de rendimiento incluyendo la profundidad de inversi\u00f3n del 2s10s, el diferencial EE.UU.-Alemania (un motor de EUR/USD) y otros indicadores de spread.',
+    card6_h:'DXY \u2014 \u00cdndice del D\u00f3lar en Vivo',card6_p:'El \u00cdndice del D\u00f3lar Estadounidense (DXY) es la se\u00f1al macro cross-asset m\u00e1s importante. Un DXY al alza presiona materias primas, mercados emergentes y activos de riesgo simult\u00e1neamente. TNT rastrea el DXY en vivo junto con los datos macro que lo impulsan.',
+    preview_label:'Vista Previa de Datos',preview_title:'Rendimientos de Bonos e Indicadores Macro \u2014 Vista en Vivo',preview_sub:'Instantánea ilustrativa del dashboard TNT Macro & Bonds Hub. Los valores se actualizan continuamente en el terminal Pro.',
+    th_event:'Evento',th_country:'Pa\u00eds',th_actual:'Real',th_consensus:'Consenso',th_prior:'Anterior',th_result:'Resultado',
+    data_note:'Datos ilustrativos. Las publicaciones en vivo aparecen instant\u00e1neamente en el terminal Pro.',
+    how_label:'C\u00f3mo Funciona',how_title_main:'De la Publicaci\u00f3n de Datos a la Decisi\u00f3n de Operaci\u00f3n en Segundos',
+    step1_h:'Monitorea el Dashboard Macro',step1_p:'El Macro & Bonds Hub muestra rendimientos de bonos en vivo, el DXY, cuentas regresivas para pr\u00f3ximas publicaciones de datos y el estado actual de todos los principales diferenciales de rendimiento \u2014 todo visible de un vistazo sin salir de tu vista principal del terminal.',
+    step2_h:'Recibe los Datos Instant\u00e1neamente',step2_p:'Cuando llegan publicaciones de GDP, CPI o PMI, TNT entrega el n\u00famero real junto con los valores de consenso y anteriores en tiempo real \u2014 a la misma velocidad que los terminales Bloomberg institucionales. El squawk box lee el titular autom\u00e1ticamente.',
+    step3_h:'Lee la Reacci\u00f3n del Mercado y Act\u00faa',step3_p:'Segundos despu\u00e9s de una publicaci\u00f3n, el feed macro presenta reacciones de analistas, comentarios de bancos centrales e implicaciones por clase de activo de las 50+ fuentes integradas de TNT. Ves los datos, el contexto y la reacci\u00f3n del mercado \u2014 simult\u00e1neamente, en una sola pantalla.',
+    who_label:'Qui\u00e9n Lo Usa',who_title:'Creado para Traders Macro y Gestores de Cartera',who_sub:'El TNT Macro & Bonds Hub es usado por traders y profesionales que necesitan el contexto macro como parte central de su flujo de trabajo \u2014 no como algo secundario.',
+    who_card1_h:'Traders Macro',who_card1_p:'Traders de divisas y tasas que construyen posiciones en torno a la divergencia econ\u00f3mica, los diferenciales de inflaci\u00f3n y los diferenciales de rendimiento. El hub proporciona la capa de datos en vivo sobre la que se construyen las tesis macro.',
+    who_card2_h:'Gestores de Cartera',who_card2_p:'Gestores de cartera multi-activos que monitorizan el riesgo de duraci\u00f3n, los diferenciales de rendimiento transfronterizos y los cambios de r\u00e9gimen macro. TNT hace que el panorama macro global sea legible de un vistazo \u2014 sin necesitar una suscripci\u00f3n separada al terminal Bloomberg.',
+    who_card3_h:'Traders Forex Activos',who_card3_p:'Los traders forex saben que los mayores movimientos intraday provienen de sorpresas en datos macro. El hub garantiza que veas la cifra real y sus implicaciones en el instante en que llega \u2014 no 30 segundos despu\u00e9s cuando el movimiento ya est\u00e1 hecho.',
+    cmp_label:'Comparaci\u00f3n',cmp_title:'TNT Macro Hub vs. Alternativas',cmp_th_feature:'Caracter\u00edstica',
+    cmp_row1:'Rendimientos de bonos en vivo (2A/10A/30A)',cmp_row2:'An\u00e1lisis de diferenciales de rendimiento (2s10s)',cmp_row3:'Feed de noticias macro integrado',
+    cmp_row4:'Alertas de audio squawk',cmp_row5:'Tracking DXY en vivo',cmp_row6:'Entrega de datos sin demora',cmp_row7:'Precio (mensual)',
+    faq_label:'Preguntas Frecuentes',faq_title_main:'Macro & Bonds Hub \u2014 Preguntas Frecuentes',
+    faq1_q:'\u00bfQu\u00e9 es el trading macro?',faq1_a:'El trading macro es una estrategia basada en temas econ\u00f3micos y geopolíticos amplios en lugar de los fundamentos de empresas individuales. Los traders macro analizan el crecimiento del GDP, la inflaci\u00f3n (CPI), los diferenciales de tasas de inter\u00e9s, los rendimientos de bonos y la pol\u00edtica de los bancos centrales para tomar posiciones en divisas, bonos, acciones y materias primas.',
+    faq2_q:'\u00bfC\u00f3mo afectan los rendimientos de bonos a las divisas?',faq2_a:'Los rendimientos de bonos representan el retorno que los inversores exigen por mantener la deuda de un pa\u00eds. Cuando los rendimientos de un pa\u00eds suben en relaci\u00f3n a otro, su divisa tiende a fortalecerse a medida que los inversores internacionales venden bonos de menor rendimiento para comprar los de mayor rendimiento. El rendimiento del Treasury estadounidense a 10 a\u00f1os es el benchmark m\u00e1s vigilado globalmente.',
+    faq3_q:'\u00bfQu\u00e9 es el PMI y por qu\u00e9 importa?',faq3_a:'El PMI (\u00cdndice de Gestores de Compras) es un indicador econ\u00f3mico basado en encuestas que mide la actividad empresarial en los sectores manufacturero y de servicios. Una lectura por encima de 50 se\u00f1ala expansi\u00f3n; por debajo de 50 se\u00f1ala contracci\u00f3n. Los datos PMI se publican mensualmente y son uno de los indicadores adelantados m\u00e1s oportunos disponibles.',
+    faq4_q:'\u00bfC\u00f3mo hago seguimiento de datos macroecon\u00f3micos?',faq4_a:'El Macro & Bonds Hub del Trading News Terminal agrega todas las principales publicaciones de datos macro \u2014 GDP, PMI, CPI, ventas minoristas, empleo \u2014 en un dashboard en vivo. Los datos aparecen en el instante en que se publican, con la cifra real, la estimaci\u00f3n de consenso y el valor anterior lado a lado.',
+    faq5_q:'\u00bfQu\u00e9 es la inversi\u00f3n de la curva de rendimiento?',faq5_a:'La inversi\u00f3n de la curva de rendimiento ocurre cuando los rendimientos de bonos a corto plazo suben por encima de los de largo plazo \u2014 lo que significa que los inversores exigen m\u00e1s retorno para prestar dinero por 2 a\u00f1os que por 10 a\u00f1os. Esto es anormal e hist\u00f3ricamente precede a las recesiones por 12\u201324 meses. La inversi\u00f3n m\u00e1s vigilada es el diferencial 2s10s del Tesoro estadounidense.',
+    explore_label:'Explorar',explore_title:'Explorar Caracter\u00edsticas',
+    cta_h2:'Accede a Inteligencia Macro Institucional \u2014 Gratis por 7 D\u00edas',cta_p:'Rendimientos de bonos en vivo, diferenciales de rendimiento, datos GDP/PMI/CPI y noticias macro en tiempo real. Sin tarjeta de cr\u00e9dito.',cta_btn:'Iniciar Prueba Gratis \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidad</a> \u00b7 <a href="/terms">T\u00e9rminos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  fr:{
+    active:'FR',tagline:'Intelligence March\u00e9 en Temps R\u00e9el',
+    try_btn:'Essai Gratuit \u2192',trial_btn:'D\u00e9marrer l\u2019Essai Gratuit',free_btn:'Ouvrir le Terminal Gratuit',
+    hero_tag:'Fonctionnalit\u00e9 Pro',hero_h1_sub:'Intelligence Macro de Niveau Institutionnel',
+    hero_p:'GDP, PMI, CPI, rendements obligataires (2A/10A/30A), spreads de rendement, DXY et actualit\u00e9s macro en temps r\u00e9el \u2014 agr\u00e9g\u00e9s dans un seul tableau de bord sans d\u00e9lai. La couche macro que tout trader s\u00e9rieux n\u00e9cessite.',
+    stat1:'Indicateurs Macro',stat2:'Courbes de Rendement',stat3:'Suivi DXY',stat4:'D\u00e9lai de Donn\u00e9es',stat5:'Sources d\u2019Actualit\u00e9s',
+    why_label:'Pourquoi C\u2019est Important',why_title:'Le Macro Pilote Toutes les Classes d\u2019Actifs',
+    why_highlight:'Chaque transaction que vous effectuez \u2014 que ce soit en forex, actions, mati\u00e8res premi\u00e8res ou cryptomonnaies \u2014 est en d\u00e9finitive une transaction macro. <strong>Les donn\u00e9es GDP font bouger les devises.</strong> <strong>Les surprises negatives du CPI d\u00e9clenchent un repricing des taux.</strong> <strong>Les inversions de la courbe des taux signalent les r\u00e9cessions.</strong> Les traders qui ignorent la couche macro op\u00e8rent \u00e0 l\u2019aveugle dans la dimension la plus importante de la dynamique des march\u00e9s.',
+    card1_h:'GDP & Donn\u00e9es de Croissance',card1_p:'Les donn\u00e9es trimestrielles de GDP et les indicateurs mensuels proxy (ventes au d\u00e9tail, production industrielle) d\u00e9finissent la trajectoire de croissance fondamentale d\u2019une \u00e9conomie. TNT livre ces publications au moment o\u00f9 elles arrivent sur le wire, avec les valeurs pr\u00e9c\u00e9dentes et de consensus c\u00f4te \u00e0 c\u00f4te.',
+    card2_h:'PMI \u2014 L\u2019Indicateur Avanc\u00e9',card2_p:'Les enqu\u00eates PMI manufacturier et services sont publi\u00e9es mensuellement et comptent parmi les signaux \u00e9conomiques les plus opportuns disponibles. Au-dessus de 50 = expansion. En dessous de 50 = contraction. Le flux macro de TNT pr\u00e9sente les r\u00e9sultats PMI et les r\u00e9actions des analystes en quelques secondes.',
+    card3_h:'CPI & Suivi de l\u2019Inflation',card3_p:'Les publications de l\u2019Indice des Prix \u00e0 la Consommation (CPI) et de l\u2019Indice des Prix \u00e0 la Production (PPI) sont les \u00e9v\u00e9nements de donn\u00e9es les plus impactants apr\u00e8s les d\u00e9cisions des banques centrales. TNT suit le CPI global et sous-jacent aux \u00c9tats-Unis, dans l\u2019UE, au Royaume-Uni et dans d\u2019autres grandes \u00e9conomies simultan\u00e9ment.',
+    card4_h:'Rendements Obligataires \u2014 2A, 10A, 30A',card4_p:'Les rendements de r\u00e9f\u00e9rence am\u00e9ricains et europ\u00e9ens se mettent \u00e0 jour en direct. Suivez les Treasuries et Bunds \u00e0 2, 10 et 30 ans en temps r\u00e9el avec les actualit\u00e9s qui les font bouger \u2014 commentaires de la Fed, donn\u00e9es d\u2019inflation, adjudications \u2014 tout en un panneau.',
+    card5_h:'Analyse des Spreads de Rendement',card5_p:'Le spread 2s10s (\u00c9tats-Unis 2A moins 10A) est le signal de r\u00e9cession le plus suivi sur les march\u00e9s. TNT affiche les principaux diff\u00e9rentiels de rendement incluant la profondeur d\u2019inversion du 2s10s, le spread \u00c9tats-Unis-Allemagne (un moteur de l\u2019EUR/USD) et d\u2019autres indicateurs de spread.',
+    card6_h:'DXY \u2014 Indice Dollar en Direct',card6_p:'L\u2019Indice du Dollar Am\u00e9ricain (DXY) est le signal macro cross-actifs le plus important. Un DXY en hausse presse les mati\u00e8res premi\u00e8res, les march\u00e9s \u00e9mergents et les actifs risqu\u00e9s simultan\u00e9ment. TNT suit le DXY en direct avec les donn\u00e9es et actualit\u00e9s macro qui le pilotent.',
+    preview_label:'Aper\u00e7u des Donn\u00e9es',preview_title:'Rendements Obligataires et Indicateurs Macro \u2014 Vue en Direct',preview_sub:'Instantan\u00e9 illustratif du tableau de bord TNT Macro & Bonds Hub. Les valeurs se mettent \u00e0 jour en continu dans le terminal Pro.',
+    th_event:'\u00c9v\u00e9nement',th_country:'Pays',th_actual:'R\u00e9el',th_consensus:'Consensus',th_prior:'Pr\u00e9c\u00e9dent',th_result:'R\u00e9sultat',
+    data_note:'Donn\u00e9es illustratives. Les publications en direct apparaissent instantan\u00e9ment dans le terminal Pro.',
+    how_label:'Comment \u00e7a marche',how_title_main:'De la Publication des Donn\u00e9es \u00e0 la D\u00e9cision de Transaction en Secondes',
+    step1_h:'Surveillez le Tableau de Bord Macro',step1_p:'Le Macro & Bonds Hub affiche les rendements obligataires en direct, le DXY, les comptes \u00e0 rebours pour les prochaines publications de donn\u00e9es et l\u2019\u00e9tat actuel de tous les principaux spreads de rendement \u2014 tout visible d\u2019un coup d\u2019\u0153il sans quitter votre vue principale du terminal.',
+    step2_h:'Recevez les Donn\u00e9es Instantan\u00e9ment',step2_p:'Lorsque les publications de GDP, CPI ou PMI arrivent, TNT livre le chiffre r\u00e9el avec les valeurs de consensus et pr\u00e9c\u00e9dentes en temps r\u00e9el \u2014 \u00e0 la m\u00eame vitesse que les terminaux Bloomberg institutionnels. Le squawk box lit le titre automatiquement.',
+    step3_h:'Lisez la R\u00e9action du March\u00e9 et Agissez',step3_p:'En quelques secondes apr\u00e8s une publication, le flux macro fait remonter les r\u00e9actions des analystes, les commentaires des banques centrales et les implications par classe d\u2019actifs des 50+ sources int\u00e9gr\u00e9es de TNT. Vous voyez les donn\u00e9es, le contexte et la r\u00e9action du march\u00e9 \u2014 simultan\u00e9ment, sur un seul \u00e9cran.',
+    who_label:'Qui L\u2019Utilise',who_title:'Con\u00e7u pour les Traders Macro et Gestionnaires de Portefeuille',who_sub:'Le TNT Macro & Bonds Hub est utilis\u00e9 par des traders et des professionnels qui ont besoin du contexte macro comme \u00e9l\u00e9ment central de leur flux de travail \u2014 pas comme une r\u00e9flexion apr\u00e8s coup.',
+    who_card1_h:'Traders Macro',who_card1_p:'Traders de devises et de taux qui construisent des positions autour de la divergence \u00e9conomique, des diff\u00e9rentiels d\u2019inflation et des spreads de rendement. Le hub fournit la couche de donn\u00e9es en direct sur laquelle se construisent les th\u00e8ses macro.',
+    who_card2_h:'Gestionnaires de Portefeuille',who_card2_p:'Gestionnaires de portefeuille multi-actifs surveillant le risque de duration, les diff\u00e9rentiels de rendement transfrontaliers et les changements de r\u00e9gime macro. TNT rend le panorama macro mondial lisible en un coup d\u2019\u0153il \u2014 sans n\u00e9cessiter un abonnement s\u00e9par\u00e9 au terminal Bloomberg.',
+    who_card3_h:'Traders Forex Actifs',who_card3_p:'Les traders forex savent que les plus grands mouvements intraday proviennent de surprises dans les donn\u00e9es macro. Le hub vous assure de voir le chiffre r\u00e9el et ses implications au moment o\u00f9 il arrive \u2014 pas 30 secondes apr\u00e8s quand le mouvement est d\u00e9j\u00e0 fait.',
+    cmp_label:'Comparaison',cmp_title:'TNT Macro Hub vs. Alternatives',cmp_th_feature:'Fonctionnalit\u00e9',
+    cmp_row1:'Rendements obligataires en direct (2A/10A/30A)',cmp_row2:'Analyse des spreads de rendement (2s10s)',cmp_row3:'Flux d\u2019actualit\u00e9s macro int\u00e9gr\u00e9',
+    cmp_row4:'Alertes audio squawk',cmp_row5:'Suivi DXY en direct',cmp_row6:'Livraison de donn\u00e9es sans d\u00e9lai',cmp_row7:'Prix (mensuel)',
+    faq_label:'FAQ',faq_title_main:'Macro & Bonds Hub \u2014 Questions Fr\u00e9quentes',
+    faq1_q:'Qu\u2019est-ce que le trading macro\u00a0?',faq1_a:'Le trading macro est une strat\u00e9gie bas\u00e9e sur des th\u00e8mes \u00e9conomiques et g\u00e9opolitiques larges plut\u00f4t que sur les fondamentaux de soci\u00e9t\u00e9s individuelles. Les traders macro analysent la croissance du GDP, l\u2019inflation (CPI), les diff\u00e9rentiels de taux d\u2019int\u00e9r\u00eat, les rendements obligataires et la politique des banques centrales pour prendre des positions en devises, obligations, actions et mati\u00e8res premi\u00e8res.',
+    faq2_q:'Comment les rendements obligataires affectent-ils les devises\u00a0?',faq2_a:'Les rendements obligataires repr\u00e9sentent le retour que les investisseurs exigent pour d\u00e9tenir la dette d\u2019un pays. Lorsque les rendements d\u2019un pays augmentent par rapport \u00e0 un autre, sa devise tend \u00e0 se renforcer car les investisseurs internationaux vendent des obligations \u00e0 plus faible rendement pour acheter des obligations \u00e0 rendement plus \u00e9lev\u00e9. Le rendement du Treasury am\u00e9ricain \u00e0 10 ans est le benchmark le plus surveill\u00e9 au niveau mondial.',
+    faq3_q:'Qu\u2019est-ce que le PMI et pourquoi est-ce important\u00a0?',faq3_a:'Le PMI (Indice des Directeurs d\u2019Achats) est un indicateur \u00e9conomique bas\u00e9 sur des enqu\u00eates qui mesure l\u2019activit\u00e9 commerciale dans les secteurs manufacturier et de services. Une lecture au-dessus de 50 signale une expansion ; en dessous de 50 signale une contraction. Les donn\u00e9es PMI sont publi\u00e9es mensuellement.',
+    faq4_q:'Comment suivre les donn\u00e9es macro\u00e9conomiques\u00a0?',faq4_a:'Le Macro & Bonds Hub de Trading News Terminal agr\u00e8ge toutes les principales publications de donn\u00e9es macro \u2014 GDP, PMI, CPI, ventes au d\u00e9tail, emploi \u2014 dans un tableau de bord en direct. Les donn\u00e9es apparaissent au moment o\u00f9 elles sont publi\u00e9es, avec la valeur r\u00e9elle, l\u2019estimation de consensus et la valeur pr\u00e9c\u00e9dente c\u00f4te \u00e0 c\u00f4te.',
+    faq5_q:'Qu\u2019est-ce que l\u2019inversion de la courbe des taux\u00a0?',faq5_a:'L\u2019inversion de la courbe des taux se produit lorsque les rendements obligataires \u00e0 court terme d\u00e9passent les rendements \u00e0 long terme \u2014 ce qui signifie que les investisseurs exigent plus de retour pour pr\u00eater de l\u2019argent \u00e0 2 ans qu\u2019\u00e0 10 ans. C\u2019est anormal et pr\u00e9c\u00e8de historiquement les r\u00e9cessions de 12 \u00e0 24 mois. L\u2019inversion la plus surveill\u00e9e est le spread 2s10s du Tr\u00e9sor am\u00e9ricain.',
+    explore_label:'Explorer',explore_title:'Explorer les Fonctionnalit\u00e9s',
+    cta_h2:'Acc\u00e9dez \u00e0 l\u2019Intelligence Macro Institutionnelle \u2014 Gratuit pendant 7 Jours',cta_p:'Rendements obligataires en direct, spreads de rendement, donn\u00e9es GDP/PMI/CPI et actualit\u00e9s macro en temps r\u00e9el. Sans carte bancaire.',cta_btn:'D\u00e9marrer l\u2019Essai Gratuit \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Confidentialit\u00e9</a> \u00b7 <a href="/terms">CGU</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  de:{
+    active:'DE',tagline:'Echtzeit-Marktintelligenz',
+    try_btn:'Kostenlos Testen \u2192',trial_btn:'Kostenlose Testphase',free_btn:'Terminal \u00d6ffnen',
+    hero_tag:'Pro-Funktion',hero_h1_sub:'Institutionelle Makro-Intelligenz',
+    hero_p:'GDP, PMI, CPI, Anleiherenditen (2J/10J/30J), Renditeaufschl\u00e4ge, DXY und Echtzeit-Makronachrichten \u2014 in einem Dashboard ohne Verz\u00f6gerung aggregiert. Die Makroschicht, die jeder ernsthafte Trader ben\u00f6tigt.',
+    stat1:'Makroindikatoren',stat2:'Renditekurven',stat3:'DXY-Tracking',stat4:'Datenverz\u00f6gerung',stat5:'Nachrichtenquellen',
+    why_label:'Warum Es Wichtig Ist',why_title:'Makro Treibt Jede Anlageklasse',
+    why_highlight:'Jeder Trade, den Sie machen \u2014 ob in Forex, Aktien, Rohstoffe oder Krypto \u2014 ist letztendlich ein Makro-Trade. <strong>GDP-Daten bewegen W\u00e4hrungen.</strong> <strong>Negative CPI-\u00dcberraschungen l\u00f6sen Zinsneubewertungen aus.</strong> <strong>Renditekurveninversionen signalisieren Rezessionen.</strong> Trader, die die Makroschicht ignorieren, operieren blind in der wichtigsten Dimension der Marktdynamik.',
+    card1_h:'GDP & Wachstumsdaten',card1_p:'Viertelj\u00e4hrliche GDP-Daten und monatliche Proxy-Indikatoren (Einzelhandelsumsätze, Industrieproduktion) definieren die fundamentale Wachstumstrajektorie einer Volkswirtschaft. TNT liefert diese Ver\u00f6ffentlichungen sofort, wenn sie den Wire treffen, mit fr\u00fcheren und Konsenswerten nebeneinander.',
+    card2_h:'PMI \u2014 Der Vorlaufindikator',card2_p:'Verarbeitendes Gewerbe und Dienstleistungen PMI-Umfragen werden monatlich ver\u00f6ffentlicht und geh\u00f6ren zu den aktuellsten verf\u00fcgbaren Wirtschaftssignalen. \u00dcber 50 = Expansion. Unter 50 = Kontraktion. TNTs Makronachrichten-Feed zeigt PMI-Ergebnisse und Analysten-Reaktionen innerhalb von Sekunden.',
+    card3_h:'CPI & Inflations-Tracking',card3_p:'Ver\u00f6ffentlichungen des Verbraucherpreisindex (CPI) und des Erzeugerpreisindex (PPI) sind die marktbewegendsten Datenereignisse nach Zentralbankentscheidungen. TNT verfolgt Headline- und Kern-CPI in den USA, der EU, dem Vereinigten K\u00f6nigreich und anderen gro\u00dfen Volkswirtschaften gleichzeitig.',
+    card4_h:'Anleiherenditen \u2014 2J, 10J, 30J',card4_p:'US- und EU-Referenzrenditen aktualisieren sich live. Verfolgen Sie 2-, 10- und 30-j\u00e4hrige Treasuries und Bunds in Echtzeit neben den Nachrichten, die sie bewegen \u2014 Fed-Kommentare, Inflationsdaten, Auktionen \u2014 alles in einem Panel.',
+    card5_h:'Renditeaufschlags-Analyse',card5_p:'Der 2s10s-Spread (US 2J minus 10J) ist das meistbeachtete Rezessionssignal auf den M\u00e4rkten. TNT zeigt wichtige Renditedifferentiale einschlie\u00dflich 2s10s-Inversionstiefe, US-Deutschland-Spread (ein EUR/USD-Treiber) und andere Cross-Market-Spread-Indikatoren.',
+    card6_h:'DXY \u2014 Dollar Index Live',card6_p:'Der US-Dollar-Index (DXY) ist das wichtigste Cross-Asset-Makrosignal. Ein steigender DXY belastet Rohstoffe, Schwellenl\u00e4nder und Risikoanlagen gleichzeitig. TNT verfolgt DXY live neben den Makrodaten und Nachrichten, die ihn antreiben.',
+    preview_label:'Datenvorschau',preview_title:'Anleiherenditen & Makroindikatoren \u2014 Live-Ansicht',preview_sub:'Illustrative Momentaufnahme des TNT Macro & Bonds Hub Dashboards. Werte aktualisieren sich kontinuierlich im Pro-Terminal.',
+    th_event:'Ereignis',th_country:'Land',th_actual:'Aktuell',th_consensus:'Konsens',th_prior:'Vorherig',th_result:'Ergebnis',
+    data_note:'Illustrative Daten. Live-Ver\u00f6ffentlichungen erscheinen sofort im Pro-Terminal.',
+    how_label:'So Funktioniert Es',how_title_main:'Von der Datenver\u00f6ffentlichung zur Handelsentscheidung in Sekunden',
+    step1_h:'\u00dcberwachen Sie das Makro-Dashboard',step1_p:'Das Macro & Bonds Hub zeigt Live-Anleiherenditen, den DXY, Countdowns f\u00fcr bevorstehende Datenver\u00f6ffentlichungen und den aktuellen Zustand aller wichtigen Renditeaufschl\u00e4ge \u2014 alles auf einen Blick sichtbar, ohne die Hauptansicht des Terminals zu verlassen.',
+    step2_h:'Empfangen Sie die Daten Sofort',step2_p:'Wenn GDP-, CPI- oder PMI-Ver\u00f6ffentlichungen eintreffen, liefert TNT die tats\u00e4chliche Zahl neben Konsens- und fr\u00fcheren Werten in Echtzeit \u2014 mit der gleichen Geschwindigkeit wie institutionelle Bloomberg-Terminals. Die Squawk-Box liest die Schlagzeile automatisch vor.',
+    step3_h:'Lesen Sie die Marktreaktion & Handeln Sie',step3_p:'Innerhalb von Sekunden nach einer Datenver\u00f6ffentlichung zeigt der Makronachrichten-Feed Analysten-Reaktionen, Zentralbank-Kommentare und Asset-Klassen-Implikationen aus TNTs 50+ integrierten Quellen. Sie sehen die Daten, den Kontext und die Marktreaktion \u2014 gleichzeitig, auf einem Bildschirm.',
+    who_label:'Wer Es Nutzt',who_title:'F\u00fcr Makro-Trader und Portfoliomanager',who_sub:'Das TNT Macro & Bonds Hub wird von Tradern und Profis genutzt, die Makrokontext als zentralen Teil ihres Workflows ben\u00f6tigen \u2014 nicht als Nachgedanke.',
+    who_card1_h:'Makro-Trader',who_card1_p:'W\u00e4hrungs- und Zinstrader, die Positionen um wirtschaftliche Divergenz, Inflationsdifferentiale und Renditeaufschl\u00e4ge aufbauen. Der Hub bietet die Live-Datenschicht, auf der Makro-Thesen aufgebaut werden.',
+    who_card2_h:'Portfoliomanager',who_card2_p:'Multi-Asset-Portfoliomanager, die Duration-Risiko, grenz\u00fcberschreitende Renditedifferentiale und Makroregimewechsel \u00fcberwachen. TNT macht das globale Makrobild auf einen Blick lesbar \u2014 ohne ein separates Bloomberg-Terminal-Abonnement.',
+    who_card3_h:'Aktive Forex-Trader',who_card3_p:'Forex-Trader wissen, dass die gr\u00f6\u00dften Intraday-Bewegungen aus \u00dcberraschungen bei Makrodaten kommen. Der Hub stellt sicher, dass Sie die tats\u00e4chliche Zahl und ihre Implikationen im Moment ihres Eintreffens sehen \u2014 nicht 30 Sekunden sp\u00e4ter, wenn die Bewegung bereits abgeschlossen ist.',
+    cmp_label:'Vergleich',cmp_title:'TNT Macro Hub vs. Alternativen',cmp_th_feature:'Funktion',
+    cmp_row1:'Live-Anleiherenditen (2J/10J/30J)',cmp_row2:'Renditeaufschlags-Analyse (2s10s)',cmp_row3:'Integrierter Makronachrichten-Feed',
+    cmp_row4:'Squawk-Audio-Alarme',cmp_row5:'DXY-Live-Tracking',cmp_row6:'Datenlieferung ohne Verz\u00f6gerung',cmp_row7:'Preis (monatlich)',
+    faq_label:'H\u00e4ufige Fragen',faq_title_main:'Macro & Bonds Hub \u2014 H\u00e4ufig Gestellte Fragen',
+    faq1_q:'Was ist Makro-Trading?',faq1_a:'Makro-Trading ist eine Strategie, die auf breiten wirtschaftlichen und geopolitischen Themen basiert, nicht auf den Fundamentaldaten einzelner Unternehmen. Makro-Trader analysieren GDP-Wachstum, Inflation (CPI), Zinsdifferentiale, Anleiherenditen und Zentralbankpolitik, um Positionen in W\u00e4hrungen, Anleihen, Aktien und Rohstoffen einzugehen.',
+    faq2_q:'Wie beeinflussen Anleiherenditen W\u00e4hrungen?',faq2_a:'Anleiherenditen stellen die Rendite dar, die Investoren f\u00fcr das Halten der Staatsschulden eines Landes verlangen. Wenn die Renditen eines Landes im Verh\u00e4ltnis zu einem anderen steigen, tendiert dessen W\u00e4hrung zur St\u00e4rkung, da internationale Investoren niedriger rentierende Anleihen verkaufen, um h\u00f6her rentierende zu kaufen. Die 10-j\u00e4hrige US-Treasury-Rendite ist der weltweit meistbeachtete Benchmark.',
+    faq3_q:'Was ist PMI und warum ist er wichtig?',faq3_a:'PMI (Einkaufsmanagerindex) ist ein umfragebasierter Wirtschaftsindikator, der die Gesch\u00e4ftst\u00e4tigkeit in verarbeitenden und dienstleistenden Sektoren misst. Eine Lesart \u00fcber 50 signalisiert Expansion; unter 50 Kontraktion. PMI-Daten werden monatlich ver\u00f6ffentlicht und geh\u00f6ren zu den aktuellsten verf\u00fcgbaren Vorlaufindikatoren.',
+    faq4_q:'Wie verfolge ich makro\u00f6konomische Daten?',faq4_a:'Das Macro & Bonds Hub des Trading News Terminal aggregiert alle wichtigen Makrodatenver\u00f6ffentlichungen \u2014 GDP, PMI, CPI, Einzelhandelsumsätze, Besch\u00e4ftigung \u2014 in einem einzigen Live-Dashboard. Daten erscheinen sofort bei Ver\u00f6ffentlichung, mit dem tats\u00e4chlichen Wert, Konsenssch\u00e4tzung und Vorwert nebeneinander.',
+    faq5_q:'Was ist eine Renditekurven-Inversion?',faq5_a:'Eine Renditekurven-Inversion tritt auf, wenn kurzfristige Anleiherenditen \u00fcber langfristige steigen \u2014 was bedeutet, dass Investoren mehr Rendite f\u00fcr 2-j\u00e4hrige als f\u00fcr 10-j\u00e4hrige Anleihen verlangen. Dies ist anormal und geht historisch Rezessionen um 12\u201324 Monate voraus. Die meistbeachtete Inversion ist der 2s10s-Spread der US-Treasuries.',
+    explore_label:'Erkunden',explore_title:'Weitere Funktionen',
+    cta_h2:'Institutionelle Makro-Intelligenz \u2014 7 Tage Kostenlos',cta_p:'Live-Anleiherenditen, Renditeaufschl\u00e4ge, GDP/PMI/CPI-Daten und Echtzeit-Makronachrichten. Keine Kreditkarte erforderlich.',cta_btn:'Kostenlose Testphase \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Datenschutz</a> \u00b7 <a href="/terms">AGB</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  it:{
+    active:'IT',tagline:'Intelligenza di Mercato in Tempo Reale',
+    try_btn:'Prova Gratuita \u2192',trial_btn:'Inizia la Prova Gratuita',free_btn:'Apri il Terminal',
+    hero_tag:'Funzione Pro',hero_h1_sub:'Intelligenza Macro di Livello Istituzionale',
+    hero_p:'GDP, PMI, CPI, rendimenti obbligazionari (2A/10A/30A), spread di rendimento, DXY e notizie macro in tempo reale \u2014 aggregati in un unico dashboard senza ritardo. Il livello macro che ogni trader serio necessita.',
+    stat1:'Indicatori Macro',stat2:'Curve di Rendimento',stat3:'Tracking DXY',stat4:'Ritardo Dati',stat5:'Fonti di Notizie',
+    why_label:'Perch\u00e9 \u00c8 Importante',why_title:'Il Macro Guida Ogni Classe di Attivi',
+    why_highlight:'Ogni operazione che effettui \u2014 che sia in forex, azioni, materie prime o criptovalute \u2014 \u00e8 in ultima analisi un\u2019operazione macro. <strong>I dati GDP muovono le valute.</strong> <strong>Le sorprese negative del CPI innescano il repricing dei tassi.</strong> <strong>Le inversioni della curva dei rendimenti segnalano recessioni.</strong> I trader che ignorano il livello macro operano alla cieca nella dimensione pi\u00f9 importante della dinamica di mercato.',
+    card1_h:'GDP & Dati di Crescita',card1_p:'I dati trimestrali del GDP e gli indicatori mensili proxy (vendite al dettaglio, produzione industriale) definiscono la traiettoria di crescita fondamentale di un\u2019economia. TNT consegna queste pubblicazioni nell\u2019istante in cui arrivano sul wire, con i valori precedenti e di consenso affiancati.',
+    card2_h:'PMI \u2014 L\u2019Indicatore Anticipatore',card2_p:'I sondaggi PMI manifatturiero e dei servizi vengono pubblicati mensilmente e sono tra i segnali economici pi\u00f9 tempestivi disponibili. Sopra 50 = espansione. Sotto 50 = contrazione. Il feed macro di TNT mostra i risultati PMI e le reazioni degli analisti in pochi secondi.',
+    card3_h:'CPI & Tracking dell\u2019Inflazione',card3_p:'Le pubblicazioni dell\u2019Indice dei Prezzi al Consumo (CPI) e dell\u2019Indice dei Prezzi alla Produzione (PPI) sono gli eventi di dati pi\u00f9 impattanti dopo le decisioni delle banche centrali. TNT traccia il CPI headline e core negli USA, UE, Regno Unito e in altre grandi economie simultaneamente.',
+    card4_h:'Rendimenti Obbligazionari \u2014 2A, 10A, 30A',card4_p:'I rendimenti di riferimento USA e UE si aggiornano in diretta. Segui i Treasury e i Bund a 2, 10 e 30 anni in tempo reale insieme alle notizie che li muovono \u2014 commenti della Fed, dati sull\u2019inflazione, aste \u2014 tutto in un pannello.',
+    card5_h:'Analisi degli Spread di Rendimento',card5_p:'Lo spread 2s10s (USA 2A meno 10A) \u00e8 il segnale di recessione pi\u00f9 monitorato sui mercati. TNT mostra i principali differenziali di rendimento inclusa la profondit\u00e0 di inversione del 2s10s, lo spread USA-Germania (un driver di EUR/USD) e altri indicatori di spread.',
+    card6_h:'DXY \u2014 Indice del Dollaro in Diretta',card6_p:'L\u2019Indice del Dollaro USA (DXY) \u00e8 il segnale macro cross-asset pi\u00f9 importante. Un DXY in rialzo pressa materie prime, mercati emergenti e attivi rischiosi simultaneamente. TNT traccia il DXY in diretta insieme ai dati e alle notizie macro che lo guidano.',
+    preview_label:'Anteprima Dati',preview_title:'Rendimenti Obbligazionari e Indicatori Macro \u2014 Vista in Diretta',preview_sub:'Istantanea illustrativa del dashboard TNT Macro & Bonds Hub. I valori si aggiornano continuamente nel terminal Pro.',
+    th_event:'Evento',th_country:'Paese',th_actual:'Reale',th_consensus:'Consenso',th_prior:'Precedente',th_result:'Risultato',
+    data_note:'Dati illustrativi. Le pubblicazioni live appaiono istantaneamente nel terminal Pro.',
+    how_label:'Come Funziona',how_title_main:'Dalla Pubblicazione dei Dati alla Decisione di Trading in Secondi',
+    step1_h:'Monitora il Dashboard Macro',step1_p:'Il Macro & Bonds Hub mostra rendimenti obbligazionari in diretta, il DXY, conto alla rovescia per le prossime pubblicazioni di dati e lo stato attuale di tutti i principali spread di rendimento \u2014 tutto visibile a colpo d\u2019occhio senza allontanarsi dalla vista principale del terminal.',
+    step2_h:'Ricevi i Dati Istantaneamente',step2_p:'Quando arrivano pubblicazioni di GDP, CPI o PMI, TNT consegna il numero reale con i valori di consenso e precedenti in tempo reale \u2014 alla stessa velocit\u00e0 dei terminal Bloomberg istituzionali. Il squawk box legge il titolo automaticamente.',
+    step3_h:'Leggi la Reazione del Mercato & Agisci',step3_p:'Pochi secondi dopo una pubblicazione, il feed macro mostra le reazioni degli analisti, i commenti delle banche centrali e le implicazioni per classe di attivi delle 50+ fonti integrate di TNT. Vedi i dati, il contesto e la reazione del mercato \u2014 simultaneamente, in un\u2019unica schermata.',
+    who_label:'Chi Lo Usa',who_title:'Costruito per Trader Macro e Gestori di Portafoglio',who_sub:'Il TNT Macro & Bonds Hub \u00e8 utilizzato da trader e professionisti che hanno bisogno del contesto macro come parte centrale del loro flusso di lavoro \u2014 non come un ripensamento.',
+    who_card1_h:'Trader Macro',who_card1_p:'Trader di valute e tassi che costruiscono posizioni attorno alla divergenza economica, ai differenziali di inflazione e agli spread di rendimento. Il hub fornisce il livello di dati live su cui vengono costruite le tesi macro.',
+    who_card2_h:'Gestori di Portafoglio',who_card2_p:'Gestori di portafoglio multi-asset che monitorano il rischio di duration, i differenziali di rendimento transfrontalieri e i cambiamenti di regime macro. TNT rende il quadro macro globale leggibile a colpo d\u2019occhio \u2014 senza richiedere un abbonamento separato al terminal Bloomberg.',
+    who_card3_h:'Trader Forex Attivi',who_card3_p:'I trader forex sanno che i pi\u00f9 grandi movimenti intraday provengono da sorprese nei dati macro. Il hub garantisce che tu veda la cifra reale e le sue implicazioni nell\u2019istante in cui arriva \u2014 non 30 secondi dopo quando il movimento \u00e8 gi\u00e0 fatto.',
+    cmp_label:'Confronto',cmp_title:'TNT Macro Hub vs. Alternative',cmp_th_feature:'Funzionalit\u00e0',
+    cmp_row1:'Rendimenti obbligazionari live (2A/10A/30A)',cmp_row2:'Analisi spread di rendimento (2s10s)',cmp_row3:'Feed notizie macro integrato',
+    cmp_row4:'Avvisi audio squawk',cmp_row5:'Tracking DXY live',cmp_row6:'Consegna dati senza ritardo',cmp_row7:'Prezzo (mensile)',
+    faq_label:'Domande Frequenti',faq_title_main:'Macro & Bonds Hub \u2014 Domande Frequenti',
+    faq1_q:'Cos\u2019\u00e8 il trading macro?',faq1_a:'Il trading macro \u00e8 una strategia basata su temi economici e geopolitici ampi piuttosto che sui fondamentali di singole aziende. I trader macro analizzano la crescita del GDP, l\u2019inflazione (CPI), i differenziali di tassi di interesse, i rendimenti obbligazionari e la politica delle banche centrali per prendere posizioni in valute, obbligazioni, azioni e materie prime.',
+    faq2_q:'Come influenzano i rendimenti obbligazionari le valute?',faq2_a:'I rendimenti obbligazionari rappresentano il ritorno che gli investitori richiedono per detenere il debito di un paese. Quando i rendimenti di un paese aumentano rispetto a un altro, la sua valuta tende a rafforzarsi poich\u00e9 gli investitori internazionali vendono obbligazioni a rendimento pi\u00f9 basso per acquistare quelle a rendimento pi\u00f9 alto. Il rendimento del Treasury USA a 10 anni \u00e8 il benchmark pi\u00f9 monitorato a livello globale.',
+    faq3_q:'Cos\u2019\u00e8 il PMI e perch\u00e9 \u00e8 importante?',faq3_a:'Il PMI (Indice dei Responsabili degli Acquisti) \u00e8 un indicatore economico basato su sondaggi che misura l\u2019attivit\u00e0 commerciale nei settori manifatturiero e dei servizi. Una lettura sopra 50 segnala espansione; sotto 50 segnala contrazione. I dati PMI vengono pubblicati mensilmente.',
+    faq4_q:'Come tengo traccia dei dati macroeconomici?',faq4_a:'Il Macro & Bonds Hub del Trading News Terminal aggrega tutte le principali pubblicazioni di dati macro \u2014 GDP, PMI, CPI, vendite al dettaglio, occupazione \u2014 in un unico dashboard live. I dati appaiono nell\u2019istante in cui vengono pubblicati, con la cifra reale, la stima di consenso e il valore precedente affiancati.',
+    faq5_q:'Cos\u2019\u00e8 l\u2019inversione della curva dei rendimenti?',faq5_a:'L\u2019inversione della curva dei rendimenti si verifica quando i rendimenti obbligazionari a breve termine superano quelli a lungo termine \u2014 il che significa che gli investitori richiedono pi\u00f9 rendimento per prestare denaro per 2 anni che per 10 anni. Questo \u00e8 anormale e storicamente precede le recessioni di 12\u201324 mesi. L\u2019inversione pi\u00f9 monitorata \u00e8 lo spread 2s10s del Tesoro USA.',
+    explore_label:'Esplora',explore_title:'Esplora Funzionalit\u00e0',
+    cta_h2:'Accedi all\u2019Intelligenza Macro Istituzionale \u2014 Gratis per 7 Giorni',cta_p:'Rendimenti obbligazionari live, spread di rendimento, dati GDP/PMI/CPI e notizie macro in tempo reale. Nessuna carta di credito richiesta.',cta_btn:'Inizia la Prova Gratuita \u2192',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Termini</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='macro-bonds-hub';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

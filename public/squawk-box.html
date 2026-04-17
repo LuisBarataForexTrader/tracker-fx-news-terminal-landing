@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Squawk Box for Traders — Hands-Free Market Alerts</title>
+  <meta name="description" content="Trading squawk box that reads every breaking headline aloud as it hits the feed. Never miss a HIGH-impact market move — hands-free and browser-based.">
+  <link rel="canonical" href="https://www.tradingnewsterminal.com/squawk-box">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+  <meta property="og:title" content="Live Squawk Box for Traders — Hands-Free Market Alerts">
+  <meta property="og:description" content="Trading squawk box that reads every breaking headline aloud as it hits the feed. Never miss a HIGH-impact market move — hands-free and browser-based.">
+  <meta property="og:url" content="https://www.tradingnewsterminal.com/squawk-box">
+  <meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live Squawk Box for Traders — Hands-Free Market Alerts">
+  <meta name="twitter:description" content="Professional online squawk box reads every breaking financial headline aloud as it arrives. Hands-free trading alerts via Web Speech API.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Trading News Terminal",
+        "url": "https://www.tradingnewsterminal.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "Professional online squawk box that reads every breaking financial headline aloud the moment it arrives, using Web Speech API — so traders can keep their eyes on the charts.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "40",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "billingDuration": "P1M"
+            },
+            "description": "Pro plan includes live squawk box, zero-delay news, 7 TV channels, and full terminal access."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a squawk box in trading?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A squawk box is an audio feed used on professional trading floors that reads breaking financial news headlines aloud in real time. Traders use it to stay informed about market-moving events without taking their eyes off price charts. Originally a physical intercom system at investment banks, online squawk boxes now replicate this functionality via browser-based text-to-speech technology."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does an online squawk box work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Trading News Terminal's online squawk box uses the Web Speech API built into modern browsers to synthesise and read aloud each incoming headline the moment it arrives in the news feed. You can filter by impact level — HIGH only, MEDIUM and above, or ALL headlines. A speaking animation shows when the squawk is active. No additional software or plugins are required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a free trading squawk box?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live squawk box is a Pro-only feature at Trading News Terminal, available for €40/month. The Basic free plan includes the economic calendar, filtered news feed, and TradingView charts. A Pro trial is available so you can test the squawk box before committing to a subscription."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between a squawk box and a news feed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A news feed is a visual, text-based stream of headlines you read on screen. A squawk box is an audio version — it reads headlines aloud so you don't need to look at the screen. The two work together: the news feed gives you the full text and context, while the squawk ensures you hear every breaking headline the moment it arrives, even when your attention is elsewhere."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do professional traders use squawk boxes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Squawk boxes have been standard equipment on institutional trading floors since the 1980s. Market makers, proprietary traders, and macro hedge fund managers all use audio feeds to monitor news flow while actively trading. Online squawk boxes like Trading News Terminal's Pro feature bring this same capability to retail and independent traders at a fraction of the institutional cost."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0c0f; --bg2: #0d1117; --card: #111827; --border: #1e2a3a;
+      --accent: #00d4ff; --accent2: #0099bb; --text: #e0e8f0; --muted: #8899aa;
+      --green: #00c853; --red: #ff3d57; --yellow: #ffc107;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,12,15,0.97);
+      border-bottom: 1px solid #1e2a3a;
+      padding: 0 24px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+    .nav-logo-text span { color:#00d4ff; }
+    .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+    .btn { display: inline-block; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.15s, transform 0.15s; border: none; text-decoration: none; }
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .hero { padding: 72px 0 56px; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-badge { display: inline-block; background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.03em; }
+    .hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 8px; }
+    .price-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .price-note strong { color: var(--text); }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 16px; }
+    .section-intro { color: var(--muted); font-size: 17px; margin-bottom: 40px; max-width: 700px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent2); }
+    .card-icon { font-size: 28px; margin-bottom: 14px; }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    /* SQUAWK DEMO */
+    .squawk-demo { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; max-width: 560px; margin: 0 auto; }
+    .squawk-visual { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 24px; }
+    .squawk-bar { width: 4px; border-radius: 2px; background: var(--accent); }
+    .squawk-bar:nth-child(1) { height: 12px; }
+    .squawk-bar:nth-child(2) { height: 28px; }
+    .squawk-bar:nth-child(3) { height: 40px; }
+    .squawk-bar:nth-child(4) { height: 52px; }
+    .squawk-bar:nth-child(5) { height: 40px; }
+    .squawk-bar:nth-child(6) { height: 28px; }
+    .squawk-bar:nth-child(7) { height: 16px; }
+    .squawk-status { font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
+    .squawk-headline { font-size: 16px; color: var(--text); line-height: 1.5; margin-bottom: 20px; font-style: italic; }
+    .squawk-filter { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .filter-btn { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 1px solid var(--border); background: var(--bg2); color: var(--muted); cursor: pointer; transition: all 0.15s; }
+    .filter-btn.active { background: rgba(0,212,255,0.1); border-color: var(--accent); color: var(--accent); }
+    .steps { display: grid; gap: 24px; }
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num { min-width: 40px; height: 40px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--accent); font-size: 16px; }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .step-body p { color: var(--muted); font-size: 15px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { background: var(--card); color: var(--text); font-weight: 700; padding: 14px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+    th.accent-col { color: var(--accent); }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: var(--red); }
+    td:first-child { color: var(--text); font-weight: 500; }
+    .pro-badge { display: inline-block; background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.25); padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; }
+    .faq { display: grid; gap: 16px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .faq-item p { font-size: 15px; color: var(--muted); line-height: 1.65; }
+    .explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .explore-link { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; color: var(--text); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .explore-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .explore-link .arrow { color: var(--accent); font-size: 16px; }
+    .footer-cta { padding: 72px 0; text-align: center; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, var(--bg) 0%, rgba(0,212,255,0.03) 100%); }
+    .footer-cta h2 { font-size: clamp(24px, 4vw, 38px); margin-bottom: 16px; }
+    .footer-cta p { color: var(--muted); font-size: 17px; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    @media (max-width: 600px) { .hero { padding: 48px 0 40px; } .hero-ctas { flex-direction: column; align-items: center; } .btn-lg { width: 100%; max-width: 320px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=header" class="nav-logo" data-seo-track="squawk-box">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=header" class="btn btn-primary" data-seo-track="squawk-box"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge" data-i18n="hero.badge">Live Squawk Box — Pro Feature</div>
+    <h1 data-i18n-html="hero.h1">Live <span>Squawk Box</span> — Hands-Free Financial News Alerts</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Every breaking financial headline read aloud the instant it hits the wire. Keep your eyes on the charts while the terminal reads the news to you — just like a professional trading floor.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=hero" class="btn btn-primary btn-lg" data-seo-track="squawk-box"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=hero" class="btn btn-outline btn-lg" data-seo-track="squawk-box"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+    <p class="price-note" data-i18n-html="hero.price_note">Squawk box is a <strong>Pro feature</strong> · Full terminal trial available · Basic plan free</p>
+  </div>
+</section>
+
+<section style="padding:40px 0 48px;border-bottom:1px solid #1e2a3a;">
+  <div class="container">
+    <div class="section-label" data-i18n="preview.label">Terminal Preview</div>
+    <h2 style="margin-bottom:24px;" data-i18n="preview.h2">Squawk Box — Live Audio Feed</h2>
+    <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:monospace;max-width:620px;">
+      <div style="background:#111827;padding:10px 16px;border-bottom:1px solid #1e2a3a;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#ff3d57;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#ffc107;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#00c853;display:inline-block;"></span>
+          <span style="color:#556677;margin-left:8px;font-size:11px;letter-spacing:0.08em;">SQUAWK BOX · PRO</span>
+        </div>
+        <span style="background:#ff3d57;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:0.08em;">🔊 READING LIVE</span>
+      </div>
+      <div style="padding:24px 20px;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:20px;height:48px;">
+          <style>.sq-bar{width:4px;border-radius:2px;background:#00d4ff;animation:sqwave 0.8s ease-in-out infinite alternate;}.sq-bar:nth-child(1){height:12px;animation-delay:0s}.sq-bar:nth-child(2){height:28px;animation-delay:0.1s}.sq-bar:nth-child(3){height:40px;animation-delay:0.2s}.sq-bar:nth-child(4){height:48px;animation-delay:0.3s}.sq-bar:nth-child(5){height:36px;animation-delay:0.4s}.sq-bar:nth-child(6){height:22px;animation-delay:0.5s}.sq-bar:nth-child(7){height:44px;animation-delay:0.6s}.sq-bar:nth-child(8){height:32px;animation-delay:0.7s}.sq-bar:nth-child(9){height:16px;animation-delay:0.8s}@keyframes sqwave{from{opacity:0.3;transform:scaleY(0.4)}to{opacity:1;transform:scaleY(1)}}</style>
+          <div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div><div class="sq-bar"></div>
+        </div>
+        <div style="color:#8899aa;font-size:11px;text-align:center;margin-bottom:10px;letter-spacing:0.05em;">NOW READING:</div>
+        <div style="color:#e0e8f0;font-size:14px;line-height:1.6;text-align:center;font-style:italic;border-left:3px solid #ff3d57;padding:10px 16px;background:rgba(255,61,87,0.05);border-radius:0 6px 6px 0;text-align:left;">
+          "Fed raises rates by 25 basis points — Powell signals pause in hiking cycle, dollar surges across the board"
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;">
+          <span style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #1e2a3a;color:#556677;background:#111827;">ALL</span>
+          <span style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #00d4ff;color:#00d4ff;background:rgba(0,212,255,0.08);">HIGH ONLY ✓</span>
+          <span style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #1e2a3a;color:#556677;background:#111827;">MED + HIGH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="demo.label">Live Demo</div>
+    <h2 data-i18n="demo.h2">The Squawk Box in Action</h2>
+    <p class="section-intro" data-i18n="demo.intro">When active, the squawk reads every incoming headline aloud using high-quality browser speech synthesis. Filter to only what matters to your trading session.</p>
+    <div class="squawk-demo">
+      <div class="squawk-status"><span class="live-dot"></span> <span data-i18n="demo.status">Squawk Active — Speaking</span></div>
+      <div class="squawk-visual">
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+        <div class="squawk-bar"></div>
+      </div>
+      <div class="squawk-headline">"US CPI year-on-year 3.2 percent, beats forecast of 3.0 percent — dollar surges against euro and yen"</div>
+      <div class="squawk-filter">
+        <span class="filter-btn">ALL</span>
+        <span class="filter-btn active">HIGH ONLY</span>
+        <span class="filter-btn">MED + HIGH</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="whatis.label">What It Is</div>
+    <h2 data-i18n="whatis.h2">Professional Trading Floor Audio — In Your Browser</h2>
+    <p class="section-intro" data-i18n="whatis.intro">The squawk box is one of the most valuable and least-known tools in professional trading. Now it's available to any active trader through Trading News Terminal Pro.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🔊</div>
+        <h3 data-i18n="card1.title">Reads Headlines Aloud</h3>
+        <p data-i18n="card1.desc">The moment a breaking headline arrives in the news feed, the squawk reads it aloud using natural browser speech synthesis. No delays, no queuing — one continuous stream of market intelligence.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3 data-i18n="card2.title">Eyes Stay on Charts</h3>
+        <p data-i18n="card2.desc">The entire point of a squawk box is that you don't need to look at it. Watch price action on your TradingView charts while the terminal monitors the news flow and tells you what's happening.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎚️</div>
+        <h3 data-i18n="card3.title">Impact Filter Control</h3>
+        <p data-i18n="card3.desc">Filter the squawk to HIGH only (rate decisions, NFP, CPI), MEDIUM and above (broader macro coverage), or ALL headlines. Reduce noise for busy news days, open it up for slow sessions.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3 data-i18n="card4.title">No Install Required</h3>
+        <p data-i18n="card4.desc">Built on the Web Speech API built into Chrome, Edge, Safari, and Firefox. No plugins, no downloads, no separate subscription. It works in your existing browser the moment you activate it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 data-i18n="how.h2">From Wire to Voice in Under 5 Seconds</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="step1.title">Activate the squawk from your terminal</h3>
+          <p data-i18n="step1.desc">Pro subscribers see the squawk box toggle in the terminal header. Click to enable — the browser will request microphone/speaker permission the first time, which is standard for Web Speech API. Once enabled, it stays active for your session. A visual speaking animation confirms the squawk is listening and reading.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="step2.title">Set your impact filter</h3>
+          <p data-i18n="step2.desc">Choose whether you want to hear ALL headlines, MEDIUM and HIGH impact only, or exclusively HIGH impact events. On a busy macro news day, HIGH-only keeps the audio focused on the events that actually move markets — rate decisions, inflation data, employment figures — and filters out lower-tier stories. You can change the filter at any time without interrupting the stream.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="step3.title">Trade with full audio market awareness</h3>
+          <p data-i18n="step3.desc">Every qualifying headline is read aloud the instant it arrives in the feed. The squawk queue processes headlines in order, so no story is skipped during busy periods. During major events — NFP, Fed decisions, flash PMIs — the squawk maintains its cadence through the highest-volume news periods. Combined with the economic calendar's visual beat/miss signals, you get total market coverage across audio and visual channels simultaneously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="why.label">Why Traders Use It</div>
+    <h2 data-i18n="why.h2">The Case for Audio News on a Trading Desk</h2>
+    <p class="section-intro" data-i18n="why.intro">Professional traders have used audio news feeds since the 1980s. The reasoning is simple and has not changed: you can only look at one thing at a time.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.col1">Scenario</th>
+            <th data-i18n="table.col2">Without Squawk</th>
+            <th class="accent-col" data-i18n="table.col3">With Squawk Box</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="table.row1.scenario">NFP releases while you're entering an order</td>
+            <td data-i18n="table.row1.without">You miss the initial spike, see the move after it's over</td>
+            <td class="check" data-i18n="table.row1.with">✓ Hear the headline instantly, react in real time</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row2.scenario">Fed Chair speaks unexpectedly hawkish</td>
+            <td data-i18n="table.row2.without">You find out 2–5 minutes late from price action</td>
+            <td class="check" data-i18n="table.row2.with">✓ Squawk reads the key line the moment it hits</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row3.scenario">Multiple positions open, monitoring charts</td>
+            <td data-i18n="table.row3.without">Constant tab-switching between charts and news</td>
+            <td class="check" data-i18n="table.row3.with">✓ Eyes stay on price action, ears on news</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row4.scenario">Slow news day, waiting for a setup</td>
+            <td data-i18n="table.row4.without">Repeatedly scanning the news feed manually</td>
+            <td class="check" data-i18n="table.row4.with">✓ Squawk notifies you when anything relevant breaks</td>
+          </tr>
+          <tr>
+            <td data-i18n="table.row5.scenario">High-volatility session (Asian open, London open)</td>
+            <td data-i18n="table.row5.without">News flow too fast to read everything</td>
+            <td class="check" data-i18n="table.row5.with">✓ Audio ensures nothing critical is missed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="faq_title">Frequently Asked Questions</div>
+    <h2 data-i18n="faq.h2">Live Squawk Box — Common Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3 data-i18n="faq1.q">What is a squawk box in trading?</h3>
+        <p data-i18n="faq1.a">A squawk box is an audio feed that reads breaking financial news headlines aloud in real time — originating from the intercom systems used on institutional trading floors at banks and hedge funds since the 1980s. Floor traders and market makers relied on squawk boxes to stay informed about market-moving events without looking away from their screens. Online squawk boxes replicate this functionality in a browser, making it accessible to any active trader. Trading News Terminal's squawk box is part of the Pro plan and uses Web Speech API for natural-sounding synthesis.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq2.q">How does an online squawk box work?</h3>
+        <p data-i18n="faq2.a">Trading News Terminal's squawk box integrates directly with the live news feed. When a new headline arrives, the system checks its impact classification and — if it matches your filter setting — queues it for the Web Speech API to read aloud through your computer's speakers. The speech is generated by your browser's built-in synthesis engine (no external server required), which means it works on any device with a modern browser: Windows, Mac, Linux, or tablet. The speaking animation in the terminal interface shows real-time activity.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq3.q">Is there a free trading squawk box?</h3>
+        <p data-i18n="faq3.a">The squawk box is a Pro-only feature at Trading News Terminal, included in the €40/month Pro plan. The rationale is straightforward: the squawk box is powered by the zero-delay Pro news feed — a 2-minute delayed squawk would be useless for active trading. You can access the squawk box during a Pro trial period before committing to a subscription. The Basic free plan includes the economic calendar, filtered news feed (2-minute delay), and TradingView chart integration.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq4.q">What is the difference between a squawk box and a news feed?</h3>
+        <p data-i18n="faq4.a">A news feed is a visual, scrolling list of text headlines — you read it with your eyes. A squawk box is an audio channel — it reads those same headlines aloud so you don't need to look at the screen. The two tools are complementary: use the visual news feed for context, filtering, and reading full stories; use the squawk box for instant hands-free awareness of breaking headlines while your eyes remain on price charts. Trading News Terminal delivers both in the same Pro terminal.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq5.q">Do professional traders use squawk boxes?</h3>
+        <p data-i18n="faq5.a">Yes — squawk boxes have been standard equipment on institutional trading floors for decades. Market makers at investment banks, proprietary traders, and macro hedge fund managers all rely on audio news feeds as a core part of their workflow. Professional squawk services like Squawk Box from Bloomberg or Briefing.com cost hundreds of dollars per month. Trading News Terminal's squawk box is included in the Pro plan at €40/month, making this professional-grade tool accessible to independent and retail traders for the first time at a reasonable price.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="explore_title">Explore Other Features</div>
+    <h2 data-i18n="explore.h2">Everything in the Trading News Terminal</h2>
+    <div class="explore-grid">
+      <a href="/bloomberg-alternative" class="explore-link"><span class="arrow">→</span> Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="explore-link"><span class="arrow">→</span> Forex News Feed</a>
+      <a href="/economic-calendar" class="explore-link"><span class="arrow">→</span> Economic Calendar</a>
+      <a href="/squawk-box" class="explore-link"><span class="arrow">→</span> Live Squawk Box</a>
+      <a href="/live-financial-tv" class="explore-link"><span class="arrow">→</span> Live Financial TV</a>
+      <a href="/market-screener" class="explore-link"><span class="arrow">→</span> Market Screener</a>
+      <a href="/central-banks-tracker" class="explore-link"><span class="arrow">→</span> Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="explore-link"><span class="arrow">→</span> Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="explore-link"><span class="arrow">→</span> Earnings Calendar</a>
+      <a href="/trading-charts" class="explore-link"><span class="arrow">→</span> Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="cta.h2">Trade With Both Eyes on the Charts</h2>
+    <p data-i18n="cta.desc">Let the terminal read the news while you focus on price action. The live squawk box is included in Trading News Terminal Pro at €40/month — try it free.</p>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=bottom" class="btn btn-primary btn-lg" data-seo-track="squawk-box"><span data-i18n="cta.btn">Start Pro Trial — Try Squawk Free</span></a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p data-i18n="footer.copy">© 2026 Trading News Terminal · Live Squawk Box for Traders</p>
+    <div class="footer-links">
+      <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=squawk-box&utm_content=footer" data-seo-track="squawk-box">tradingnewsterminal.com</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/login">Sign In</a>
+      <a href="/signup">Sign Up</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    'try_btn':'Try Free \u2192','trial_btn':'Start Free Trial','free_btn':'Open Free Terminal',
+    'tagline':'Real-time Market Intelligence','active':'EN',
+    'how_title':'How It Works','faq_title':'Frequently Asked Questions',
+    'explore_title':'Explore Other Features','cta_free':'Start Free \u2014 No Card Required',
+    'hero.badge':'Live Squawk Box \u2014 Pro Feature',
+    'hero.h1':'Live <span>Squawk Box</span> \u2014 Hands-Free Financial News Alerts',
+    'hero.sub':'Every breaking financial headline read aloud the instant it hits the wire. Keep your eyes on the charts while the terminal reads the news to you \u2014 just like a professional trading floor.',
+    'hero.price_note':'Squawk box is a <strong>Pro feature</strong> \u00b7 Full terminal trial available \u00b7 Basic plan free',
+    'preview.label':'Terminal Preview','preview.h2':'Squawk Box \u2014 Live Audio Feed',
+    'demo.label':'Live Demo','demo.h2':'The Squawk Box in Action',
+    'demo.intro':'When active, the squawk reads every incoming headline aloud using high-quality browser speech synthesis. Filter to only what matters to your trading session.',
+    'demo.status':'Squawk Active \u2014 Speaking',
+    'whatis.label':'What It Is','whatis.h2':'Professional Trading Floor Audio \u2014 In Your Browser',
+    'whatis.intro':'The squawk box is one of the most valuable and least-known tools in professional trading. Now it\'s available to any active trader through Trading News Terminal Pro.',
+    'card1.title':'Reads Headlines Aloud','card1.desc':'The moment a breaking headline arrives in the news feed, the squawk reads it aloud using natural browser speech synthesis. No delays, no queuing \u2014 one continuous stream of market intelligence.',
+    'card2.title':'Eyes Stay on Charts','card2.desc':'The entire point of a squawk box is that you don\'t need to look at it. Watch price action on your TradingView charts while the terminal monitors the news flow and tells you what\'s happening.',
+    'card3.title':'Impact Filter Control','card3.desc':'Filter the squawk to HIGH only (rate decisions, NFP, CPI), MEDIUM and above (broader macro coverage), or ALL headlines. Reduce noise for busy news days, open it up for slow sessions.',
+    'card4.title':'No Install Required','card4.desc':'Built on the Web Speech API built into Chrome, Edge, Safari, and Firefox. No plugins, no downloads, no separate subscription. It works in your existing browser the moment you activate it.',
+    'how.h2':'From Wire to Voice in Under 5 Seconds',
+    'step1.title':'Activate the squawk from your terminal','step1.desc':'Pro subscribers see the squawk box toggle in the terminal header. Click to enable \u2014 the browser will request microphone/speaker permission the first time, which is standard for Web Speech API. Once enabled, it stays active for your session. A visual speaking animation confirms the squawk is listening and reading.',
+    'step2.title':'Set your impact filter','step2.desc':'Choose whether you want to hear ALL headlines, MEDIUM and HIGH impact only, or exclusively HIGH impact events. On a busy macro news day, HIGH-only keeps the audio focused on the events that actually move markets \u2014 rate decisions, inflation data, employment figures \u2014 and filters out lower-tier stories. You can change the filter at any time without interrupting the stream.',
+    'step3.title':'Trade with full audio market awareness','step3.desc':'Every qualifying headline is read aloud the instant it arrives in the feed. The squawk queue processes headlines in order, so no story is skipped during busy periods. During major events \u2014 NFP, Fed decisions, flash PMIs \u2014 the squawk maintains its cadence through the highest-volume news periods. Combined with the economic calendar\'s visual beat/miss signals, you get total market coverage across audio and visual channels simultaneously.',
+    'why.label':'Why Traders Use It','why.h2':'The Case for Audio News on a Trading Desk',
+    'why.intro':'Professional traders have used audio news feeds since the 1980s. The reasoning is simple and has not changed: you can only look at one thing at a time.',
+    'table.col1':'Scenario','table.col2':'Without Squawk','table.col3':'With Squawk Box',
+    'table.row1.scenario':'NFP releases while you\'re entering an order','table.row1.without':'You miss the initial spike, see the move after it\'s over','table.row1.with':'\u2713 Hear the headline instantly, react in real time',
+    'table.row2.scenario':'Fed Chair speaks unexpectedly hawkish','table.row2.without':'You find out 2\u20135 minutes late from price action','table.row2.with':'\u2713 Squawk reads the key line the moment it hits',
+    'table.row3.scenario':'Multiple positions open, monitoring charts','table.row3.without':'Constant tab-switching between charts and news','table.row3.with':'\u2713 Eyes stay on price action, ears on news',
+    'table.row4.scenario':'Slow news day, waiting for a setup','table.row4.without':'Repeatedly scanning the news feed manually','table.row4.with':'\u2713 Squawk notifies you when anything relevant breaks',
+    'table.row5.scenario':'High-volatility session (Asian open, London open)','table.row5.without':'News flow too fast to read everything','table.row5.with':'\u2713 Audio ensures nothing critical is missed',
+    'faq.h2':'Live Squawk Box \u2014 Common Questions',
+    'faq1.q':'What is a squawk box in trading?','faq1.a':'A squawk box is an audio feed that reads breaking financial news headlines aloud in real time \u2014 originating from the intercom systems used on institutional trading floors at banks and hedge funds since the 1980s. Floor traders and market makers relied on squawk boxes to stay informed about market-moving events without looking away from their screens. Online squawk boxes replicate this functionality in a browser, making it accessible to any active trader. Trading News Terminal\'s squawk box is part of the Pro plan and uses Web Speech API for natural-sounding synthesis.',
+    'faq2.q':'How does an online squawk box work?','faq2.a':'Trading News Terminal\'s squawk box integrates directly with the live news feed. When a new headline arrives, the system checks its impact classification and \u2014 if it matches your filter setting \u2014 queues it for the Web Speech API to read aloud through your computer\'s speakers. The speech is generated by your browser\'s built-in synthesis engine (no external server required), which means it works on any device with a modern browser: Windows, Mac, Linux, or tablet. The speaking animation in the terminal interface shows real-time activity.',
+    'faq3.q':'Is there a free trading squawk box?','faq3.a':'The squawk box is a Pro-only feature at Trading News Terminal, included in the \u20ac40/month Pro plan. The rationale is straightforward: the squawk box is powered by the zero-delay Pro news feed \u2014 a 2-minute delayed squawk would be useless for active trading. You can access the squawk box during a Pro trial period before committing to a subscription. The Basic free plan includes the economic calendar, filtered news feed (2-minute delay), and TradingView chart integration.',
+    'faq4.q':'What is the difference between a squawk box and a news feed?','faq4.a':'A news feed is a visual, scrolling list of text headlines \u2014 you read it with your eyes. A squawk box is an audio channel \u2014 it reads those same headlines aloud so you don\'t need to look at the screen. The two tools are complementary: use the visual news feed for context, filtering, and reading full stories; use the squawk box for instant hands-free awareness of breaking headlines while your eyes remain on price charts. Trading News Terminal delivers both in the same Pro terminal.',
+    'faq5.q':'Do professional traders use squawk boxes?','faq5.a':'Yes \u2014 squawk boxes have been standard equipment on institutional trading floors for decades. Market makers at investment banks, proprietary traders, and macro hedge fund managers all rely on audio news feeds as a core part of their workflow. Professional squawk services like Squawk Box from Bloomberg or Briefing.com cost hundreds of dollars per month. Trading News Terminal\'s squawk box is included in the Pro plan at \u20ac40/month, making this professional-grade tool accessible to independent and retail traders for the first time at a reasonable price.',
+    'explore.h2':'Everything in the Trading News Terminal',
+    'cta.h2':'Trade With Both Eyes on the Charts',
+    'cta.desc':'Let the terminal read the news while you focus on price action. The live squawk box is included in Trading News Terminal Pro at \u20ac40/month \u2014 try it free.',
+    'cta.btn':'Start Pro Trial \u2014 Try Squawk Free',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Live Squawk Box for Traders' },
+  pt:{
+    'try_btn':'Experimentar Gr\u00e1tis \u2192','trial_btn':'Iniciar Trial Gr\u00e1tis','free_btn':'Abrir Terminal Gr\u00e1tis',
+    'tagline':'Intelig\u00eancia de Mercado em Tempo Real','active':'PT',
+    'how_title':'Como Funciona','faq_title':'Perguntas Frequentes',
+    'explore_title':'Explorar Funcionalidades','cta_free':'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    'hero.badge':'Squawk Box ao Vivo \u2014 Funcionalidade Pro',
+    'hero.h1':'<span>Squawk Box</span> ao Vivo \u2014 Alertas de Not\u00edcias Mãos-Livres',
+    'hero.sub':'Cada t\u00edtulo financeiro de \u00faltima hora lido em voz alta no instante em que \u00e9 publicado. Mantenha os olhos nos gr\u00e1ficos enquanto o terminal l\u00ea as not\u00edcias para si \u2014 tal como num piso de trading profissional.',
+    'hero.price_note':'O squawk box \u00e9 uma <strong>funcionalidade Pro</strong> \u00b7 Trial completo dispon\u00edvel \u00b7 Plano Basic gratuito',
+    'preview.label':'Pr\u00e9-visualiza\u00e7\u00e3o do Terminal','preview.h2':'Squawk Box \u2014 Feed de \u00c1udio ao Vivo',
+    'demo.label':'Demo ao Vivo','demo.h2':'O Squawk Box em Ac\u00e7\u00e3o',
+    'demo.intro':'Quando activo, o squawk l\u00ea cada t\u00edtulo recebido em voz alta usando s\u00edntese de voz de alta qualidade do browser. Filtre apenas o que importa para a sua sess\u00e3o de trading.',
+    'demo.status':'Squawk Activo \u2014 A Falar',
+    'whatis.label':'O que \u00e9','whatis.h2':'\u00c1udio de Piso de Trading Profissional \u2014 No Seu Browser',
+    'whatis.intro':'O squawk box \u00e9 uma das ferramentas mais valiosas e menos conhecidas do trading profissional. Agora est\u00e1 dispon\u00edvel para qualquer trader activo atrav\u00e9s do Trading News Terminal Pro.',
+    'card1.title':'L\u00ea T\u00edtulos em Voz Alta','card1.desc':'No momento em que um t\u00edtulo de \u00faltima hora chega ao feed de not\u00edcias, o squawk l\u00ea-o em voz alta usando s\u00edntese de voz natural do browser. Sem atrasos, sem filas \u2014 um fluxo cont\u00ednuo de intelig\u00eancia de mercado.',
+    'card2.title':'Olhos nos Gr\u00e1ficos','card2.desc':'O objectivo do squawk box \u00e9 exactamente n\u00e3o precisar de olhar para ele. Veja a ac\u00e7\u00e3o do pre\u00e7o nos seus gr\u00e1ficos TradingView enquanto o terminal monitoriza o fluxo de not\u00edcias e lhe diz o que est\u00e1 a acontecer.',
+    'card3.title':'Controlo de Filtro de Impacto','card3.desc':'Filtre o squawk para ALTO apenas (decis\u00f5es de taxa, NFP, CPI), M\u00c9DIO e acima (cobertura macro mais ampla), ou TODOS os t\u00edtulos. Reduza o ru\u00eddo em dias de muitas not\u00edcias, abra em sess\u00f5es lentas.',
+    'card4.title':'Sem Instala\u00e7\u00e3o','card4.desc':'Baseado na Web Speech API integrada no Chrome, Edge, Safari e Firefox. Sem plugins, sem downloads, sem subscri\u00e7\u00e3o separada. Funciona no seu browser actual no momento em que o activa.',
+    'how.h2':'Do Fio ao Voz em Menos de 5 Segundos',
+    'step1.title':'Active o squawk a partir do seu terminal','step1.desc':'Os subscritores Pro v\u00eaem o bot\u00e3o do squawk box no cabe\u00e7alho do terminal. Clique para activar \u2014 o browser solicitar\u00e1 permiss\u00e3o de microfone/altifalante na primeira vez, padr\u00e3o para a Web Speech API. Uma vez activado, permanece activo durante a sua sess\u00e3o. Uma anima\u00e7\u00e3o visual confirma que o squawk est\u00e1 a ouvir e a ler.',
+    'step2.title':'Defina o seu filtro de impacto','step2.desc':'Escolha se quer ouvir TODOS os t\u00edtulos, apenas impacto M\u00c9DIO e ALTO, ou exclusivamente eventos de ALTO impacto. Num dia de muitas not\u00edcias macro, ALTO apenas mantém o \u00e1udio focado nos eventos que realmente movem os mercados \u2014 decis\u00f5es de taxa, dados de infla\u00e7\u00e3o, emprego \u2014 e filtra hist\u00f3rias de menor prioridade. Pode mudar o filtro a qualquer momento sem interromper o stream.',
+    'step3.title':'Faça trading com total consci\u00eancia de mercado por \u00e1udio','step3.desc':'Cada t\u00edtulo qualificado \u00e9 lido em voz alta no instante em que chega ao feed. A fila do squawk processa os t\u00edtulos por ordem, pelo que nenhuma hist\u00f3ria \u00e9 saltada em per\u00edodos movimentados. Durante eventos principais \u2014 NFP, decis\u00f5es da Fed, PMIs flash \u2014 o squawk mant\u00e9m a sua cad\u00eancia. Combinado com os sinais visuais beat/miss do calend\u00e1rio econ\u00f3mico, obt\u00e9m cobertura total por \u00e1udio e visual em simult\u00e2neo.',
+    'why.label':'Porque \u00e9 que os Traders o Usam','why.h2':'O Argumento para \u00c1udio de Not\u00edcias numa Mesa de Trading',
+    'why.intro':'Os traders profissionais utilizam feeds de \u00e1udio de not\u00edcias desde os anos 80. O racioc\u00ednio \u00e9 simples e n\u00e3o mudou: s\u00f3 se pode olhar para uma coisa de cada vez.',
+    'table.col1':'Cen\u00e1rio','table.col2':'Sem Squawk','table.col3':'Com Squawk Box',
+    'table.row1.scenario':'NFP publicado enquanto est\u00e1 a introduzir uma ordem','table.row1.without':'Perde o pico inicial, v\u00ea o movimento depois de terminado','table.row1.with':'\u2713 Ouve o t\u00edtulo instantaneamente, reage em tempo real',
+    'table.row2.scenario':'Presidente da Fed fala inesperadamente de forma hawkish','table.row2.without':'Fica a saber 2 a 5 minutos depois pela ac\u00e7\u00e3o do pre\u00e7o','table.row2.with':'\u2713 O squawk l\u00ea a frase-chave no momento em que \u00e9 publicada',
+    'table.row3.scenario':'V\u00e1rias posi\u00e7\u00f5es abertas, a monitorizar gr\u00e1ficos','table.row3.without':'Mudan\u00e7a constante de separadores entre gr\u00e1ficos e not\u00edcias','table.row3.with':'\u2713 Olhos na ac\u00e7\u00e3o do pre\u00e7o, ouvidos nas not\u00edcias',
+    'table.row4.scenario':'Dia de poucas not\u00edcias, \u00e0 espera de um setup','table.row4.without':'Verificar repetidamente o feed de not\u00edcias manualmente','table.row4.with':'\u2713 O squawk notifica-o quando algo relevante aparece',
+    'table.row5.scenario':'Sess\u00e3o de alta volatilidade (abertura asi\u00e1tica, abertura londrina)','table.row5.without':'Fluxo de not\u00edcias r\u00e1pido demais para ler tudo','table.row5.with':'\u2713 O \u00e1udio garante que nada cr\u00edtico seja perdido',
+    'faq.h2':'Squawk Box ao Vivo \u2014 Perguntas Comuns',
+    'faq1.q':'O que \u00e9 um squawk box em trading?','faq1.a':'Um squawk box \u00e9 um feed de \u00e1udio que l\u00ea t\u00edtulos de not\u00edcias financeiras de \u00faltima hora em voz alta em tempo real \u2014 com origem nos sistemas de intercom usados nos pisos de trading institucionais de bancos e hedge funds desde os anos 80. Os traders de piso e market makers dependiam dos squawk boxes para se manterem informados sobre eventos que movem mercados sem desviar os olhos dos ecr\u00e3s. Os squawk boxes online replicam esta funcionalidade no browser, tornando-a acess\u00edvel a qualquer trader activo. O squawk box do Trading News Terminal faz parte do plano Pro e usa a Web Speech API para s\u00edntese de voz natural.',
+    'faq2.q':'Como funciona um squawk box online?','faq2.a':'O squawk box do Trading News Terminal integra-se directamente com o feed de not\u00edcias ao vivo. Quando um novo t\u00edtulo chega, o sistema verifica a sua classifica\u00e7\u00e3o de impacto e \u2014 se corresponder ao seu filtro \u2014 coloca-o em fila para a Web Speech API ler em voz alta atrav\u00e9s dos altifalantes do computador. O discurso \u00e9 gerado pelo motor de s\u00edntese incorporado no browser (sem servidor externo), o que significa que funciona em qualquer dispositivo com um browser moderno: Windows, Mac, Linux ou tablet.',
+    'faq3.q':'Existe um squawk box de trading gratuito?','faq3.a':'O squawk box \u00e9 uma funcionalidade exclusiva Pro no Trading News Terminal, inclu\u00eddo no plano Pro a \u20ac40/m\u00eas. O racioc\u00ednio \u00e9 directo: o squawk box \u00e9 alimentado pelo feed de not\u00edcias Pro sem atraso \u2014 um squawk com 2 minutos de atraso seria in\u00fatil para trading activo. Pode aceder ao squawk box durante um per\u00edodo de trial Pro antes de se comprometer com uma subscri\u00e7\u00e3o. O plano Basic gratuito inclui o calend\u00e1rio econ\u00f3mico, feed de not\u00edcias filtrado (2 minutos de atraso) e integra\u00e7\u00e3o com gr\u00e1ficos TradingView.',
+    'faq4.q':'Qual \u00e9 a diferen\u00e7a entre um squawk box e um feed de not\u00edcias?','faq4.a':'Um feed de not\u00edcias \u00e9 uma lista visual e em scroll de t\u00edtulos de texto \u2014 l\u00ea-se com os olhos. Um squawk box \u00e9 um canal de \u00e1udio \u2014 l\u00ea esses mesmos t\u00edtulos em voz alta para n\u00e3o precisar de olhar para o ecr\u00e3. As duas ferramentas s\u00e3o complementares: use o feed visual para contexto e hist\u00f3rias completas; use o squawk para consci\u00eancia instant\u00e2nea mãos-livres de t\u00edtulos de \u00faltima hora enquanto os olhos permanecem nos gr\u00e1ficos de pre\u00e7o.',
+    'faq5.q':'Os traders profissionais utilizam squawk boxes?','faq5.a':'Sim \u2014 os squawk boxes t\u00eam sido equipamento padr\u00e3o nos pisos de trading institucionais durante d\u00e9cadas. Market makers em bancos de investimento, traders propriet\u00e1rios e gestores de macro hedge funds dependem todos de feeds de \u00e1udio de not\u00edcias como parte central do seu fluxo de trabalho. Servi\u00e7os profissionais de squawk como o Squawk Box da Bloomberg ou Briefing.com custam centenas de d\u00f3lares por m\u00eas. O squawk box do Trading News Terminal est\u00e1 inclu\u00eddo no plano Pro a \u20ac40/m\u00eas, tornando esta ferramenta de grau profissional acess\u00edvel a traders independentes e de retalho.',
+    'explore.h2':'Tudo no Trading News Terminal',
+    'cta.h2':'Faça Trading com os Dois Olhos nos Gr\u00e1ficos',
+    'cta.desc':'Deixe o terminal ler as not\u00edcias enquanto se foca na ac\u00e7\u00e3o do pre\u00e7o. O squawk box ao vivo est\u00e1 inclu\u00eddo no Trading News Terminal Pro a \u20ac40/m\u00eas \u2014 experimente gratuitamente.',
+    'cta.btn':'Iniciar Trial Pro \u2014 Experimentar o Squawk',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Squawk Box ao Vivo para Traders' },
+  es:{
+    'try_btn':'Probar Gratis \u2192','trial_btn':'Iniciar Prueba Gratis','free_btn':'Abrir Terminal Gratis',
+    'tagline':'Inteligencia de Mercado en Tiempo Real','active':'ES',
+    'how_title':'C\u00f3mo Funciona','faq_title':'Preguntas Frecuentes',
+    'explore_title':'Explorar Caracter\u00edsticas','cta_free':'Empezar Gratis \u2014 Sin Tarjeta',
+    'hero.badge':'Squawk Box en Vivo \u2014 Funcionalidad Pro',
+    'hero.h1':'<span>Squawk Box</span> en Vivo \u2014 Alertas de Noticias Manos Libres',
+    'hero.sub':'Cada titular financiero de \u00faltima hora le\u00eddo en voz alta en el instante en que llega al c\u00e2ble. Mantén los ojos en los gr\u00e1ficos mientras el terminal lee las noticias para ti \u2014 como en un piso de trading profesional.',
+    'hero.price_note':'El squawk box es una <strong>funcionalidad Pro</strong> \u00b7 Trial completo disponible \u00b7 Plan B\u00e1sico gratuito',
+    'preview.label':'Vista Previa del Terminal','preview.h2':'Squawk Box \u2014 Feed de Audio en Vivo',
+    'demo.label':'Demo en Vivo','demo.h2':'El Squawk Box en Acci\u00f3n',
+    'demo.intro':'Cuando est\u00e1 activo, el squawk lee cada titular entrante en voz alta usando s\u00edntesis de voz de alta calidad del navegador. Filtra solo lo que importa para tu sesi\u00f3n de trading.',
+    'demo.status':'Squawk Activo \u2014 Hablando',
+    'whatis.label':'Qu\u00e9 Es','whatis.h2':'Audio de Piso de Trading Profesional \u2014 En Tu Navegador',
+    'whatis.intro':'El squawk box es una de las herramientas m\u00e1s valiosas y menos conocidas del trading profesional. Ahora est\u00e1 disponible para cualquier trader activo a trav\u00e9s de Trading News Terminal Pro.',
+    'card1.title':'Lee Titulares en Voz Alta','card1.desc':'En el momento en que un titular de \u00faltima hora llega al feed de noticias, el squawk lo lee en voz alta usando s\u00edntesis de voz natural del navegador. Sin retrasos, sin colas \u2014 un flujo continuo de inteligencia de mercado.',
+    'card2.title':'Ojos en los Gr\u00e1ficos','card2.desc':'El objetivo del squawk box es precisamente que no necesitas mirarlo. Observa la acci\u00f3n del precio en tus gr\u00e1ficos TradingView mientras el terminal monitoriza el flujo de noticias y te dice lo que est\u00e1 pasando.',
+    'card3.title':'Control de Filtro de Impacto','card3.desc':'Filtra el squawk a ALTO solo (decisiones de tasa, NFP, CPI), MEDIO y superior (cobertura macro m\u00e1s amplia), o TODOS los titulares. Reduce el ruido en d\u00edas de muchas noticias, \u00e1brelo en sesiones lentas.',
+    'card4.title':'Sin Instalaci\u00f3n','card4.desc':'Basado en la Web Speech API integrada en Chrome, Edge, Safari y Firefox. Sin plugins, sin descargas, sin suscripci\u00f3n separada. Funciona en tu navegador actual en el momento en que lo activas.',
+    'how.h2':'Del Hilo a la Voz en Menos de 5 Segundos',
+    'step1.title':'Activa el squawk desde tu terminal','step1.desc':'Los suscriptores Pro ven el bot\u00f3n del squawk box en el encabezado del terminal. Haz clic para activar \u2014 el navegador solicitar\u00e1 permiso de micr\u00f3fono/altavoz la primera vez, est\u00e1ndar para la Web Speech API. Una vez activado, permanece activo durante tu sesi\u00f3n. Una animaci\u00f3n visual confirma que el squawk est\u00e1 escuchando y leyendo.',
+    'step2.title':'Configura tu filtro de impacto','step2.desc':'Elige si quieres escuchar TODOS los titulares, solo impacto MEDIO y ALTO, o exclusivamente eventos de ALTO impacto. En un d\u00eda de mucha noticia macro, ALTO solo mantiene el audio enfocado en los eventos que realmente mueven los mercados \u2014 decisiones de tasa, datos de inflaci\u00f3n, cifras de empleo \u2014 y filtra historias de menor nivel. Puedes cambiar el filtro en cualquier momento sin interrumpir el stream.',
+    'step3.title':'Opera con plena conciencia de mercado por audio','step3.desc':'Cada titular calificado se lee en voz alta en el instante en que llega al feed. La cola del squawk procesa los titulares en orden, por lo que ning\u00fan historial se salta durante per\u00edodos ocupados. Durante eventos principales \u2014 NFP, decisiones de la Fed, PMIs flash \u2014 el squawk mantiene su cadencia. Combinado con las se\u00f1ales visuales beat/miss del calendario econ\u00f3mico, obtienes cobertura total en canales de audio y visual simult\u00e1neamente.',
+    'why.label':'Por Qu\u00e9 los Traders lo Usan','why.h2':'El Argumento para el Audio de Noticias en un Escritorio de Trading',
+    'why.intro':'Los traders profesionales han usado feeds de audio de noticias desde los a\u00f1os 80. El razonamiento es simple y no ha cambiado: solo puedes mirar una cosa a la vez.',
+    'table.col1':'Escenario','table.col2':'Sin Squawk','table.col3':'Con Squawk Box',
+    'table.row1.scenario':'NFP publicado mientras est\u00e1s introduciendo una orden','table.row1.without':'Te pierdes el pico inicial, ves el movimiento cuando ya ha terminado','table.row1.with':'\u2713 Escuchas el titular instant\u00e1neamente, reaccionas en tiempo real',
+    'table.row2.scenario':'El Presidente de la Fed habla inesperadamente de forma hawkish','table.row2.without':'Te enteras 2\u20135 minutos tarde por la acci\u00f3n del precio','table.row2.with':'\u2713 El squawk lee la l\u00ednea clave en el momento en que llega',
+    'table.row3.scenario':'Varias posiciones abiertas, monitorizando gr\u00e1ficos','table.row3.without':'Cambio constante de pesta\u00f1as entre gr\u00e1ficos y noticias','table.row3.with':'\u2713 Ojos en la acci\u00f3n del precio, o\u00eddos en las noticias',
+    'table.row4.scenario':'D\u00eda de pocas noticias, esperando un setup','table.row4.without':'Revisando repetidamente el feed de noticias manualmente','table.row4.with':'\u2713 El squawk te notifica cuando algo relevante aparece',
+    'table.row5.scenario':'Sesi\u00f3n de alta volatilidad (apertura asi\u00e1tica, apertura londrina)','table.row5.without':'Flujo de noticias demasiado r\u00e1pido para leer todo','table.row5.with':'\u2713 El audio garantiza que nada cr\u00edtico se pierda',
+    'faq.h2':'Squawk Box en Vivo \u2014 Preguntas Comunes',
+    'faq1.q':'\u00bfQu\u00e9 es un squawk box en trading?','faq1.a':'Un squawk box es un feed de audio que lee titulares de noticias financieras de \u00faltima hora en voz alta en tiempo real \u2014 originado de los sistemas de intercomunicador usados en los pisos de trading institucionales de bancos y hedge funds desde los a\u00f1os 80. Los traders de piso y market makers depend\u00edan de los squawk boxes para mantenerse informados sobre eventos que mueven mercados sin apartar los ojos de sus pantallas. Los squawk boxes online replican esta funcionalidad en un navegador. El squawk box de Trading News Terminal es parte del plan Pro y usa la Web Speech API para una s\u00edntesis de voz natural.',
+    'faq2.q':'\u00bfC\u00f3mo funciona un squawk box online?','faq2.a':'El squawk box de Trading News Terminal se integra directamente con el feed de noticias en vivo. Cuando llega un nuevo titular, el sistema verifica su clasificaci\u00f3n de impacto y \u2014 si coincide con tu configuraci\u00f3n de filtro \u2014 lo pone en cola para que la Web Speech API lo lea en voz alta a trav\u00e9s de los altavoces del ordenador. El habla es generada por el motor de s\u00edntesis integrado en tu navegador (sin servidor externo), lo que significa que funciona en cualquier dispositivo con un navegador moderno: Windows, Mac, Linux o tableta.',
+    'faq3.q':'\u00bfHay un squawk box de trading gratuito?','faq3.a':'El squawk box es una funcionalidad exclusiva Pro en Trading News Terminal, incluida en el plan Pro a \u20ac40/mes. La l\u00f3gica es sencilla: el squawk box est\u00e1 alimentado por el feed de noticias Pro sin retraso \u2014 un squawk con 2 minutos de retraso ser\u00eda in\u00fatil para el trading activo. Puedes acceder al squawk box durante un per\u00edodo de prueba Pro antes de comprometerte con una suscripci\u00f3n. El plan B\u00e1sico gratuito incluye el calendario econ\u00f3mico, feed de noticias filtrado (2 minutos de retraso) e integraci\u00f3n con gr\u00e1ficos TradingView.',
+    'faq4.q':'\u00bfCu\u00e1l es la diferencia entre un squawk box y un feed de noticias?','faq4.a':'Un feed de noticias es una lista visual y desplazable de titulares de texto \u2014 lo lees con los ojos. Un squawk box es un canal de audio \u2014 lee esos mismos titulares en voz alta para que no necesites mirar la pantalla. Las dos herramientas son complementarias: usa el feed visual para contexto e historias completas; usa el squawk para la conciencia instant\u00e1nea manos libres de titulares de \u00faltima hora mientras tus ojos permanecen en los gr\u00e1ficos de precio.',
+    'faq5.q':'\u00bfLos traders profesionales usan squawk boxes?','faq5.a':'S\u00ed \u2014 los squawk boxes han sido equipo est\u00e1ndar en los pisos de trading institucionales durante d\u00e9cadas. Los market makers en bancos de inversi\u00f3n, traders propietarios y gestores de macro hedge funds dependen todos de los feeds de audio de noticias como parte central de su flujo de trabajo. Los servicios profesionales de squawk como Squawk Box de Bloomberg o Briefing.com cuestan cientos de d\u00f3lares al mes. El squawk box de Trading News Terminal est\u00e1 incluido en el plan Pro a \u20ac40/mes, haciendo esta herramienta de grado profesional accesible a traders independientes y minoristas.',
+    'explore.h2':'Todo en el Trading News Terminal',
+    'cta.h2':'Opera con Ambos Ojos en los Gr\u00e1ficos',
+    'cta.desc':'Deja que el terminal lea las noticias mientras te concentras en la acci\u00f3n del precio. El squawk box en vivo est\u00e1 incluido en Trading News Terminal Pro a \u20ac40/mes \u2014 pru\u00e9balo gratis.',
+    'cta.btn':'Iniciar Trial Pro \u2014 Probar el Squawk',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Squawk Box en Vivo para Traders' },
+  fr:{
+    'try_btn':'Essai Gratuit \u2192','trial_btn':'D\u00e9marrer l\u2019Essai Gratuit','free_btn':'Ouvrir le Terminal Gratuit',
+    'tagline':'Intelligence March\u00e9 en Temps R\u00e9el','active':'FR',
+    'how_title':'Comment \u00e7a marche','faq_title':'Questions Fr\u00e9quentes',
+    'explore_title':'Explorer les Fonctionnalit\u00e9s','cta_free':'Commencer Gratuitement',
+    'hero.badge':'Squawk Box en Direct \u2014 Fonctionnalit\u00e9 Pro',
+    'hero.h1':'<span>Squawk Box</span> en Direct \u2014 Alertes de Nouvelles Mains Libres',
+    'hero.sub':'Chaque titre financier de derni\u00e8re minute lu \u00e0 voix haute d\u00e8s qu\u2019il arrive sur le fil. Gardez les yeux sur les graphiques pendant que le terminal vous lit les nouvelles \u2014 comme sur un parquet professionnel.',
+    'hero.price_note':'Le squawk box est une <strong>fonctionnalit\u00e9 Pro</strong> \u00b7 Essai complet disponible \u00b7 Plan Basic gratuit',
+    'preview.label':'Aper\u00e7u du Terminal','preview.h2':'Squawk Box \u2014 Flux Audio en Direct',
+    'demo.label':'D\u00e9mo en Direct','demo.h2':'Le Squawk Box en Action',
+    'demo.intro':'Lorsqu\u2019il est actif, le squawk lit chaque titre entrant \u00e0 voix haute en utilisant une synth\u00e8se vocale de haute qualit\u00e9 du navigateur. Filtrez uniquement ce qui compte pour votre session de trading.',
+    'demo.status':'Squawk Actif \u2014 En cours de lecture',
+    'whatis.label':'Ce que c\u2019est','whatis.h2':'Audio de Parquet Professionnel \u2014 Dans Votre Navigateur',
+    'whatis.intro':'Le squawk box est l\u2019un des outils les plus pr\u00e9cieux et les moins connus du trading professionnel. Il est maintenant accessible \u00e0 tout trader actif via Trading News Terminal Pro.',
+    'card1.title':'Lit les Titres \u00e0 Voix Haute','card1.desc':'D\u00e8s qu\u2019un titre de derni\u00e8re minute arrive dans le fil de news, le squawk le lit \u00e0 voix haute en utilisant la synth\u00e8se vocale naturelle du navigateur. Sans d\u00e9lai, sans file d\u2019attente \u2014 un flux continu d\u2019intelligence de march\u00e9.',
+    'card2.title':'Yeux sur les Graphiques','card2.desc':'L\u2019objectif du squawk box est pr\u00e9cis\u00e9ment que vous n\u2019avez pas besoin de le regarder. Observez l\u2019action des prix sur vos graphiques TradingView pendant que le terminal surveille le flux de news et vous dit ce qui se passe.',
+    'card3.title':'Contr\u00f4le du Filtre d\u2019Impact','card3.desc':'Filtrez le squawk sur HAUT uniquement (d\u00e9cisions de taux, NFP, CPI), MOYEN et plus (couverture macro plus large), ou TOUS les titres. R\u00e9duisez le bruit les jours charg\u00e9s, ouvrez tout lors de sessions calmes.',
+    'card4.title':'Sans Installation','card4.desc':'Bas\u00e9 sur la Web Speech API int\u00e9gr\u00e9e dans Chrome, Edge, Safari et Firefox. Pas de plugins, pas de t\u00e9l\u00e9chargements, pas d\u2019abonnement s\u00e9par\u00e9. Fonctionne dans votre navigateur actuel d\u00e8s que vous l\u2019activez.',
+    'how.h2':'Du Fil \u00e0 la Voix en Moins de 5 Secondes',
+    'step1.title':'Activez le squawk depuis votre terminal','step1.desc':'Les abonn\u00e9s Pro voient le bouton du squawk box dans l\u2019en-t\u00eate du terminal. Cliquez pour activer \u2014 le navigateur demandera l\u2019autorisation micro/haut-parleur la premi\u00e8re fois, standard pour la Web Speech API. Une fois activ\u00e9, il reste actif pour votre session. Une animation visuelle confirme que le squawk \u00e9coute et lit.',
+    'step2.title':'D\u00e9finissez votre filtre d\u2019impact','step2.desc':'Choisissez si vous voulez entendre TOUS les titres, uniquement MOYEN et HAUT impact, ou exclusivement les \u00e9v\u00e9nements \u00e0 HAUT impact. Lors d\u2019une journ\u00e9e charg\u00e9e en actualit\u00e9s macro, HAUT seulement maintient l\u2019audio focalis\u00e9 sur les \u00e9v\u00e9nements qui font vraiment bouger les march\u00e9s \u2014 d\u00e9cisions de taux, donn\u00e9es d\u2019inflation, chiffres d\u2019emploi \u2014 et filtre les histoires de moindre importance. Vous pouvez changer le filtre \u00e0 tout moment sans interrompre le flux.',
+    'step3.title':'Tradez avec une pleine conscience du march\u00e9 par audio','step3.desc':'Chaque titre qualifi\u00e9 est lu \u00e0 voix haute d\u00e8s qu\u2019il arrive dans le fil. La file du squawk traite les titres dans l\u2019ordre, de sorte qu\u2019aucune histoire n\u2019est saut\u00e9e pendant les p\u00e9riodes charg\u00e9es. Lors d\u2019\u00e9v\u00e9nements majeurs \u2014 NFP, d\u00e9cisions de la Fed, PMIs flash \u2014 le squawk maintient sa cadence. Combin\u00e9 avec les signaux visuels beat/miss du calendrier \u00e9conomique, vous obtenez une couverture totale sur les canaux audio et visuels simultan\u00e9ment.',
+    'why.label':'Pourquoi les Traders l\u2019Utilisent','why.h2':'Le Cas pour les Actualit\u00e9s Audio sur un Bureau de Trading',
+    'why.intro':'Les traders professionnels utilisent des flux audio de news depuis les ann\u00e9es 80. Le raisonnement est simple et n\u2019a pas chang\u00e9\u00a0: on ne peut regarder qu\u2019une chose \u00e0 la fois.',
+    'table.col1':'Sc\u00e9nario','table.col2':'Sans Squawk','table.col3':'Avec Squawk Box',
+    'table.row1.scenario':'NFP publi\u00e9 pendant que vous saisissez un ordre','table.row1.without':'Vous ratez le pic initial, voyez le mouvement apr\u00e8s qu\u2019il soit termin\u00e9','table.row1.with':'\u2713 Entendez le titre instantan\u00e9ment, r\u00e9agissez en temps r\u00e9el',
+    'table.row2.scenario':'Le Pr\u00e9sident de la Fed tient des propos hawkish inattendus','table.row2.without':'Vous l\u2019apprenez 2 \u00e0 5 minutes plus tard via l\u2019action des prix','table.row2.with':'\u2713 Le squawk lit la ligne cl\u00e9 au moment o\u00f9 elle para\u00eet',
+    'table.row3.scenario':'Plusieurs positions ouvertes, surveillance des graphiques','table.row3.without':'Changement constant d\u2019onglets entre graphiques et news','table.row3.with':'\u2713 Yeux sur l\u2019action des prix, oreilles sur les news',
+    'table.row4.scenario':'Journ\u00e9e calme, en attente d\u2019un setup','table.row4.without':'Consultation r\u00e9p\u00e9t\u00e9e du fil de news manuellement','table.row4.with':'\u2713 Le squawk vous notifie quand quelque chose de pertinent para\u00eet',
+    'table.row5.scenario':'Session \u00e0 haute volatilit\u00e9 (ouverture asiatique, ouverture londonienne)','table.row5.without':'Flux de news trop rapide pour tout lire','table.row5.with':'\u2713 L\u2019audio garantit que rien de critique n\u2019est manqu\u00e9',
+    'faq.h2':'Squawk Box en Direct \u2014 Questions Courantes',
+    'faq1.q':'Qu\u2019est-ce qu\u2019un squawk box en trading\u00a0?','faq1.a':'Un squawk box est un flux audio qui lit les titres de news financi\u00e8res de derni\u00e8re minute \u00e0 voix haute en temps r\u00e9el \u2014 issu des syst\u00e8mes d\u2019interphone utilis\u00e9s sur les parquets de trading institutionnels des banques et hedge funds depuis les ann\u00e9es 80. Les traders de parquet et les market makers d\u00e9pendaient des squawk boxes pour rester inform\u00e9s des \u00e9v\u00e9nements qui font bouger les march\u00e9s sans d\u00e9tourner les yeux de leurs \u00e9crans. Les squawk boxes en ligne reproduisent cette fonctionnalit\u00e9 dans un navigateur. Le squawk box de Trading News Terminal fait partie du plan Pro et utilise la Web Speech API pour une synth\u00e8se vocale naturelle.',
+    'faq2.q':'Comment fonctionne un squawk box en ligne\u00a0?','faq2.a':'Le squawk box de Trading News Terminal s\u2019int\u00e8gre directement au fil de news en direct. Lorsqu\u2019un nouveau titre arrive, le syst\u00e8me v\u00e9rifie sa classification d\u2019impact et \u2014 s\u2019il correspond \u00e0 votre param\u00e8tre de filtre \u2014 le met en file pour que la Web Speech API le lise \u00e0 voix haute via les haut-parleurs de votre ordinateur. La parole est g\u00e9n\u00e9r\u00e9e par le moteur de synth\u00e8se int\u00e9gr\u00e9 \u00e0 votre navigateur (sans serveur externe), ce qui signifie qu\u2019il fonctionne sur tout appareil avec un navigateur moderne\u00a0: Windows, Mac, Linux ou tablette.',
+    'faq3.q':'Existe-t-il un squawk box de trading gratuit\u00a0?','faq3.a':'Le squawk box est une fonctionnalit\u00e9 exclusivement Pro chez Trading News Terminal, incluse dans le plan Pro \u00e0 40\u20ac/mois. La logique est simple\u00a0: le squawk box est aliment\u00e9 par le fil de news Pro sans d\u00e9lai \u2014 un squawk avec 2 minutes de retard serait inutile pour le trading actif. Vous pouvez acc\u00e9der au squawk box pendant une p\u00e9riode d\u2019essai Pro avant de vous engager dans un abonnement. Le plan Basic gratuit inclut le calendrier \u00e9conomique, le fil de news filtr\u00e9 (2 minutes de d\u00e9lai) et l\u2019int\u00e9gration des graphiques TradingView.',
+    'faq4.q':'Quelle est la diff\u00e9rence entre un squawk box et un fil de news\u00a0?','faq4.a':'Un fil de news est une liste visuelle et d\u00e9filante de titres de texte \u2014 on le lit avec les yeux. Un squawk box est un canal audio \u2014 il lit ces m\u00eames titres \u00e0 voix haute pour que vous n\u2019ayez pas \u00e0 regarder l\u2019\u00e9cran. Les deux outils sont compl\u00e9mentaires\u00a0: utilisez le fil visuel pour le contexte et les histoires compl\u00e8tes\u00a0; utilisez le squawk pour une conscience instantan\u00e9e mains libres des titres de derni\u00e8re minute pendant que vos yeux restent sur les graphiques de prix.',
+    'faq5.q':'Les traders professionnels utilisent-ils des squawk boxes\u00a0?','faq5.a':'Oui \u2014 les squawk boxes ont \u00e9t\u00e9 un \u00e9quipement standard sur les parquets de trading institutionnels pendant des d\u00e9cennies. Les market makers dans les banques d\u2019investissement, les traders propri\u00e9taires et les gestionnaires de macro hedge funds d\u00e9pendent tous des flux audio de news. Les services professionnels de squawk comme Squawk Box de Bloomberg ou Briefing.com co\u00fbtent des centaines de dollars par mois. Le squawk box de Trading News Terminal est inclus dans le plan Pro \u00e0 40\u20ac/mois, rendant cet outil de niveau professionnel accessible aux traders ind\u00e9pendants et particuliers.',
+    'explore.h2':'Tout dans le Trading News Terminal',
+    'cta.h2':'Tradez avec les Deux Yeux sur les Graphiques',
+    'cta.desc':'Laissez le terminal lire les news pendant que vous vous concentrez sur l\u2019action des prix. Le squawk box en direct est inclus dans Trading News Terminal Pro \u00e0 40\u20ac/mois \u2014 essayez-le gratuitement.',
+    'cta.btn':'D\u00e9marrer l\u2019Essai Pro \u2014 Tester le Squawk',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Squawk Box en Direct pour Traders' },
+  de:{
+    'try_btn':'Kostenlos Testen \u2192','trial_btn':'Kostenlose Testphase','free_btn':'Terminal \u00d6ffnen',
+    'tagline':'Echtzeit-Marktintelligenz','active':'DE',
+    'how_title':'So funktioniert es','faq_title':'H\u00e4ufige Fragen',
+    'explore_title':'Weitere Funktionen','cta_free':'Kostenlos Starten',
+    'hero.badge':'Live Squawk Box \u2014 Pro-Funktion',
+    'hero.h1':'Live <span>Squawk Box</span> \u2014 Freisprech-Marktnachrichten-Alarme',
+    'hero.sub':'Jede aktuelle Finanzmeldung wird sofort vorgelesen, wenn sie hereinkommt. Behalten Sie die Charts im Blick, w\u00e4hrend das Terminal die Nachrichten f\u00fcr Sie vorliest \u2014 genau wie auf einem professionellen Handelssaal.',
+    'hero.price_note':'Die Squawk Box ist eine <strong>Pro-Funktion</strong> \u00b7 Vollst\u00e4ndiger Terminal-Test verf\u00fcgbar \u00b7 Basic-Plan kostenlos',
+    'preview.label':'Terminal-Vorschau','preview.h2':'Squawk Box \u2014 Live-Audio-Feed',
+    'demo.label':'Live-Demo','demo.h2':'Die Squawk Box in Aktion',
+    'demo.intro':'Wenn aktiv, liest die Squawk Box jede eingehende Schlagzeile laut vor \u00fcber hochwertige Browser-Sprachsynthese. Filtern Sie nur, was f\u00fcr Ihre Handelssitzung relevant ist.',
+    'demo.status':'Squawk Aktiv \u2014 Spricht',
+    'whatis.label':'Was es ist','whatis.h2':'Professionelles Handelssaal-Audio \u2014 In Ihrem Browser',
+    'whatis.intro':'Die Squawk Box ist eines der wertvollsten und am wenigsten bekannten Werkzeuge im professionellen Handel. Jetzt ist sie \u00fcber Trading News Terminal Pro f\u00fcr jeden aktiven H\u00e4ndler verf\u00fcgbar.',
+    'card1.title':'Liest Schlagzeilen Laut Vor','card1.desc':'Sobald eine aktuelle Schlagzeile im Nachrichten-Feed eintrifft, liest die Squawk Box sie laut vor und nutzt nat\u00fcrliche Browser-Sprachsynthese. Keine Verz\u00f6gerungen, keine Warteschlangen \u2014 ein kontinuierlicher Strom von Marktintelligenz.',
+    'card2.title':'Augen auf den Charts','card2.desc':'Der eigentliche Zweck einer Squawk Box ist, dass Sie sie nicht anschauen m\u00fcssen. Beobachten Sie die Kursaction auf Ihren TradingView-Charts, w\u00e4hrend das Terminal den Nachrichtenfluss \u00fcberwacht und Ihnen sagt, was passiert.',
+    'card3.title':'Impact-Filter-Steuerung','card3.desc':'Filtern Sie die Squawk Box auf NUR HIGH (Zinsentscheidungen, NFP, CPI), MEDIUM und dar\u00fcber (breitere Makroabdeckung) oder ALLE Schlagzeilen. Reduzieren Sie das Rauschen an ereignisreichen Nachrichtentagen, \u00f6ffnen Sie es bei ruhigen Sitzungen.',
+    'card4.title':'Keine Installation Erforderlich','card4.desc':'Basierend auf der Web Speech API, die in Chrome, Edge, Safari und Firefox integriert ist. Keine Plugins, keine Downloads, kein separates Abonnement. Es funktioniert in Ihrem vorhandenen Browser, sobald Sie es aktivieren.',
+    'how.h2':'Vom Nachrichtendraht zur Stimme in unter 5 Sekunden',
+    'step1.title':'Aktivieren Sie die Squawk Box von Ihrem Terminal','step1.desc':'Pro-Abonnenten sehen den Squawk-Box-Schalter im Terminal-Header. Klicken zum Aktivieren \u2014 der Browser fordert beim ersten Mal Mikrofon-/Lautsprecherberechtigung an, was Standard f\u00fcr die Web Speech API ist. Einmal aktiviert, bleibt sie f\u00fcr Ihre Sitzung aktiv. Eine visuelle Sprechanimation best\u00e4tigt, dass die Squawk Box zuh\u00f6rt und liest.',
+    'step2.title':'Stellen Sie Ihren Impact-Filter ein','step2.desc':'W\u00e4hlen Sie, ob Sie ALLE Schlagzeilen, nur MEDIUM und HIGH Impact oder ausschlie\u00dflich HIGH-Impact-Ereignisse h\u00f6ren m\u00f6chten. An einem ereignisreichen Makronachrichtentag h\u00e4lt NUR HIGH das Audio auf die Ereignisse konzentriert, die tats\u00e4chlich M\u00e4rkte bewegen \u2014 Zinsentscheidungen, Inflationsdaten, Besch\u00e4ftigungszahlen \u2014 und filtert niederrangige Meldungen heraus. Sie k\u00f6nnen den Filter jederzeit \u00e4ndern, ohne den Stream zu unterbrechen.',
+    'step3.title':'Handeln Sie mit vollst\u00e4ndiger Audio-Marktbewusstheit','step3.desc':'Jede qualifizierende Schlagzeile wird laut vorgelesen, sobald sie im Feed eintrifft. Die Squawk-Warteschlange verarbeitet Schlagzeilen der Reihe nach, sodass keine Meldung in hektischen Phasen \u00fcbersprungen wird. Bei Hauptereignissen \u2014 NFP, Fed-Entscheidungen, Flash PMIs \u2014 beh\u00e4lt die Squawk Box ihre Kadenz. Kombiniert mit den visuellen Beat/Miss-Signalen des Wirtschaftskalenders erhalten Sie gleichzeitig vollst\u00e4ndige Marktabdeckung \u00fcber Audio- und Videokan\u00e4le.',
+    'why.label':'Warum Trader es Nutzen','why.h2':'Das Argument f\u00fcr Audio-Nachrichten am Handelstisch',
+    'why.intro':'Professionelle Trader nutzen Audio-Nachrichtenfeeds seit den 1980er Jahren. Die Begr\u00fcndung ist einfach und hat sich nicht ge\u00e4ndert: Man kann nur auf eine Sache gleichzeitig schauen.',
+    'table.col1':'Szenario','table.col2':'Ohne Squawk','table.col3':'Mit Squawk Box',
+    'table.row1.scenario':'NFP wird ver\u00f6ffentlicht, w\u00e4hrend Sie eine Order eingeben','table.row1.without':'Sie verpassen den ersten Ausschlag, sehen die Bewegung erst wenn sie vor\u00fcber ist','table.row1.with':'\u2713 H\u00f6ren Sie die Schlagzeile sofort, reagieren Sie in Echtzeit',
+    'table.row2.scenario':'Fed-Vorsitzender \u00e4u\u00dfert sich unerwartet hawkish','table.row2.without':'Sie erfahren es 2\u20135 Minuten sp\u00e4ter \u00fcber die Kursaction','table.row2.with':'\u2713 Squawk liest die Schl\u00fcsselaussage im Moment ihres Erscheinens vor',
+    'table.row3.scenario':'Mehrere offene Positionen, Charts \u00fcberwachen','table.row3.without':'St\u00e4ndiges Tab-Wechseln zwischen Charts und Nachrichten','table.row3.with':'\u2713 Augen auf der Kursaction, Ohren auf den Nachrichten',
+    'table.row4.scenario':'Ruhiger Nachrichtentag, auf ein Setup warten','table.row4.without':'Wiederholtes manuelles Durchscannen des Nachrichten-Feeds','table.row4.with':'\u2713 Squawk benachrichtigt Sie, wenn etwas Relevantes bricht',
+    'table.row5.scenario':'Hochvolatile Sitzung (Asiatische Er\u00f6ffnung, Londoner Er\u00f6ffnung)','table.row5.without':'Nachrichtenfluss zu schnell, um alles zu lesen','table.row5.with':'\u2713 Audio stellt sicher, dass nichts Kritisches verpasst wird',
+    'faq.h2':'Live Squawk Box \u2014 H\u00e4ufige Fragen',
+    'faq1.q':'Was ist eine Squawk Box im Handel?','faq1.a':'Eine Squawk Box ist ein Audio-Feed, der aktuelle Finanznachrichten-Schlagzeilen in Echtzeit vorliest \u2014 entstammt den Gegensprechanlagen auf institutionellen Handels\u00e4len von Banken und Hedge-Fonds seit den 1980er Jahren. Parketthandler und Market Maker verlassen sich auf Squawk Boxes, um \u00fcber marktbewegende Ereignisse informiert zu bleiben, ohne den Blick von ihren Bildschirmen abzuwenden. Online-Squawk-Boxen replizieren diese Funktion im Browser. Die Squawk Box von Trading News Terminal ist Teil des Pro-Plans und nutzt die Web Speech API f\u00fcr nat\u00fcrliche Sprachsynthese.',
+    'faq2.q':'Wie funktioniert eine Online-Squawk-Box?','faq2.a':'Die Squawk Box von Trading News Terminal ist direkt in den Live-Nachrichten-Feed integriert. Wenn eine neue Schlagzeile eintrifft, pr\u00fcft das System ihre Impact-Klassifizierung und \u2014 wenn sie Ihrer Filtereinstellung entspricht \u2014 wird sie f\u00fcr die Web Speech API in die Warteschlange gestellt, um sie laut \u00fcber Ihre Computerlautsprecher vorzulesen. Die Sprache wird von der integrierten Synthesizer-Engine Ihres Browsers erzeugt (kein externer Server erforderlich), sodass sie auf jedem Ger\u00e4t mit einem modernen Browser funktioniert.',
+    'faq3.q':'Gibt es eine kostenlose Trading-Squawk-Box?','faq3.a':'Die Squawk Box ist eine ausschlie\u00dfliche Pro-Funktion bei Trading News Terminal, im Pro-Plan f\u00fcr 40\u20ac/Monat enthalten. Die Logik ist einfach: Die Squawk Box wird vom Pro-Nachrichten-Feed ohne Verz\u00f6gerung gespeist \u2014 eine Squawk Box mit 2 Minuten Verz\u00f6gerung w\u00e4re f\u00fcr aktiven Handel wertlos. Sie k\u00f6nnen w\u00e4hrend einer Pro-Testphase auf die Squawk Box zugreifen, bevor Sie ein Abonnement abschlie\u00dfen. Der kostenlose Basic-Plan beinhaltet den Wirtschaftskalender, gefilterten Nachrichten-Feed (2 Minuten Verz\u00f6gerung) und TradingView-Chart-Integration.',
+    'faq4.q':'Was ist der Unterschied zwischen einer Squawk Box und einem Nachrichten-Feed?','faq4.a':'Ein Nachrichten-Feed ist eine visuelle, scrollende Liste von Text-Schlagzeilen \u2014 man liest sie mit den Augen. Eine Squawk Box ist ein Audio-Kanal \u2014 sie liest dieselben Schlagzeilen laut vor, sodass Sie nicht auf den Bildschirm schauen m\u00fcssen. Die beiden Tools erg\u00e4nzen sich: Nutzen Sie den visuellen Feed f\u00fcr Kontext und vollst\u00e4ndige Meldungen; nutzen Sie die Squawk Box f\u00fcr sofortige Freisprech-Bewusstheit \u00fcber aktuelle Schlagzeilen, w\u00e4hrend Ihre Augen auf den Kurs-Charts bleiben.',
+    'faq5.q':'Nutzen professionelle Trader Squawk Boxes?','faq5.a':'Ja \u2014 Squawk Boxes sind seit Jahrzehnten Standardausr\u00fcstung auf institutionellen Handels\u00e4len. Market Maker in Investmentbanken, Eigenh\u00e4ndler und Makro-Hedge-Fonds-Manager verlassen sich alle auf Audio-Nachrichten-Feeds als zentralen Teil ihres Workflows. Professionelle Squawk-Dienste wie Squawk Box von Bloomberg oder Briefing.com kosten Hunderte von Dollar pro Monat. Die Squawk Box von Trading News Terminal ist im Pro-Plan f\u00fcr 40\u20ac/Monat enthalten und macht dieses professionelle Werkzeug f\u00fcr unabh\u00e4ngige H\u00e4ndler und Privatanleger zug\u00e4nglich.',
+    'explore.h2':'Alles im Trading News Terminal',
+    'cta.h2':'Handeln Sie mit Beiden Augen auf den Charts',
+    'cta.desc':'Lassen Sie das Terminal die Nachrichten vorlesen, w\u00e4hrend Sie sich auf die Kursaction konzentrieren. Die Live-Squawk-Box ist im Trading News Terminal Pro f\u00fcr 40\u20ac/Monat enthalten \u2014 kostenlos testen.',
+    'cta.btn':'Pro-Test Starten \u2014 Squawk Ausprobieren',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Live Squawk Box f\u00fcr Trader' },
+  it:{
+    'try_btn':'Prova Gratuita \u2192','trial_btn':'Inizia la Prova Gratuita','free_btn':'Apri il Terminal',
+    'tagline':'Intelligenza di Mercato in Tempo Reale','active':'IT',
+    'how_title':'Come funziona','faq_title':'Domande Frequenti',
+    'explore_title':'Esplora Funzionalit\u00e0','cta_free':'Inizia Gratis',
+    'hero.badge':'Squawk Box in Diretta \u2014 Funzionalit\u00e0 Pro',
+    'hero.h1':'<span>Squawk Box</span> in Diretta \u2014 Avvisi di Notizie Mani Libere',
+    'hero.sub':'Ogni titolo finanziario di ultima ora letto ad alta voce nel momento in cui arriva sul filo. Tieni gli occhi sui grafici mentre il terminal legge le notizie per te \u2014 proprio come su un trading floor professionale.',
+    'hero.price_note':'La squawk box \u00e8 una <strong>funzionalit\u00e0 Pro</strong> \u00b7 Trial completo disponibile \u00b7 Piano Basic gratuito',
+    'preview.label':'Anteprima del Terminal','preview.h2':'Squawk Box \u2014 Feed Audio in Diretta',
+    'demo.label':'Demo in Diretta','demo.h2':'La Squawk Box in Azione',
+    'demo.intro':'Quando attiva, la squawk legge ogni titolo in arrivo ad alta voce usando la sintesi vocale di alta qualit\u00e0 del browser. Filtra solo ci\u00f2 che conta per la tua sessione di trading.',
+    'demo.status':'Squawk Attivo \u2014 In Lettura',
+    'whatis.label':'Cos\u2019\u00e8','whatis.h2':'Audio di Trading Floor Professionale \u2014 Nel Tuo Browser',
+    'whatis.intro':'La squawk box \u00e8 uno degli strumenti pi\u00f9 preziosi e meno conosciuti del trading professionale. Ora \u00e8 disponibile per qualsiasi trader attivo tramite Trading News Terminal Pro.',
+    'card1.title':'Legge i Titoli ad Alta Voce','card1.desc':'Nel momento in cui un titolo di ultima ora arriva nel feed di notizie, la squawk lo legge ad alta voce usando la sintesi vocale naturale del browser. Nessun ritardo, nessuna coda \u2014 un flusso continuo di intelligenza di mercato.',
+    'card2.title':'Occhi sui Grafici','card2.desc':'Il punto centrale di una squawk box \u00e8 che non hai bisogno di guardarla. Osserva l\u2019azione del prezzo sui tuoi grafici TradingView mentre il terminal monitora il flusso di notizie e ti dice cosa sta succedendo.',
+    'card3.title':'Controllo del Filtro di Impatto','card3.desc':'Filtra la squawk su ALTO solo (decisioni sui tassi, NFP, CPI), MEDIO e superiore (copertura macro pi\u00f9 ampia), o TUTTI i titoli. Riduci il rumore nei giorni di molte notizie, aprilo nelle sessioni lente.',
+    'card4.title':'Nessuna Installazione Richiesta','card4.desc':'Basata sulla Web Speech API integrata in Chrome, Edge, Safari e Firefox. Nessun plugin, nessun download, nessun abbonamento separato. Funziona nel tuo browser esistente nel momento in cui la attivi.',
+    'how.h2':'Dal Filo alla Voce in Meno di 5 Secondi',
+    'step1.title':'Attiva la squawk dal tuo terminal','step1.desc':'Gli abbonati Pro vedono il pulsante della squawk box nell\u2019intestazione del terminal. Clicca per attivare \u2014 il browser richieder\u00e0 il permesso microfono/altoparlante la prima volta, standard per la Web Speech API. Una volta attivata, rimane attiva per la tua sessione. Un\u2019animazione visiva conferma che la squawk sta ascoltando e leggendo.',
+    'step2.title':'Imposta il tuo filtro di impatto','step2.desc':'Scegli se vuoi sentire TUTTI i titoli, solo impatto MEDIO e ALTO, o esclusivamente eventi ad ALTO impatto. In una giornata di molte notizie macro, SOLO ALTO mantiene l\u2019audio focalizzato sugli eventi che muovono davvero i mercati \u2014 decisioni sui tassi, dati sull\u2019inflazione, cifre sull\u2019occupazione \u2014 e filtra le storie di minore importanza. Puoi cambiare il filtro in qualsiasi momento senza interrompere lo stream.',
+    'step3.title':'Fai trading con piena consapevolezza audio del mercato','step3.desc':'Ogni titolo qualificato viene letto ad alta voce nel momento in cui arriva nel feed. La coda della squawk elabora i titoli in ordine, quindi nessuna storia viene saltata durante i periodi intensi. Durante gli eventi principali \u2014 NFP, decisioni della Fed, PMI flash \u2014 la squawk mantiene la sua cadenza. Combinata con i segnali visivi beat/miss del calendario economico, ottieni una copertura totale su canali audio e visivi simultaneamente.',
+    'why.label':'Perch\u00e9 i Trader lo Usano','why.h2':'Il Caso per le Notizie Audio su una Scrivania di Trading',
+    'why.intro':'I trader professionisti usano feed audio di notizie dagli anni \u201980. Il ragionamento \u00e8 semplice e non \u00e8 cambiato: puoi guardare solo una cosa alla volta.',
+    'table.col1':'Scenario','table.col2':'Senza Squawk','table.col3':'Con Squawk Box',
+    'table.row1.scenario':'NFP pubblicato mentre stai inserendo un ordine','table.row1.without':'Perdi il picco iniziale, vedi il movimento dopo che \u00e8 finito','table.row1.with':'\u2713 Senti il titolo istantaneamente, reagisci in tempo reale',
+    'table.row2.scenario':'Il Presidente della Fed parla inaspettatamente in modo hawkish','table.row2.without':'Lo scopri 2\u20135 minuti dopo dall\u2019azione del prezzo','table.row2.with':'\u2713 La squawk legge la frase chiave nel momento in cui arriva',
+    'table.row3.scenario':'Pi\u00f9 posizioni aperte, monitoraggio dei grafici','table.row3.without':'Cambio costante di schede tra grafici e notizie','table.row3.with':'\u2713 Occhi sull\u2019azione del prezzo, orecchie sulle notizie',
+    'table.row4.scenario':'Giornata lenta, in attesa di un setup','table.row4.without':'Scansione ripetuta manuale del feed di notizie','table.row4.with':'\u2713 La squawk ti notifica quando appare qualcosa di rilevante',
+    'table.row5.scenario':'Sessione ad alta volatilit\u00e0 (apertura asiatica, apertura londinese)','table.row5.without':'Flusso di notizie troppo rapido per leggere tutto','table.row5.with':'\u2713 L\u2019audio garantisce che nulla di critico venga perso',
+    'faq.h2':'Squawk Box in Diretta \u2014 Domande Comuni',
+    'faq1.q':'Cos\u2019\u00e8 una squawk box nel trading?','faq1.a':'Una squawk box \u00e8 un feed audio che legge i titoli delle notizie finanziarie di ultima ora ad alta voce in tempo reale \u2014 originata dai sistemi di interfono usati sui trading floor istituzionali di banche e hedge fund dagli anni \u201980. I trader di floor e i market maker si affidavano alle squawk box per tenersi informati sugli eventi che muovono i mercati senza distogliere gli occhi dagli schermi. Le squawk box online replicano questa funzionalit\u00e0 in un browser. La squawk box di Trading News Terminal fa parte del piano Pro e utilizza la Web Speech API per una sintesi vocale naturale.',
+    'faq2.q':'Come funziona una squawk box online?','faq2.a':'La squawk box di Trading News Terminal si integra direttamente con il feed di notizie in diretta. Quando arriva un nuovo titolo, il sistema ne verifica la classificazione di impatto e \u2014 se corrisponde alla tua impostazione del filtro \u2014 lo mette in coda per la Web Speech API che lo legge ad alta voce attraverso gli altoparlanti del computer. Il parlato \u00e8 generato dal motore di sintesi integrato nel browser (nessun server esterno richiesto), il che significa che funziona su qualsiasi dispositivo con un browser moderno: Windows, Mac, Linux o tablet.',
+    'faq3.q':'Esiste una squawk box di trading gratuita?','faq3.a':'La squawk box \u00e8 una funzionalit\u00e0 esclusivamente Pro su Trading News Terminal, inclusa nel piano Pro a 40\u20ac/mese. La logica \u00e8 semplice: la squawk box \u00e8 alimentata dal feed di notizie Pro senza ritardo \u2014 una squawk box con 2 minuti di ritardo sarebbe inutile per il trading attivo. Puoi accedere alla squawk box durante un periodo di prova Pro prima di impegnarti in un abbonamento. Il piano Basic gratuito include il calendario economico, feed di notizie filtrato (2 minuti di ritardo) e integrazione con grafici TradingView.',
+    'faq4.q':'Qual \u00e8 la differenza tra una squawk box e un feed di notizie?','faq4.a':'Un feed di notizie \u00e8 un elenco visivo e scorrevole di titoli di testo \u2014 lo leggi con gli occhi. Una squawk box \u00e8 un canale audio \u2014 legge quegli stessi titoli ad alta voce cos\u00ec non devi guardare lo schermo. I due strumenti sono complementari: usa il feed visivo per contesto e storie complete; usa la squawk box per la consapevolezza istantanea mani libere dei titoli di ultima ora mentre i tuoi occhi rimangono sui grafici dei prezzi.',
+    'faq5.q':'I trader professionisti usano le squawk box?','faq5.a':'S\u00ec \u2014 le squawk box sono state attrezzatura standard sui trading floor istituzionali per decenni. I market maker nelle banche di investimento, i trader proprietari e i gestori di macro hedge fund dipendono tutti dai feed audio di notizie come parte centrale del loro flusso di lavoro. I servizi professionali di squawk come Squawk Box di Bloomberg o Briefing.com costano centinaia di dollari al mese. La squawk box di Trading News Terminal \u00e8 inclusa nel piano Pro a 40\u20ac/mese, rendendo questo strumento di livello professionale accessibile ai trader indipendenti e al dettaglio.',
+    'explore.h2':'Tutto nel Trading News Terminal',
+    'cta.h2':'Fai Trading con Entrambi gli Occhi sui Grafici',
+    'cta.desc':'Lascia che il terminal legga le notizie mentre ti concentri sull\u2019azione del prezzo. La squawk box in diretta \u00e8 inclusa in Trading News Terminal Pro a 40\u20ac/mese \u2014 provalo gratuitamente.',
+    'cta.btn':'Inizia il Trial Pro \u2014 Prova la Squawk',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Squawk Box in Diretta per Trader' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='squawk-box';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

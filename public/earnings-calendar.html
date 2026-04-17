@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Earnings Calendar — EPS Beat/Miss &amp; Revenue Alerts</title>
+<meta name="description" content="Live earnings calendar with real-time EPS beat/miss signals, revenue surprises &amp; instant news alerts. Never miss a market-moving earnings release.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.tradingnewsterminal.com/earnings-calendar">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+<meta property="og:title" content="Live Earnings Calendar — EPS Beat/Miss &amp; Revenue Alerts">
+<meta property="og:description" content="Live earnings calendar with real-time EPS beat/miss signals, revenue surprises &amp; instant news alerts. Never miss a market-moving earnings release.">
+<meta property="og:url" content="https://www.tradingnewsterminal.com/earnings-calendar">
+<meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Trading News Terminal — Live Earnings Calendar",
+  "url": "https://app.tradingnewsterminal.com",
+  "description": "Live earnings calendar with real-time EPS beat/miss color coding, revenue surprises and instant news feed integration for every earnings release.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web Browser",
+  "offers": [
+    {"@type": "Offer", "name": "Basic", "price": "0", "priceCurrency": "EUR"},
+    {"@type": "Offer", "name": "Pro", "price": "40", "priceCurrency": "EUR"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an earnings calendar?",
+      "acceptedAnswer": {"@type": "Answer", "text": "An earnings calendar is a schedule of upcoming corporate earnings report dates. It shows when each company will release its quarterly results — including EPS (earnings per share) estimates, revenue expectations and whether the report comes before market open (BMO) or after market close (AMC). Traders use earnings calendars to prepare for potential price gaps and volatility spikes around results day, and to track actual vs. estimated figures the moment they are released."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do earnings affect stock prices?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Earnings reports are among the most powerful single-event catalysts for individual stock prices. A significant EPS beat — especially combined with raised guidance — can gap a stock up 5–15% overnight. A miss or lowered guidance can trigger an equivalent selloff. Even when EPS meets expectations, the forward guidance language in the earnings call can move a stock sharply. TNT's earnings calendar injects news coverage the instant results are released so you can react before the full market digests the report."}
+    },
+    {
+      "@type": "Question",
+      "name": "What is EPS beat vs miss?",
+      "acceptedAnswer": {"@type": "Answer", "text": "EPS (Earnings Per Share) is a company's net profit divided by its shares outstanding. Each quarter, analysts publish consensus EPS estimates before the report. A 'beat' means the actual EPS exceeded the consensus estimate — historically associated with positive price reactions. A 'miss' means EPS came in below expectations — often triggering a selloff. TNT color-codes every earnings result: green for beat, red for miss, grey for in-line, so you can scan dozens of results instantly."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do I track earnings releases in real time?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Trading News Terminal's earnings calendar shows every scheduled release with date, time, EPS estimate and revenue estimate pre-populated. The moment a company reports, the actual figures populate in real time with beat/miss color coding — no manual refresh needed. Simultaneously, the integrated news feed injects all earnings-related coverage for that stock, including analyst reactions, guidance commentary and sector implications, within seconds of the release."}
+    },
+    {
+      "@type": "Question",
+      "name": "Which stocks have earnings this week?",
+      "acceptedAnswer": {"@type": "Answer", "text": "The TNT earnings calendar displays the full week's schedule grouped by day, including pre-market and after-hours releases. Major earnings weeks (e.g. during US reporting season in January, April, July and October) are especially active — TNT's calendar flags high-impact releases so you can prioritise which results to monitor most closely. The calendar is integrated with the live news feed, meaning earnings coverage auto-filters for each stock as results drop."}
+    }
+  ]
+}
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111827;
+    --border: #1e2a3a;
+    --accent: #00d4ff;
+    --accent-dim: rgba(0,212,255,0.12);
+    --text: #e0e8f0;
+    --muted: #8899aa;
+    --green: #00c896;
+    --red: #ff4d6a;
+    --yellow: #f5c518;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, 'Inter', -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,15,0.97);
+    border-bottom: 1px solid #1e2a3a;
+    padding: 0 24px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+  .nav-logo-text span { color:#00d4ff; }
+  .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity .15s, transform .15s; border: none; text-decoration: none; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero-tag { display: inline-block; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 24px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 14px; }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 620px; margin-bottom: 40px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .card-icon { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .card:hover { border-color: var(--accent); }
+
+  /* Earnings table */
+  .earn-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .earn-table th { text-align: left; padding: 10px 14px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .earn-table td { padding: 12px 14px; border-bottom: 1px solid rgba(30,42,58,0.6); vertical-align: middle; }
+  .earn-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .result-beat { display: inline-block; background: rgba(0,200,150,0.15); color: var(--green); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .result-miss { display: inline-block; background: rgba(255,77,106,0.15); color: var(--red); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .result-inline { display: inline-block; background: rgba(136,153,170,0.15); color: var(--muted); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .timing { display: inline-block; background: rgba(0,212,255,0.1); color: var(--accent); padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 700; }
+  .eps-beat { color: var(--green); font-weight: 700; }
+  .eps-miss { color: var(--red); font-weight: 700; }
+
+  /* Upcoming */
+  .upcoming-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .upcoming-item:hover { border-color: rgba(0,212,255,0.4); }
+  .upcoming-item + .upcoming-item { margin-top: 10px; }
+  .upcoming-company { font-weight: 700; font-size: 15px; }
+  .upcoming-meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .upcoming-est { text-align: right; }
+  .upcoming-est .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .upcoming-est .val { font-size: 15px; font-weight: 700; color: var(--text); }
+
+  .steps { display: grid; gap: 24px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.4); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--accent); }
+  .step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 14px; color: var(--muted); }
+
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table th { padding: 12px 16px; background: var(--bg2); text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--green); font-weight: 700; }
+  .compare-table .cross { color: var(--red); }
+  .compare-table .tnt-col { background: rgba(0,212,255,0.04); }
+
+  .faq-list { display: grid; gap: 16px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+  .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .faq-item p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  .cross-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .cross-link { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-size: 14px; font-weight: 600; color: var(--text); transition: border-color .15s; }
+  .cross-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  .footer-cta { background: linear-gradient(135deg, rgba(0,212,255,0.07) 0%, rgba(0,212,255,0.02) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 0; text-align: center; }
+  .footer-cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 14px; }
+  .footer-cta p { color: var(--muted); margin-bottom: 32px; font-size: 16px; }
+
+  .site-footer { padding: 24px 0; text-align: center; color: var(--muted); font-size: 13px; }
+  .site-footer a { color: var(--muted); margin: 0 8px; }
+  .site-footer a:hover { color: var(--accent); }
+
+  .day-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin: 28px 0 10px; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .step { flex-direction: column; }
+    .site-header .logo-name { display: none; }
+    .upcoming-est { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=earnings-calendar&utm_content=header" class="nav-logo" data-seo-track="earnings-calendar">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=earnings-calendar&utm_content=header" class="btn btn-primary" data-seo-track="earnings-calendar"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag" data-i18n="ec_hero_badge">Pro Feature</div>
+    <h1 data-i18n-html="ec_hero_h1"><span>Live Earnings Calendar</span> —<br>Real-Time EPS Beat/Miss Signals</h1>
+    <p data-i18n="ec_hero_p">Every earnings release — date, EPS estimate vs. actual, revenue, beat/miss color coding and instant news injection — the moment results hit. Never be late to a market-moving earnings release again.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=earnings-calendar&utm_content=hero" class="btn btn-primary" data-seo-track="earnings-calendar"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=earnings-calendar&utm_content=hero" class="btn btn-outline" data-seo-track="earnings-calendar"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-val">1000s</div><div class="stat-label" data-i18n="ec_stat1">Stocks Tracked</div></div>
+      <div><div class="stat-val">Live</div><div class="stat-label" data-i18n="ec_stat2">EPS Updates</div></div>
+      <div><div class="stat-val">0s</div><div class="stat-label" data-i18n="ec_stat3">News Delay</div></div>
+      <div><div class="stat-val">BMO/AMC</div><div class="stat-label" data-i18n="ec_stat4">Timing Labels</div></div>
+      <div><div class="stat-val">4x/year</div><div class="stat-label" data-i18n="ec_stat5">Season Coverage</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terminal Mockup -->
+<div style="background:#0d1117;border-top:1px solid #1e2a3a;border-bottom:1px solid #1e2a3a;padding:32px 24px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:'Courier New',monospace;">
+      <div style="background:#0a0c0f;border-bottom:1px solid #1e2a3a;padding:10px 16px;display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#ff4d6a;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#f5c518;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#00c896;"></div>
+        <span style="margin-left:12px;font-size:11px;color:#556677;letter-spacing:0.08em;">EARNINGS CALENDAR — Q2 2025</span>
+        <span style="margin-left:auto;font-size:10px;color:#00d4ff;">● LIVE</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="border-bottom:1px solid #1e2a3a;">
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:left;letter-spacing:0.06em;font-size:11px;">COMPANY</th>
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:left;letter-spacing:0.06em;font-size:11px;">DATE</th>
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">EPS EST</th>
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">EPS ACTUAL</th>
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:center;letter-spacing:0.06em;font-size:11px;">BEAT/MISS</th>
+            <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">MOVE</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+              <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Apple (AAPL)</td>
+              <td style="padding:11px 16px;color:#8899aa;">May 1, AMC</td>
+              <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">$1.51</td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">$1.64</td>
+              <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(0,200,150,0.15);color:#00c896;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">BEAT</span></td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">+12.4%</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+              <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Microsoft (MSFT)</td>
+              <td style="padding:11px 16px;color:#8899aa;">Apr 30, AMC</td>
+              <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">$3.10</td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">$3.46</td>
+              <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(0,200,150,0.15);color:#00c896;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">BEAT</span></td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">+8.1%</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+              <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Meta (META)</td>
+              <td style="padding:11px 16px;color:#8899aa;">Apr 30, AMC</td>
+              <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">$4.32</td>
+              <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">$3.98</td>
+              <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(255,77,106,0.15);color:#ff4d6a;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">MISS</span></td>
+              <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">-8.3%</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+              <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Alphabet (GOOGL)</td>
+              <td style="padding:11px 16px;color:#8899aa;">Apr 29, AMC</td>
+              <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">$1.87</td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">$2.12</td>
+              <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(0,200,150,0.15);color:#00c896;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">BEAT</span></td>
+              <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">+6.7%</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Amazon (AMZN)</td>
+              <td style="padding:11px 16px;color:#8899aa;">May 1, AMC</td>
+              <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">$1.02</td>
+              <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">$0.89</td>
+              <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(255,77,106,0.15);color:#ff4d6a;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">MISS</span></td>
+              <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">-5.9%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#556677;margin-top:10px;text-align:center;letter-spacing:0.04em;">Illustrative data · Live EPS results populate instantly on release in the Pro terminal</p>
+  </div>
+</div>
+
+<!-- Why earnings matter -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="ec_why_label">Why It Matters</div>
+    <h2 class="section-title" data-i18n="ec_why_title">Earnings Are the Biggest Stock Price Catalyst</h2>
+    <p class="section-sub" data-i18n="ec_why_sub">A single quarterly earnings report can move a stock 10–20% in after-hours trading. Understanding the EPS beat/miss dynamic — and having the news the instant results drop — is the difference between capitalising on a move and chasing it.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3 data-i18n="ec_card1_h">EPS Beat/Miss Color Coding</h3>
+        <p data-i18n="ec_card1_p">Every result populates in real time with green (beat), red (miss) or grey (in-line) color coding. Scan dozens of results in seconds — no mental arithmetic required. EPS actual, estimate and the delta are all displayed side by side.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3 data-i18n="ec_card2_h">Revenue Surprises</h3>
+        <p data-i18n="ec_card2_p">EPS alone doesn't tell the full story. Revenue beats and misses often drive even larger price reactions than earnings surprises. TNT shows both metrics simultaneously — EPS and revenue versus consensus — for every reporting company.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="ec_card3_h">Instant News Injection</h3>
+        <p data-i18n="ec_card3_p">The moment a company reports, TNT's news feed injects all related coverage — analyst reactions, guidance commentary, sector implications — for that stock. You see the numbers and the interpretation simultaneously, without switching apps.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🕐</div>
+        <h3 data-i18n="ec_card4_h">BMO &amp; AMC Timing</h3>
+        <p data-i18n="ec_card4_p">Every earnings entry is labelled Before Market Open (BMO) or After Market Close (AMC) so you know exactly when to be watching. Pre-market and after-hours releases are flagged separately so overnight gaps don't catch you off guard.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3 data-i18n="ec_card5_h">Forward Schedule</h3>
+        <p data-i18n="ec_card5_p">The earnings calendar shows the full forward schedule — days and weeks ahead — with pre-populated EPS and revenue consensus estimates from analyst models. Plan your week around the highest-impact results before the season starts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3 data-i18n="ec_card6_h">Integrated with News Feed</h3>
+        <p data-i18n="ec_card6_p">Click any earnings entry to instantly filter the live news feed for that company. All pre-earnings analyst notes, earnings day coverage and post-results reactions are surfaced chronologically — the fastest way to build context around a position.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Earnings table preview -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="ec_preview_label">Live Preview</div>
+    <h2 class="section-title" data-i18n="ec_preview_title">Earnings Results — Real-Time View</h2>
+    <p class="section-sub" data-i18n="ec_preview_sub">Representative view of recent earnings results as they appear in the TNT earnings calendar. Beat/miss color coding updates the instant results are released.</p>
+    <div style="overflow-x:auto; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;">
+      <table class="earn-table">
+        <thead>
+          <tr>
+            <th data-i18n="ec_th_company">Company</th>
+            <th data-i18n="ec_th_timing">Timing</th>
+            <th data-i18n="ec_th_eps_est">EPS Est.</th>
+            <th data-i18n="ec_th_eps_actual">EPS Actual</th>
+            <th data-i18n="ec_th_rev_est">Rev. Est.</th>
+            <th data-i18n="ec_th_rev_actual">Rev. Actual</th>
+            <th data-i18n="ec_th_result">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Apple (AAPL)</strong></td>
+            <td><span class="timing">AMC</span></td>
+            <td>$2.10</td>
+            <td class="eps-beat">$2.18</td>
+            <td>$94.2B</td>
+            <td class="eps-beat">$95.4B</td>
+            <td><span class="result-beat">BEAT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Microsoft (MSFT)</strong></td>
+            <td><span class="timing">AMC</span></td>
+            <td>$2.83</td>
+            <td class="eps-beat">$2.94</td>
+            <td>$60.8B</td>
+            <td class="eps-beat">$61.9B</td>
+            <td><span class="result-beat">BEAT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Meta (META)</strong></td>
+            <td><span class="timing">AMC</span></td>
+            <td>$4.32</td>
+            <td class="eps-miss">$4.01</td>
+            <td>$36.2B</td>
+            <td class="eps-miss">$35.8B</td>
+            <td><span class="result-miss">MISS</span></td>
+          </tr>
+          <tr>
+            <td><strong>Amazon (AMZN)</strong></td>
+            <td><span class="timing">AMC</span></td>
+            <td>$0.84</td>
+            <td class="eps-beat">$0.98</td>
+            <td>$142.6B</td>
+            <td class="eps-beat">$143.3B</td>
+            <td><span class="result-beat">BEAT</span></td>
+          </tr>
+          <tr>
+            <td><strong>JPMorgan (JPM)</strong></td>
+            <td><span class="timing">BMO</span></td>
+            <td>$4.11</td>
+            <td>$4.11</td>
+            <td>$40.1B</td>
+            <td>$41.0B</td>
+            <td><span class="result-inline">IN-LINE</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tesla (TSLA)</strong></td>
+            <td><span class="timing">AMC</span></td>
+            <td>$0.62</td>
+            <td class="eps-miss">$0.45</td>
+            <td>$24.2B</td>
+            <td class="eps-miss">$21.3B</td>
+            <td><span class="result-miss">MISS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px; color: var(--muted); margin-top: 10px;" data-i18n="ec_table_note">Illustrative data. Live results populate instantly in the Pro terminal.</p>
+  </div>
+</section>
+
+<!-- Upcoming -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="ec_upcoming_label">Upcoming</div>
+    <h2 class="section-title" data-i18n="ec_upcoming_title">Major Earnings — This Week</h2>
+    <p class="section-sub" data-i18n="ec_upcoming_sub">The TNT earnings calendar shows the full forward schedule with analyst consensus estimates pre-populated. Illustrative example below.</p>
+
+    <div class="day-label" data-i18n="day_mon">Monday</div>
+    <div class="upcoming-item">
+      <div>
+        <div class="upcoming-company">Alphabet (GOOGL) <span class="timing">AMC</span></div>
+        <div class="upcoming-meta">Technology · Search &amp; Cloud</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">EPS Est.</div>
+        <div class="val">$1.84</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">Rev. Est.</div>
+        <div class="val">$79.2B</div>
+      </div>
+    </div>
+
+    <div class="day-label" data-i18n="day_tue">Tuesday</div>
+    <div class="upcoming-item">
+      <div>
+        <div class="upcoming-company">Visa (V) <span class="timing">AMC</span></div>
+        <div class="upcoming-meta">Financials · Payments</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">EPS Est.</div>
+        <div class="val">$2.42</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">Rev. Est.</div>
+        <div class="val">$8.8B</div>
+      </div>
+    </div>
+
+    <div class="day-label" data-i18n="day_wed">Wednesday</div>
+    <div class="upcoming-item">
+      <div>
+        <div class="upcoming-company">NVIDIA (NVDA) <span class="timing">AMC</span></div>
+        <div class="upcoming-meta">Technology · Semiconductors</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">EPS Est.</div>
+        <div class="val">$5.59</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">Rev. Est.</div>
+        <div class="val">$24.6B</div>
+      </div>
+    </div>
+
+    <div class="day-label" data-i18n="day_thu">Thursday</div>
+    <div class="upcoming-item">
+      <div>
+        <div class="upcoming-company">Amazon (AMZN) <span class="timing">AMC</span></div>
+        <div class="upcoming-meta">Technology · E-Commerce &amp; Cloud</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">EPS Est.</div>
+        <div class="val">$0.84</div>
+      </div>
+      <div class="upcoming-est">
+        <div class="label">Rev. Est.</div>
+        <div class="val">$142.6B</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 class="section-title" data-i18n="ec_hiw_title">From Schedule to Result in 3 Steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="ec_step1_h">Check the Forward Calendar</h3>
+          <p data-i18n="ec_step1_p">Open the TNT earnings calendar to see every upcoming result for the week — company name, reporting time (BMO/AMC), EPS consensus estimate and revenue estimate pre-populated from analyst models. Flag the releases you need to watch most closely.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="ec_step2_h">Results Populate Live on Release</h3>
+          <p data-i18n="ec_step2_p">The moment a company reports, EPS actual and revenue actual populate in real time with green/red beat/miss color coding. The squawk box announces the headline figure audibly so you hear the result immediately — even if you're not looking at the screen.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="ec_step3_h">News Feed Injects Instantly</h3>
+          <p data-i18n="ec_step3_p">Simultaneously with the result, TNT's news feed injects all earnings coverage for that stock — analyst reactions, guidance quotes from the earnings release, sector commentary. You have both the numbers and the context within seconds, ready to act before the broader market has finished reading the headline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="ec_cmp_label">Comparison</div>
+    <h2 class="section-title" data-i18n="ec_cmp_title">TNT Earnings Calendar vs. Alternatives</h2>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="ec_cmp_feature">Feature</th>
+            <th class="tnt-col">TNT Pro</th>
+            <th>Earnings Whispers</th>
+            <th>Investing.com</th>
+            <th>Bloomberg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="ec_cmp_row1">Forward earnings schedule</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_row2">Live EPS beat/miss color coding</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_row3">Revenue beat/miss tracking</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_row4">Instant integrated news feed</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_row5">Live squawk audio alerts</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_row6">Zero-delay result delivery</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="ec_cmp_price">Price (monthly)</td>
+            <td class="tnt-col" style="color: var(--accent);">€40</td>
+            <td>Free / $9.99+</td>
+            <td>Free / $34.99+</td>
+            <td>$2,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title" data-i18n="ec_faq_title">Earnings Calendar — Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 data-i18n="ec_faq1_q">What is an earnings calendar?</h3>
+        <p data-i18n="ec_faq1_a">An earnings calendar is a schedule of upcoming corporate earnings report dates. It shows when each company will release its quarterly results — including EPS (earnings per share) estimates, revenue expectations and whether the report comes before market open (BMO) or after market close (AMC). Traders use earnings calendars to prepare for potential price gaps and volatility spikes, and to track actual versus estimated figures the moment results are released — giving them an edge in the crucial seconds after a print.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="ec_faq2_q">How do earnings affect stock prices?</h3>
+        <p data-i18n="ec_faq2_a">Earnings reports are among the most powerful single-event catalysts for individual stock prices. A significant EPS beat — especially combined with raised guidance — can gap a stock up 5–15% overnight. A miss or lowered guidance can trigger an equivalent selloff. Even when EPS meets expectations, the forward guidance language in the earnings call can move a stock sharply in either direction. TNT's earnings calendar injects all news coverage the instant results are released so you can react before the full market has digested the report.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="ec_faq3_q">What is EPS beat vs miss?</h3>
+        <p data-i18n="ec_faq3_a">EPS (Earnings Per Share) is a company's net profit divided by its shares outstanding. Each quarter, analysts publish consensus EPS estimates before the report. A 'beat' means the actual EPS exceeded the consensus estimate — historically associated with positive price reactions, though the reaction also depends on the magnitude of the beat and forward guidance. A 'miss' means EPS came in below expectations — often triggering a selloff. TNT color-codes every earnings result green for beat, red for miss, grey for in-line, allowing you to scan dozens of results instantly without calculation.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="ec_faq4_q">How do I track earnings releases in real time?</h3>
+        <p data-i18n="ec_faq4_a">Trading News Terminal's earnings calendar shows every scheduled release with date, time, EPS estimate and revenue estimate pre-populated. The moment a company reports, the actual figures populate in real time with beat/miss color coding — no manual refresh needed. Simultaneously, the integrated news feed injects all earnings-related coverage for that stock, including analyst reactions, guidance commentary and sector implications, within seconds of the release. The squawk box also reads out the headline result audibly.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="ec_faq5_q">Which stocks have earnings this week?</h3>
+        <p data-i18n="ec_faq5_a">The TNT earnings calendar displays the full week's schedule grouped by day, including pre-market (BMO) and after-hours (AMC) releases. Major earnings weeks — which occur during US reporting season in January, April, July and October — see hundreds of companies reporting. TNT's calendar flags high-impact releases so you can prioritise which results to monitor most closely. The calendar integrates directly with the live news feed, meaning earnings coverage auto-surfaces for each stock as results drop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-links -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="ec_explore_label">Explore</div>
+    <h2 class="section-title" data-i18n="explore_title">Explore Other Features</h2>
+    <div class="cross-links">
+      <a href="/bloomberg-alternative" class="cross-link">Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="cross-link">Forex News Feed</a>
+      <a href="/economic-calendar" class="cross-link">Economic Calendar</a>
+      <a href="/squawk-box" class="cross-link">Squawk Box</a>
+      <a href="/live-financial-tv" class="cross-link">Live Financial TV</a>
+      <a href="/market-screener" class="cross-link">Market Screener</a>
+      <a href="/central-banks-tracker" class="cross-link">Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="cross-link">Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="cross-link" style="border-color: var(--accent); color: var(--accent);">Earnings Calendar</a>
+      <a href="/trading-charts" class="cross-link">Live Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="ec_cta_h2">Never Miss an Earnings Beat Again — Free for 7 Days</h2>
+    <p data-i18n="ec_cta_p">Live EPS beat/miss signals, revenue tracking, instant news injection and squawk alerts. No credit card required.</p>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=earnings-calendar&utm_content=bottom" class="btn btn-primary" style="font-size:16px; padding: 14px 32px;" data-seo-track="earnings-calendar"><span data-i18n="trial_btn">Start Free Trial</span> →</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p data-i18n-html="footer_copy">© 2026 Trading News Terminal · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a></p>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    try_btn:'Try Free \u2192',trial_btn:'Start Free Trial',free_btn:'Open Free Terminal',tagline:'Real-time Market Intelligence',active:'EN',
+    how_title:'How It Works',faq_title:'Frequently Asked Questions',explore_title:'Explore Other Features',cta_free:'Start Free \u2014 No Card Required',
+    ec_hero_badge:'Pro Feature',
+    ec_hero_h1:'<span>Live Earnings Calendar</span> \u2014<br>Real-Time EPS Beat/Miss Signals',
+    ec_hero_p:'Every earnings release \u2014 date, EPS estimate vs. actual, revenue, beat/miss color coding and instant news injection \u2014 the moment results hit. Never be late to a market-moving earnings release again.',
+    ec_stat1:'Stocks Tracked',ec_stat2:'EPS Updates',ec_stat3:'News Delay',ec_stat4:'Timing Labels',ec_stat5:'Season Coverage',
+    ec_why_label:'Why It Matters',ec_why_title:'Earnings Are the Biggest Stock Price Catalyst',
+    ec_why_sub:'A single quarterly earnings report can move a stock 10\u201320% in after-hours trading. Understanding the EPS beat/miss dynamic \u2014 and having the news the instant results drop \u2014 is the difference between capitalising on a move and chasing it.',
+    ec_card1_h:'EPS Beat/Miss Color Coding',ec_card1_p:'Every result populates in real time with green (beat), red (miss) or grey (in-line) color coding. Scan dozens of results in seconds \u2014 no mental arithmetic required. EPS actual, estimate and the delta are all displayed side by side.',
+    ec_card2_h:'Revenue Surprises',ec_card2_p:'EPS alone doesn\u2019t tell the full story. Revenue beats and misses often drive even larger price reactions than earnings surprises. TNT shows both metrics simultaneously \u2014 EPS and revenue versus consensus \u2014 for every reporting company.',
+    ec_card3_h:'Instant News Injection',ec_card3_p:'The moment a company reports, TNT\u2019s news feed injects all related coverage \u2014 analyst reactions, guidance commentary, sector implications \u2014 for that stock. You see the numbers and the interpretation simultaneously, without switching apps.',
+    ec_card4_h:'BMO & AMC Timing',ec_card4_p:'Every earnings entry is labelled Before Market Open (BMO) or After Market Close (AMC) so you know exactly when to be watching. Pre-market and after-hours releases are flagged separately so overnight gaps don\u2019t catch you off guard.',
+    ec_card5_h:'Forward Schedule',ec_card5_p:'The earnings calendar shows the full forward schedule \u2014 days and weeks ahead \u2014 with pre-populated EPS and revenue consensus estimates from analyst models. Plan your week around the highest-impact results before the season starts.',
+    ec_card6_h:'Integrated with News Feed',ec_card6_p:'Click any earnings entry to instantly filter the live news feed for that company. All pre-earnings analyst notes, earnings day coverage and post-results reactions are surfaced chronologically \u2014 the fastest way to build context around a position.',
+    ec_preview_label:'Live Preview',ec_preview_title:'Earnings Results \u2014 Real-Time View',
+    ec_preview_sub:'Representative view of recent earnings results as they appear in the TNT earnings calendar. Beat/miss color coding updates the instant results are released.',
+    ec_th_company:'Company',ec_th_timing:'Timing',ec_th_eps_est:'EPS Est.',ec_th_eps_actual:'EPS Actual',ec_th_rev_est:'Rev. Est.',ec_th_rev_actual:'Rev. Actual',ec_th_result:'Result',
+    ec_table_note:'Illustrative data. Live results populate instantly in the Pro terminal.',
+    ec_upcoming_label:'Upcoming',ec_upcoming_title:'Major Earnings \u2014 This Week',
+    ec_upcoming_sub:'The TNT earnings calendar shows the full forward schedule with analyst consensus estimates pre-populated. Illustrative example below.',
+    day_mon:'Monday',day_tue:'Tuesday',day_wed:'Wednesday',day_thu:'Thursday',
+    ec_hiw_title:'From Schedule to Result in 3 Steps',
+    ec_step1_h:'Check the Forward Calendar',ec_step1_p:'Open the TNT earnings calendar to see every upcoming result for the week \u2014 company name, reporting time (BMO/AMC), EPS consensus estimate and revenue estimate pre-populated from analyst models. Flag the releases you need to watch most closely.',
+    ec_step2_h:'Results Populate Live on Release',ec_step2_p:'The moment a company reports, EPS actual and revenue actual populate in real time with green/red beat/miss color coding. The squawk box announces the headline figure audibly so you hear the result immediately \u2014 even if you\u2019re not looking at the screen.',
+    ec_step3_h:'News Feed Injects Instantly',ec_step3_p:'Simultaneously with the result, TNT\u2019s news feed injects all earnings coverage for that stock \u2014 analyst reactions, guidance quotes from the earnings release, sector commentary. You have both the numbers and the context within seconds, ready to act before the broader market has finished reading the headline.',
+    ec_cmp_label:'Comparison',ec_cmp_title:'TNT Earnings Calendar vs. Alternatives',
+    ec_cmp_feature:'Feature',ec_cmp_row1:'Forward earnings schedule',ec_cmp_row2:'Live EPS beat/miss color coding',ec_cmp_row3:'Revenue beat/miss tracking',ec_cmp_row4:'Instant integrated news feed',ec_cmp_row5:'Live squawk audio alerts',ec_cmp_row6:'Zero-delay result delivery',ec_cmp_price:'Price (monthly)',
+    ec_faq_title:'Earnings Calendar \u2014 Frequently Asked Questions',
+    ec_faq1_q:'What is an earnings calendar?',ec_faq1_a:'An earnings calendar is a schedule of upcoming corporate earnings report dates. It shows when each company will release its quarterly results \u2014 including EPS (earnings per share) estimates, revenue expectations and whether the report comes before market open (BMO) or after market close (AMC). Traders use earnings calendars to prepare for potential price gaps and volatility spikes, and to track actual versus estimated figures the moment results are released \u2014 giving them an edge in the crucial seconds after a print.',
+    ec_faq2_q:'How do earnings affect stock prices?',ec_faq2_a:'Earnings reports are among the most powerful single-event catalysts for individual stock prices. A significant EPS beat \u2014 especially combined with raised guidance \u2014 can gap a stock up 5\u201315% overnight. A miss or lowered guidance can trigger an equivalent selloff. Even when EPS meets expectations, the forward guidance language in the earnings call can move a stock sharply in either direction. TNT\u2019s earnings calendar injects all news coverage the instant results are released so you can react before the full market has digested the report.',
+    ec_faq3_q:'What is EPS beat vs miss?',ec_faq3_a:'EPS (Earnings Per Share) is a company\u2019s net profit divided by its shares outstanding. Each quarter, analysts publish consensus EPS estimates before the report. A \u2018beat\u2019 means the actual EPS exceeded the consensus estimate \u2014 historically associated with positive price reactions, though the reaction also depends on the magnitude of the beat and forward guidance. A \u2018miss\u2019 means EPS came in below expectations \u2014 often triggering a selloff. TNT color-codes every earnings result green for beat, red for miss, grey for in-line, allowing you to scan dozens of results instantly without calculation.',
+    ec_faq4_q:'How do I track earnings releases in real time?',ec_faq4_a:'Trading News Terminal\u2019s earnings calendar shows every scheduled release with date, time, EPS estimate and revenue estimate pre-populated. The moment a company reports, the actual figures populate in real time with beat/miss color coding \u2014 no manual refresh needed. Simultaneously, the integrated news feed injects all earnings-related coverage for that stock, including analyst reactions, guidance commentary and sector implications, within seconds of the release. The squawk box also reads out the headline result audibly.',
+    ec_faq5_q:'Which stocks have earnings this week?',ec_faq5_a:'The TNT earnings calendar displays the full week\u2019s schedule grouped by day, including pre-market (BMO) and after-hours (AMC) releases. Major earnings weeks \u2014 which occur during US reporting season in January, April, July and October \u2014 see hundreds of companies reporting. TNT\u2019s calendar flags high-impact releases so you can prioritise which results to monitor most closely. The calendar integrates directly with the live news feed, meaning earnings coverage auto-surfaces for each stock as results drop.',
+    ec_explore_label:'Explore',
+    ec_cta_h2:'Never Miss an Earnings Beat Again \u2014 Free for 7 Days',
+    ec_cta_p:'Live EPS beat/miss signals, revenue tracking, instant news injection and squawk alerts. No credit card required.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Terms</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  pt:{
+    try_btn:'Experimentar Gr\u00e1tis \u2192',trial_btn:'Iniciar Trial Gr\u00e1tis',free_btn:'Abrir Terminal Gr\u00e1tis',tagline:'Intelig\u00eancia de Mercado em Tempo Real',active:'PT',
+    how_title:'Como Funciona',faq_title:'Perguntas Frequentes',explore_title:'Explorar Funcionalidades',cta_free:'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    ec_hero_badge:'Funcionalidade Pro',
+    ec_hero_h1:'<span>Calend\u00e1rio de Resultados ao Vivo</span> \u2014<br>Sinais EPS Beat/Miss em Tempo Real',
+    ec_hero_p:'Cada divulga\u00e7\u00e3o de resultados \u2014 data, EPS estimado vs. real, receita, c\u00f3digo de cores beat/miss e injec\u00e7\u00e3o imediata de not\u00edcias \u2014 no momento em que os resultados s\u00e3o publicados. Nunca chegue tarde a um resultado que move o mercado.',
+    ec_stat1:'A\u00e7\u00f5es Monitorizadas',ec_stat2:'Atualiza\u00e7\u00f5es EPS',ec_stat3:'Atraso de Not\u00edcias',ec_stat4:'R\u00f3tulos de Timing',ec_stat5:'Cobertura Sazonal',
+    ec_why_label:'Porqu\u00ea Importa',ec_why_title:'Os Resultados S\u00e3o o Maior Catalisador de Pre\u00e7o',
+    ec_why_sub:'Um \u00fanico relat\u00f3rio trimestral pode mover uma a\u00e7\u00e3o 10\u201320% no after-hours. Compreender a din\u00e2mica beat/miss \u2014 e ter as not\u00edcias no instante em que os resultados saem \u2014 \u00e9 a diferen\u00e7a entre capitalizar um movimento e persegui-lo.',
+    ec_card1_h:'C\u00f3digo de Cores EPS Beat/Miss',ec_card1_p:'Cada resultado aparece em tempo real com c\u00f3digo de cores verde (beat), vermelho (miss) ou cinzento (em linha). Analise dezenas de resultados em segundos \u2014 sem c\u00e1lculos mentais. EPS real, estimado e o delta s\u00e3o exibidos lado a lado.',
+    ec_card2_h:'Surpresas de Receita',ec_card2_p:'O EPS por si s\u00f3 n\u00e3o conta toda a hist\u00f3ria. Beats e misses de receita frequentemente impulsionam rea\u00e7\u00f5es de pre\u00e7o ainda maiores. O TNT mostra ambas as m\u00e9tricas simultaneamente \u2014 EPS e receita vs. consenso \u2014 para cada empresa.',
+    ec_card3_h:'Injec\u00e7\u00e3o Instant\u00e2nea de Not\u00edcias',ec_card3_p:'No momento em que uma empresa divulga resultados, o feed de not\u00edcias do TNT injeta toda a cobertura relacionada \u2014 rea\u00e7\u00f5es de analistas, coment\u00e1rios de guidance, implica\u00e7\u00f5es sectoriais \u2014 para essa a\u00e7\u00e3o. V\u00ea os n\u00fameros e a interpreta\u00e7\u00e3o simultaneamente, sem mudar de aplica\u00e7\u00e3o.',
+    ec_card4_h:'Timing BMO & AMC',ec_card4_p:'Cada entrada \u00e9 rotulada Antes da Abertura do Mercado (BMO) ou Ap\u00f3s o Fecho do Mercado (AMC) para saber exatamente quando estar atento. As divulga\u00e7\u00f5es pr\u00e9-mercado e after-hours s\u00e3o sinalizadas separadamente para que os gaps noturnos n\u00e3o o apanhem desprevenido.',
+    ec_card5_h:'Calend\u00e1rio Futuro',ec_card5_p:'O calend\u00e1rio de resultados mostra o calend\u00e1rio futuro completo \u2014 dias e semanas \u00e0 frente \u2014 com estimativas de consenso EPS e receita pr\u00e9-preenchidas. Planeie a sua semana em torno dos resultados de maior impacto antes do in\u00edcio da temporada.',
+    ec_card6_h:'Integrado com Feed de Not\u00edcias',ec_card6_p:'Clique em qualquer entrada de resultados para filtrar instantaneamente o feed de not\u00edcias ao vivo para essa empresa. Todas as notas de analistas pr\u00e9-resultados, cobertura do dia e rea\u00e7\u00f5es p\u00f3s-resultados s\u00e3o apresentadas cronologicamente.',
+    ec_preview_label:'Pr\u00e9-visualiza\u00e7\u00e3o ao Vivo',ec_preview_title:'Resultados de Earnings \u2014 Vista em Tempo Real',
+    ec_preview_sub:'Vista representativa dos resultados recentes tal como aparecem no calend\u00e1rio TNT. O c\u00f3digo de cores beat/miss atualiza no instante em que os resultados s\u00e3o divulgados.',
+    ec_th_company:'Empresa',ec_th_timing:'Timing',ec_th_eps_est:'EPS Est.',ec_th_eps_actual:'EPS Real',ec_th_rev_est:'Rev. Est.',ec_th_rev_actual:'Rev. Real',ec_th_result:'Resultado',
+    ec_table_note:'Dados ilustrativos. Os resultados ao vivo aparecem instantaneamente no terminal Pro.',
+    ec_upcoming_label:'Pr\u00f3ximos',ec_upcoming_title:'Principais Resultados \u2014 Esta Semana',
+    ec_upcoming_sub:'O calend\u00e1rio TNT mostra o calend\u00e1rio futuro completo com estimativas de consenso pr\u00e9-preenchidas. Exemplo ilustrativo abaixo.',
+    day_mon:'Segunda-feira',day_tue:'Ter\u00e7a-feira',day_wed:'Quarta-feira',day_thu:'Quinta-feira',
+    ec_hiw_title:'Do Calend\u00e1rio ao Resultado em 3 Passos',
+    ec_step1_h:'Consulte o Calend\u00e1rio Futuro',ec_step1_p:'Abra o calend\u00e1rio de resultados TNT para ver todos os resultados da semana \u2014 nome da empresa, hora de divulga\u00e7\u00e3o (BMO/AMC), estimativa EPS e estimativa de receita pr\u00e9-preenchidas. Sinalize as divulga\u00e7\u00f5es que precisa de acompanhar mais de perto.',
+    ec_step2_h:'Resultados Aparecem ao Vivo',ec_step2_p:'No momento em que uma empresa divulga, o EPS real e a receita real aparecem em tempo real com c\u00f3digo de cores verde/vermelho. O squawk box anuncia o valor principal em voz alta para que ou\u00e7a o resultado imediatamente \u2014 mesmo sem olhar para o ecr\u00e3.',
+    ec_step3_h:'Feed de Not\u00edcias Injeta Instantaneamente',ec_step3_p:'Simultaneamente com o resultado, o feed de not\u00edcias TNT injeta toda a cobertura de resultados para essa a\u00e7\u00e3o \u2014 rea\u00e7\u00f5es de analistas, cita\u00e7\u00f5es de guidance, coment\u00e1rios sectoriais. Tem os n\u00fameros e o contexto em segundos, pronto para agir antes do mercado em geral terminar de ler o headline.',
+    ec_cmp_label:'Compara\u00e7\u00e3o',ec_cmp_title:'Calend\u00e1rio TNT vs. Alternativas',
+    ec_cmp_feature:'Funcionalidade',ec_cmp_row1:'Calend\u00e1rio de resultados futuros',ec_cmp_row2:'C\u00f3digo de cores EPS beat/miss ao vivo',ec_cmp_row3:'Rastreamento de beat/miss de receita',ec_cmp_row4:'Feed de not\u00edcias integrado instant\u00e2neo',ec_cmp_row5:'Alertas de \u00e1udio squawk ao vivo',ec_cmp_row6:'Entrega de resultados sem atraso',ec_cmp_price:'Pre\u00e7o (mensal)',
+    ec_faq_title:'Calend\u00e1rio de Resultados \u2014 Perguntas Frequentes',
+    ec_faq1_q:'O que \u00e9 um calend\u00e1rio de resultados?',ec_faq1_a:'Um calend\u00e1rio de resultados \u00e9 um cronograma de datas de divulga\u00e7\u00e3o de resultados corporativos. Mostra quando cada empresa vai divulgar os seus resultados trimestrais \u2014 incluindo estimativas de EPS, expectativas de receita e se o relat\u00f3rio vem antes da abertura do mercado (BMO) ou ap\u00f3s o fecho (AMC). Os traders usam calend\u00e1rios de resultados para se prepararem para poss\u00edveis gaps de pre\u00e7o e picos de volatilidade.',
+    ec_faq2_q:'Como os resultados afetam os pre\u00e7os das a\u00e7\u00f5es?',ec_faq2_a:'Os relat\u00f3rios de resultados est\u00e3o entre os catalisadores de evento \u00fanico mais poderosos para pre\u00e7os de a\u00e7\u00f5es individuais. Um beat EPS significativo \u2014 especialmente combinado com guidance elevado \u2014 pode fazer uma a\u00e7\u00e3o subir 5\u201315% durante a noite. Um miss ou guidance reduzido pode desencadear uma queda equivalente. O calend\u00e1rio de resultados TNT injeta toda a cobertura de not\u00edcias no instante em que os resultados s\u00e3o divulgados.',
+    ec_faq3_q:'O que \u00e9 EPS beat vs miss?',ec_faq3_a:'EPS (Lucro por A\u00e7\u00e3o) \u00e9 o lucro l\u00edquido de uma empresa dividido pelas suas a\u00e7\u00f5es em circula\u00e7\u00e3o. Cada trimestre, os analistas publicam estimativas de consenso EPS antes do relat\u00f3rio. Um \u2018beat\u2019 significa que o EPS real superou a estimativa de consenso. Um \u2018miss\u2019 significa que o EPS ficou abaixo das expectativas \u2014 frequentemente desencadeando uma queda. O TNT codifica cada resultado com cores: verde para beat, vermelho para miss, cinzento para em linha.',
+    ec_faq4_q:'Como monitorizo as divulga\u00e7\u00f5es de resultados em tempo real?',ec_faq4_a:'O calend\u00e1rio de resultados do Trading News Terminal mostra cada divulga\u00e7\u00e3o com data, hora, estimativa EPS e estimativa de receita pr\u00e9-preenchidas. No momento em que uma empresa divulga, os valores reais aparecem em tempo real com c\u00f3digo de cores beat/miss \u2014 sem atualiza\u00e7\u00e3o manual. Simultaneamente, o feed de not\u00edcias injeta toda a cobertura de resultados para essa a\u00e7\u00e3o em segundos.',
+    ec_faq5_q:'Quais a\u00e7\u00f5es t\u00eam resultados esta semana?',ec_faq5_a:'O calend\u00e1rio de resultados TNT mostra o calend\u00e1rio completo da semana agrupado por dia, incluindo divulga\u00e7\u00f5es pr\u00e9-mercado (BMO) e after-hours (AMC). As principais semanas de resultados \u2014 que ocorrem durante a temporada de relat\u00f3rios dos EUA em janeiro, abril, julho e outubro \u2014 v\u00eaem centenas de empresas a reportar. O calend\u00e1rio TNT sinaliza divulga\u00e7\u00f5es de alto impacto.',
+    ec_explore_label:'Explorar',
+    ec_cta_h2:'Nunca Mais Perca um Resultado \u2014 Gr\u00e1tis por 7 Dias',
+    ec_cta_p:'Sinais EPS beat/miss ao vivo, rastreamento de receita, injec\u00e7\u00e3o instant\u00e2nea de not\u00edcias e alertas squawk. Sem cart\u00e3o de cr\u00e9dito.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidade</a> \u00b7 <a href="/terms">Termos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  es:{
+    try_btn:'Probar Gratis \u2192',trial_btn:'Iniciar Prueba Gratis',free_btn:'Abrir Terminal Gratis',tagline:'Inteligencia de Mercado en Tiempo Real',active:'ES',
+    how_title:'C\u00f3mo Funciona',faq_title:'Preguntas Frecuentes',explore_title:'Explorar Caracter\u00edsticas',cta_free:'Empezar Gratis \u2014 Sin Tarjeta',
+    ec_hero_badge:'Funci\u00f3n Pro',
+    ec_hero_h1:'<span>Calendario de Resultados en Vivo</span> \u2014<br>Se\u00f1ales EPS Beat/Miss en Tiempo Real',
+    ec_hero_p:'Cada publicaci\u00f3n de resultados \u2014 fecha, EPS estimado vs. real, ingresos, c\u00f3digo de colores beat/miss e inyecci\u00f3n instant\u00e1nea de noticias \u2014 en el momento en que se publican los resultados. Nunca llegues tarde a un resultado que mueve el mercado.',
+    ec_stat1:'Acciones Monitorizadas',ec_stat2:'Actualizaciones EPS',ec_stat3:'Retraso de Noticias',ec_stat4:'Etiquetas de Tiempo',ec_stat5:'Cobertura de Temporada',
+    ec_why_label:'Por Qu\u00e9 Importa',ec_why_title:'Los Resultados Son el Mayor Catalizador de Precio',
+    ec_why_sub:'Un solo informe trimestral puede mover una acci\u00f3n un 10\u201320% en el after-hours. Comprender la din\u00e1mica beat/miss \u2014 y tener las noticias en el instante en que caen los resultados \u2014 es la diferencia entre capitalizar un movimiento y perseguirlo.',
+    ec_card1_h:'C\u00f3digo de Colores EPS Beat/Miss',ec_card1_p:'Cada resultado aparece en tiempo real con c\u00f3digo de colores verde (beat), rojo (miss) o gris (en l\u00ednea). Analiza docenas de resultados en segundos \u2014 sin aritm\u00e9tica mental. EPS real, estimado y el delta se muestran uno al lado del otro.',
+    ec_card2_h:'Sorpresas de Ingresos',ec_card2_p:'El EPS solo no cuenta toda la historia. Los beats y misses de ingresos a menudo impulsan reacciones de precio a\u00fan mayores. TNT muestra ambas m\u00e9tricas simult\u00e1neamente \u2014 EPS e ingresos vs. consenso \u2014 para cada empresa.',
+    ec_card3_h:'Inyecci\u00f3n Instant\u00e1nea de Noticias',ec_card3_p:'En el momento en que una empresa reporta, el feed de noticias TNT inyecta toda la cobertura relacionada \u2014 reacciones de analistas, comentarios de guidance, implicaciones sectoriales \u2014 para esa acci\u00f3n. Ves los n\u00fameros y la interpretaci\u00f3n simult\u00e1neamente, sin cambiar de aplicaci\u00f3n.',
+    ec_card4_h:'Timing BMO & AMC',ec_card4_p:'Cada entrada est\u00e1 etiquetada Antes de la Apertura del Mercado (BMO) o Despu\u00e9s del Cierre del Mercado (AMC) para saber exactamente cu\u00e1ndo estar atento. Las publicaciones pre-mercado y after-hours est\u00e1n marcadas por separado.',
+    ec_card5_h:'Calendario Futuro',ec_card5_p:'El calendario de resultados muestra el calendario futuro completo \u2014 d\u00edas y semanas por delante \u2014 con estimaciones de consenso EPS e ingresos prepobladas. Planifica tu semana alrededor de los resultados de mayor impacto antes de que comience la temporada.',
+    ec_card6_h:'Integrado con Feed de Noticias',ec_card6_p:'Haz clic en cualquier entrada de resultados para filtrar instant\u00e1neamente el feed de noticias en vivo para esa empresa. Todas las notas de analistas previas, cobertura del d\u00eda y reacciones post-resultados se presentan cronol\u00f3gicamente.',
+    ec_preview_label:'Vista Previa en Vivo',ec_preview_title:'Resultados de Earnings \u2014 Vista en Tiempo Real',
+    ec_preview_sub:'Vista representativa de resultados recientes tal como aparecen en el calendario TNT. El c\u00f3digo de colores beat/miss se actualiza en el instante en que se publican los resultados.',
+    ec_th_company:'Empresa',ec_th_timing:'Timing',ec_th_eps_est:'EPS Est.',ec_th_eps_actual:'EPS Real',ec_th_rev_est:'Rev. Est.',ec_th_rev_actual:'Rev. Real',ec_th_result:'Resultado',
+    ec_table_note:'Datos ilustrativos. Los resultados en vivo aparecen instant\u00e1neamente en el terminal Pro.',
+    ec_upcoming_label:'Pr\u00f3ximos',ec_upcoming_title:'Principales Resultados \u2014 Esta Semana',
+    ec_upcoming_sub:'El calendario TNT muestra el calendario futuro completo con estimaciones de consenso prepobladas. Ejemplo ilustrativo a continuaci\u00f3n.',
+    day_mon:'Lunes',day_tue:'Martes',day_wed:'Mi\u00e9rcoles',day_thu:'Jueves',
+    ec_hiw_title:'Del Calendario al Resultado en 3 Pasos',
+    ec_step1_h:'Consulta el Calendario Futuro',ec_step1_p:'Abre el calendario de resultados TNT para ver todos los resultados de la semana \u2014 nombre de la empresa, hora de publicaci\u00f3n (BMO/AMC), estimaci\u00f3n EPS y estimaci\u00f3n de ingresos prepobladas. Marca las publicaciones que necesitas seguir m\u00e1s de cerca.',
+    ec_step2_h:'Resultados Aparecen en Vivo al Publicarse',ec_step2_p:'En el momento en que una empresa reporta, el EPS real y los ingresos reales aparecen en tiempo real con c\u00f3digo de colores verde/rojo. El squawk box anuncia la cifra principal en voz alta para que escuches el resultado inmediatamente.',
+    ec_step3_h:'El Feed de Noticias Inyecta Instant\u00e1neamente',ec_step3_p:'Simult\u00e1neamente con el resultado, el feed de noticias TNT inyecta toda la cobertura de resultados para esa acci\u00f3n \u2014 reacciones de analistas, citas de guidance, comentarios sectoriales. Tienes los n\u00fameros y el contexto en segundos, listo para actuar antes de que el mercado en general termine de leer el titular.',
+    ec_cmp_label:'Comparaci\u00f3n',ec_cmp_title:'Calendario TNT vs. Alternativas',
+    ec_cmp_feature:'Caracter\u00edstica',ec_cmp_row1:'Calendario de resultados futuros',ec_cmp_row2:'C\u00f3digo de colores EPS beat/miss en vivo',ec_cmp_row3:'Seguimiento de beat/miss de ingresos',ec_cmp_row4:'Feed de noticias integrado instant\u00e1neo',ec_cmp_row5:'Alertas de audio squawk en vivo',ec_cmp_row6:'Entrega de resultados sin retraso',ec_cmp_price:'Precio (mensual)',
+    ec_faq_title:'Calendario de Resultados \u2014 Preguntas Frecuentes',
+    ec_faq1_q:'\u00bfQu\u00e9 es un calendario de resultados?',ec_faq1_a:'Un calendario de resultados es un cronograma de fechas de publicaci\u00f3n de resultados corporativos. Muestra cu\u00e1ndo cada empresa publicar\u00e1 sus resultados trimestrales \u2014 incluyendo estimaciones de EPS, expectativas de ingresos y si el informe llega antes de la apertura del mercado (BMO) o despu\u00e9s del cierre (AMC). Los traders usan calendarios de resultados para prepararse para posibles gaps de precio y picos de volatilidad.',
+    ec_faq2_q:'\u00bfC\u00f3mo afectan los resultados a los precios de las acciones?',ec_faq2_a:'Los informes de resultados est\u00e1n entre los catalizadores de evento \u00fanico m\u00e1s poderosos para los precios de acciones individuales. Un beat EPS significativo \u2014 especialmente combinado con guidance elevado \u2014 puede hacer que una acci\u00f3n suba un 5\u201315% de la noche a la ma\u00f1ana. Un miss o guidance reducido puede desencadenar una ca\u00edda equivalente. El calendario de resultados TNT inyecta toda la cobertura de noticias en el instante en que se publican los resultados.',
+    ec_faq3_q:'\u00bfQu\u00e9 es EPS beat vs miss?',ec_faq3_a:'EPS (Ganancias por Acci\u00f3n) es el beneficio neto de una empresa dividido entre sus acciones en circulaci\u00f3n. Cada trimestre, los analistas publican estimaciones de consenso EPS antes del informe. Un \u2018beat\u2019 significa que el EPS real super\u00f3 la estimaci\u00f3n de consenso. Un \u2018miss\u2019 significa que el EPS qued\u00f3 por debajo de las expectativas. TNT codifica cada resultado con colores: verde para beat, rojo para miss, gris para en l\u00ednea.',
+    ec_faq4_q:'\u00bfC\u00f3mo sigo las publicaciones de resultados en tiempo real?',ec_faq4_a:'El calendario de resultados de Trading News Terminal muestra cada publicaci\u00f3n con fecha, hora, estimaci\u00f3n EPS y estimaci\u00f3n de ingresos prepobladas. En el momento en que una empresa reporta, las cifras reales aparecen en tiempo real con c\u00f3digo de colores beat/miss \u2014 sin actualizaci\u00f3n manual. Simult\u00e1neamente, el feed de noticias inyecta toda la cobertura de resultados para esa acci\u00f3n en segundos.',
+    ec_faq5_q:'\u00bfQu\u00e9 acciones tienen resultados esta semana?',ec_faq5_a:'El calendario de resultados TNT muestra el calendario completo de la semana agrupado por d\u00eda, incluyendo publicaciones pre-mercado (BMO) y after-hours (AMC). Las principales semanas de resultados \u2014 que ocurren durante la temporada de informes de EE.UU. en enero, abril, julio y octubre \u2014 ven cientos de empresas reportando. El calendario TNT marca las publicaciones de alto impacto.',
+    ec_explore_label:'Explorar',
+    ec_cta_h2:'Nunca M\u00e1s Pierdas un Resultado \u2014 Gratis por 7 D\u00edas',
+    ec_cta_p:'Se\u00f1ales EPS beat/miss en vivo, seguimiento de ingresos, inyecci\u00f3n instant\u00e1nea de noticias y alertas squawk. Sin tarjeta de cr\u00e9dito.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidad</a> \u00b7 <a href="/terms">T\u00e9rminos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  fr:{
+    try_btn:'Essai Gratuit \u2192',trial_btn:'D\u00e9marrer l\u2019Essai Gratuit',free_btn:'Ouvrir le Terminal Gratuit',tagline:'Intelligence March\u00e9 en Temps R\u00e9el',active:'FR',
+    how_title:'Comment \u00e7a marche',faq_title:'Questions Fr\u00e9quentes',explore_title:'Explorer les Fonctionnalit\u00e9s',cta_free:'Commencer Gratuitement',
+    ec_hero_badge:'Fonctionnalit\u00e9 Pro',
+    ec_hero_h1:'<span>Calendrier des R\u00e9sultats en Direct</span> \u2014<br>Signaux EPS Beat/Miss en Temps R\u00e9el',
+    ec_hero_p:'Chaque publication de r\u00e9sultats \u2014 date, EPS estim\u00e9 vs. r\u00e9el, chiffre d\u2019affaires, code couleur beat/miss et injection instantan\u00e9e de news \u2014 au moment o\u00f9 les r\u00e9sultats tombent. Ne soyez plus jamais en retard sur une publication qui bouge le march\u00e9.',
+    ec_stat1:'Actions Suivies',ec_stat2:'Mises \u00e0 Jour EPS',ec_stat3:'D\u00e9lai News',ec_stat4:'\u00c9tiquettes Timing',ec_stat5:'Couverture Saison',
+    ec_why_label:'Pourquoi C\u2019est Important',ec_why_title:'Les R\u00e9sultats Sont le Plus Grand Catalyseur de Prix',
+    ec_why_sub:'Un seul rapport trimestriel peut faire bouger une action de 10\u201320% en after-hours. Comprendre la dynamique beat/miss \u2014 et avoir les news d\u00e8s que les r\u00e9sultats tombent \u2014 fait la diff\u00e9rence entre capitaliser sur un mouvement et le courir apr\u00e8s.',
+    ec_card1_h:'Code Couleur EPS Beat/Miss',ec_card1_p:'Chaque r\u00e9sultat s\u2019affiche en temps r\u00e9el avec un code couleur vert (beat), rouge (miss) ou gris (en ligne). Analysez des dizaines de r\u00e9sultats en secondes \u2014 sans calcul mental. EPS r\u00e9el, estim\u00e9 et le delta sont affich\u00e9s c\u00f4te \u00e0 c\u00f4te.',
+    ec_card2_h:'Surprises de Chiffre d\u2019Affaires',ec_card2_p:'Le seul EPS ne raconte pas toute l\u2019histoire. Les beats et misses de chiffre d\u2019affaires entra\u00eenent souvent des r\u00e9actions de prix encore plus importantes. TNT affiche les deux m\u00e9triques simultan\u00e9ment \u2014 EPS et CA vs. consensus \u2014 pour chaque entreprise.',
+    ec_card3_h:'Injection Instantan\u00e9e de News',ec_card3_p:'D\u00e8s qu\u2019une entreprise publie ses r\u00e9sultats, le fil d\u2019actualit\u00e9 TNT injecte toute la couverture connexe \u2014 r\u00e9actions d\u2019analystes, commentaires de guidance, implications sectorielles \u2014 pour ce titre. Vous voyez les chiffres et l\u2019interpr\u00e9tation simultan\u00e9ment, sans changer d\u2019application.',
+    ec_card4_h:'Timing BMO & AMC',ec_card4_p:'Chaque entr\u00e9e est \u00e9tiquet\u00e9e Avant l\u2019Ouverture du March\u00e9 (BMO) ou Apr\u00e8s la Cl\u00f4ture du March\u00e9 (AMC) pour savoir exactement quand surveiller. Les publications pr\u00e9-march\u00e9 et after-hours sont signal\u00e9es s\u00e9par\u00e9ment.',
+    ec_card5_h:'Planning Futur',ec_card5_p:'Le calendrier des r\u00e9sultats affiche le planning futur complet \u2014 jours et semaines \u00e0 venir \u2014 avec les estimations de consensus EPS et CA pr\u00e9-remplies. Planifiez votre semaine autour des r\u00e9sultats \u00e0 fort impact avant le d\u00e9but de la saison.',
+    ec_card6_h:'Int\u00e9gr\u00e9 au Fil d\u2019Actualit\u00e9',ec_card6_p:'Cliquez sur n\u2019importe quelle entr\u00e9e pour filtrer instantan\u00e9ment le fil d\u2019actualit\u00e9 en direct pour cette entreprise. Toutes les notes d\u2019analystes pr\u00e9-r\u00e9sultats, la couverture du jour et les r\u00e9actions post-r\u00e9sultats sont pr\u00e9sent\u00e9es chronologiquement.',
+    ec_preview_label:'Aper\u00e7u en Direct',ec_preview_title:'R\u00e9sultats d\u2019Earnings \u2014 Vue en Temps R\u00e9el',
+    ec_preview_sub:'Vue repr\u00e9sentative des r\u00e9sultats r\u00e9cents tels qu\u2019ils apparaissent dans le calendrier TNT. Le code couleur beat/miss se met \u00e0 jour instantan\u00e9ment \u00e0 la publication.',
+    ec_th_company:'Soci\u00e9t\u00e9',ec_th_timing:'Timing',ec_th_eps_est:'EPS Est.',ec_th_eps_actual:'EPS R\u00e9el',ec_th_rev_est:'CA Est.',ec_th_rev_actual:'CA R\u00e9el',ec_th_result:'R\u00e9sultat',
+    ec_table_note:'Donn\u00e9es illustratives. Les r\u00e9sultats en direct s\u2019affichent instantan\u00e9ment dans le terminal Pro.',
+    ec_upcoming_label:'\u00c0 Venir',ec_upcoming_title:'Principaux R\u00e9sultats \u2014 Cette Semaine',
+    ec_upcoming_sub:'Le calendrier TNT affiche le planning futur complet avec les estimations de consensus pr\u00e9-remplies. Exemple illustratif ci-dessous.',
+    day_mon:'Lundi',day_tue:'Mardi',day_wed:'Mercredi',day_thu:'Jeudi',
+    ec_hiw_title:'Du Calendrier au R\u00e9sultat en 3 \u00c9tapes',
+    ec_step1_h:'Consultez le Calendrier Futur',ec_step1_p:'Ouvrez le calendrier de r\u00e9sultats TNT pour voir tous les r\u00e9sultats de la semaine \u2014 nom de l\u2019entreprise, heure de publication (BMO/AMC), estimation EPS et estimation CA pr\u00e9-remplies. Signalez les publications \u00e0 surveiller en priorit\u00e9.',
+    ec_step2_h:'Les R\u00e9sultats S\u2019affichent en Direct',ec_step2_p:'D\u00e8s qu\u2019une entreprise publie, l\u2019EPS r\u00e9el et le CA r\u00e9el s\u2019affichent en temps r\u00e9el avec le code couleur vert/rouge. Le squawk box annonce le chiffre principal \u00e0 voix haute pour que vous entendiez le r\u00e9sultat imm\u00e9diatement.',
+    ec_step3_h:'Le Fil d\u2019Actualit\u00e9 S\u2019injecte Instantan\u00e9ment',ec_step3_p:'Simultan\u00e9ment au r\u00e9sultat, le fil d\u2019actualit\u00e9 TNT injecte toute la couverture des r\u00e9sultats pour ce titre \u2014 r\u00e9actions d\u2019analystes, citations de guidance, commentaires sectoriels. Vous avez les chiffres et le contexte en secondes, pr\u00eat \u00e0 agir avant que le march\u00e9 ait fini de lire le titre.',
+    ec_cmp_label:'Comparaison',ec_cmp_title:'Calendrier TNT vs. Alternatives',
+    ec_cmp_feature:'Fonctionnalit\u00e9',ec_cmp_row1:'Planning de r\u00e9sultats futurs',ec_cmp_row2:'Code couleur EPS beat/miss en direct',ec_cmp_row3:'Suivi beat/miss de CA',ec_cmp_row4:'Fil d\u2019actualit\u00e9 int\u00e9gr\u00e9 instantan\u00e9',ec_cmp_row5:'Alertes audio squawk en direct',ec_cmp_row6:'Livraison de r\u00e9sultats sans d\u00e9lai',ec_cmp_price:'Prix (mensuel)',
+    ec_faq_title:'Calendrier des R\u00e9sultats \u2014 Questions Fr\u00e9quentes',
+    ec_faq1_q:'Qu\u2019est-ce qu\u2019un calendrier des r\u00e9sultats\u00a0?',ec_faq1_a:'Un calendrier des r\u00e9sultats est un planning des dates de publication des r\u00e9sultats d\u2019entreprises. Il indique quand chaque soci\u00e9t\u00e9 publiera ses r\u00e9sultats trimestriels \u2014 y compris les estimations d\u2019EPS, les attentes de chiffre d\u2019affaires et si le rapport tombe avant l\u2019ouverture du march\u00e9 (BMO) ou apr\u00e8s la cl\u00f4ture (AMC). Les traders utilisent ces calendriers pour anticiper les gaps de prix et les pics de volatilit\u00e9.',
+    ec_faq2_q:'Comment les r\u00e9sultats affectent-ils les cours\u00a0?',ec_faq2_a:'Les rapports de r\u00e9sultats sont parmi les catalyseurs d\u2019\u00e9v\u00e9nement les plus puissants pour les actions individuelles. Un beat EPS significatif \u2014 surtout combin\u00e9 \u00e0 un guidance relev\u00e9 \u2014 peut faire monter une action de 5\u201315% en une nuit. Un miss ou un guidance abaiss\u00e9 peut d\u00e9clencher une baisse \u00e9quivalente. Le calendrier TNT injecte toute la couverture news d\u00e8s que les r\u00e9sultats sont publi\u00e9s.',
+    ec_faq3_q:'Qu\u2019est-ce que le beat vs miss EPS\u00a0?',ec_faq3_a:'Le BPA (B\u00e9n\u00e9fice Par Action) est le b\u00e9n\u00e9fice net d\u2019une entreprise divis\u00e9 par ses actions en circulation. Chaque trimestre, les analystes publient des estimations de consensus BPA avant le rapport. Un \u2018beat\u2019 signifie que le BPA r\u00e9el a d\u00e9pass\u00e9 l\u2019estimation de consensus. Un \u2018miss\u2019 signifie que le BPA est rest\u00e9 en de\u00e7\u00e0 des attentes. TNT code chaque r\u00e9sultat en couleur\u00a0: vert pour beat, rouge pour miss, gris pour en ligne.',
+    ec_faq4_q:'Comment suivre les publications de r\u00e9sultats en temps r\u00e9el\u00a0?',ec_faq4_a:'Le calendrier de Trading News Terminal affiche chaque publication avec date, heure, estimation EPS et estimation CA pr\u00e9-remplies. D\u00e8s qu\u2019une entreprise publie, les chiffres r\u00e9els s\u2019affichent en temps r\u00e9el avec le code couleur beat/miss \u2014 sans actualisation manuelle. Simultan\u00e9ment, le fil d\u2019actualit\u00e9 injecte toute la couverture des r\u00e9sultats pour ce titre en quelques secondes.',
+    ec_faq5_q:'Quelles actions publient leurs r\u00e9sultats cette semaine\u00a0?',ec_faq5_a:'Le calendrier de r\u00e9sultats TNT affiche le planning complet de la semaine group\u00e9 par jour, incluant les publications pr\u00e9-march\u00e9 (BMO) et after-hours (AMC). Les principales semaines de r\u00e9sultats \u2014 pendant la saison de reporting am\u00e9ricaine en janvier, avril, juillet et octobre \u2014 voient des centaines de soci\u00e9t\u00e9s publier. Le calendrier TNT met en \u00e9vidence les publications \u00e0 fort impact.',
+    ec_explore_label:'Explorer',
+    ec_cta_h2:'Ne Ratez Plus Jamais un R\u00e9sultat \u2014 Gratuit 7 Jours',
+    ec_cta_p:'Signaux EPS beat/miss en direct, suivi du CA, injection instantan\u00e9e de news et alertes squawk. Aucune carte de cr\u00e9dit requise.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Confidentialit\u00e9</a> \u00b7 <a href="/terms">CGU</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  de:{
+    try_btn:'Kostenlos Testen \u2192',trial_btn:'Kostenlose Testphase',free_btn:'Terminal \u00d6ffnen',tagline:'Echtzeit-Marktintelligenz',active:'DE',
+    how_title:'So funktioniert es',faq_title:'H\u00e4ufige Fragen',explore_title:'Weitere Funktionen',cta_free:'Kostenlos Starten',
+    ec_hero_badge:'Pro-Funktion',
+    ec_hero_h1:'<span>Live-Ergebniskalender</span> \u2014<br>Echtzeit-EPS-Beat/Miss-Signale',
+    ec_hero_p:'Jede Ergebnisver\u00f6ffentlichung \u2014 Datum, gesch\u00e4tztes vs. tats\u00e4chliches EPS, Umsatz, Beat/Miss-Farbkodierung und sofortige News-Einspeisung \u2014 in dem Moment, in dem die Ergebnisse eintreffen. Verpassen Sie keine kursbewegende Ver\u00f6ffentlichung mehr.',
+    ec_stat1:'Verfolgte Aktien',ec_stat2:'EPS-Updates',ec_stat3:'News-Verz\u00f6gerung',ec_stat4:'Timing-Labels',ec_stat5:'Saisonabdeckung',
+    ec_why_label:'Warum Es Wichtig Ist',ec_why_title:'Ergebnisse Sind der Gr\u00f6\u00dfte Preiskatalysator',
+    ec_why_sub:'Ein einzelner Quartalsbericht kann eine Aktie im After-Hours um 10\u201320% bewegen. Die Beat/Miss-Dynamik zu verstehen \u2014 und die News im Moment des Ergebnisses zu haben \u2014 ist der Unterschied zwischen Partizipation und dem Hinterherlaufen.',
+    ec_card1_h:'EPS-Beat/Miss-Farbkodierung',ec_card1_p:'Jedes Ergebnis erscheint in Echtzeit mit gr\u00fcner (Beat), roter (Miss) oder grauer (in-line) Farbkodierung. Scannen Sie Dutzende von Ergebnissen in Sekunden \u2014 ohne Kopfrechnen. Tats\u00e4chliches EPS, Sch\u00e4tzung und Delta werden nebeneinander angezeigt.',
+    ec_card2_h:'Umsatz\u00fcberraschungen',ec_card2_p:'EPS allein erz\u00e4hlt nicht die ganze Geschichte. Umsatz-Beats und -Misses treiben oft noch gr\u00f6\u00dfere Kursreaktionen an. TNT zeigt beide Kennzahlen gleichzeitig \u2014 EPS und Umsatz vs. Konsens \u2014 f\u00fcr jedes berichtende Unternehmen.',
+    ec_card3_h:'Sofortige News-Einspeisung',ec_card3_p:'Sobald ein Unternehmen berichtet, speist der TNT-Newsfeed alle relevante Berichterstattung ein \u2014 Analysten-Reaktionen, Guidance-Kommentare, Sektorimplikationen \u2014 f\u00fcr diese Aktie. Sie sehen Zahlen und Interpretation gleichzeitig, ohne Apps zu wechseln.',
+    ec_card4_h:'BMO & AMC Timing',ec_card4_p:'Jeder Eintrag ist mit Vor Markt\u00f6ffnung (BMO) oder Nach Marktschluss (AMC) gekennzeichnet, damit Sie genau wissen, wann Sie aufpassen m\u00fcssen. Pre-Market- und After-Hours-Ver\u00f6ffentlichungen sind separat gekennzeichnet.',
+    ec_card5_h:'Vorausschauender Kalender',ec_card5_p:'Der Ergebniskalender zeigt den vollst\u00e4ndigen Vorauskalender \u2014 Tage und Wochen im Voraus \u2014 mit vorab bef\u00fcllten EPS- und Umsatzkonsenssch\u00e4tzungen. Planen Sie Ihre Woche rund um die wirkungsvollsten Ergebnisse, bevor die Saison beginnt.',
+    ec_card6_h:'Integriert mit Newsfeed',ec_card6_p:'Klicken Sie auf einen beliebigen Ergebniseintrag, um den Live-Newsfeed sofort f\u00fcr dieses Unternehmen zu filtern. Alle Analystennotizen vor den Ergebnissen, die Berichterstattung am Tag und Reaktionen nach den Ergebnissen werden chronologisch dargestellt.',
+    ec_preview_label:'Live-Vorschau',ec_preview_title:'Ergebnisse \u2014 Echtzeit-Ansicht',
+    ec_preview_sub:'Repr\u00e4sentative Ansicht aktueller Ergebnisse, wie sie im TNT-Kalender erscheinen. Die Beat/Miss-Farbkodierung aktualisiert sich sofort bei Ver\u00f6ffentlichung.',
+    ec_th_company:'Unternehmen',ec_th_timing:'Timing',ec_th_eps_est:'EPS Sch\u00e4tz.',ec_th_eps_actual:'EPS Tats\u00e4chl.',ec_th_rev_est:'Umsatz Sch\u00e4tz.',ec_th_rev_actual:'Umsatz Tats\u00e4chl.',ec_th_result:'Ergebnis',
+    ec_table_note:'Illustrative Daten. Live-Ergebnisse erscheinen sofort im Pro-Terminal.',
+    ec_upcoming_label:'Bevorstehend',ec_upcoming_title:'Wichtige Ergebnisse \u2014 Diese Woche',
+    ec_upcoming_sub:'Der TNT-Kalender zeigt den vollst\u00e4ndigen Vorauskalender mit vorab bef\u00fcllten Konsenssch\u00e4tzungen. Illustratives Beispiel unten.',
+    day_mon:'Montag',day_tue:'Dienstag',day_wed:'Mittwoch',day_thu:'Donnerstag',
+    ec_hiw_title:'Vom Kalender zum Ergebnis in 3 Schritten',
+    ec_step1_h:'Vorauskalender pr\u00fcfen',ec_step1_p:'\u00d6ffnen Sie den TNT-Ergebniskalender, um alle anstehenden Ergebnisse der Woche zu sehen \u2014 Unternehmensname, Meldezeitpunkt (BMO/AMC), EPS-Konsenssch\u00e4tzung und Umsatzsch\u00e4tzung vorab bef\u00fcllt. Markieren Sie die Ver\u00f6ffentlichungen, die Sie am aufmerksamsten verfolgen m\u00fcssen.',
+    ec_step2_h:'Ergebnisse erscheinen live bei Ver\u00f6ffentlichung',ec_step2_p:'Sobald ein Unternehmen berichtet, erscheinen tats\u00e4chliches EPS und tats\u00e4chlicher Umsatz in Echtzeit mit gr\u00fcner/roter Beat/Miss-Farbkodierung. Die Squawk-Box verk\u00fcndet die Hauptzahl laut, sodass Sie das Ergebnis sofort h\u00f6ren.',
+    ec_step3_h:'Newsfeed speist sofort ein',ec_step3_p:'Gleichzeitig mit dem Ergebnis speist der TNT-Newsfeed alle Ergebnisberichte f\u00fcr diese Aktie ein \u2014 Analystenreaktionen, Guidance-Zitate, Sektorkommentare. Sie haben Zahlen und Kontext in Sekunden, bereit zu handeln, bevor der breite Markt die \u00dcberschrift fertig gelesen hat.',
+    ec_cmp_label:'Vergleich',ec_cmp_title:'TNT-Ergebniskalender vs. Alternativen',
+    ec_cmp_feature:'Funktion',ec_cmp_row1:'Vorausgehender Ergebniskalender',ec_cmp_row2:'Live-EPS-Beat/Miss-Farbkodierung',ec_cmp_row3:'Umsatz-Beat/Miss-Verfolgung',ec_cmp_row4:'Sofortiger integrierter Newsfeed',ec_cmp_row5:'Live-Squawk-Audioalarme',ec_cmp_row6:'Sofortige Ergebnislieferung',ec_cmp_price:'Preis (monatlich)',
+    ec_faq_title:'Ergebniskalender \u2014 H\u00e4ufige Fragen',
+    ec_faq1_q:'Was ist ein Ergebniskalender?',ec_faq1_a:'Ein Ergebniskalender ist ein Zeitplan der Ver\u00f6ffentlichungstermine f\u00fcr Unternehmensergebnisse. Er zeigt, wann jedes Unternehmen seine Quartalsergebnisse ver\u00f6ffentlichen wird \u2014 einschlie\u00dflich EPS-Sch\u00e4tzungen, Umsatzerwartungen und ob der Bericht vor Markt\u00f6ffnung (BMO) oder nach Marktschluss (AMC) kommt. Trader nutzen Ergebniskalender, um sich auf m\u00f6gliche Preisl\u00fccken und Volatilit\u00e4tsspitzen vorzubereiten.',
+    ec_faq2_q:'Wie beeinflussen Ergebnisse Aktienkurse?',ec_faq2_a:'Ergebnisberichte geh\u00f6ren zu den st\u00e4rksten Einzelereignis-Katalysatoren f\u00fcr individuelle Aktienkurse. Ein erheblicher EPS-Beat \u2014 besonders in Kombination mit erh\u00f6htem Guidance \u2014 kann eine Aktie \u00fcber Nacht um 5\u201315% ansteigen lassen. Ein Miss oder gesenktes Guidance kann einen gleichwertigen Ausverkauf ausl\u00f6sen. Der TNT-Kalender speist sofort alle Neuigkeiten ein, sobald die Ergebnisse ver\u00f6ffentlicht werden.',
+    ec_faq3_q:'Was ist EPS Beat vs. Miss?',ec_faq3_a:'EPS (Gewinn je Aktie) ist der Nettogewinn eines Unternehmens geteilt durch seine ausstehenden Aktien. Jedes Quartal ver\u00f6ffentlichen Analysten Konsenssch\u00e4tzungen des EPS vor dem Bericht. Ein \u201eBeat\u201c bedeutet, dass das tats\u00e4chliche EPS die Konsenssch\u00e4tzung \u00fcbertroffen hat. Ein \u201eMiss\u201c bedeutet, dass das EPS unter den Erwartungen lag. TNT codiert jedes Ergebnis farblich: Gr\u00fcn f\u00fcr Beat, Rot f\u00fcr Miss, Grau f\u00fcr in-line.',
+    ec_faq4_q:'Wie verfolge ich Ergebnisver\u00f6ffentlichungen in Echtzeit?',ec_faq4_a:'Der Ergebniskalender von Trading News Terminal zeigt jede geplante Ver\u00f6ffentlichung mit Datum, Uhrzeit, EPS-Sch\u00e4tzung und Umsatzsch\u00e4tzung vorab bef\u00fcllt. Sobald ein Unternehmen berichtet, erscheinen die tats\u00e4chlichen Zahlen in Echtzeit mit Beat/Miss-Farbkodierung \u2014 kein manuelles Aktualisieren erforderlich. Gleichzeitig speist der integrierte Newsfeed alle relevante Berichterstattung in Sekunden ein.',
+    ec_faq5_q:'Welche Aktien haben diese Woche Ergebnisse?',ec_faq5_a:'Der TNT-Ergebniskalender zeigt den vollst\u00e4ndigen Wochenplan nach Tag gruppiert, einschlie\u00dflich Pre-Market- (BMO) und After-Hours-Ver\u00f6ffentlichungen (AMC). Wichtige Ergebniswochen \u2014 w\u00e4hrend der US-Berichtssaison im Januar, April, Juli und Oktober \u2014 sehen hunderte von Unternehmen berichten. Der TNT-Kalender kennzeichnet hochimpaktive Ver\u00f6ffentlichungen.',
+    ec_explore_label:'Entdecken',
+    ec_cta_h2:'Nie Wieder ein Ergebnis Verpassen \u2014 7 Tage Kostenlos',
+    ec_cta_p:'Live-EPS-Beat/Miss-Signale, Umsatzverfolgung, sofortige News-Einspeisung und Squawk-Alarme. Keine Kreditkarte erforderlich.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Datenschutz</a> \u00b7 <a href="/terms">AGB</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  it:{
+    try_btn:'Prova Gratuita \u2192',trial_btn:'Inizia la Prova Gratuita',free_btn:'Apri il Terminal',tagline:'Intelligenza di Mercato in Tempo Reale',active:'IT',
+    how_title:'Come funziona',faq_title:'Domande Frequenti',explore_title:'Esplora Funzionalit\u00e0',cta_free:'Inizia Gratis',
+    ec_hero_badge:'Funzione Pro',
+    ec_hero_h1:'<span>Calendario Utili in Diretta</span> \u2014<br>Segnali EPS Beat/Miss in Tempo Reale',
+    ec_hero_p:'Ogni pubblicazione di utili \u2014 data, EPS stimato vs. reale, ricavi, codice colore beat/miss e iniezione istantanea di notizie \u2014 nel momento in cui i risultati arrivano. Non arrivare mai pi\u00f9 in ritardo su una pubblicazione che muove il mercato.',
+    ec_stat1:'Titoli Monitorati',ec_stat2:'Aggiornamenti EPS',ec_stat3:'Ritardo Notizie',ec_stat4:'Etichette Timing',ec_stat5:'Copertura Stagionale',
+    ec_why_label:'Perch\u00e9 \u00c8 Importante',ec_why_title:'Gli Utili Sono il Maggior Catalizzatore di Prezzo',
+    ec_why_sub:'Un singolo report trimestrale pu\u00f2 muovere un titolo del 10\u201320% nell\u2019after-hours. Capire la dinamica beat/miss \u2014 e avere le notizie nel momento in cui escono i risultati \u2014 \u00e8 la differenza tra capitalizzare un movimento e inseguirlo.',
+    ec_card1_h:'Codice Colore EPS Beat/Miss',ec_card1_p:'Ogni risultato appare in tempo reale con codice colore verde (beat), rosso (miss) o grigio (in linea). Analizza decine di risultati in secondi \u2014 senza calcoli mentali. EPS reale, stimato e il delta sono visualizzati fianco a fianco.',
+    ec_card2_h:'Sorprese di Ricavi',ec_card2_p:'Il solo EPS non racconta tutta la storia. I beat e i miss di ricavi spesso generano reazioni di prezzo ancora maggiori. TNT mostra entrambe le metriche simultaneamente \u2014 EPS e ricavi vs. consensus \u2014 per ogni azienda.',
+    ec_card3_h:'Iniezione Istantanea di Notizie',ec_card3_p:'Nel momento in cui un\u2019azienda pubblica i risultati, il feed notizie TNT inietta tutta la copertura correlata \u2014 reazioni degli analisti, commenti sul guidance, implicazioni settoriali \u2014 per quel titolo. Vedi i numeri e l\u2019interpretazione simultaneamente, senza cambiare applicazione.',
+    ec_card4_h:'Timing BMO & AMC',ec_card4_p:'Ogni voce \u00e8 etichettata Prima dell\u2019Apertura del Mercato (BMO) o Dopo la Chiusura del Mercato (AMC) cos\u00ec sai esattamente quando essere attento. Le pubblicazioni pre-mercato e after-hours sono segnalate separatamente.',
+    ec_card5_h:'Calendario Futuro',ec_card5_p:'Il calendario utili mostra il calendario futuro completo \u2014 giorni e settimane avanti \u2014 con stime di consensus EPS e ricavi pre-popolate. Pianifica la tua settimana attorno ai risultati ad alto impatto prima dell\u2019inizio della stagione.',
+    ec_card6_h:'Integrato con Feed Notizie',ec_card6_p:'Clicca su qualsiasi voce di utili per filtrare istantaneamente il feed notizie live per quell\u2019azienda. Tutte le note degli analisti pre-risultati, la copertura del giorno e le reazioni post-risultati sono presentate cronologicamente.',
+    ec_preview_label:'Anteprima Live',ec_preview_title:'Risultati Utili \u2014 Vista in Tempo Reale',
+    ec_preview_sub:'Vista rappresentativa dei risultati recenti cos\u00ec come appaiono nel calendario TNT. Il codice colore beat/miss si aggiorna istantaneamente alla pubblicazione.',
+    ec_th_company:'Azienda',ec_th_timing:'Timing',ec_th_eps_est:'EPS Stim.',ec_th_eps_actual:'EPS Reale',ec_th_rev_est:'Ric. Stim.',ec_th_rev_actual:'Ric. Reale',ec_th_result:'Risultato',
+    ec_table_note:'Dati illustrativi. I risultati live appaiono istantaneamente nel terminal Pro.',
+    ec_upcoming_label:'Prossimi',ec_upcoming_title:'Principali Utili \u2014 Questa Settimana',
+    ec_upcoming_sub:'Il calendario TNT mostra il calendario futuro completo con stime di consensus pre-popolate. Esempio illustrativo di seguito.',
+    day_mon:'Luned\u00ec',day_tue:'Marted\u00ec',day_wed:'Mercoled\u00ec',day_thu:'Gioved\u00ec',
+    ec_hiw_title:'Dal Calendario al Risultato in 3 Passi',
+    ec_step1_h:'Consulta il Calendario Futuro',ec_step1_p:'Apri il calendario utili TNT per vedere tutti i risultati in arrivo della settimana \u2014 nome dell\u2019azienda, orario di pubblicazione (BMO/AMC), stima EPS e stima ricavi pre-popolate. Segnala le pubblicazioni da seguire pi\u00f9 da vicino.',
+    ec_step2_h:'I Risultati Appaiono Live alla Pubblicazione',ec_step2_p:'Nel momento in cui un\u2019azienda pubblica, EPS reale e ricavi reali appaiono in tempo reale con codice colore verde/rosso. Lo squawk box annuncia la cifra principale ad alta voce cos\u00ec senti il risultato immediatamente.',
+    ec_step3_h:'Il Feed Notizie Si Inietta Istantaneamente',ec_step3_p:'Contemporaneamente al risultato, il feed notizie TNT inietta tutta la copertura utili per quel titolo \u2014 reazioni degli analisti, citazioni di guidance, commenti settoriali. Hai numeri e contesto in secondi, pronto ad agire prima che il mercato abbia finito di leggere il titolo.',
+    ec_cmp_label:'Confronto',ec_cmp_title:'Calendario TNT vs. Alternative',
+    ec_cmp_feature:'Funzionalit\u00e0',ec_cmp_row1:'Calendario utili futuro',ec_cmp_row2:'Codice colore EPS beat/miss live',ec_cmp_row3:'Monitoraggio beat/miss ricavi',ec_cmp_row4:'Feed notizie integrato istantaneo',ec_cmp_row5:'Avvisi audio squawk live',ec_cmp_row6:'Consegna risultati senza ritardo',ec_cmp_price:'Prezzo (mensile)',
+    ec_faq_title:'Calendario Utili \u2014 Domande Frequenti',
+    ec_faq1_q:'Cos\u2019\u00e8 un calendario utili?',ec_faq1_a:'Un calendario utili \u00e8 un programma delle date di pubblicazione dei risultati aziendali. Mostra quando ogni azienda publicher\u00e0 i propri risultati trimestrali \u2014 incluse le stime EPS, le aspettative sui ricavi e se il report arriva prima dell\u2019apertura del mercato (BMO) o dopo la chiusura (AMC). I trader usano i calendari utili per prepararsi a possibili gap di prezzo e picchi di volatilit\u00e0.',
+    ec_faq2_q:'Come influenzano gli utili i prezzi delle azioni?',ec_faq2_a:'I report sugli utili sono tra i catalizzatori di singolo evento pi\u00f9 potenti per i prezzi delle singole azioni. Un EPS beat significativo \u2014 specialmente combinato con un guidance alzato \u2014 pu\u00f2 far salire un titolo del 5\u201315% in una notte. Un miss o un guidance abbassato pu\u00f2 innescare un selloff equivalente. Il calendario TNT inietta tutta la copertura notizie nel momento in cui i risultati vengono pubblicati.',
+    ec_faq3_q:'Cos\u2019\u00e8 EPS beat vs miss?',ec_faq3_a:'EPS (Utile Per Azione) \u00e8 il profitto netto di un\u2019azienda diviso per le sue azioni in circolazione. Ogni trimestre, gli analisti pubblicano stime di consensus EPS prima del report. Un \u2018beat\u2019 significa che l\u2019EPS reale ha superato la stima di consensus. Un \u2018miss\u2019 significa che l\u2019EPS \u00e8 rimasto al di sotto delle aspettative. TNT codifica ogni risultato con colori: verde per beat, rosso per miss, grigio per in linea.',
+    ec_faq4_q:'Come monitoro le pubblicazioni di utili in tempo reale?',ec_faq4_a:'Il calendario utili di Trading News Terminal mostra ogni pubblicazione programmata con data, ora, stima EPS e stima ricavi pre-popolate. Nel momento in cui un\u2019azienda pubblica, le cifre reali appaiono in tempo reale con codice colore beat/miss \u2014 nessun aggiornamento manuale necessario. Simultaneamente, il feed notizie inietta tutta la copertura utili per quel titolo in pochi secondi.',
+    ec_faq5_q:'Quali titoli hanno utili questa settimana?',ec_faq5_a:'Il calendario utili TNT mostra il calendario completo della settimana raggruppato per giorno, incluse le pubblicazioni pre-mercato (BMO) e after-hours (AMC). Le principali settimane di utili \u2014 durante la stagione di reporting USA a gennaio, aprile, luglio e ottobre \u2014 vedono centinaia di aziende riportare. Il calendario TNT segnala le pubblicazioni ad alto impatto.',
+    ec_explore_label:'Esplora',
+    ec_cta_h2:'Non Perdere Mai Pi\u00f9 un Risultato \u2014 Gratis per 7 Giorni',
+    ec_cta_p:'Segnali EPS beat/miss live, monitoraggio ricavi, iniezione istantanea di notizie e avvisi squawk. Nessuna carta di credito richiesta.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Termini</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='earnings-calendar';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

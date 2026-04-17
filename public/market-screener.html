@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Screener — Forex, Stocks, Crypto &amp; Indices Live</title>
+<meta name="description" content="Real-time market screener for Forex, Stocks, Crypto, Indices &amp; Commodities. RSI signals, momentum &amp; news activity — all in one trading terminal.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.tradingnewsterminal.com/market-screener">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+<meta property="og:title" content="Market Screener — Forex, Stocks, Crypto &amp; Indices Live">
+<meta property="og:description" content="Real-time market screener for Forex, Stocks, Crypto, Indices &amp; Commodities. RSI signals, momentum &amp; news activity — all in one trading terminal.">
+<meta property="og:url" content="https://www.tradingnewsterminal.com/market-screener">
+<meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Trading News Terminal — Market Screener",
+  "url": "https://app.tradingnewsterminal.com",
+  "description": "Real-time market screener for Forex, Stocks, Crypto, Indices, Commodities and Bonds with RSI signals, momentum scores and news activity rankings.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web Browser",
+  "offers": [
+    {"@type": "Offer", "name": "Basic", "price": "0", "priceCurrency": "EUR"},
+    {"@type": "Offer", "name": "Pro", "price": "40", "priceCurrency": "EUR"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a market screener?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A market screener is a tool that filters and ranks financial instruments — stocks, forex pairs, crypto, indices — based on technical and fundamental criteria like RSI, price momentum, volume and news activity. Traders use screeners to identify opportunities across hundreds of assets without manually checking each one."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do I screen forex pairs?",
+      "acceptedAnswer": {"@type": "Answer", "text": "In Trading News Terminal's market screener, open the Forex tab to see all major, minor and exotic pairs ranked by RSI score, price change and news activity. You can sort any column and filter by signal type (Bullish, Bearish, Overbought, Oversold, Neutral) to narrow down actionable setups instantly."}
+    },
+    {
+      "@type": "Question",
+      "name": "What is RSI in a market screener?",
+      "acceptedAnswer": {"@type": "Answer", "text": "RSI (Relative Strength Index) measures momentum on a 0–100 scale. In a screener, RSI above 70 flags overbought conditions (potential reversal or continuation), below 30 flags oversold conditions. TNT's screener color-codes these signals — Bullish, Bearish, Overbought, Oversold, Neutral — so you can spot extremes across all asset classes at a glance."}
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free real-time market screener?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Trading News Terminal's full market screener with RSI signals, 6 asset class tabs, news activity rankings and advanced filters is a Pro feature (€40/month). A 7-day free trial is available with no credit card required, giving you full access to test every screener filter before committing."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do professional traders use screeners?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Professional traders use market screeners at the start of each session to identify the most active, trending or oversold instruments. They combine technical signals (RSI, momentum) with news activity to prioritise assets where price movement and catalysts align. TNT's screener integrates both dimensions in one view, eliminating the need to cross-reference multiple platforms."}
+    }
+  ]
+}
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111827;
+    --border: #1e2a3a;
+    --accent: #00d4ff;
+    --accent-dim: rgba(0,212,255,0.12);
+    --text: #e0e8f0;
+    --muted: #8899aa;
+    --green: #00c896;
+    --red: #ff4d6a;
+    --yellow: #f5c518;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, 'Inter', -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,15,0.97);
+    border-bottom: 1px solid #1e2a3a;
+    padding: 0 24px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+  .nav-logo-text span { color:#00d4ff; }
+  .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity .15s, transform .15s; border: none; text-decoration: none; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+  /* Hero */
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero-tag { display: inline-block; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 24px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; color: var(--text); }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* Stats bar */
+  .stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Section */
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 14px; }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 620px; margin-bottom: 40px; }
+
+  /* Cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .card-icon { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .card:hover { border-color: var(--accent); }
+
+  /* Tab preview */
+  .tab-list { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .tab-pill { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .tab-pill.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+
+  /* Screener table */
+  .screener-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .screener-table th { text-align: left; padding: 10px 12px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .screener-table td { padding: 11px 12px; border-bottom: 1px solid rgba(30,42,58,0.6); }
+  .screener-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .sig { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+  .sig-bull { background: rgba(0,200,150,0.15); color: var(--green); }
+  .sig-bear { background: rgba(255,77,106,0.15); color: var(--red); }
+  .sig-ob { background: rgba(245,197,24,0.15); color: var(--yellow); }
+  .sig-os { background: rgba(0,212,255,0.15); color: var(--accent); }
+  .sig-neu { background: rgba(136,153,170,0.15); color: var(--muted); }
+  .chg-pos { color: var(--green); }
+  .chg-neg { color: var(--red); }
+
+  /* Steps */
+  .steps { display: grid; gap: 24px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.4); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--accent); }
+  .step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 14px; color: var(--muted); }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table th { padding: 12px 16px; background: var(--bg2); text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--green); font-weight: 700; }
+  .compare-table .cross { color: var(--red); }
+  .compare-table .tnt-col { background: rgba(0,212,255,0.04); }
+
+  /* FAQ */
+  .faq-list { display: grid; gap: 16px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+  .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .faq-item p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* Cross-links */
+  .cross-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .cross-link { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-size: 14px; font-weight: 600; color: var(--text); transition: border-color .15s; }
+  .cross-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  /* Footer CTA */
+  .footer-cta { background: linear-gradient(135deg, rgba(0,212,255,0.07) 0%, rgba(0,212,255,0.02) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 0; text-align: center; }
+  .footer-cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 14px; }
+  .footer-cta p { color: var(--muted); margin-bottom: 32px; font-size: 16px; }
+
+  /* Footer */
+  .site-footer { padding: 24px 0; text-align: center; color: var(--muted); font-size: 13px; }
+  .site-footer a { color: var(--muted); margin: 0 8px; }
+  .site-footer a:hover { color: var(--accent); }
+
+  /* Pro badge */
+  .pro-badge { display: inline-block; background: linear-gradient(90deg, #f5c518, #ff9900); color: #000; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em; margin-left: 8px; vertical-align: middle; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .step { flex-direction: column; }
+    .site-header .logo-name { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=market-screener&utm_content=header" class="nav-logo" data-seo-track="market-screener">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=market-screener&utm_content=header" class="btn btn-primary" data-seo-track="market-screener"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag" data-i18n="hero.badge">Pro Feature</div>
+    <h1 data-i18n="hero.h1">Real-Time <span>Market Screener</span> —<br>6 Asset Classes in One View</h1>
+    <p data-i18n="hero.sub">Screen Forex, Stocks, Crypto, Indices, Commodities and Bonds simultaneously. RSI signals, momentum scores and news activity — instantly ranked and filterable.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=market-screener&utm_content=hero" class="btn btn-primary" data-seo-track="market-screener"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=market-screener&utm_content=hero" class="btn btn-outline" data-seo-track="market-screener"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-val">6</div><div class="stat-label" data-i18n="stats.asset_classes">Asset Classes</div></div>
+      <div><div class="stat-val">500+</div><div class="stat-label" data-i18n="stats.instruments">Instruments</div></div>
+      <div><div class="stat-val">5</div><div class="stat-label" data-i18n="stats.signal_types">Signal Types</div></div>
+      <div><div class="stat-val">4</div><div class="stat-label" data-i18n="stats.stock_views">Stock Views</div></div>
+      <div><div class="stat-val" data-i18n="stats.realtime_val">Real-time</div><div class="stat-label" data-i18n="stats.data_feed">Data Feed</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terminal Mockup -->
+<div style="background:#0d1117;border-top:1px solid #1e2a3a;border-bottom:1px solid #1e2a3a;padding:32px 24px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:'Courier New',monospace;">
+      <div style="background:#0a0c0f;border-bottom:1px solid #1e2a3a;padding:10px 16px;display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#ff4d6a;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#f5c518;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#00c896;"></div>
+        <span style="margin-left:12px;font-size:11px;color:#556677;letter-spacing:0.08em;">MARKET SCREENER — LIVE</span>
+        <span style="margin-left:auto;font-size:10px;color:#00d4ff;">● UPDATING</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="border-bottom:1px solid #1e2a3a;">
+          <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:left;letter-spacing:0.06em;font-size:11px;">ASSET</th>
+          <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">PRICE</th>
+          <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">CHANGE</th>
+          <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:right;letter-spacing:0.06em;font-size:11px;">RSI</th>
+          <th style="padding:10px 16px;color:#556677;font-weight:600;text-align:center;letter-spacing:0.06em;font-size:11px;">SIGNAL</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+            <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">EUR/USD</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">1.0847</td>
+            <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">+0.38%</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">62.4</td>
+            <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(0,200,150,0.15);color:#00c896;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">🟢 Bullish</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+            <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">GBP/USD</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">1.2714</td>
+            <td style="padding:11px 16px;color:#8899aa;text-align:right;font-weight:700;">+0.04%</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">51.2</td>
+            <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(245,197,24,0.15);color:#f5c518;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">🟡 Neutral</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+            <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">BTC/USD</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">67,420</td>
+            <td style="padding:11px 16px;color:#00c896;text-align:right;font-weight:700;">+2.14%</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">71.8</td>
+            <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(0,200,150,0.15);color:#00c896;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">🟢 Bullish</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(30,42,58,0.5);">
+            <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">Gold</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">2,341.50</td>
+            <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">-0.52%</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">38.6</td>
+            <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(255,77,106,0.15);color:#ff4d6a;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">🔴 Bearish</span></td>
+          </tr>
+          <tr>
+            <td style="padding:11px 16px;color:#e0e8f0;font-weight:700;">S&amp;P 500</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">5,218.40</td>
+            <td style="padding:11px 16px;color:#ff4d6a;text-align:right;font-weight:700;">-0.31%</td>
+            <td style="padding:11px 16px;color:#e0e8f0;text-align:right;">44.1</td>
+            <td style="padding:11px 16px;text-align:center;"><span style="background:rgba(245,197,24,0.15);color:#f5c518;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">🟡 Neutral</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:#556677;margin-top:10px;text-align:center;letter-spacing:0.04em;">Illustrative data · Live values update continuously in the Pro terminal</p>
+  </div>
+</div>
+
+<!-- Feature Cards -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="features.label">What's Included</div>
+    <h2 class="section-title" data-i18n="features.h2">Everything a Trader Needs in One Screener</h2>
+    <p class="section-sub" data-i18n="features.intro">The TNT market screener replaces five separate tools. Stocks, forex pairs, crypto, indices, commodities and bonds — all in one tabbed interface with live data.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3 data-i18n="feat1.title">6 Asset Class Tabs</h3>
+        <p data-i18n="feat1.body">Switch instantly between Stocks, Forex, Crypto, Indices, Commodities and Bonds. Each tab is independently sorted and filtered — your settings persist as you switch.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="feat2.title">RSI Signals &amp; Momentum</h3>
+        <p data-i18n="feat2.body">Every instrument shows its RSI score with a color-coded signal: Bullish, Bearish, Overbought, Oversold or Neutral. Spot momentum extremes across 500+ assets in seconds.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📰</div>
+        <h3 data-i18n="feat3.title">News Activity Ranking</h3>
+        <p data-i18n="feat3.body">Each instrument is scored by news volume in the last hour and 24 hours. Assets with surging coverage rise to the top — combining technical and fundamental signals automatically.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3 data-i18n="feat4.title">Advanced Filters</h3>
+        <p data-i18n="feat4.body">Filter stocks by sector, market cap, P/E ratio or signal type. Filter forex by signal or region. Every column is sortable — price change, RSI, volume, news score — ascending or descending.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3 data-i18n="feat5.title">4 Stock Views</h3>
+        <p data-i18n="feat5.body">Switch between Overview, Performance, Valuation and Dividends views for stocks. Each reveals a different layer of data without navigating away or opening separate tools.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3 data-i18n="feat6.title">Integrated with News Feed</h3>
+        <p data-i18n="feat6.body">Click any instrument in the screener to instantly filter the live news feed for that asset. Screener and news feed work as one — the fastest way to confirm why something is moving.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Screener preview -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="preview.label">Live Preview</div>
+    <h2 class="section-title" data-i18n="preview.h2">Forex Screener — Real-Time Signal View</h2>
+    <p class="section-sub" data-i18n="preview.sub">Below is a representative view of the Forex tab. RSI scores update live. News activity reflects coverage across TNT's 50+ integrated sources.</p>
+
+    <div class="tab-list">
+      <span class="tab-pill">Stocks</span>
+      <span class="tab-pill active">Forex</span>
+      <span class="tab-pill">Crypto</span>
+      <span class="tab-pill">Indices</span>
+      <span class="tab-pill">Commodities</span>
+      <span class="tab-pill">Bonds</span>
+    </div>
+
+    <div style="overflow-x:auto; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;">
+      <table class="screener-table">
+        <thead>
+          <tr>
+            <th data-i18n="tbl.pair">Pair</th>
+            <th data-i18n="tbl.price">Price</th>
+            <th data-i18n="tbl.change">Change %</th>
+            <th>RSI (14)</th>
+            <th data-i18n="tbl.signal">Signal</th>
+            <th data-i18n="tbl.news_1h">News (1h)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>EUR/USD</strong></td>
+            <td>1.0847</td>
+            <td class="chg-pos">+0.38%</td>
+            <td>62.4</td>
+            <td><span class="sig sig-bull">BULLISH</span></td>
+            <td>🔥 14</td>
+          </tr>
+          <tr>
+            <td><strong>GBP/USD</strong></td>
+            <td>1.2714</td>
+            <td class="chg-pos">+0.22%</td>
+            <td>58.1</td>
+            <td><span class="sig sig-neu">NEUTRAL</span></td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <td><strong>USD/JPY</strong></td>
+            <td>152.43</td>
+            <td class="chg-neg">-0.61%</td>
+            <td>31.7</td>
+            <td><span class="sig sig-os">OVERSOLD</span></td>
+            <td>🔥 22</td>
+          </tr>
+          <tr>
+            <td><strong>AUD/USD</strong></td>
+            <td>0.6532</td>
+            <td class="chg-neg">-0.14%</td>
+            <td>44.2</td>
+            <td><span class="sig sig-neu">NEUTRAL</span></td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td><strong>USD/CHF</strong></td>
+            <td>0.8891</td>
+            <td class="chg-neg">-0.29%</td>
+            <td>28.5</td>
+            <td><span class="sig sig-os">OVERSOLD</span></td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td><strong>GBP/JPY</strong></td>
+            <td>193.72</td>
+            <td class="chg-neg">-0.41%</td>
+            <td>72.8</td>
+            <td><span class="sig sig-ob">OVERBOUGHT</span></td>
+            <td>11</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px; color: var(--muted); margin-top: 10px;" data-i18n="preview.note">Illustrative data. Live values update continuously in the Pro terminal.</p>
+  </div>
+</section>
+
+<!-- How it works -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 class="section-title" data-i18n="how.h2">From Login to Trade Idea in 3 Steps</h2>
+    <p class="section-sub" data-i18n="how.sub">The TNT market screener is built for speed. No configuration required — open it, filter, act.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="step1.title">Open the Screener Tab</h3>
+          <p data-i18n="step1.body">Access the market screener from the TNT Pro sidebar. All 6 asset class tabs load instantly — pre-populated with live RSI scores, price changes and news activity for every instrument.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="step2.title">Apply Your Filters</h3>
+          <p data-i18n="step2.body">Select your signal type (Bullish, Oversold, Overbought), sort by RSI or news activity, filter stocks by sector or P/E ratio. The screener updates the list in real time as you adjust each filter.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="step3.title">Click Through to News &amp; Charts</h3>
+          <p data-i18n="step3.body">Found a setup? Click the instrument to filter the live news feed instantly, then open the integrated TradingView chart to analyze the price action. Everything is connected — no switching apps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="cmp.label">Comparison</div>
+    <h2 class="section-title" data-i18n="cmp.h2">TNT Market Screener vs. Alternatives</h2>
+    <p class="section-sub" data-i18n="cmp.sub">Most screeners cover one asset class. TNT covers six — and integrates news, meaning you see both why and where markets are moving.</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="cmp.th_feature">Feature</th>
+            <th class="tnt-col">TNT Pro</th>
+            <th>TradingView</th>
+            <th>Finviz</th>
+            <th>Bloomberg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="cmp.stocks">Stocks screening</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.forex">Forex screening</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="cross">&#10007;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.crypto">Crypto screening</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="cross">&#10007;</td>
+            <td class="cross">&#10007;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.bonds">Bonds &amp; Indices</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="cross">&#10007;</td>
+            <td class="cross">&#10007;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.news_feed">Integrated news feed</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="cross">&#10007;</td>
+            <td class="cross">&#10007;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.news_rank">News activity ranking</td>
+            <td class="tnt-col check">&#10003;</td>
+            <td class="cross">&#10007;</td>
+            <td class="cross">&#10007;</td>
+            <td class="cross">&#10007;</td>
+          </tr>
+          <tr>
+            <td data-i18n="cmp.price_row">Price (monthly)</td>
+            <td class="tnt-col" style="color: var(--accent);">&euro;40</td>
+            <td>Free / $14.95+</td>
+            <td>Free / $39.50+</td>
+            <td>$2,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="faq_title">FAQ</div>
+    <h2 class="section-title" data-i18n="faq.h2">Market Screener — Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 data-i18n="faq1.q">What is a market screener?</h3>
+        <p data-i18n="faq1.a">A market screener is a tool that filters and ranks financial instruments — stocks, forex pairs, crypto, indices — based on technical and fundamental criteria like RSI, price momentum, volume and news activity. Traders use screeners to identify opportunities across hundreds of assets without manually checking each one. TNT's screener covers six asset classes simultaneously in a single tabbed interface.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq2.q">How do I screen forex pairs?</h3>
+        <p data-i18n="faq2.a">In Trading News Terminal's market screener, open the Forex tab to see all major, minor and exotic pairs ranked by RSI score, price change and news activity. You can sort any column and filter by signal type (Bullish, Bearish, Overbought, Oversold, Neutral) to narrow down actionable setups instantly. The screener refreshes in real time, so the rankings always reflect the latest market conditions.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq3.q">What is RSI in a market screener?</h3>
+        <p data-i18n="faq3.a">RSI (Relative Strength Index) measures momentum on a 0–100 scale. In a screener, RSI above 70 flags overbought conditions — a potential reversal or momentum continuation. Below 30 flags oversold conditions. TNT's screener color-codes these signals — Bullish (RSI 50–70), Bearish (RSI 30–50), Overbought (70+), Oversold (sub-30) and Neutral — so you can spot extremes across all asset classes at a glance without calculating anything manually.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq4.q">Is there a free real-time market screener?</h3>
+        <p data-i18n="faq4.a">Trading News Terminal's full market screener with RSI signals, 6 asset class tabs, news activity rankings and advanced filters is a Pro feature at €40/month. A 7-day free trial is available with no credit card required, giving you full access to every screener filter before committing. The Basic (free) plan includes the news feed and economic calendar.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq5.q">How do professional traders use screeners?</h3>
+        <p data-i18n="faq5.a">Professional traders use market screeners at the start of each session to identify the most active, trending or oversold instruments. They combine technical signals (RSI, momentum) with news activity to prioritise assets where price movement and fundamental catalysts align. TNT's screener integrates both dimensions in one view — you see which instruments have both a technical signal and surging news coverage — eliminating the need to cross-reference multiple platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-links -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="explore_title">Explore</div>
+    <h2 class="section-title" data-i18n="explore.h2">Explore Other Features</h2>
+    <div class="cross-links">
+      <a href="/bloomberg-alternative" class="cross-link">Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="cross-link">Forex News Feed</a>
+      <a href="/economic-calendar" class="cross-link">Economic Calendar</a>
+      <a href="/squawk-box" class="cross-link">Squawk Box</a>
+      <a href="/live-financial-tv" class="cross-link">Live Financial TV</a>
+      <a href="/market-screener" class="cross-link" style="border-color: var(--accent); color: var(--accent);">Market Screener</a>
+      <a href="/central-banks-tracker" class="cross-link">Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="cross-link">Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="cross-link">Earnings Calendar</a>
+      <a href="/trading-charts" class="cross-link">Live Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="cta.h2">Start Screening the Market — Free for 7 Days</h2>
+    <p data-i18n="cta.sub">Full access to all 6 asset classes, RSI signals, news activity and advanced filters. No credit card required.</p>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=market-screener&utm_content=bottom" class="btn btn-primary" style="font-size:16px; padding: 14px 32px;" data-seo-track="market-screener"><span data-i18n="cta.btn">Start Free Trial \u2192</span></a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p data-i18n-html="footer.copy">© 2026 Trading News Terminal · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a></p>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    active:'EN',tagline:'Real-time Market Intelligence',
+    try_btn:'Try Free \u2192',trial_btn:'Start Free Trial',free_btn:'Open Free Terminal',
+    'hero.badge':'Pro Feature',
+    'hero.h1':'Real-Time Market Screener \u2014 6 Asset Classes in One View',
+    'hero.sub':'Screen Forex, Stocks, Crypto, Indices, Commodities and Bonds simultaneously. RSI signals, momentum scores and news activity \u2014 instantly ranked and filterable.',
+    'stats.asset_classes':'Asset Classes','stats.instruments':'Instruments','stats.signal_types':'Signal Types','stats.stock_views':'Stock Views','stats.realtime_val':'Real-time','stats.data_feed':'Data Feed',
+    'features.label':"What\'s Included",'features.h2':'Everything a Trader Needs in One Screener','features.intro':'The TNT market screener replaces five separate tools. Stocks, forex pairs, crypto, indices, commodities and bonds \u2014 all in one tabbed interface with live data.',
+    'feat1.title':'6 Asset Class Tabs','feat1.body':'Switch instantly between Stocks, Forex, Crypto, Indices, Commodities and Bonds. Each tab is independently sorted and filtered \u2014 your settings persist as you switch.',
+    'feat2.title':'RSI Signals & Momentum','feat2.body':'Every instrument shows its RSI score with a color-coded signal: Bullish, Bearish, Overbought, Oversold or Neutral. Spot momentum extremes across 500+ assets in seconds.',
+    'feat3.title':'News Activity Ranking','feat3.body':'Each instrument is scored by news volume in the last hour and 24 hours. Assets with surging coverage rise to the top \u2014 combining technical and fundamental signals automatically.',
+    'feat4.title':'Advanced Filters','feat4.body':'Filter stocks by sector, market cap, P/E ratio or signal type. Filter forex by signal or region. Every column is sortable \u2014 price change, RSI, volume, news score \u2014 ascending or descending.',
+    'feat5.title':'4 Stock Views','feat5.body':'Switch between Overview, Performance, Valuation and Dividends views for stocks. Each reveals a different layer of data without navigating away or opening separate tools.',
+    'feat6.title':'Integrated with News Feed','feat6.body':'Click any instrument in the screener to instantly filter the live news feed for that asset. Screener and news feed work as one \u2014 the fastest way to confirm why something is moving.',
+    'preview.label':'Live Preview','preview.h2':'Forex Screener \u2014 Real-Time Signal View','preview.sub':"Below is a representative view of the Forex tab. RSI scores update live. News activity reflects coverage across TNT\'s 50+ integrated sources.",'preview.note':'Illustrative data. Live values update continuously in the Pro terminal.',
+    'tbl.pair':'Pair','tbl.price':'Price','tbl.change':'Change %','tbl.signal':'Signal','tbl.news_1h':'News (1h)',
+    how_title:'How It Works','how.h2':'From Login to Trade Idea in 3 Steps','how.sub':'The TNT market screener is built for speed. No configuration required \u2014 open it, filter, act.',
+    'step1.title':'Open the Screener Tab','step1.body':'Access the market screener from the TNT Pro sidebar. All 6 asset class tabs load instantly \u2014 pre-populated with live RSI scores, price changes and news activity for every instrument.',
+    'step2.title':'Apply Your Filters','step2.body':'Select your signal type (Bullish, Oversold, Overbought), sort by RSI or news activity, filter stocks by sector or P/E ratio. The screener updates the list in real time as you adjust each filter.',
+    'step3.title':'Click Through to News & Charts','step3.body':'Found a setup? Click the instrument to filter the live news feed instantly, then open the integrated TradingView chart to analyze the price action. Everything is connected \u2014 no switching apps.',
+    'cmp.label':'Comparison','cmp.h2':'TNT Market Screener vs. Alternatives','cmp.sub':'Most screeners cover one asset class. TNT covers six \u2014 and integrates news, meaning you see both why and where markets are moving.',
+    'cmp.th_feature':'Feature','cmp.stocks':'Stocks screening','cmp.forex':'Forex screening','cmp.crypto':'Crypto screening','cmp.bonds':'Bonds & Indices','cmp.news_feed':'Integrated news feed','cmp.news_rank':'News activity ranking','cmp.price_row':'Price (monthly)',
+    faq_title:'Frequently Asked Questions','faq.h2':'Market Screener \u2014 Frequently Asked Questions',
+    'faq1.q':'What is a market screener?','faq1.a':'A market screener is a tool that filters and ranks financial instruments \u2014 stocks, forex pairs, crypto, indices \u2014 based on technical and fundamental criteria like RSI, price momentum, volume and news activity. Traders use screeners to identify opportunities across hundreds of assets without manually checking each one. TNT\u2019s screener covers six asset classes simultaneously in a single tabbed interface.',
+    'faq2.q':'How do I screen forex pairs?','faq2.a':"In Trading News Terminal\'s market screener, open the Forex tab to see all major, minor and exotic pairs ranked by RSI score, price change and news activity. You can sort any column and filter by signal type (Bullish, Bearish, Overbought, Oversold, Neutral) to narrow down actionable setups instantly. The screener refreshes in real time, so the rankings always reflect the latest market conditions.",
+    'faq3.q':'What is RSI in a market screener?','faq3.a':"RSI (Relative Strength Index) measures momentum on a 0\u2013100 scale. In a screener, RSI above 70 flags overbought conditions \u2014 a potential reversal or momentum continuation. Below 30 flags oversold conditions. TNT\'s screener color-codes these signals \u2014 Bullish (RSI 50\u201370), Bearish (RSI 30\u201350), Overbought (70+), Oversold (sub-30) and Neutral \u2014 so you can spot extremes across all asset classes at a glance without calculating anything manually.",
+    'faq4.q':'Is there a free real-time market screener?','faq4.a':"Trading News Terminal\'s full market screener with RSI signals, 6 asset class tabs, news activity rankings and advanced filters is a Pro feature at \u20ac40/month. A 7-day free trial is available with no credit card required, giving you full access to every screener filter before committing. The Basic (free) plan includes the news feed and economic calendar.",
+    'faq5.q':'How do professional traders use screeners?','faq5.a':"Professional traders use market screeners at the start of each session to identify the most active, trending or oversold instruments. They combine technical signals (RSI, momentum) with news activity to prioritise assets where price movement and fundamental catalysts align. TNT\'s screener integrates both dimensions in one view \u2014 you see which instruments have both a technical signal and surging news coverage \u2014 eliminating the need to cross-reference multiple platforms.",
+    explore_title:'Explore Other Features','explore.h2':'Explore Other Features',
+    'cta.h2':'Start Screening the Market \u2014 Free for 7 Days','cta.sub':'Full access to all 6 asset classes, RSI signals, news activity and advanced filters. No credit card required.','cta.btn':'Start Free Trial \u2192',
+    cta_free:'Start Free \u2014 No Card Required',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Terms</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  pt:{
+    active:'PT',tagline:'Intelig\u00eancia de Mercado em Tempo Real',
+    try_btn:'Experimentar Gr\u00e1tis \u2192',trial_btn:'Iniciar Trial Gr\u00e1tis',free_btn:'Abrir Terminal Gr\u00e1tis',
+    'hero.badge':'Funcionalidade Pro',
+    'hero.h1':'Screener de Mercado em Tempo Real \u2014 6 Classes de Ativos Numa Vista',
+    'hero.sub':'Analise Forex, A\u00e7\u00f5es, Cripto, \u00cdndices, Commodities e Obriga\u00e7\u00f5es simultaneamente. Sinais RSI, scores de momentum e atividade de not\u00edcias \u2014 classificados e filtr\u00e1veis instantaneamente.',
+    'stats.asset_classes':'Classes de Ativos','stats.instruments':'Instrumentos','stats.signal_types':'Tipos de Sinal','stats.stock_views':'Vistas de A\u00e7\u00f5es','stats.realtime_val':'Tempo Real','stats.data_feed':'Feed de Dados',
+    'features.label':'O Que Est\u00e1 Inclu\u00eddo','features.h2':'Tudo o Que um Trader Precisa Num S\u00f3 Screener','features.intro':'O screener de mercado TNT substitui cinco ferramentas separadas. A\u00e7\u00f5es, pares forex, cripto, \u00edndices, commodities e obriga\u00e7\u00f5es \u2014 tudo numa interface com abas e dados ao vivo.',
+    'feat1.title':'6 Abas de Classes de Ativos','feat1.body':'Mude instantaneamente entre A\u00e7\u00f5es, Forex, Cripto, \u00cdndices, Commodities e Obriga\u00e7\u00f5es. Cada aba tem ordena\u00e7\u00e3o e filtros independentes \u2014 as suas defini\u00e7\u00f5es persistem ao mudar.',
+    'feat2.title':'Sinais RSI e Momentum','feat2.body':'Cada instrumento mostra o seu score RSI com um sinal codificado por cor: Bullish, Bearish, Sobrecomprado, Sobrevendido ou Neutro. Detete extremos de momentum em mais de 500 ativos em segundos.',
+    'feat3.title':'Classifica\u00e7\u00e3o por Atividade de Not\u00edcias','feat3.body':'Cada instrumento \u00e9 classificado pelo volume de not\u00edcias na \u00faltima hora e 24 horas. Ativos com cobertura crescente sobem ao topo \u2014 combinando sinais t\u00e9cnicos e fundamentais automaticamente.',
+    'feat4.title':'Filtros Avan\u00e7ados','feat4.body':'Filtre a\u00e7\u00f5es por setor, capitaliza\u00e7\u00e3o, r\u00e1cio P/L ou tipo de sinal. Filtre forex por sinal ou regi\u00e3o. Todas as colunas s\u00e3o ordon\u00e1veis \u2014 varia\u00e7\u00e3o de pre\u00e7o, RSI, volume, score de not\u00edcias \u2014 crescente ou decrescente.',
+    'feat5.title':'4 Vistas de A\u00e7\u00f5es','feat5.body':'Mude entre as vistas Geral, Desempenho, Avalia\u00e7\u00e3o e Dividendos para a\u00e7\u00f5es. Cada uma revela uma camada diferente de dados sem navegar para outras ferramentas.',
+    'feat6.title':'Integrado com Feed de Not\u00edcias','feat6.body':'Clique em qualquer instrumento no screener para filtrar instantaneamente o feed de not\u00edcias ao vivo para esse ativo. Screener e feed de not\u00edcias funcionam como um s\u00f3 \u2014 a forma mais r\u00e1pida de confirmar por que algo est\u00e1 a mover.',
+    'preview.label':'Pr\u00e9-visualiza\u00e7\u00e3o ao Vivo','preview.h2':'Screener Forex \u2014 Vista de Sinais em Tempo Real','preview.sub':'Abaixo est\u00e1 uma vista representativa do separador Forex. Os scores RSI atualizam ao vivo. A atividade de not\u00edcias reflete a cobertura das 50+ fontes integradas do TNT.','preview.note':'Dados ilustrativos. Os valores ao vivo atualizam continuamente no terminal Pro.',
+    'tbl.pair':'Par','tbl.price':'Pre\u00e7o','tbl.change':'Varia\u00e7\u00e3o %','tbl.signal':'Sinal','tbl.news_1h':'Not\u00edcias (1h)',
+    how_title:'Como Funciona','how.h2':'Do Login \u00e0 Ideia de Tradu em 3 Passos','how.sub':'O screener de mercado TNT foi criado para velocidade. Sem configura\u00e7\u00e3o necess\u00e1ria \u2014 abra, filtre, atue.',
+    'step1.title':'Abra o Separador do Screener','step1.body':'Aceda ao screener de mercado a partir da barra lateral do TNT Pro. Todas as 6 abas de classes de ativos carregam instantaneamente \u2014 pr\u00e9-preenchidas com scores RSI ao vivo, varia\u00e7\u00f5es de pre\u00e7o e atividade de not\u00edcias para cada instrumento.',
+    'step2.title':'Aplique os Seus Filtros','step2.body':'Selecione o tipo de sinal (Bullish, Sobrevendido, Sobrecomprado), ordene por RSI ou atividade de not\u00edcias, filtre a\u00e7\u00f5es por setor ou r\u00e1cio P/L. O screener atualiza a lista em tempo real enquanto ajusta cada filtro.',
+    'step3.title':'Clique para Not\u00edcias e Gr\u00e1ficos','step3.body':'Encontrou uma oportunidade? Clique no instrumento para filtrar o feed de not\u00edcias ao vivo instantaneamente, depois abra o gr\u00e1fico TradingView integrado para analisar a a\u00e7\u00e3o de pre\u00e7o. Tudo est\u00e1 ligado \u2014 sem trocar de aplica\u00e7\u00e3o.',
+    'cmp.label':'Compara\u00e7\u00e3o','cmp.h2':'Screener TNT vs. Alternativas','cmp.sub':'A maioria dos screeners cobre uma classe de ativos. O TNT cobre seis \u2014 e integra not\u00edcias, para que veja tanto o porqu\u00ea como o onde os mercados est\u00e3o a mover.',
+    'cmp.th_feature':'Funcionalidade','cmp.stocks':'Screener de a\u00e7\u00f5es','cmp.forex':'Screener forex','cmp.crypto':'Screener cripto','cmp.bonds':'Obriga\u00e7\u00f5es e \u00cdndices','cmp.news_feed':'Feed de not\u00edcias integrado','cmp.news_rank':'Classifica\u00e7\u00e3o por not\u00edcias','cmp.price_row':'Pre\u00e7o (mensal)',
+    faq_title:'Perguntas Frequentes','faq.h2':'Screener de Mercado \u2014 Perguntas Frequentes',
+    'faq1.q':'O que \u00e9 um screener de mercado?','faq1.a':'Um screener de mercado \u00e9 uma ferramenta que filtra e classifica instrumentos financeiros \u2014 a\u00e7\u00f5es, pares forex, cripto, \u00edndices \u2014 com base em crit\u00e9rios t\u00e9cnicos e fundamentais como RSI, momentum de pre\u00e7o, volume e atividade de not\u00edcias. Os traders usam screeners para identificar oportunidades em centenas de ativos sem verificar cada um manualmente. O screener do TNT cobre seis classes de ativos simultaneamente numa \u00fanica interface com abas.',
+    'faq2.q':'Como filtrar pares forex?','faq2.a':'No screener de mercado do Trading News Terminal, abra o separador Forex para ver todos os pares principais, menores e ex\u00f3ticos classificados por score RSI, varia\u00e7\u00e3o de pre\u00e7o e atividade de not\u00edcias. Pode ordenar qualquer coluna e filtrar por tipo de sinal (Bullish, Bearish, Sobrecomprado, Sobrevendido, Neutro) para identificar oportunidades a\u00e7ion\u00e1veis instantaneamente. O screener atualiza em tempo real, pelo que os rankings refletem sempre as \u00faltimas condi\u00e7\u00f5es de mercado.',
+    'faq3.q':'O que \u00e9 o RSI num screener de mercado?','faq3.a':'O RSI (Relative Strength Index) mede o momentum numa escala de 0 a 100. Num screener, RSI acima de 70 assinala condi\u00e7\u00f5es de sobrecompra \u2014 uma potencial revers\u00e3o ou continua\u00e7\u00e3o de momentum. Abaixo de 30 assinala condi\u00e7\u00f5es de sobrevenda. O screener do TNT codifica estes sinais por cor \u2014 Bullish (RSI 50\u201370), Bearish (RSI 30\u201350), Sobrecomprado (70+), Sobrevendido (sub-30) e Neutro \u2014 para que possa identificar extremos em todas as classes de ativos de relance.',
+    'faq4.q':'Existe um screener de mercado gratuito em tempo real?','faq4.a':'O screener de mercado completo do Trading News Terminal com sinais RSI, 6 abas de classes de ativos, classifica\u00e7\u00f5es por atividade de not\u00edcias e filtros avan\u00e7ados \u00e9 uma funcionalidade Pro a \u20ac40/m\u00eas. Um trial gratuito de 7 dias est\u00e1 dispon\u00edvel sem cart\u00e3o de cr\u00e9dito, dando acesso completo a todos os filtros antes de se comprometer. O plano Basic (gratuito) inclui o feed de not\u00edcias e o calend\u00e1rio econ\u00f3mico.',
+    'faq5.q':'Como usam os traders profissionais os screeners?','faq5.a':'Os traders profissionais usam screeners de mercado no in\u00edcio de cada sess\u00e3o para identificar os instrumentos mais ativos, com tend\u00eancia ou sobrevendidos. Combinam sinais t\u00e9cnicos (RSI, momentum) com atividade de not\u00edcias para priorizar ativos onde o movimento de pre\u00e7o e os catalisadores fundamentais se alinham. O screener do TNT integra ambas as dimens\u00f5es numa vista \u2014 eliminando a necessidade de cruzar m\u00faltiplas plataformas.',
+    explore_title:'Explorar Funcionalidades','explore.h2':'Explorar Outras Funcionalidades',
+    'cta.h2':'Comece a Analisar o Mercado \u2014 Gr\u00e1tis por 7 Dias','cta.sub':'Acesso completo a todas as 6 classes de ativos, sinais RSI, atividade de not\u00edcias e filtros avan\u00e7ados. Sem cart\u00e3o de cr\u00e9dito necess\u00e1rio.','cta.btn':'Iniciar Trial Gr\u00e1tis \u2192',
+    cta_free:'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidade</a> \u00b7 <a href="/terms">Termos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  es:{
+    active:'ES',tagline:'Inteligencia de Mercado en Tiempo Real',
+    try_btn:'Probar Gratis \u2192',trial_btn:'Iniciar Prueba Gratis',free_btn:'Abrir Terminal Gratis',
+    'hero.badge':'Funci\u00f3n Pro',
+    'hero.h1':'Screener de Mercado en Tiempo Real \u2014 6 Clases de Activos en Una Vista',
+    'hero.sub':'Analiza Forex, Acciones, Cripto, \u00cdndices, Materias Primas y Bonos simult\u00e1neamente. Se\u00f1ales RSI, scores de momentum y actividad de noticias \u2014 clasificados y filtrables al instante.',
+    'stats.asset_classes':'Clases de Activos','stats.instruments':'Instrumentos','stats.signal_types':'Tipos de Se\u00f1al','stats.stock_views':'Vistas de Acciones','stats.realtime_val':'Tiempo Real','stats.data_feed':'Feed de Datos',
+    'features.label':'Qu\u00e9 Incluye','features.h2':'Todo lo que un Trader Necesita en Un Solo Screener','features.intro':'El screener de mercado de TNT reemplaza cinco herramientas separadas. Acciones, pares forex, cripto, \u00edndices, materias primas y bonos \u2014 todo en una interfaz con pesta\u00f1as y datos en vivo.',
+    'feat1.title':'6 Pesta\u00f1as de Clases de Activos','feat1.body':'Cambia instant\u00e1neamente entre Acciones, Forex, Cripto, \u00cdndices, Materias Primas y Bonos. Cada pesta\u00f1a se ordena y filtra de forma independiente \u2014 tus ajustes persisten al cambiar.',
+    'feat2.title':'Se\u00f1ales RSI y Momentum','feat2.body':'Cada instrumento muestra su score RSI con una se\u00f1al codificada por color: Alcista, Bajista, Sobrecomprado, Sobrevendido o Neutro. Detecta extremos de momentum en m\u00e1s de 500 activos en segundos.',
+    'feat3.title':'Clasificaci\u00f3n por Actividad de Noticias','feat3.body':'Cada instrumento se punta\u00faa por volumen de noticias en la \u00faltima hora y 24 horas. Los activos con cobertura creciente suben al top \u2014 combinando se\u00f1ales t\u00e9cnicas y fundamentales autom\u00e1ticamente.',
+    'feat4.title':'Filtros Avanzados','feat4.body':'Filtra acciones por sector, capitalizaci\u00f3n, PER o tipo de se\u00f1al. Filtra forex por se\u00f1al o regi\u00f3n. Todas las columnas son ordenables \u2014 variaci\u00f3n de precio, RSI, volumen, puntuaci\u00f3n de noticias \u2014 ascendente o descendente.',
+    'feat5.title':'4 Vistas de Acciones','feat5.body':'Cambia entre las vistas General, Rendimiento, Valoraci\u00f3n y Dividendos para acciones. Cada una revela una capa diferente de datos sin navegar fuera ni abrir herramientas separadas.',
+    'feat6.title':'Integrado con Feed de Noticias','feat6.body':'Haz clic en cualquier instrumento del screener para filtrar instant\u00e1neamente el feed de noticias en vivo de ese activo. Screener y feed de noticias funcionan como uno \u2014 la forma m\u00e1s r\u00e1pida de confirmar por qu\u00e9 algo est\u00e1 moviendo.',
+    'preview.label':'Vista Previa en Vivo','preview.h2':'Screener Forex \u2014 Vista de Se\u00f1ales en Tiempo Real','preview.sub':'A continuaci\u00f3n hay una vista representativa de la pesta\u00f1a Forex. Los scores RSI se actualizan en vivo. La actividad de noticias refleja la cobertura de las 50+ fuentes integradas de TNT.','preview.note':'Datos ilustrativos. Los valores en vivo se actualizan continuamente en el terminal Pro.',
+    'tbl.pair':'Par','tbl.price':'Precio','tbl.change':'Variaci\u00f3n %','tbl.signal':'Se\u00f1al','tbl.news_1h':'Noticias (1h)',
+    how_title:'C\u00f3mo Funciona','how.h2':'Del Login a la Idea de Trading en 3 Pasos','how.sub':'El screener de mercado de TNT est\u00e1 dise\u00f1ado para la velocidad. Sin configuraci\u00f3n necesaria \u2014 \u00e1brelo, filtra, act\u00faa.',
+    'step1.title':'Abre la Pesta\u00f1a del Screener','step1.body':'Accede al screener de mercado desde la barra lateral de TNT Pro. Las 6 pesta\u00f1as de clases de activos cargan instant\u00e1neamente \u2014 pre-pobladas con scores RSI en vivo, variaciones de precio y actividad de noticias para cada instrumento.',
+    'step2.title':'Aplica Tus Filtros','step2.body':'Selecciona tu tipo de se\u00f1al (Alcista, Sobrevendido, Sobrecomprado), ordena por RSI o actividad de noticias, filtra acciones por sector o PER. El screener actualiza la lista en tiempo real mientras ajustas cada filtro.',
+    'step3.title':'Navega a Noticias y Gr\u00e1ficos','step3.body':'\u00bfEncontraste una oportunidad? Haz clic en el instrumento para filtrar el feed de noticias en vivo instant\u00e1neamente, luego abre el gr\u00e1fico TradingView integrado para analizar la acci\u00f3n del precio. Todo est\u00e1 conectado \u2014 sin cambiar de app.',
+    'cmp.label':'Comparaci\u00f3n','cmp.h2':'Screener TNT vs. Alternativas','cmp.sub':'La mayor\u00eda de screeners cubren una clase de activos. TNT cubre seis \u2014 e integra noticias, lo que significa que ves tanto el por qu\u00e9 como el d\u00f3nde se mueven los mercados.',
+    'cmp.th_feature':'Caracter\u00edstica','cmp.stocks':'Screening de acciones','cmp.forex':'Screening forex','cmp.crypto':'Screening cripto','cmp.bonds':'Bonos e \u00cdndices','cmp.news_feed':'Feed de noticias integrado','cmp.news_rank':'Clasificaci\u00f3n por noticias','cmp.price_row':'Precio (mensual)',
+    faq_title:'Preguntas Frecuentes','faq.h2':'Screener de Mercado \u2014 Preguntas Frecuentes',
+    'faq1.q':'\u00bfQu\u00e9 es un screener de mercado?','faq1.a':'Un screener de mercado es una herramienta que filtra y clasifica instrumentos financieros \u2014 acciones, pares forex, cripto, \u00edndices \u2014 bas\u00e1ndose en criterios t\u00e9cnicos y fundamentales como RSI, momentum de precio, volumen y actividad de noticias. Los traders usan screeners para identificar oportunidades en cientos de activos sin verificar cada uno manualmente. El screener de TNT cubre seis clases de activos simult\u00e1neamente en una sola interfaz con pesta\u00f1as.',
+    'faq2.q':'\u00bfC\u00f3mo filtrar pares forex?','faq2.a':"En el screener de mercado de Trading News Terminal, abre la pesta\u00f1a Forex para ver todos los pares principales, menores y ex\u00f3ticos clasificados por score RSI, variaci\u00f3n de precio y actividad de noticias. Puedes ordenar cualquier columna y filtrar por tipo de se\u00f1al (Alcista, Bajista, Sobrecomprado, Sobrevendido, Neutro) para identificar oportunidades accionables al instante. El screener se actualiza en tiempo real.",
+    'faq3.q':'\u00bfQu\u00e9 es el RSI en un screener de mercado?','faq3.a':'El RSI (Relative Strength Index) mide el momentum en una escala de 0 a 100. En un screener, RSI por encima de 70 indica condiciones de sobrecompra \u2014 una posible reversi\u00f3n o continuaci\u00f3n de momentum. Por debajo de 30 indica condiciones de sobreventa. El screener de TNT codifica estas se\u00f1ales por color para que puedas detectar extremos en todas las clases de activos de un vistazo.',
+    'faq4.q':'\u00bfHay un screener de mercado gratuito en tiempo real?','faq4.a':'El screener de mercado completo de Trading News Terminal con se\u00f1ales RSI, 6 pesta\u00f1as de clases de activos, clasificaciones por actividad de noticias y filtros avanzados es una funci\u00f3n Pro a \u20ac40/mes. Hay una prueba gratuita de 7 d\u00edas disponible sin tarjeta de cr\u00e9dito, dando acceso completo a todos los filtros antes de comprometerse. El plan Basic (gratuito) incluye el feed de noticias y el calendario econ\u00f3mico.',
+    'faq5.q':'\u00bfC\u00f3mo usan los traders profesionales los screeners?','faq5.a':'Los traders profesionales usan screeners de mercado al inicio de cada sesi\u00f3n para identificar los instrumentos m\u00e1s activos, con tendencia o sobrevendidos. Combinan se\u00f1ales t\u00e9cnicas (RSI, momentum) con actividad de noticias para priorizar activos donde el movimiento de precio y los catalizadores fundamentales se alinean. El screener de TNT integra ambas dimensiones en una vista \u2014 eliminando la necesidad de cruzar m\u00faltiples plataformas.',
+    explore_title:'Explorar Caracter\u00edsticas','explore.h2':'Explorar Otras Caracter\u00edsticas',
+    'cta.h2':'Empieza a Analizar el Mercado \u2014 Gratis por 7 D\u00edas','cta.sub':'Acceso completo a las 6 clases de activos, se\u00f1ales RSI, actividad de noticias y filtros avanzados. Sin tarjeta de cr\u00e9dito requerida.','cta.btn':'Iniciar Prueba Gratis \u2192',
+    cta_free:'Empezar Gratis \u2014 Sin Tarjeta',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidad</a> \u00b7 <a href="/terms">T\u00e9rminos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  fr:{
+    active:'FR',tagline:'Intelligence March\u00e9 en Temps R\u00e9el',
+    try_btn:'Essai Gratuit \u2192',trial_btn:'D\u00e9marrer l\u2019Essai Gratuit',free_btn:'Ouvrir le Terminal Gratuit',
+    'hero.badge':'Fonction Pro',
+    'hero.h1':'Screener de March\u00e9 en Temps R\u00e9el \u2014 6 Classes d\u2019Actifs en Une Vue',
+    'hero.sub':'Analysez Forex, Actions, Crypto, Indices, Mati\u00e8res Premi\u00e8res et Obligations simultan\u00e9ment. Signaux RSI, scores de momentum et activit\u00e9 d\u2019actualit\u00e9s \u2014 class\u00e9s et filtrables instantan\u00e9ment.',
+    'stats.asset_classes':'Classes d\u2019Actifs','stats.instruments':'Instruments','stats.signal_types':'Types de Signal','stats.stock_views':'Vues Actions','stats.realtime_val':'Temps r\u00e9el','stats.data_feed':'Flux de Donn\u00e9es',
+    'features.label':'Ce Qui Est Inclus','features.h2':'Tout Ce Dont Un Trader a Besoin en Un Seul Screener','features.intro':"Le screener de march\u00e9 TNT remplace cinq outils s\u00e9par\u00e9s. Actions, paires forex, crypto, indices, mati\u00e8res premi\u00e8res et obligations \u2014 tout dans une interface \u00e0 onglets avec des donn\u00e9es en direct.",
+    'feat1.title':'6 Onglets de Classes d\u2019Actifs','feat1.body':'Passez instantan\u00e9ment entre Actions, Forex, Crypto, Indices, Mati\u00e8res Premi\u00e8res et Obligations. Chaque onglet est tri\u00e9 et filtr\u00e9 ind\u00e9pendamment \u2014 vos param\u00e8tres persistent lors du changement.',
+    'feat2.title':'Signaux RSI et Momentum','feat2.body':'Chaque instrument affiche son score RSI avec un signal cod\u00e9 par couleur\u00a0: Haussier, Baissier, Suracheté, Survendu ou Neutre. Rep\u00e9rez les extr\u00eames de momentum sur 500+ actifs en quelques secondes.',
+    'feat3.title':'Classement par Activit\u00e9 d\u2019Actualit\u00e9s','feat3.body':'Chaque instrument est not\u00e9 selon le volume d\u2019actualit\u00e9s dans la derni\u00e8re heure et les 24 heures. Les actifs dont la couverture augmente montent en haut \u2014 combinant signaux techniques et fondamentaux automatiquement.',
+    'feat4.title':'Filtres Avanc\u00e9s','feat4.body':'Filtrez les actions par secteur, capitalisation boursière, PER ou type de signal. Filtrez le forex par signal ou r\u00e9gion. Toutes les colonnes sont triables \u2014 variation de prix, RSI, volume, score d\u2019actualit\u00e9s \u2014 croissant ou d\u00e9croissant.',
+    'feat5.title':'4 Vues Actions','feat5.body':'Passez entre les vues Aper\u00e7u, Performance, Valorisation et Dividendes pour les actions. Chacune r\u00e9v\u00e8le une couche diff\u00e9rente de donn\u00e9es sans quitter la page.',
+    'feat6.title':'Int\u00e9gr\u00e9 avec le Flux d\u2019Actualit\u00e9s','feat6.body':"Cliquez sur n\'importe quel instrument du screener pour filtrer instantan\u00e9ment le flux d\u2019actualit\u00e9s en direct pour cet actif. Le screener et le flux fonctionnent comme un seul outil \u2014 le moyen le plus rapide de confirmer pourquoi quelque chose se d\u00e9place.",
+    'preview.label':'Aper\u00e7u en Direct','preview.h2':'Screener Forex \u2014 Vue des Signaux en Temps R\u00e9el','preview.sub':"Voici une vue repr\u00e9sentative de l\u2019onglet Forex. Les scores RSI se mettent \u00e0 jour en direct. L\u2019activit\u00e9 d\u2019actualit\u00e9s refl\u00e8te la couverture des 50+ sources int\u00e9gr\u00e9es de TNT.",'preview.note':'Donn\u00e9es illustratives. Les valeurs en direct se mettent \u00e0 jour en continu dans le terminal Pro.',
+    'tbl.pair':'Paire','tbl.price':'Prix','tbl.change':'Variation %','tbl.signal':'Signal','tbl.news_1h':'Actualit\u00e9s (1h)',
+    how_title:'Comment \u00e7a marche','how.h2':'De la Connexion \u00e0 l\u2019Id\u00e9e de Trade en 3 \u00c9tapes','how.sub':'Le screener de march\u00e9 TNT est con\u00e7u pour la rapidit\u00e9. Aucune configuration n\u00e9cessaire \u2014 ouvrez-le, filtrez, agissez.',
+    'step1.title':'Ouvrez l\u2019Onglet Screener','step1.body':'Acc\u00e9dez au screener de march\u00e9 depuis la barre lat\u00e9rale TNT Pro. Les 6 onglets de classes d\u2019actifs se chargent instantan\u00e9ment \u2014 pr\u00e9-remplis avec des scores RSI en direct, des variations de prix et l\u2019activit\u00e9 d\u2019actualit\u00e9s pour chaque instrument.',
+    'step2.title':'Appliquez Vos Filtres','step2.body':'S\u00e9lectionnez votre type de signal (Haussier, Survendu, Surachete), triez par RSI ou activit\u00e9 d\u2019actualit\u00e9s, filtrez les actions par secteur ou PER. Le screener met \u00e0 jour la liste en temps r\u00e9el \u00e0 chaque ajustement de filtre.',
+    'step3.title':'Acc\u00e9dez aux Actualit\u00e9s et Graphiques','step3.body':"Trouv\u00e9 une opportunit\u00e9 ? Cliquez sur l\u2019instrument pour filtrer instantan\u00e9ment le flux d\u2019actualit\u00e9s en direct, puis ouvrez le graphique TradingView int\u00e9gr\u00e9 pour analyser l\u2019action des prix. Tout est connect\u00e9 \u2014 sans changer d\u2019application.",
+    'cmp.label':'Comparaison','cmp.h2':'Screener TNT vs. Alternatives','cmp.sub':'La plupart des screeners couvrent une classe d\u2019actifs. TNT en couvre six \u2014 et int\u00e8gre les actualit\u00e9s, vous voyez ainsi le pourquoi et l\u2019o\u00f9 des mouvements de march\u00e9.',
+    'cmp.th_feature':'Fonctionnalit\u00e9','cmp.stocks':'Screening actions','cmp.forex':'Screening forex','cmp.crypto':'Screening crypto','cmp.bonds':'Obligations et Indices','cmp.news_feed':'Flux d\u2019actualit\u00e9s int\u00e9gr\u00e9','cmp.news_rank':'Classement par actualit\u00e9s','cmp.price_row':'Prix (mensuel)',
+    faq_title:'Questions Fr\u00e9quentes','faq.h2':'Screener de March\u00e9 \u2014 Questions Fr\u00e9quentes',
+    'faq1.q':'Qu\u2019est-ce qu\u2019un screener de march\u00e9\u00a0?','faq1.a':'Un screener de march\u00e9 est un outil qui filtre et classe les instruments financiers \u2014 actions, paires forex, crypto, indices \u2014 selon des crit\u00e8res techniques et fondamentaux comme le RSI, le momentum de prix, le volume et l\u2019activit\u00e9 d\u2019actualit\u00e9s. Les traders utilisent les screeners pour identifier des opportunit\u00e9s sur des centaines d\u2019actifs sans les v\u00e9rifier manuellement. Le screener de TNT couvre six classes d\u2019actifs simultan\u00e9ment dans une interface \u00e0 onglets.',
+    'faq2.q':'Comment filtrer les paires forex\u00a0?','faq2.a':"Dans le screener de Trading News Terminal, ouvrez l\u2019onglet Forex pour voir toutes les paires majeures, mineures et exotiques class\u00e9es par score RSI, variation de prix et activit\u00e9 d\u2019actualit\u00e9s. Vous pouvez trier n\u2019importe quelle colonne et filtrer par type de signal pour identifier des opportunit\u00e9s actionnables instantan\u00e9ment. Le screener se rafra\u00eechit en temps r\u00e9el.",
+    'faq3.q':'Qu\u2019est-ce que le RSI dans un screener de march\u00e9\u00a0?','faq3.a':"Le RSI (Relative Strength Index) mesure le momentum sur une \u00e9chelle de 0 \u00e0 100. Dans un screener, un RSI au-dessus de 70 signale des conditions de surachat \u2014 une reversal potentielle ou une continuation. En dessous de 30, il signale des conditions de survente. Le screener de TNT code ces signaux par couleur \u2014 Haussier (RSI 50\u201370), Baissier (RSI 30\u201350), Surach\u00e9t\u00e9 (70+), Survendu (sous 30) et Neutre \u2014 pour rep\u00e9rer les extr\u00eames sur toutes les classes d\u2019actifs d\u2019un coup d\u2019\u0153il.",
+    'faq4.q':'Existe-t-il un screener de march\u00e9 gratuit en temps r\u00e9el\u00a0?','faq4.a':'Le screener de march\u00e9 complet de Trading News Terminal avec signaux RSI, 6 onglets de classes d\u2019actifs, classements par activit\u00e9 d\u2019actualit\u00e9s et filtres avanc\u00e9s est une fonction Pro \u00e0 \u20ac40/mois. Un essai gratuit de 7 jours est disponible sans carte bancaire, donnant un acc\u00e8s complet \u00e0 tous les filtres avant de s\u2019engager. Le plan Basic (gratuit) inclut le flux d\u2019actualit\u00e9s et le calendrier \u00e9conomique.',
+    'faq5.q':'Comment les traders professionnels utilisent-ils les screeners\u00a0?','faq5.a':"Les traders professionnels utilisent les screeners de march\u00e9 au d\u00e9but de chaque s\u00e9ance pour identifier les instruments les plus actifs, en tendance ou survendus. Ils combinent les signaux techniques (RSI, momentum) avec l\u2019activit\u00e9 d\u2019actualit\u00e9s pour prioriser les actifs o\u00f9 le mouvement de prix et les catalyseurs fondamentaux s\u2019alignent. Le screener de TNT int\u00e8gre les deux dimensions dans une vue \u2014 \u00e9liminant le besoin de croiser plusieurs plateformes.",
+    explore_title:'Explorer les Fonctionnalit\u00e9s','explore.h2':'Explorer les Autres Fonctionnalit\u00e9s',
+    'cta.h2':'Commencez \u00e0 Analyser le March\u00e9 \u2014 Gratuit pendant 7 Jours','cta.sub':'Acc\u00e8s complet aux 6 classes d\u2019actifs, signaux RSI, activit\u00e9 d\u2019actualit\u00e9s et filtres avanc\u00e9s. Aucune carte bancaire requise.','cta.btn':'D\u00e9marrer l\u2019Essai Gratuit \u2192',
+    cta_free:'Commencer Gratuitement',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Confidentialit\u00e9</a> \u00b7 <a href="/terms">Conditions</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  de:{
+    active:'DE',tagline:'Echtzeit-Marktintelligenz',
+    try_btn:'Kostenlos Testen \u2192',trial_btn:'Kostenlose Testphase',free_btn:'Terminal \u00d6ffnen',
+    'hero.badge':'Pro-Funktion',
+    'hero.h1':'Echtzeit-Markt-Screener \u2014 6 Anlageklassen in einer Ansicht',
+    'hero.sub':'Analysieren Sie Forex, Aktien, Krypto, Indizes, Rohstoffe und Anleihen gleichzeitig. RSI-Signale, Momentum-Scores und Nachrichtenaktivit\u00e4t \u2014 sofort sortiert und filterbar.',
+    'stats.asset_classes':'Anlageklassen','stats.instruments':'Instrumente','stats.signal_types':'Signaltypen','stats.stock_views':'Aktienansichten','stats.realtime_val':'Echtzeit','stats.data_feed':'Datenfeed',
+    'features.label':'Was Enthalten Ist','features.h2':'Alles was ein Trader in einem Screener braucht','features.intro':'Der TNT-Markt-Screener ersetzt f\u00fcnf separate Tools. Aktien, Forex-Paare, Krypto, Indizes, Rohstoffe und Anleihen \u2014 alles in einer Tabbed-Oberfl\u00e4che mit Live-Daten.',
+    'feat1.title':'6 Anlageklassen-Tabs','feat1.body':'Wechseln Sie sofort zwischen Aktien, Forex, Krypto, Indizes, Rohstoffe und Anleihen. Jeder Tab wird unabh\u00e4ngig sortiert und gefiltert \u2014 Ihre Einstellungen bleiben beim Wechsel erhalten.',
+    'feat2.title':'RSI-Signale & Momentum','feat2.body':'Jedes Instrument zeigt seinen RSI-Score mit einem farbcodierten Signal: Bullish, Bearish, \u00dcberkauft, \u00dcberverkauft oder Neutral. Erkennen Sie Momentum-Extreme bei 500+ Anlagen in Sekunden.',
+    'feat3.title':'Nachrichtenaktivit\u00e4ts-Ranking','feat3.body':'Jedes Instrument wird nach Nachrichtenvolumen in der letzten Stunde und 24 Stunden bewertet. Anlagen mit steigender Berichterstattung steigen nach oben \u2014 technische und fundamentale Signale werden automatisch kombiniert.',
+    'feat4.title':'Erweiterte Filter','feat4.body':'Filtern Sie Aktien nach Sektor, Marktkapitalisierung, KGV oder Signaltyp. Filtern Sie Forex nach Signal oder Region. Alle Spalten sind sortierbar \u2014 Kurs\u00e4nderung, RSI, Volumen, Nachrichten-Score \u2014 auf- oder absteigend.',
+    'feat5.title':'4 Aktienansichten','feat5.body':'Wechseln Sie zwischen den Ansichten \u00dcbersicht, Performance, Bewertung und Dividenden f\u00fcr Aktien. Jede zeigt eine andere Datenschicht ohne Navigation zu anderen Tools.',
+    'feat6.title':'Integriert mit Nachrichten-Feed','feat6.body':'Klicken Sie auf ein beliebiges Instrument im Screener, um den Live-Nachrichten-Feed sofort f\u00fcr diesen Vermögenswert zu filtern. Screener und Nachrichten-Feed arbeiten als Einheit \u2014 der schnellste Weg zu best\u00e4tigen, warum sich etwas bewegt.',
+    'preview.label':'Live-Vorschau','preview.h2':'Forex-Screener \u2014 Echtzeit-Signalansicht','preview.sub':'Unten ist eine repr\u00e4sentative Ansicht des Forex-Tabs. RSI-Scores werden live aktualisiert. Nachrichtenaktivit\u00e4t spiegelt die Berichterstattung \u00fcber TNTs 50+ integrierte Quellen wider.','preview.note':'Illustrative Daten. Live-Werte werden kontinuierlich im Pro-Terminal aktualisiert.',
+    'tbl.pair':'Paar','tbl.price':'Kurs','tbl.change':'Ver\u00e4nderung %','tbl.signal':'Signal','tbl.news_1h':'Nachrichten (1h)',
+    how_title:'So funktioniert es','how.h2':'Vom Login zur Trade-Idee in 3 Schritten','how.sub':'Der TNT-Markt-Screener ist auf Geschwindigkeit ausgelegt. Keine Konfiguration erforderlich \u2014 \u00f6ffnen, filtern, handeln.',
+    'step1.title':'Screener-Tab \u00f6ffnen','step1.body':'Greifen Sie \u00fcber die TNT Pro-Seitenleiste auf den Markt-Screener zu. Alle 6 Anlageklassen-Tabs laden sofort \u2014 vorgef\u00fcllt mit Live-RSI-Scores, Kurs\u00e4nderungen und Nachrichtenaktivit\u00e4t f\u00fcr jedes Instrument.',
+    'step2.title':'Filter anwenden','step2.body':'W\u00e4hlen Sie Ihren Signaltyp (Bullish, \u00dcberverkauft, \u00dcberkauft), sortieren Sie nach RSI oder Nachrichtenaktivit\u00e4t, filtern Sie Aktien nach Sektor oder KGV. Der Screener aktualisiert die Liste in Echtzeit, w\u00e4hrend Sie jeden Filter anpassen.',
+    'step3.title':'Zu Nachrichten & Charts navigieren','step3.body':'Ein Setup gefunden? Klicken Sie auf das Instrument, um den Live-Nachrichten-Feed sofort zu filtern, und \u00f6ffnen Sie dann das integrierte TradingView-Chart zur Preisanalyse. Alles ist verbunden \u2014 kein App-Wechsel.',
+    'cmp.label':'Vergleich','cmp.h2':'TNT Markt-Screener vs. Alternativen','cmp.sub':'Die meisten Screener decken eine Anlageklasse ab. TNT deckt sechs ab \u2014 und integriert Nachrichten, sodass Sie sowohl das Warum als auch das Wo der Marktbewegungen sehen.',
+    'cmp.th_feature':'Funktion','cmp.stocks':'Aktien-Screening','cmp.forex':'Forex-Screening','cmp.crypto':'Krypto-Screening','cmp.bonds':'Anleihen & Indizes','cmp.news_feed':'Integrierter Nachrichten-Feed','cmp.news_rank':'Nachrichtenaktivit\u00e4ts-Ranking','cmp.price_row':'Preis (monatlich)',
+    faq_title:'H\u00e4ufige Fragen','faq.h2':'Markt-Screener \u2014 H\u00e4ufige Fragen',
+    'faq1.q':'Was ist ein Markt-Screener?','faq1.a':'Ein Markt-Screener ist ein Tool, das Finanzinstrumente \u2014 Aktien, Forex-Paare, Krypto, Indizes \u2014 nach technischen und fundamentalen Kriterien wie RSI, Preis-Momentum, Volumen und Nachrichtenaktivit\u00e4t filtert und sortiert. Trader nutzen Screener, um Chancen bei Hunderten von Anlagen zu erkennen, ohne jede einzeln zu pr\u00fcfen. Der TNT-Screener deckt sechs Anlageklassen gleichzeitig in einer einzigen Tab-Oberfl\u00e4che ab.',
+    'faq2.q':'Wie filtere ich Forex-Paare?','faq2.a':'Im Markt-Screener des Trading News Terminals \u00f6ffnen Sie den Forex-Tab, um alle Haupt-, Neben- und exotischen Paare nach RSI-Score, Kurs\u00e4nderung und Nachrichtenaktivit\u00e4t geordnet zu sehen. Sie k\u00f6nnen jede Spalte sortieren und nach Signaltyp filtern, um sofort umsetzbare Setups zu identifizieren. Der Screener aktualisiert sich in Echtzeit.',
+    'faq3.q':'Was ist RSI in einem Markt-Screener?','faq3.a':'RSI (Relative Strength Index) misst das Momentum auf einer Skala von 0 bis 100. In einem Screener signalisiert RSI \u00fcber 70 \u00dcberkauf-Bedingungen \u2014 eine potenzielle Umkehr oder Momentum-Fortsetzung. Unter 30 signalisiert es \u00dcberkauf-Bedingungen. Der TNT-Screener codiert diese Signale farblich f\u00fcr einen schnellen \u00dcberblick \u00fcber alle Anlageklassen.',
+    'faq4.q':'Gibt es einen kostenlosen Echtzeit-Markt-Screener?','faq4.a':'Der vollst\u00e4ndige Markt-Screener des Trading News Terminals mit RSI-Signalen, 6 Anlageklassen-Tabs, Nachrichtenaktivit\u00e4ts-Rankings und erweiterten Filtern ist eine Pro-Funktion f\u00fcr \u20ac40/Monat. Eine 7-t\u00e4gige kostenlose Testphase ist ohne Kreditkarte verf\u00fcgbar, mit vollem Zugang zu allen Screener-Filtern. Der Basic-Plan (kostenlos) enth\u00e4lt den Nachrichten-Feed und den Wirtschaftskalender.',
+    'faq5.q':'Wie nutzen professionelle Trader Screener?','faq5.a':'Professionelle Trader nutzen Markt-Screener zu Beginn jeder Sitzung, um die aktivsten, im Trend liegenden oder \u00fcberverkauften Instrumente zu identifizieren. Sie kombinieren technische Signale (RSI, Momentum) mit Nachrichtenaktivit\u00e4t, um Anlagen zu priorisieren, bei denen Kursbewegung und fundamentale Katalysatoren zusammenpassen. Der TNT-Screener integriert beide Dimensionen in einer Ansicht \u2014 die Notwendigkeit, mehrere Plattformen zu kreuzen, entf\u00e4llt.',
+    explore_title:'Weitere Funktionen','explore.h2':'Weitere Funktionen Erkunden',
+    'cta.h2':'Jetzt den Markt Analysieren \u2014 7 Tage Kostenlos','cta.sub':'Vollzugriff auf alle 6 Anlageklassen, RSI-Signale, Nachrichtenaktivit\u00e4t und erweiterte Filter. Keine Kreditkarte erforderlich.','cta.btn':'Kostenlose Testphase Starten \u2192',
+    cta_free:'Kostenlos Starten',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Datenschutz</a> \u00b7 <a href="/terms">AGB</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  it:{
+    active:'IT',tagline:'Intelligenza di Mercato in Tempo Reale',
+    try_btn:'Prova Gratuita \u2192',trial_btn:'Inizia la Prova Gratuita',free_btn:'Apri il Terminal',
+    'hero.badge':'Funzione Pro',
+    'hero.h1':'Screener di Mercato in Tempo Reale \u2014 6 Classi di Attivi in Una Vista',
+    'hero.sub':'Analizza Forex, Azioni, Crypto, Indici, Materie Prime e Obbligazioni simultaneamente. Segnali RSI, score di momentum e attivit\u00e0 di notizie \u2014 classificati e filtrabili istantaneamente.',
+    'stats.asset_classes':'Classi di Attivi','stats.instruments':'Strumenti','stats.signal_types':'Tipi di Segnale','stats.stock_views':'Viste Azioni','stats.realtime_val':'Tempo Reale','stats.data_feed':'Feed di Dati',
+    'features.label':'Cosa \u00c8 Incluso','features.h2':'Tutto Ci\u00f2 di Cui un Trader ha Bisogno in Un Solo Screener','features.intro':'Lo screener di mercato TNT sostituisce cinque strumenti separati. Azioni, coppie forex, crypto, indici, materie prime e obbligazioni \u2014 tutto in un\u2019interfaccia a tab con dati in tempo reale.',
+    'feat1.title':'6 Tab per Classe di Attivi','feat1.body':'Passa istantaneamente tra Azioni, Forex, Crypto, Indici, Materie Prime e Obbligazioni. Ogni tab \u00e8 ordinato e filtrato in modo indipendente \u2014 le tue impostazioni persistono al cambio.',
+    'feat2.title':'Segnali RSI e Momentum','feat2.body':'Ogni strumento mostra il suo score RSI con un segnale codificato a colori: Rialzista, Ribassista, Ipercomprato, Ipervenduto o Neutro. Individua gli estremi di momentum su 500+ attivi in pochi secondi.',
+    'feat3.title':'Classifica per Attivit\u00e0 di Notizie','feat3.body':'Ogni strumento viene valutato per volume di notizie nell\u2019ultima ora e nelle ultime 24 ore. Gli attivi con copertura in crescita salgono in cima \u2014 combinando segnali tecnici e fondamentali automaticamente.',
+    'feat4.title':'Filtri Avanzati','feat4.body':'Filtra le azioni per settore, capitalizzazione, P/E o tipo di segnale. Filtra il forex per segnale o regione. Ogni colonna \u00e8 ordinabile \u2014 variazione prezzo, RSI, volume, score notizie \u2014 crescente o decrescente.',
+    'feat5.title':'4 Viste Azioni','feat5.body':'Passa tra le viste Panoramica, Performance, Valutazione e Dividendi per le azioni. Ciascuna rivela uno strato diverso di dati senza navigare altrove.',
+    'feat6.title':'Integrato con Feed di Notizie','feat6.body':'Clicca su qualsiasi strumento nello screener per filtrare istantaneamente il feed di notizie in tempo reale per quell\u2019attivo. Screener e feed di notizie lavorano come uno \u2014 il modo pi\u00f9 rapido per confermare perch\u00e9 qualcosa si sta muovendo.',
+    'preview.label':'Anteprima Live','preview.h2':'Screener Forex \u2014 Vista Segnali in Tempo Reale','preview.sub':"Di seguito \u00e8 riportata una vista rappresentativa del tab Forex. Gli score RSI si aggiornano in tempo reale. L\u2019attivit\u00e0 di notizie riflette la copertura delle 50+ fonti integrate di TNT.",'preview.note':'Dati illustrativi. I valori live si aggiornano continuamente nel terminal Pro.',
+    'tbl.pair':'Coppia','tbl.price':'Prezzo','tbl.change':'Variazione %','tbl.signal':'Segnale','tbl.news_1h':'Notizie (1h)',
+    how_title:'Come funziona','how.h2':'Dal Login all\u2019Idea di Trade in 3 Passi','how.sub':'Lo screener di mercato TNT \u00e8 costruito per la velocit\u00e0. Nessuna configurazione richiesta \u2014 aprilo, filtra, agisci.',
+    'step1.title':'Apri il Tab dello Screener','step1.body':'Accedi allo screener di mercato dalla barra laterale di TNT Pro. Tutti i 6 tab per classe di attivi si caricano istantaneamente \u2014 pre-popolati con score RSI live, variazioni di prezzo e attivit\u00e0 di notizie per ogni strumento.',
+    'step2.title':'Applica i Tuoi Filtri','step2.body':'Seleziona il tipo di segnale (Rialzista, Ipervenduto, Ipercomprato), ordina per RSI o attivit\u00e0 di notizie, filtra le azioni per settore o P/E. Lo screener aggiorna la lista in tempo reale mentre regoli ogni filtro.',
+    'step3.title':'Naviga verso Notizie e Grafici','step3.body':'Trovato un setup? Clicca sullo strumento per filtrare istantaneamente il feed di notizie live, poi apri il grafico TradingView integrato per analizzare l\u2019azione del prezzo. Tutto \u00e8 collegato \u2014 nessun cambio di app.',
+    'cmp.label':'Confronto','cmp.h2':'Screener TNT vs. Alternative','cmp.sub':'La maggior parte degli screener copre una classe di attivi. TNT ne copre sei \u2014 e integra le notizie, cos\u00ec vedi sia il perch\u00e9 che il dove si muovono i mercati.',
+    'cmp.th_feature':'Funzionalit\u00e0','cmp.stocks':'Screening azioni','cmp.forex':'Screening forex','cmp.crypto':'Screening crypto','cmp.bonds':'Obbligazioni e Indici','cmp.news_feed':'Feed notizie integrato','cmp.news_rank':'Classifica per notizie','cmp.price_row':'Prezzo (mensile)',
+    faq_title:'Domande Frequenti','faq.h2':'Screener di Mercato \u2014 Domande Frequenti',
+    'faq1.q':'Cos\u2019\u00e8 uno screener di mercato?','faq1.a':'Uno screener di mercato \u00e8 uno strumento che filtra e classifica strumenti finanziari \u2014 azioni, coppie forex, crypto, indici \u2014 basandosi su criteri tecnici e fondamentali come RSI, momentum di prezzo, volume e attivit\u00e0 di notizie. I trader usano gli screener per identificare opportunit\u00e0 su centinaia di attivi senza controllarli manualmente uno per uno. Lo screener di TNT copre sei classi di attivi simultaneamente in una singola interfaccia a tab.',
+    'faq2.q':'Come filtrare le coppie forex?','faq2.a':"Nello screener di mercato del Trading News Terminal, apri il tab Forex per vedere tutte le coppie principali, minori ed esotiche classificate per score RSI, variazione di prezzo e attivit\u00e0 di notizie. Puoi ordinare qualsiasi colonna e filtrare per tipo di segnale (Rialzista, Ribassista, Ipercomprato, Ipervenduto, Neutro) per identificare istantaneamente setup azionabili. Lo screener si aggiorna in tempo reale.",
+    'faq3.q':'Cos\u2019\u00e8 il RSI in uno screener di mercato?','faq3.a':"Il RSI (Relative Strength Index) misura il momentum su una scala da 0 a 100. In uno screener, un RSI sopra 70 segnala condizioni di ipercomprato \u2014 una potenziale inversione o continuazione del momentum. Sotto 30 segnala condizioni di ipervenduto. Lo screener di TNT codifica questi segnali a colori \u2014 Rialzista (RSI 50\u201370), Ribassista (RSI 30\u201350), Ipercomprato (70+), Ipervenduto (sotto 30) e Neutro \u2014 per individuare gli estremi in tutte le classi di attivi a colpo d\u2019occhio.",
+    'faq4.q':'Esiste uno screener di mercato gratuito in tempo reale?','faq4.a':"Lo screener di mercato completo del Trading News Terminal con segnali RSI, 6 tab per classe di attivi, classifiche per attivit\u00e0 di notizie e filtri avanzati \u00e8 una funzione Pro a \u20ac40/mese. Una prova gratuita di 7 giorni \u00e8 disponibile senza carta di credito, con accesso completo a tutti i filtri prima di impegnarsi. Il piano Basic (gratuito) include il feed di notizie e il calendario economico.",
+    'faq5.q':'Come usano gli screener i trader professionisti?','faq5.a':"I trader professionisti usano gli screener di mercato all\u2019inizio di ogni sessione per identificare gli strumenti pi\u00f9 attivi, in trend o ipervenduti. Combinano segnali tecnici (RSI, momentum) con l\u2019attivit\u00e0 di notizie per dare priorit\u00e0 agli attivi in cui il movimento di prezzo e i catalizzatori fondamentali si allineano. Lo screener di TNT integra entrambe le dimensioni in una vista \u2014 eliminando la necessit\u00e0 di incrociare pi\u00f9 piattaforme.",
+    explore_title:'Esplora Funzionalit\u00e0','explore.h2':'Esplora le Altre Funzionalit\u00e0',
+    'cta.h2':'Inizia ad Analizzare il Mercato \u2014 Gratuito per 7 Giorni','cta.sub':'Accesso completo a tutte le 6 classi di attivi, segnali RSI, attivit\u00e0 di notizie e filtri avanzati. Nessuna carta di credito richiesta.','cta.btn':'Inizia la Prova Gratuita \u2192',
+    cta_free:'Inizia Gratis',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Termini</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='market-screener';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

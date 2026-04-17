@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Trading Charts — TradingView in Your News Terminal</title>
+<meta name="description" content="TradingView charts embedded in your trading news terminal. Forex, crypto, indices &amp; bonds — real-time charts and breaking news side by side.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.tradingnewsterminal.com/trading-charts">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+<meta property="og:title" content="Live Trading Charts — TradingView in Your News Terminal">
+<meta property="og:description" content="TradingView charts embedded in your trading news terminal. Forex, crypto, indices &amp; bonds — real-time charts and breaking news side by side.">
+<meta property="og:url" content="https://www.tradingnewsterminal.com/trading-charts">
+<meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Trading News Terminal — Live Trading Charts",
+  "url": "https://app.tradingnewsterminal.com",
+  "description": "TradingView charts embedded directly in the Trading News Terminal. Forex, crypto, indices, commodities and bonds — all timeframes, alongside real-time breaking news.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web Browser",
+  "offers": [
+    {"@type": "Offer", "name": "Basic", "price": "0", "priceCurrency": "EUR"},
+    {"@type": "Offer", "name": "Pro", "price": "40", "priceCurrency": "EUR"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is TradingView free?",
+      "acceptedAnswer": {"@type": "Answer", "text": "TradingView offers a free plan with limited features. Within Trading News Terminal, TradingView charts are embedded and available on both the Basic (free) and Pro plans — so you get full access to TradingView's industry-standard charting interface without needing a separate TradingView subscription. Advanced TradingView features like multiple panes and custom indicators require a TradingView account, but the core charts work immediately."}
+    },
+    {
+      "@type": "Question",
+      "name": "What charts does Trading News Terminal include?",
+      "acceptedAnswer": {"@type": "Answer", "text": "TNT includes TradingView charts for all major forex pairs (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD and crosses), major cryptocurrencies (BTC, ETH, XRP, SOL, BNB), global indices (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), commodities (Gold, Silver, WTI Crude, Brent Crude, Natural Gas, Wheat, Corn, Coffee) and bonds (US 10Y, German Bund). All instruments support every timeframe from 1 minute to monthly."}
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use TradingView charts for free?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Yes. TradingView charts in Trading News Terminal are available on the free Basic plan with no credit card required. You get full access to the chart panel for all covered instruments across all timeframes. The Basic plan also includes the news feed and economic calendar, making it a genuinely useful free trading toolkit — not a stripped-down demo."}
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best chart platform for forex?",
+      "acceptedAnswer": {"@type": "Answer", "text": "TradingView is widely regarded as the best web-based charting platform for forex traders. It offers clean, fast candlestick and bar charts, a comprehensive indicator library, drawing tools and multi-timeframe analysis — all in a browser with no download required. Trading News Terminal embeds TradingView charts directly alongside the live news feed, eliminating the need to switch between platforms and giving you the chart and the news catalyst simultaneously."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do I read candlestick charts?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A candlestick represents price action over a given time period. The body shows the open and close prices — green/white bodies indicate the close was higher than the open (bullish); red/black bodies indicate the close was lower (bearish). The wicks (thin lines above and below the body) show the high and low for the period. Patterns like Doji, Hammer, Engulfing and Morning Star give traders signals about potential trend reversals or continuations. TradingView's chart library within TNT supports all major candlestick pattern overlays."}
+    }
+  ]
+}
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111827;
+    --border: #1e2a3a;
+    --accent: #00d4ff;
+    --accent-dim: rgba(0,212,255,0.12);
+    --text: #e0e8f0;
+    --muted: #8899aa;
+    --green: #00c896;
+    --red: #ff4d6a;
+    --yellow: #f5c518;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, 'Inter', -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,15,0.97);
+    border-bottom: 1px solid #1e2a3a;
+    padding: 0 24px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+  .nav-logo-text span { color:#00d4ff; }
+  .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity .15s, transform .15s; border: none; text-decoration: none; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero-tag { display: inline-block; background: rgba(0,200,150,0.12); color: var(--green); border: 1px solid rgba(0,200,150,0.3); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 24px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 14px; }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 620px; margin-bottom: 40px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .card-icon { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .card:hover { border-color: var(--accent); }
+
+  /* Instrument grid */
+  .instrument-group { margin-bottom: 32px; }
+  .instrument-group-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .instrument-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Chart mock */
+  .chart-mock { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 0; overflow: hidden; margin-bottom: 20px; }
+  .chart-toolbar { background: #0d1117; border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .chart-symbol { font-weight: 700; font-size: 15px; color: var(--accent); }
+  .chart-price { font-size: 15px; font-weight: 700; color: var(--green); }
+  .chart-tf { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 11px; color: var(--muted); }
+  .chart-tf.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  .chart-body { height: 220px; display: flex; align-items: flex-end; padding: 20px 16px 16px; gap: 3px; position: relative; overflow: hidden; }
+  .chart-body::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(0,200,150,0.04) 100%); pointer-events: none; }
+  .bar { flex: 1; border-radius: 2px 2px 0 0; min-width: 6px; transition: opacity .15s; }
+  .bar:hover { opacity: .7; }
+  .b-green { background: var(--green); }
+  .b-red { background: var(--red); }
+  .chart-news-panel { border-top: 1px solid var(--border); padding: 12px 16px; }
+  .chart-news-item { font-size: 12px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid rgba(30,42,58,0.5); }
+  .chart-news-item:last-child { border-bottom: none; }
+  .chart-news-item .time { color: var(--accent); font-weight: 600; margin-right: 8px; }
+
+  /* Side-by-side layout visual */
+  .layout-demo { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .layout-demo-header { background: #0d1117; border-bottom: 1px solid var(--border); padding: 10px 16px; font-size: 12px; color: var(--muted); display: flex; gap: 16px; }
+  .layout-demo-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .layout-panel { padding: 16px; }
+  .layout-panel + .layout-panel { border-left: 1px solid var(--border); }
+  .layout-panel-title { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .news-mock-item { padding: 8px 0; border-bottom: 1px solid rgba(30,42,58,0.5); font-size: 12px; }
+  .news-mock-item:last-child { border-bottom: none; }
+  .news-mock-time { font-size: 10px; color: var(--accent); margin-bottom: 2px; }
+  .news-mock-headline { color: var(--text); line-height: 1.4; }
+
+  .steps { display: grid; gap: 24px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.4); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--accent); }
+  .step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 14px; color: var(--muted); }
+
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table th { padding: 12px 16px; background: var(--bg2); text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--green); font-weight: 700; }
+  .compare-table .cross { color: var(--red); }
+  .compare-table .tnt-col { background: rgba(0,212,255,0.04); }
+
+  .faq-list { display: grid; gap: 16px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+  .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .faq-item p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  .cross-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .cross-link { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-size: 14px; font-weight: 600; color: var(--text); transition: border-color .15s; }
+  .cross-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  .footer-cta { background: linear-gradient(135deg, rgba(0,212,255,0.07) 0%, rgba(0,212,255,0.02) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 0; text-align: center; }
+  .footer-cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 14px; }
+  .footer-cta p { color: var(--muted); margin-bottom: 32px; font-size: 16px; }
+
+  .site-footer { padding: 24px 0; text-align: center; color: var(--muted); font-size: 13px; }
+  .site-footer a { color: var(--muted); margin: 0 8px; }
+  .site-footer a:hover { color: var(--accent); }
+
+  /* Free badge */
+  .free-badge { display: inline-block; background: rgba(0,200,150,0.15); color: var(--green); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em; margin-left: 8px; vertical-align: middle; }
+
+  /* Highlight box */
+  .highlight-box { background: var(--accent-dim); border: 1px solid rgba(0,212,255,0.25); border-radius: 10px; padding: 24px 28px; margin-bottom: 40px; }
+  .highlight-box p { color: var(--text); font-size: 15px; line-height: 1.7; }
+  .highlight-box strong { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .step { flex-direction: column; }
+    .site-header .logo-name { display: none; }
+    .layout-demo-body { grid-template-columns: 1fr; }
+    .layout-panel + .layout-panel { border-left: none; border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=header" class="nav-logo" data-seo-track="trading-charts">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=header" class="btn btn-primary" data-seo-track="trading-charts"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag" data-i18n="tc_hero_badge">Free on Basic &amp; Pro</div>
+    <h1 data-i18n-html="tc_hero_h1"><span>Live Trading Charts</span> —<br>TradingView Integrated in Your Terminal</h1>
+    <p data-i18n="tc_hero_p">Industry-standard TradingView charts embedded directly alongside your live news feed. Forex, crypto, indices, commodities and bonds — all timeframes, zero tab switching. React faster.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=hero" class="btn btn-primary" data-seo-track="trading-charts"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=hero" class="btn btn-outline" data-seo-track="trading-charts"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-val">5</div><div class="stat-label" data-i18n="tc_stat1">Asset Classes</div></div>
+      <div><div class="stat-val">50+</div><div class="stat-label" data-i18n="tc_stat2">Instruments</div></div>
+      <div><div class="stat-val">All</div><div class="stat-label" data-i18n="tc_stat3">Timeframes</div></div>
+      <div><div class="stat-val">Free</div><div class="stat-label" data-i18n="tc_stat4">Basic Plan</div></div>
+      <div><div class="stat-val">0</div><div class="stat-label" data-i18n="tc_stat5">Tab Switches</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terminal Mockup -->
+<div style="background:#0d1117;border-top:1px solid #1e2a3a;border-bottom:1px solid #1e2a3a;padding:32px 24px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:'Courier New',monospace;">
+      <div style="background:#0a0c0f;border-bottom:1px solid #1e2a3a;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:13px;font-weight:700;color:#00d4ff;">EUR/USD</span>
+        <span style="font-size:12px;color:#8899aa;">·</span>
+        <span style="font-size:12px;color:#8899aa;">1H</span>
+        <span style="font-size:12px;color:#8899aa;">·</span>
+        <span style="font-size:12px;color:#556677;">TradingView</span>
+        <span style="font-size:13px;font-weight:700;color:#00c896;margin-left:8px;">1.0847</span>
+        <span style="font-size:11px;color:#00c896;">+0.38%</span>
+        <span style="margin-left:auto;font-size:10px;color:#00d4ff;">● LIVE</span>
+      </div>
+      <div style="display:flex;gap:0;">
+        <!-- Chart area -->
+        <div style="flex:1;padding:16px 8px 8px 16px;position:relative;min-height:180px;">
+          <!-- Price labels on right -->
+          <div style="position:absolute;right:0;top:12px;bottom:24px;width:52px;display:flex;flex-direction:column;justify-content:space-between;padding:0 6px;">
+            <span style="font-size:9px;color:#556677;">1.0880</span>
+            <span style="font-size:9px;color:#556677;">1.0860</span>
+            <span style="font-size:9px;color:#00d4ff;font-weight:700;">1.0847</span>
+            <span style="font-size:9px;color:#556677;">1.0820</span>
+            <span style="font-size:9px;color:#556677;">1.0800</span>
+          </div>
+          <!-- Horizontal grid lines -->
+          <svg width="100%" height="160" style="display:block;padding-right:52px;" viewBox="0 0 520 160" preserveAspectRatio="none">
+            <!-- Grid lines -->
+            <line x1="0" y1="8"   x2="520" y2="8"   stroke="#1e2a3a" stroke-width="1"/>
+            <line x1="0" y1="46"  x2="520" y2="46"  stroke="#1e2a3a" stroke-width="1"/>
+            <line x1="0" y1="84"  x2="520" y2="84"  stroke="#1e2a3a" stroke-width="1"/>
+            <line x1="0" y1="122" x2="520" y2="122" stroke="#1e2a3a" stroke-width="1"/>
+            <line x1="0" y1="158" x2="520" y2="158" stroke="#1e2a3a" stroke-width="1"/>
+            <!-- Current price line -->
+            <line x1="0" y1="72" x2="520" y2="72" stroke="#00d4ff" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.5"/>
+            <!-- Candle 1 - green -->
+            <line x1="26" y1="30" x2="26" y2="110" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="18" y="55" width="16" height="40" fill="#00c896" rx="1"/>
+            <!-- Candle 2 - red -->
+            <line x1="68" y1="45" x2="68" y2="115" stroke="#ff4d6a" stroke-width="1.5"/>
+            <rect x="60" y="65" width="16" height="35" fill="#ff4d6a" rx="1"/>
+            <!-- Candle 3 - green -->
+            <line x1="110" y1="60" x2="110" y2="120" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="102" y="75" width="16" height="30" fill="#00c896" rx="1"/>
+            <!-- Candle 4 - green -->
+            <line x1="152" y1="40" x2="152" y2="100" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="144" y="55" width="16" height="32" fill="#00c896" rx="1"/>
+            <!-- Candle 5 - red -->
+            <line x1="194" y1="50" x2="194" y2="105" stroke="#ff4d6a" stroke-width="1.5"/>
+            <rect x="186" y="68" width="16" height="28" fill="#ff4d6a" rx="1"/>
+            <!-- Candle 6 - red -->
+            <line x1="236" y1="62" x2="236" y2="118" stroke="#ff4d6a" stroke-width="1.5"/>
+            <rect x="228" y="78" width="16" height="30" fill="#ff4d6a" rx="1"/>
+            <!-- Candle 7 - green -->
+            <line x1="278" y1="48" x2="278" y2="108" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="270" y="60" width="16" height="36" fill="#00c896" rx="1"/>
+            <!-- Candle 8 - green -->
+            <line x1="320" y1="35" x2="320" y2="90" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="312" y="48" width="16" height="30" fill="#00c896" rx="1"/>
+            <!-- Candle 9 - red -->
+            <line x1="362" y1="55" x2="362" y2="112" stroke="#ff4d6a" stroke-width="1.5"/>
+            <rect x="354" y="68" width="16" height="32" fill="#ff4d6a" rx="1"/>
+            <!-- Candle 10 - green (current, partial) -->
+            <line x1="404" y1="42" x2="404" y2="95" stroke="#00c896" stroke-width="1.5"/>
+            <rect x="396" y="55" width="16" height="28" fill="#00c896" rx="1" opacity="0.85"/>
+          </svg>
+          <!-- Time labels -->
+          <div style="display:flex;justify-content:space-between;padding:4px 52px 0 0;font-size:9px;color:#556677;">
+            <span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#556677;margin-top:10px;text-align:center;letter-spacing:0.04em;">Illustrative chart · Live TradingView charts embedded in the terminal on all plans</p>
+  </div>
+</div>
+
+<!-- The case for charts next to news -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_adv_label">The Key Advantage</div>
+    <h2 class="section-title" data-i18n="tc_adv_title">Charts Next to News — Why It Changes Everything</h2>
+
+    <div class="highlight-box">
+      <p data-i18n-html="tc_adv_highlight">Every trader knows the problem: <strong>news breaks in one tab, chart is in another.</strong> By the time you switch, the spike is already 20 pips in. TNT solves this by embedding TradingView charts directly in the same interface as the live news feed — so you see the price action and the catalyst simultaneously, in real time, without moving your hands.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="tc_card1_h">React Before the Crowd</h3>
+        <p data-i18n="tc_card1_p">When a market-moving headline drops, the candlestick response is visible in the same view — no switching, no delay. The seconds saved are often the difference between entering at the spike origin and chasing a move that's already run.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3 data-i18n="tc_card2_h">Confirm the Catalyst</h3>
+        <p data-i18n="tc_card2_p">With chart and news side by side, you can instantly confirm whether a price move is news-driven or technical. Is that EUR/USD spike a genuine fundamental move or just stop-hunting? The answer is one glance away when charts and news are integrated.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3 data-i18n="tc_card3_h">Zero Workflow Friction</h3>
+        <p data-i18n="tc_card3_p">Professional traders optimise every second of their workflow. Eliminating the TradingView tab switch removes a small but constant source of friction — and when compounded over hundreds of news events per session, the efficiency gain is substantial.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3 data-i18n="tc_card4_h">Industry-Standard Charting</h3>
+        <p data-i18n="tc_card4_p">TradingView is the most-used web charting platform among retail and professional traders globally. By embedding it directly, TNT gives you the charting tool you already know and trust — just in a better workflow context.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chart preview -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_preview_label">Live Preview</div>
+    <h2 class="section-title" data-i18n="tc_preview_title">Chart + News — Side by Side</h2>
+    <p class="section-sub" data-i18n="tc_preview_sub">This is the TNT layout: TradingView chart on the left, live news feed on the right. News breaks, you see the candle form and the headline simultaneously.</p>
+
+    <div class="layout-demo">
+      <div class="layout-demo-header">
+        <span>Trading News Terminal — Pro</span>
+        <span style="color: var(--accent);">● Live</span>
+      </div>
+      <div class="layout-demo-body">
+        <div class="layout-panel">
+          <div class="layout-panel-title">EUR/USD — 1H Chart</div>
+          <!-- Fake candlestick chart -->
+          <div style="display:flex; align-items:flex-end; gap:3px; height:120px; padding-bottom:4px;">
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:8px; background:var(--green);"></div>
+              <div style="width:100%; height:40px; background:var(--green); border-radius:1px;"></div>
+              <div style="width:1px; height:5px; background:var(--green);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:10px; background:var(--red);"></div>
+              <div style="width:100%; height:28px; background:var(--red); border-radius:1px;"></div>
+              <div style="width:1px; height:6px; background:var(--red);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:6px; background:var(--green);"></div>
+              <div style="width:100%; height:35px; background:var(--green); border-radius:1px;"></div>
+              <div style="width:1px; height:4px; background:var(--green);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:12px; background:var(--green);"></div>
+              <div style="width:100%; height:55px; background:var(--green); border-radius:1px; border: 1px solid var(--accent);"></div>
+              <div style="width:1px; height:8px; background:var(--green);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:7px; background:var(--green);"></div>
+              <div style="width:100%; height:48px; background:var(--green); border-radius:1px;"></div>
+              <div style="width:1px; height:5px; background:var(--green);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:9px; background:var(--red);"></div>
+              <div style="width:100%; height:22px; background:var(--red); border-radius:1px;"></div>
+              <div style="width:1px; height:4px; background:var(--red);"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:1px;">
+              <div style="width:1px; height:14px; background:var(--green);"></div>
+              <div style="width:100%; height:62px; background:rgba(0,200,150,0.5); border-radius:1px; border: 1px dashed var(--green);"></div>
+              <div style="width:1px; height:6px; background:var(--green);"></div>
+            </div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:8px;">EUR/USD · 1.0847 · <span style="color:var(--green);">+0.38%</span> · 1H</div>
+        </div>
+        <div class="layout-panel">
+          <div class="layout-panel-title">Live News Feed</div>
+          <div class="news-mock-item">
+            <div class="news-mock-time">14:32:08</div>
+            <div class="news-mock-headline" style="color:var(--red); font-weight:700;">🔴 ECB's Lagarde: Inflation still above target, rate path data-dependent</div>
+          </div>
+          <div class="news-mock-item">
+            <div class="news-mock-time">14:30:44</div>
+            <div class="news-mock-headline">US CPI MoM +0.3% vs +0.4% est — Dollar softens on miss</div>
+          </div>
+          <div class="news-mock-item">
+            <div class="news-mock-time">14:28:11</div>
+            <div class="news-mock-headline">EUR/USD breaks 1.0840 resistance — technicals bullish above level</div>
+          </div>
+          <div class="news-mock-item">
+            <div class="news-mock-time">14:15:03</div>
+            <div class="news-mock-headline">German Bund yields slip 3bp amid soft risk tone in Europe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px; color: var(--muted); margin-top:10px;" data-i18n="tc_preview_note">Illustrative layout. Live data flows continuously in the actual terminal.</p>
+  </div>
+</section>
+
+<!-- Instruments covered -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_instr_label">Instruments</div>
+    <h2 class="section-title" data-i18n="tc_instr_title">Every Market You Trade — One Chart Panel</h2>
+    <p class="section-sub" data-i18n="tc_instr_sub">TNT covers all major forex pairs, crypto, global indices, commodities and bonds. Switch between instruments in one click — the news feed filters automatically to match.</p>
+
+    <div class="instrument-group">
+      <div class="instrument-group-title" data-i18n="tc_instr_forex">Forex — Major &amp; Cross Pairs</div>
+      <div class="instrument-tags">
+        <span class="tag">EUR/USD</span>
+        <span class="tag">GBP/USD</span>
+        <span class="tag">USD/JPY</span>
+        <span class="tag">AUD/USD</span>
+        <span class="tag">USD/CAD</span>
+        <span class="tag">USD/CHF</span>
+        <span class="tag">NZD/USD</span>
+        <span class="tag">EUR/GBP</span>
+        <span class="tag">GBP/JPY</span>
+        <span class="tag">EUR/JPY</span>
+        <span class="tag">AUD/JPY</span>
+      </div>
+    </div>
+
+    <div class="instrument-group">
+      <div class="instrument-group-title" data-i18n="tc_instr_crypto">Crypto</div>
+      <div class="instrument-tags">
+        <span class="tag">BTC/USD</span>
+        <span class="tag">ETH/USD</span>
+        <span class="tag">XRP/USD</span>
+        <span class="tag">SOL/USD</span>
+        <span class="tag">BNB/USD</span>
+      </div>
+    </div>
+
+    <div class="instrument-group">
+      <div class="instrument-group-title" data-i18n="tc_instr_indices">Global Indices</div>
+      <div class="instrument-tags">
+        <span class="tag">S&amp;P 500</span>
+        <span class="tag">NASDAQ 100</span>
+        <span class="tag">DAX 40</span>
+        <span class="tag">FTSE 100</span>
+        <span class="tag">Nikkei 225</span>
+        <span class="tag">CAC 40</span>
+        <span class="tag">Dow Jones</span>
+      </div>
+    </div>
+
+    <div class="instrument-group">
+      <div class="instrument-group-title" data-i18n="tc_instr_comm">Commodities</div>
+      <div class="instrument-tags">
+        <span class="tag">Gold (XAU)</span>
+        <span class="tag">Silver (XAG)</span>
+        <span class="tag">WTI Crude Oil</span>
+        <span class="tag">Brent Crude</span>
+        <span class="tag">Natural Gas</span>
+        <span class="tag">Wheat</span>
+        <span class="tag">Corn</span>
+        <span class="tag">Coffee</span>
+      </div>
+    </div>
+
+    <div class="instrument-group">
+      <div class="instrument-group-title" data-i18n="tc_instr_bonds">Bonds</div>
+      <div class="instrument-tags">
+        <span class="tag">US 10Y Treasury</span>
+        <span class="tag">US 2Y Treasury</span>
+        <span class="tag">German Bund 10Y</span>
+        <span class="tag">UK Gilt 10Y</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeframes -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_tf_label">Timeframes</div>
+    <h2 class="section-title" data-i18n="tc_tf_title">All Timeframes — Scalp to Position</h2>
+    <p class="section-sub" data-i18n="tc_tf_sub">Whether you're scalping news spikes on the 1-minute chart or managing a swing position on the daily, TNT's TradingView integration supports every timeframe you need.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="tc_tf_card1_h">Intraday (1m, 5m, 15m, 30m)</h3>
+        <p data-i18n="tc_tf_card1_p">For news traders and scalpers reacting to economic releases, central bank statements or breaking geopolitical events. The 1-minute chart captures the immediate spike; the 15-minute shows the follow-through structure.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3 data-i18n="tc_tf_card2_h">Swing (1H, 4H, Daily)</h3>
+        <p data-i18n="tc_tf_card2_p">For swing traders holding positions for hours to days based on macro themes, earnings catalysts or technical breakouts. The 4H and daily charts define the trend context that news events play out within.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3 data-i18n="tc_tf_card3_h">Position (Weekly, Monthly)</h3>
+        <p data-i18n="tc_tf_card3_p">For portfolio managers and macro traders assessing long-term trend structures, multi-year support and resistance levels, and the broader secular market backdrop that defines the bias for all shorter-term trades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 class="section-title" data-i18n="tc_hiw_title">Charts and News — One Unified Workflow</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="tc_step1_h">Open the Charts Panel</h3>
+          <p data-i18n="tc_step1_p">The TradingView chart panel is accessible from the TNT sidebar on both Basic and Pro plans. Select your instrument and timeframe — the chart loads instantly. The live news feed remains visible alongside it; no separate windows, no second monitor required.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="tc_step2_h">News Breaks — See It Instantly</h3>
+          <p data-i18n="tc_step2_p">When a market-moving headline hits — a CPI print, a central bank statement, a geopolitical headline — you see the breaking news item and the candlestick response simultaneously. The squawk box reads the headline out loud so you don't even need to glance at the feed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="tc_step3_h">Analyse and Decide Without Switching</h3>
+          <p data-i18n="tc_step3_p">Draw levels, switch timeframes, check the 4H structure — all while the news feed continues updating. When chart analysis and news context live in the same view, you make better, faster trading decisions. This is the workflow advantage professional traders use Bloomberg to get — at a fraction of the cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_cmp_label">Comparison</div>
+    <h2 class="section-title" data-i18n="tc_cmp_title">TNT Trading Charts vs. Standalone Platforms</h2>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="tc_cmp_feature">Feature</th>
+            <th class="tnt-col">TNT (Basic/Pro)</th>
+            <th>TradingView Alone</th>
+            <th>MT4/MT5</th>
+            <th>Bloomberg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="tc_cmp_row1">TradingView charts</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row2">All major instruments</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row3">All timeframes</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row4">Integrated live news feed</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row5">Live squawk audio alerts</td>
+            <td class="tnt-col check">✓</td>
+            <td class="cross">✗</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row6">Economic calendar</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">Partial</td>
+            <td class="cross">✗</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_row7">Available on free plan</td>
+            <td class="tnt-col check">✓</td>
+            <td class="check">✓</td>
+            <td class="check">✓</td>
+            <td class="cross">✗</td>
+          </tr>
+          <tr>
+            <td data-i18n="tc_cmp_price">Price (monthly)</td>
+            <td class="tnt-col" style="color: var(--accent);">Free / €40</td>
+            <td>Free / $14.95+</td>
+            <td>Free</td>
+            <td>$2,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title" data-i18n="tc_faq_title">Trading Charts — Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 data-i18n="tc_faq1_q">Is TradingView free?</h3>
+        <p data-i18n="tc_faq1_a">TradingView offers a free plan with limited features on its own platform. Within Trading News Terminal, TradingView charts are embedded and available on both the Basic (free) and Pro plans — so you get full access to TradingView's industry-standard charting interface without needing a separate TradingView subscription. Advanced TradingView features like multiple chart panes and custom indicators may require a TradingView account, but the core live charts work immediately from the TNT free plan.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="tc_faq2_q">What charts does Trading News Terminal include?</h3>
+        <p data-i18n="tc_faq2_a">TNT includes TradingView charts for all major forex pairs (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD and crosses), major cryptocurrencies (BTC, ETH, XRP, SOL, BNB), global indices (S&amp;P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), commodities (Gold, Silver, WTI Crude, Brent Crude, Natural Gas, Wheat, Corn, Coffee) and bonds (US 10Y Treasury, German Bund). All instruments support every timeframe from 1-minute to monthly.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="tc_faq3_q">Can I use TradingView charts for free?</h3>
+        <p data-i18n="tc_faq3_a">Yes. TradingView charts in Trading News Terminal are available on the free Basic plan with no credit card required. You get full access to the chart panel for all covered instruments across all timeframes. The Basic plan also includes the live news feed and economic calendar, making it a genuinely useful free trading toolkit — not a stripped-down demo designed to push you towards an upgrade.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="tc_faq4_q">What is the best chart platform for forex?</h3>
+        <p data-i18n="tc_faq4_a">TradingView is widely regarded as the best web-based charting platform for forex traders. It offers clean, fast candlestick and bar charts, a comprehensive indicator library (RSI, MACD, Bollinger Bands, etc.), drawing tools and multi-timeframe analysis — all in a browser with no download required. Trading News Terminal embeds TradingView charts directly alongside the live news feed, eliminating the need to switch between platforms and giving you the chart and the news catalyst simultaneously in one view.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="tc_faq5_q">How do I read candlestick charts?</h3>
+        <p data-i18n="tc_faq5_a">A candlestick represents price action over a given time period. The body shows the open and close prices — a green or white body means the close was higher than the open (bullish candle); a red or black body means the close was lower (bearish candle). The wicks (thin lines extending above and below the body) show the high and low for the period. Key candlestick patterns — Doji, Hammer, Shooting Star, Bullish Engulfing, Morning Star — give traders signals about potential reversals or continuations. TradingView's chart library within TNT supports all major candlestick pattern recognition overlays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-links -->
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="tc_explore_label">Explore</div>
+    <h2 class="section-title" data-i18n="explore_title">Explore Other Features</h2>
+    <div class="cross-links">
+      <a href="/bloomberg-alternative" class="cross-link">Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="cross-link">Forex News Feed</a>
+      <a href="/economic-calendar" class="cross-link">Economic Calendar</a>
+      <a href="/squawk-box" class="cross-link">Squawk Box</a>
+      <a href="/live-financial-tv" class="cross-link">Live Financial TV</a>
+      <a href="/market-screener" class="cross-link">Market Screener</a>
+      <a href="/central-banks-tracker" class="cross-link">Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="cross-link">Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="cross-link">Earnings Calendar</a>
+      <a href="/trading-charts" class="cross-link" style="border-color: var(--accent); color: var(--accent);">Live Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="tc_cta_h2">Open Your Free Terminal — Charts Included</h2>
+    <p data-i18n="tc_cta_p">TradingView charts, live news feed and economic calendar. Free forever on the Basic plan. No credit card, no commitment.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=bottom" class="btn btn-primary" style="font-size:16px; padding: 14px 32px;" data-seo-track="trading-charts"><span data-i18n="free_btn">Open Free Terminal</span> →</a>
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=trading-charts&utm_content=bottom" class="btn btn-outline" style="font-size:16px; padding: 14px 32px;" data-seo-track="trading-charts">Start Pro Trial</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p data-i18n-html="footer_copy">© 2026 Trading News Terminal · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a></p>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    try_btn:'Try Free \u2192',trial_btn:'Start Free Trial',free_btn:'Open Free Terminal',tagline:'Real-time Market Intelligence',active:'EN',
+    how_title:'How It Works',faq_title:'Frequently Asked Questions',explore_title:'Explore Other Features',cta_free:'Start Free \u2014 No Card Required',
+    tc_hero_badge:'Free on Basic & Pro',
+    tc_hero_h1:'<span>Live Trading Charts</span> \u2014<br>TradingView Integrated in Your Terminal',
+    tc_hero_p:'Industry-standard TradingView charts embedded directly alongside your live news feed. Forex, crypto, indices, commodities and bonds \u2014 all timeframes, zero tab switching. React faster.',
+    tc_stat1:'Asset Classes',tc_stat2:'Instruments',tc_stat3:'Timeframes',tc_stat4:'Basic Plan',tc_stat5:'Tab Switches',
+    tc_adv_label:'The Key Advantage',tc_adv_title:'Charts Next to News \u2014 Why It Changes Everything',
+    tc_adv_highlight:'Every trader knows the problem: <strong>news breaks in one tab, chart is in another.</strong> By the time you switch, the spike is already 20 pips in. TNT solves this by embedding TradingView charts directly in the same interface as the live news feed \u2014 so you see the price action and the catalyst simultaneously, in real time, without moving your hands.',
+    tc_card1_h:'React Before the Crowd',tc_card1_p:'When a market-moving headline drops, the candlestick response is visible in the same view \u2014 no switching, no delay. The seconds saved are often the difference between entering at the spike origin and chasing a move that\u2019s already run.',
+    tc_card2_h:'Confirm the Catalyst',tc_card2_p:'With chart and news side by side, you can instantly confirm whether a price move is news-driven or technical. Is that EUR/USD spike a genuine fundamental move or just stop-hunting? The answer is one glance away when charts and news are integrated.',
+    tc_card3_h:'Zero Workflow Friction',tc_card3_p:'Professional traders optimise every second of their workflow. Eliminating the TradingView tab switch removes a small but constant source of friction \u2014 and when compounded over hundreds of news events per session, the efficiency gain is substantial.',
+    tc_card4_h:'Industry-Standard Charting',tc_card4_p:'TradingView is the most-used web charting platform among retail and professional traders globally. By embedding it directly, TNT gives you the charting tool you already know and trust \u2014 just in a better workflow context.',
+    tc_preview_label:'Live Preview',tc_preview_title:'Chart + News \u2014 Side by Side',
+    tc_preview_sub:'This is the TNT layout: TradingView chart on the left, live news feed on the right. News breaks, you see the candle form and the headline simultaneously.',
+    tc_preview_note:'Illustrative layout. Live data flows continuously in the actual terminal.',
+    tc_instr_label:'Instruments',tc_instr_title:'Every Market You Trade \u2014 One Chart Panel',
+    tc_instr_sub:'TNT covers all major forex pairs, crypto, global indices, commodities and bonds. Switch between instruments in one click \u2014 the news feed filters automatically to match.',
+    tc_instr_forex:'Forex \u2014 Major & Cross Pairs',tc_instr_crypto:'Crypto',tc_instr_indices:'Global Indices',tc_instr_comm:'Commodities',tc_instr_bonds:'Bonds',
+    tc_tf_label:'Timeframes',tc_tf_title:'All Timeframes \u2014 Scalp to Position',
+    tc_tf_sub:'Whether you\u2019re scalping news spikes on the 1-minute chart or managing a swing position on the daily, TNT\u2019s TradingView integration supports every timeframe you need.',
+    tc_tf_card1_h:'Intraday (1m, 5m, 15m, 30m)',tc_tf_card1_p:'For news traders and scalpers reacting to economic releases, central bank statements or breaking geopolitical events. The 1-minute chart captures the immediate spike; the 15-minute shows the follow-through structure.',
+    tc_tf_card2_h:'Swing (1H, 4H, Daily)',tc_tf_card2_p:'For swing traders holding positions for hours to days based on macro themes, earnings catalysts or technical breakouts. The 4H and daily charts define the trend context that news events play out within.',
+    tc_tf_card3_h:'Position (Weekly, Monthly)',tc_tf_card3_p:'For portfolio managers and macro traders assessing long-term trend structures, multi-year support and resistance levels, and the broader secular market backdrop that defines the bias for all shorter-term trades.',
+    tc_hiw_title:'Charts and News \u2014 One Unified Workflow',
+    tc_step1_h:'Open the Charts Panel',tc_step1_p:'The TradingView chart panel is accessible from the TNT sidebar on both Basic and Pro plans. Select your instrument and timeframe \u2014 the chart loads instantly. The live news feed remains visible alongside it; no separate windows, no second monitor required.',
+    tc_step2_h:'News Breaks \u2014 See It Instantly',tc_step2_p:'When a market-moving headline hits \u2014 a CPI print, a central bank statement, a geopolitical headline \u2014 you see the breaking news item and the candlestick response simultaneously. The squawk box reads the headline out loud so you don\u2019t even need to glance at the feed.',
+    tc_step3_h:'Analyse and Decide Without Switching',tc_step3_p:'Draw levels, switch timeframes, check the 4H structure \u2014 all while the news feed continues updating. When chart analysis and news context live in the same view, you make better, faster trading decisions. This is the workflow advantage professional traders use Bloomberg to get \u2014 at a fraction of the cost.',
+    tc_cmp_label:'Comparison',tc_cmp_title:'TNT Trading Charts vs. Standalone Platforms',
+    tc_cmp_feature:'Feature',tc_cmp_row1:'TradingView charts',tc_cmp_row2:'All major instruments',tc_cmp_row3:'All timeframes',tc_cmp_row4:'Integrated live news feed',tc_cmp_row5:'Live squawk audio alerts',tc_cmp_row6:'Economic calendar',tc_cmp_row7:'Available on free plan',tc_cmp_price:'Price (monthly)',
+    tc_faq_title:'Trading Charts \u2014 Frequently Asked Questions',
+    tc_faq1_q:'Is TradingView free?',tc_faq1_a:'TradingView offers a free plan with limited features on its own platform. Within Trading News Terminal, TradingView charts are embedded and available on both the Basic (free) and Pro plans \u2014 so you get full access to TradingView\u2019s industry-standard charting interface without needing a separate TradingView subscription. Advanced TradingView features like multiple chart panes and custom indicators may require a TradingView account, but the core live charts work immediately from the TNT free plan.',
+    tc_faq2_q:'What charts does Trading News Terminal include?',tc_faq2_a:'TNT includes TradingView charts for all major forex pairs (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD and crosses), major cryptocurrencies (BTC, ETH, XRP, SOL, BNB), global indices (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), commodities (Gold, Silver, WTI Crude, Brent Crude, Natural Gas, Wheat, Corn, Coffee) and bonds (US 10Y Treasury, German Bund). All instruments support every timeframe from 1-minute to monthly.',
+    tc_faq3_q:'Can I use TradingView charts for free?',tc_faq3_a:'Yes. TradingView charts in Trading News Terminal are available on the free Basic plan with no credit card required. You get full access to the chart panel for all covered instruments across all timeframes. The Basic plan also includes the live news feed and economic calendar, making it a genuinely useful free trading toolkit \u2014 not a stripped-down demo designed to push you towards an upgrade.',
+    tc_faq4_q:'What is the best chart platform for forex?',tc_faq4_a:'TradingView is widely regarded as the best web-based charting platform for forex traders. It offers clean, fast candlestick and bar charts, a comprehensive indicator library (RSI, MACD, Bollinger Bands, etc.), drawing tools and multi-timeframe analysis \u2014 all in a browser with no download required. Trading News Terminal embeds TradingView charts directly alongside the live news feed, eliminating the need to switch between platforms and giving you the chart and the news catalyst simultaneously in one view.',
+    tc_faq5_q:'How do I read candlestick charts?',tc_faq5_a:'A candlestick represents price action over a given time period. The body shows the open and close prices \u2014 a green or white body means the close was higher than the open (bullish candle); a red or black body means the close was lower (bearish candle). The wicks (thin lines extending above and below the body) show the high and low for the period. Key candlestick patterns \u2014 Doji, Hammer, Shooting Star, Bullish Engulfing, Morning Star \u2014 give traders signals about potential reversals or continuations. TradingView\u2019s chart library within TNT supports all major candlestick pattern recognition overlays.',
+    tc_explore_label:'Explore',
+    tc_cta_h2:'Open Your Free Terminal \u2014 Charts Included',
+    tc_cta_p:'TradingView charts, live news feed and economic calendar. Free forever on the Basic plan. No credit card, no commitment.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Terms</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  pt:{
+    try_btn:'Experimentar Gr\u00e1tis \u2192',trial_btn:'Iniciar Trial Gr\u00e1tis',free_btn:'Abrir Terminal Gr\u00e1tis',tagline:'Intelig\u00eancia de Mercado em Tempo Real',active:'PT',
+    how_title:'Como Funciona',faq_title:'Perguntas Frequentes',explore_title:'Explorar Funcionalidades',cta_free:'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    tc_hero_badge:'Gr\u00e1tis no Basic & Pro',
+    tc_hero_h1:'<span>Gr\u00e1ficos de Trading ao Vivo</span> \u2014<br>TradingView Integrado no Seu Terminal',
+    tc_hero_p:'Gr\u00e1ficos TradingView de refer\u00eancia incorporados diretamente ao lado do seu feed de not\u00edcias ao vivo. Forex, crypto, \u00edndices, mat\u00e9rias-primas e obriga\u00e7\u00f5es \u2014 todos os timeframes, zero mudan\u00e7as de separador. Reaja mais r\u00e1pido.',
+    tc_stat1:'Classes de Ativos',tc_stat2:'Instrumentos',tc_stat3:'Timeframes',tc_stat4:'Plano B\u00e1sico',tc_stat5:'Trocas de Separador',
+    tc_adv_label:'A Vantagem Principal',tc_adv_title:'Gr\u00e1ficos ao Lado das Not\u00edcias \u2014 Porqu\u00ea Muda Tudo',
+    tc_adv_highlight:'Todo trader conhece o problema: <strong>as not\u00edcias chegam num separador, o gr\u00e1fico est\u00e1 noutro.</strong> Quando muda, o spike j\u00e1 fez 20 pips. O TNT resolve isto incorporando gr\u00e1ficos TradingView diretamente na mesma interface que o feed de not\u00edcias ao vivo \u2014 para ver a a\u00e7\u00e3o de pre\u00e7o e o catalisador simultaneamente, em tempo real, sem mover as m\u00e3os.',
+    tc_card1_h:'Reaja Antes da Multid\u00e3o',tc_card1_p:'Quando um headline que move o mercado aparece, a resposta em vela est\u00e1 vis\u00edvel na mesma vista \u2014 sem mudan\u00e7as, sem atraso. Os segundos ganhos s\u00e3o muitas vezes a diferen\u00e7a entre entrar na origem do spike e perseguir um movimento j\u00e1 corrido.',
+    tc_card2_h:'Confirme o Catalisador',tc_card2_p:'Com gr\u00e1fico e not\u00edcias lado a lado, pode confirmar instantaneamente se um movimento de pre\u00e7o \u00e9 movido por not\u00edcias ou t\u00e9cnico. Aquele spike no EUR/USD \u00e9 um movimento fundamental genuino ou apenas stop-hunting? A resposta est\u00e1 a um olhar de dist\u00e2ncia quando gr\u00e1ficos e not\u00edcias est\u00e3o integrados.',
+    tc_card3_h:'Zero Fric\u00e7\u00e3o de Workflow',tc_card3_p:'Os traders profissionais otimizam cada segundo do seu workflow. Eliminar a troca do separador TradingView remove uma pequena mas constante fonte de fric\u00e7\u00e3o \u2014 e quando acumulada ao longo de centenas de eventos de not\u00edcias por sess\u00e3o, o ganho de efici\u00eancia \u00e9 substancial.',
+    tc_card4_h:'Charting de Refer\u00eancia da Ind\u00fastria',tc_card4_p:'O TradingView \u00e9 a plataforma de charting web mais usada entre traders de retalho e profissionais globalmente. Ao incorpor\u00e1-lo diretamente, o TNT d\u00e1-lhe a ferramenta de charting que j\u00e1 conhece e confia \u2014 apenas num melhor contexto de workflow.',
+    tc_preview_label:'Pr\u00e9-visualiza\u00e7\u00e3o ao Vivo',tc_preview_title:'Gr\u00e1fico + Not\u00edcias \u2014 Lado a Lado',
+    tc_preview_sub:'Este \u00e9 o layout TNT: gr\u00e1fico TradingView \u00e0 esquerda, feed de not\u00edcias ao vivo \u00e0 direita. As not\u00edcias chegam, v\u00ea a vela a formar-se e o headline simultaneamente.',
+    tc_preview_note:'Layout ilustrativo. Os dados ao vivo fluem continuamente no terminal real.',
+    tc_instr_label:'Instrumentos',tc_instr_title:'Cada Mercado que Negoceias \u2014 Um Painel de Gr\u00e1ficos',
+    tc_instr_sub:'O TNT cobre todos os principais pares forex, crypto, \u00edndices globais, mat\u00e9rias-primas e obriga\u00e7\u00f5es. Mude entre instrumentos com um clique \u2014 o feed de not\u00edcias filtra automaticamente.',
+    tc_instr_forex:'Forex \u2014 Pares Principais & Cruzados',tc_instr_crypto:'Crypto',tc_instr_indices:'\u00cdndices Globais',tc_instr_comm:'Mat\u00e9rias-Primas',tc_instr_bonds:'Obriga\u00e7\u00f5es',
+    tc_tf_label:'Timeframes',tc_tf_title:'Todos os Timeframes \u2014 Scalp a Posi\u00e7\u00e3o',
+    tc_tf_sub:'Quer esteja a fazer scalping de spikes de not\u00edcias no gr\u00e1fico de 1 minuto ou a gerir uma posi\u00e7\u00e3o swing no di\u00e1rio, a integra\u00e7\u00e3o TradingView do TNT suporta todos os timeframes que precisa.',
+    tc_tf_card1_h:'Intraday (1m, 5m, 15m, 30m)',tc_tf_card1_p:'Para traders de not\u00edcias e scalpers que reagem a divulga\u00e7\u00f5es econ\u00f3micas, declara\u00e7\u00f5es de bancos centrais ou eventos geopol\u00edticos. O gr\u00e1fico de 1 minuto captura o spike imediato; o de 15 minutos mostra a estrutura de follow-through.',
+    tc_tf_card2_h:'Swing (1H, 4H, Di\u00e1rio)',tc_tf_card2_p:'Para swing traders que mant\u00eam posi\u00e7\u00f5es de horas a dias com base em temas macro, catalisadores de resultados ou breakouts t\u00e9cnicos. Os gr\u00e1ficos 4H e di\u00e1rio definem o contexto de tend\u00eancia em que os eventos de not\u00edcias se desenrolam.',
+    tc_tf_card3_h:'Posi\u00e7\u00e3o (Semanal, Mensal)',tc_tf_card3_p:'Para gestores de carteiras e traders macro que avaliam estruturas de tend\u00eancia de longo prazo, n\u00edveis de suporte e resist\u00eancia plurianuais, e o pano de fundo secular mais amplo do mercado.',
+    tc_hiw_title:'Gr\u00e1ficos e Not\u00edcias \u2014 Um Workflow Unificado',
+    tc_step1_h:'Abrir o Painel de Gr\u00e1ficos',tc_step1_p:'O painel de gr\u00e1ficos TradingView \u00e9 acess\u00edvel a partir da barra lateral TNT nos planos Basic e Pro. Selecione o seu instrumento e timeframe \u2014 o gr\u00e1fico carrega instantaneamente. O feed de not\u00edcias ao vivo permanece vis\u00edvel ao lado; sem janelas separadas, sem segundo monitor.',
+    tc_step2_h:'Not\u00edcias Chegam \u2014 Veja Instantaneamente',tc_step2_p:'Quando um headline que move o mercado chega \u2014 um CPI, uma declara\u00e7\u00e3o de banco central, um headline geopol\u00edtico \u2014 v\u00ea o item de not\u00edcias de \u00faltima hora e a resposta em vela simultaneamente. O squawk box l\u00ea o headline em voz alta para que nem precise de olhar para o feed.',
+    tc_step3_h:'Analise e Decida Sem Mudar',tc_step3_p:'Desenhe n\u00edveis, mude timeframes, verifique a estrutura 4H \u2014 tudo enquanto o feed de not\u00edcias continua a atualizar. Quando an\u00e1lise de gr\u00e1fico e contexto de not\u00edcias vivem na mesma vista, toma decis\u00f5es de trading melhores e mais r\u00e1pidas. Esta \u00e9 a vantagem de workflow que os traders profissionais usam o Bloomberg para obter \u2014 a uma fra\u00e7\u00e3o do custo.',
+    tc_cmp_label:'Compara\u00e7\u00e3o',tc_cmp_title:'Gr\u00e1ficos TNT vs. Plataformas Independentes',
+    tc_cmp_feature:'Funcionalidade',tc_cmp_row1:'Gr\u00e1ficos TradingView',tc_cmp_row2:'Todos os instrumentos principais',tc_cmp_row3:'Todos os timeframes',tc_cmp_row4:'Feed de not\u00edcias ao vivo integrado',tc_cmp_row5:'Alertas de \u00e1udio squawk ao vivo',tc_cmp_row6:'Calend\u00e1rio econ\u00f3mico',tc_cmp_row7:'Dispon\u00edvel no plano gr\u00e1tis',tc_cmp_price:'Pre\u00e7o (mensal)',
+    tc_faq_title:'Gr\u00e1ficos de Trading \u2014 Perguntas Frequentes',
+    tc_faq1_q:'O TradingView \u00e9 gr\u00e1tis?',tc_faq1_a:'O TradingView oferece um plano gr\u00e1tis com funcionalidades limitadas na sua pr\u00f3pria plataforma. No Trading News Terminal, os gr\u00e1ficos TradingView est\u00e3o incorporados e dispon\u00edveis nos planos Basic (gr\u00e1tis) e Pro \u2014 para aceder \u00e0 interface de charting de refer\u00eancia do TradingView sem necessitar de uma subscri\u00e7\u00e3o separada. Funcionalidades avan\u00e7adas como m\u00faltiplos pain\u00e9is e indicadores personalizados podem requerer uma conta TradingView, mas os gr\u00e1ficos principais funcionam imediatamente.',
+    tc_faq2_q:'Que gr\u00e1ficos inclui o Trading News Terminal?',tc_faq2_a:'O TNT inclui gr\u00e1ficos TradingView para todos os principais pares forex (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD e cruzamentos), principais criptomoedas (BTC, ETH, XRP, SOL, BNB), \u00edndices globais (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), mat\u00e9rias-primas (Ouro, Prata, WTI, Brent, G\u00e1s Natural, Trigo, Milho, Caf\u00e9) e obriga\u00e7\u00f5es (US 10Y, Bund Alem\u00e3o). Todos os instrumentos suportam todos os timeframes de 1 minuto a mensal.',
+    tc_faq3_q:'Posso usar gr\u00e1ficos TradingView de gra\u00e7a?',tc_faq3_a:'Sim. Os gr\u00e1ficos TradingView no Trading News Terminal est\u00e3o dispon\u00edveis no plano Basic gr\u00e1tis sem cart\u00e3o de cr\u00e9dito. Tem acesso completo ao painel de gr\u00e1ficos para todos os instrumentos em todos os timeframes. O plano Basic tamb\u00e9m inclui o feed de not\u00edcias ao vivo e o calend\u00e1rio econ\u00f3mico, tornando-o um kit de ferramentas de trading genuinamente \u00fatil \u2014 n\u00e3o uma demo reduzida para empurrar para um upgrade.',
+    tc_faq4_q:'Qual \u00e9 a melhor plataforma de gr\u00e1ficos para forex?',tc_faq4_a:'O TradingView \u00e9 amplamente considerado a melhor plataforma de charting web para traders de forex. Oferece gr\u00e1ficos de velas e barras limpos e r\u00e1pidos, uma biblioteca abrangente de indicadores (RSI, MACD, Bollinger Bands, etc.), ferramentas de desenho e an\u00e1lise multi-timeframe \u2014 tudo num browser sem download. O Trading News Terminal incorpora gr\u00e1ficos TradingView diretamente ao lado do feed de not\u00edcias ao vivo.',
+    tc_faq5_q:'Como leio gr\u00e1ficos de velas?',tc_faq5_a:'Uma vela representa a a\u00e7\u00e3o de pre\u00e7o durante um per\u00edodo de tempo. O corpo mostra os pre\u00e7os de abertura e fecho \u2014 um corpo verde ou branco significa que o fecho foi superior \u00e0 abertura (vela bullish); um corpo vermelho ou preto significa que o fecho foi inferior (vela bearish). As mechas (linhas finas acima e abaixo do corpo) mostram o m\u00e1ximo e o m\u00ednimo do per\u00edodo. Padr\u00f5es chave de velas \u2014 Doji, Martelo, Shooting Star, Engulfing Bullish, Estrela da Manh\u00e3 \u2014 d\u00e3o sinais sobre poss\u00edveis revers\u00f5es ou continuidades.',
+    tc_explore_label:'Explorar',
+    tc_cta_h2:'Abra o Seu Terminal Gr\u00e1tis \u2014 Gr\u00e1ficos Inclu\u00eddos',
+    tc_cta_p:'Gr\u00e1ficos TradingView, feed de not\u00edcias ao vivo e calend\u00e1rio econ\u00f3mico. Gr\u00e1tis para sempre no plano Basic. Sem cart\u00e3o de cr\u00e9dito, sem compromisso.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidade</a> \u00b7 <a href="/terms">Termos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  es:{
+    try_btn:'Probar Gratis \u2192',trial_btn:'Iniciar Prueba Gratis',free_btn:'Abrir Terminal Gratis',tagline:'Inteligencia de Mercado en Tiempo Real',active:'ES',
+    how_title:'C\u00f3mo Funciona',faq_title:'Preguntas Frecuentes',explore_title:'Explorar Caracter\u00edsticas',cta_free:'Empezar Gratis \u2014 Sin Tarjeta',
+    tc_hero_badge:'Gratis en Basic & Pro',
+    tc_hero_h1:'<span>Gr\u00e1ficos de Trading en Vivo</span> \u2014<br>TradingView Integrado en Tu Terminal',
+    tc_hero_p:'Gr\u00e1ficos TradingView de referencia integrados directamente junto a tu feed de noticias en vivo. Forex, crypto, \u00edndices, materias primas y bonos \u2014 todos los timeframes, cero cambios de pesta\u00f1a. Reacciona m\u00e1s r\u00e1pido.',
+    tc_stat1:'Clases de Activos',tc_stat2:'Instrumentos',tc_stat3:'Timeframes',tc_stat4:'Plan B\u00e1sico',tc_stat5:'Cambios de Pesta\u00f1a',
+    tc_adv_label:'La Ventaja Clave',tc_adv_title:'Gr\u00e1ficos junto a Noticias \u2014 Por Qu\u00e9 Cambia Todo',
+    tc_adv_highlight:'Todo trader conoce el problema: <strong>las noticias llegan en una pesta\u00f1a, el gr\u00e1fico est\u00e1 en otra.</strong> Cuando cambias, el spike ya ha hecho 20 pips. TNT resuelve esto integrando gr\u00e1ficos TradingView directamente en la misma interfaz que el feed de noticias en vivo \u2014 para ver la acci\u00f3n del precio y el catalizador simult\u00e1neamente, en tiempo real, sin mover las manos.',
+    tc_card1_h:'Reacciona Antes que la Multitud',tc_card1_p:'Cuando cae un titular que mueve el mercado, la respuesta en vela es visible en la misma vista \u2014 sin cambios, sin retraso. Los segundos ahorrados son a menudo la diferencia entre entrar en el origen del spike y perseguir un movimiento que ya ha corrido.',
+    tc_card2_h:'Confirma el Catalizador',tc_card2_p:'Con gr\u00e1fico y noticias lado a lado, puedes confirmar instant\u00e1neamente si un movimiento de precio es impulsado por noticias o es t\u00e9cnico. \u00bfEse spike en EUR/USD es un movimiento fundamental genuino o solo stop-hunting? La respuesta est\u00e1 a una mirada de distancia cuando los gr\u00e1ficos y las noticias est\u00e1n integrados.',
+    tc_card3_h:'Cero Fricci\u00f3n de Flujo de Trabajo',tc_card3_p:'Los traders profesionales optimizan cada segundo de su flujo de trabajo. Eliminar el cambio de pesta\u00f1a de TradingView elimina una peque\u00f1a pero constante fuente de fricci\u00f3n \u2014 y cuando se acumula a lo largo de cientos de eventos de noticias por sesi\u00f3n, la ganancia de eficiencia es sustancial.',
+    tc_card4_h:'Charting de Referencia del Sector',tc_card4_p:'TradingView es la plataforma de charting web m\u00e1s utilizada entre traders minoristas y profesionales globalmente. Al integrarla directamente, TNT te da la herramienta de charting que ya conoces y en la que conf\u00edas \u2014 solo en un mejor contexto de flujo de trabajo.',
+    tc_preview_label:'Vista Previa en Vivo',tc_preview_title:'Gr\u00e1fico + Noticias \u2014 Lado a Lado',
+    tc_preview_sub:'Este es el dise\u00f1o TNT: gr\u00e1fico TradingView a la izquierda, feed de noticias en vivo a la derecha. Las noticias llegan, ves la vela formarse y el titular simult\u00e1neamente.',
+    tc_preview_note:'Dise\u00f1o ilustrativo. Los datos en vivo fluyen continuamente en el terminal real.',
+    tc_instr_label:'Instrumentos',tc_instr_title:'Cada Mercado que Operas \u2014 Un Panel de Gr\u00e1ficos',
+    tc_instr_sub:'TNT cubre todos los principales pares forex, crypto, \u00edndices globales, materias primas y bonos. Cambia entre instrumentos con un clic \u2014 el feed de noticias filtra autom\u00e1ticamente.',
+    tc_instr_forex:'Forex \u2014 Pares Principales y Cruzados',tc_instr_crypto:'Crypto',tc_instr_indices:'\u00cdndices Globales',tc_instr_comm:'Materias Primas',tc_instr_bonds:'Bonos',
+    tc_tf_label:'Timeframes',tc_tf_title:'Todos los Timeframes \u2014 Scalp a Posici\u00f3n',
+    tc_tf_sub:'Ya sea que est\u00e9s haciendo scalping de spikes de noticias en el gr\u00e1fico de 1 minuto o gestionando una posici\u00f3n swing en el diario, la integraci\u00f3n TradingView de TNT soporta todos los timeframes que necesitas.',
+    tc_tf_card1_h:'Intrad\u00eda (1m, 5m, 15m, 30m)',tc_tf_card1_p:'Para traders de noticias y scalpers que reaccionan a publicaciones econ\u00f3micas, declaraciones de bancos centrales o eventos geopoliticos. El gr\u00e1fico de 1 minuto captura el spike inmediato; el de 15 minutos muestra la estructura de seguimiento.',
+    tc_tf_card2_h:'Swing (1H, 4H, Diario)',tc_tf_card2_p:'Para swing traders que mantienen posiciones de horas a d\u00edas basadas en temas macro, catalizadores de resultados o breakouts t\u00e9cnicos. Los gr\u00e1ficos 4H y diario definen el contexto de tendencia en el que se desarrollan los eventos de noticias.',
+    tc_tf_card3_h:'Posici\u00f3n (Semanal, Mensual)',tc_tf_card3_p:'Para gestores de carteras y traders macro que eval\u00faan estructuras de tendencia a largo plazo, niveles de soporte y resistencia plurianuales, y el trasfondo secular m\u00e1s amplio del mercado.',
+    tc_hiw_title:'Gr\u00e1ficos y Noticias \u2014 Un Flujo de Trabajo Unificado',
+    tc_step1_h:'Abrir el Panel de Gr\u00e1ficos',tc_step1_p:'El panel de gr\u00e1ficos TradingView es accesible desde la barra lateral TNT en los planes Basic y Pro. Selecciona tu instrumento y timeframe \u2014 el gr\u00e1fico carga instant\u00e1neamente. El feed de noticias en vivo permanece visible junto a \u00e9l; sin ventanas separadas, sin segundo monitor.',
+    tc_step2_h:'Noticias Llegan \u2014 V\u00e9alo Instant\u00e1neamente',tc_step2_p:'Cuando llega un titular que mueve el mercado \u2014 un CPI, una declaraci\u00f3n de banco central, un titular geopolitico \u2014 ves el elemento de noticias de \u00faltima hora y la respuesta en vela simult\u00e1neamente. El squawk box lee el titular en voz alta para que ni siquiera necesites mirar el feed.',
+    tc_step3_h:'Analiza y Decide Sin Cambiar',tc_step3_p:'Dibuja niveles, cambia timeframes, verifica la estructura 4H \u2014 todo mientras el feed de noticias contin\u00faa actualiz\u00e1ndose. Cuando el an\u00e1lisis de gr\u00e1fico y el contexto de noticias viven en la misma vista, tomas decisiones de trading mejores y m\u00e1s r\u00e1pidas. Esta es la ventaja de flujo de trabajo que los traders profesionales usan Bloomberg para obtener \u2014 a una fracci\u00f3n del coste.',
+    tc_cmp_label:'Comparaci\u00f3n',tc_cmp_title:'Gr\u00e1ficos TNT vs. Plataformas Independientes',
+    tc_cmp_feature:'Caracter\u00edstica',tc_cmp_row1:'Gr\u00e1ficos TradingView',tc_cmp_row2:'Todos los instrumentos principales',tc_cmp_row3:'Todos los timeframes',tc_cmp_row4:'Feed de noticias en vivo integrado',tc_cmp_row5:'Alertas de audio squawk en vivo',tc_cmp_row6:'Calendario econ\u00f3mico',tc_cmp_row7:'Disponible en plan gratuito',tc_cmp_price:'Precio (mensual)',
+    tc_faq_title:'Gr\u00e1ficos de Trading \u2014 Preguntas Frecuentes',
+    tc_faq1_q:'\u00bfEs TradingView gratuito?',tc_faq1_a:'TradingView ofrece un plan gratuito con funciones limitadas en su propia plataforma. Dentro de Trading News Terminal, los gr\u00e1ficos TradingView est\u00e1n integrados y disponibles en los planes Basic (gratuito) y Pro \u2014 para acceder a la interfaz de charting de referencia de TradingView sin necesitar una suscripci\u00f3n separada. Las funciones avanzadas como m\u00faltiples paneles e indicadores personalizados pueden requerir una cuenta TradingView, pero los gr\u00e1ficos principales funcionan inmediatamente.',
+    tc_faq2_q:'\u00bfQu\u00e9 gr\u00e1ficos incluye Trading News Terminal?',tc_faq2_a:'TNT incluye gr\u00e1ficos TradingView para todos los principales pares forex (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD y cruzados), criptomonedas principales (BTC, ETH, XRP, SOL, BNB), \u00edndices globales (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), materias primas (Oro, Plata, WTI, Brent, Gas Natural, Trigo, Ma\u00edz, Caf\u00e9) y bonos (US 10Y Treasury, Bund Alem\u00e1n). Todos los instrumentos soportan todos los timeframes de 1 minuto a mensual.',
+    tc_faq3_q:'\u00bfPuedo usar gr\u00e1ficos TradingView gratis?',tc_faq3_a:'S\u00ed. Los gr\u00e1ficos TradingView en Trading News Terminal est\u00e1n disponibles en el plan Basic gratuito sin tarjeta de cr\u00e9dito. Tienes acceso completo al panel de gr\u00e1ficos para todos los instrumentos cubiertos en todos los timeframes. El plan Basic tambi\u00e9n incluye el feed de noticias en vivo y el calendario econ\u00f3mico, convirti\u00e9ndolo en un kit de herramientas de trading genuinamente \u00fatil \u2014 no una demo reducida para empujarte hacia una actualizaci\u00f3n.',
+    tc_faq4_q:'\u00bfCu\u00e1l es la mejor plataforma de gr\u00e1ficos para forex?',tc_faq4_a:'TradingView es ampliamente considerado como la mejor plataforma de charting web para traders de forex. Ofrece gr\u00e1ficos de velas y barras limpios y r\u00e1pidos, una biblioteca completa de indicadores (RSI, MACD, Bollinger Bands, etc.), herramientas de dibujo y an\u00e1lisis multi-timeframe \u2014 todo en un navegador sin descarga. Trading News Terminal integra gr\u00e1ficos TradingView directamente junto al feed de noticias en vivo.',
+    tc_faq5_q:'\u00bfC\u00f3mo leo los gr\u00e1ficos de velas?',tc_faq5_a:'Una vela representa la acci\u00f3n del precio durante un per\u00edodo de tiempo. El cuerpo muestra los precios de apertura y cierre \u2014 un cuerpo verde o blanco significa que el cierre fue superior a la apertura (vela alcista); un cuerpo rojo o negro significa que el cierre fue inferior (vela bajista). Las mechas (l\u00edneas delgadas sobre y debajo del cuerpo) muestran el m\u00e1ximo y el m\u00ednimo del per\u00edodo. Patrones clave de velas \u2014 Doji, Martillo, Estrella Fugaz, Envolvente Alcista, Estrella de la Ma\u00f1ana \u2014 dan a los traders se\u00f1ales sobre posibles reversiones o continuaciones.',
+    tc_explore_label:'Explorar',
+    tc_cta_h2:'Abre Tu Terminal Gratuito \u2014 Gr\u00e1ficos Incluidos',
+    tc_cta_p:'Gr\u00e1ficos TradingView, feed de noticias en vivo y calendario econ\u00f3mico. Gratis para siempre en el plan Basic. Sin tarjeta de cr\u00e9dito, sin compromiso.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacidad</a> \u00b7 <a href="/terms">T\u00e9rminos</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  fr:{
+    try_btn:'Essai Gratuit \u2192',trial_btn:'D\u00e9marrer l\u2019Essai Gratuit',free_btn:'Ouvrir le Terminal Gratuit',tagline:'Intelligence March\u00e9 en Temps R\u00e9el',active:'FR',
+    how_title:'Comment \u00e7a marche',faq_title:'Questions Fr\u00e9quentes',explore_title:'Explorer les Fonctionnalit\u00e9s',cta_free:'Commencer Gratuitement',
+    tc_hero_badge:'Gratuit sur Basic & Pro',
+    tc_hero_h1:'<span>Graphiques de Trading en Direct</span> \u2014<br>TradingView Int\u00e9gr\u00e9 dans Votre Terminal',
+    tc_hero_p:'Graphiques TradingView de r\u00e9f\u00e9rence int\u00e9gr\u00e9s directement aux c\u00f4t\u00e9s de votre fil d\u2019actualit\u00e9 en direct. Forex, crypto, indices, mati\u00e8res premi\u00e8res et obligations \u2014 toutes les p\u00e9riodes, z\u00e9ro changement d\u2019onglet. R\u00e9agissez plus vite.',
+    tc_stat1:'Classes d\u2019Actifs',tc_stat2:'Instruments',tc_stat3:'P\u00e9riodes',tc_stat4:'Plan Basic',tc_stat5:'Changements d\u2019Onglet',
+    tc_adv_label:'L\u2019Avantage Cl\u00e9',tc_adv_title:'Graphiques \u00e0 C\u00f4t\u00e9 des News \u2014 Pourquoi \u00c7a Change Tout',
+    tc_adv_highlight:'Tout trader conna\u00eet le probl\u00e8me\u00a0: <strong>les news arrivent dans un onglet, le graphique est dans un autre.</strong> Le temps de changer, le spike a d\u00e9j\u00e0 fait 20 pips. TNT r\u00e9sout cela en int\u00e9grant les graphiques TradingView directement dans la m\u00eame interface que le fil d\u2019actualit\u00e9 en direct \u2014 pour voir l\u2019action des prix et le catalyseur simultan\u00e9ment, en temps r\u00e9el, sans bouger les mains.',
+    tc_card1_h:'R\u00e9agissez Avant la Foule',tc_card1_p:'Quand un titre qui fait bouger le march\u00e9 tombe, la r\u00e9ponse en chandelier est visible dans la m\u00eame vue \u2014 sans changement, sans d\u00e9lai. Les secondes gagnées font souvent la diff\u00e9rence entre entrer \u00e0 l\u2019origine du spike et courir apr\u00e8s un mouvement d\u00e9j\u00e0 lanc\u00e9.',
+    tc_card2_h:'Confirmez le Catalyseur',tc_card2_p:'Avec graphique et news c\u00f4te \u00e0 c\u00f4te, vous pouvez confirmer instant\u00e9ment si un mouvement de prix est pilot\u00e9 par les news ou technique. Ce spike sur EUR/USD est-il un vrai mouvement fondamental ou juste du stop-hunting\u00a0? La r\u00e9ponse est \u00e0 un coup d\u2019\u0153il quand les graphiques et les news sont int\u00e9gr\u00e9s.',
+    tc_card3_h:'Z\u00e9ro Friction de Workflow',tc_card3_p:'Les traders professionnels optimisent chaque seconde de leur workflow. \u00c9liminer le changement d\u2019onglet TradingView supprime une petite mais constante source de friction \u2014 et cumul\u00e9e sur des centaines d\u2019\u00e9v\u00e9nements de news par session, le gain d\u2019efficacit\u00e9 est substantiel.',
+    tc_card4_h:'Analyse Graphique de R\u00e9f\u00e9rence',tc_card4_p:'TradingView est la plateforme de charting web la plus utilis\u00e9e parmi les traders particuliers et professionnels mondialement. En l\u2019int\u00e9grant directement, TNT vous donne l\u2019outil de charting que vous connaissez d\u00e9j\u00e0 et en qui vous avez confiance \u2014 juste dans un meilleur contexte de workflow.',
+    tc_preview_label:'Aper\u00e7u en Direct',tc_preview_title:'Graphique + News \u2014 C\u00f4te \u00e0 C\u00f4te',
+    tc_preview_sub:'Voici le layout TNT\u00a0: graphique TradingView \u00e0 gauche, fil d\u2019actualit\u00e9 en direct \u00e0 droite. Les news arrivent, vous voyez la bougie se former et le titre simultan\u00e9ment.',
+    tc_preview_note:'Layout illustratif. Les donn\u00e9es en direct s\u2019\u00e9coulent continuellement dans le terminal r\u00e9el.',
+    tc_instr_label:'Instruments',tc_instr_title:'Chaque March\u00e9 que Vous Tradez \u2014 Un Panneau de Graphiques',
+    tc_instr_sub:'TNT couvre toutes les principales paires forex, crypto, indices mondiaux, mati\u00e8res premi\u00e8res et obligations. Changez d\u2019instrument en un clic \u2014 le fil d\u2019actualit\u00e9 filtre automatiquement.',
+    tc_instr_forex:'Forex \u2014 Paires Principales & Crois\u00e9es',tc_instr_crypto:'Crypto',tc_instr_indices:'Indices Mondiaux',tc_instr_comm:'Mati\u00e8res Premi\u00e8res',tc_instr_bonds:'Obligations',
+    tc_tf_label:'P\u00e9riodes',tc_tf_title:'Toutes les P\u00e9riodes \u2014 Scalp \u00e0 Position',
+    tc_tf_sub:'Que vous scalpiez des spikes de news sur le graphique 1 minute ou g\u00e9riez une position swing sur le journalier, l\u2019int\u00e9gration TradingView de TNT supporte toutes les p\u00e9riodes dont vous avez besoin.',
+    tc_tf_card1_h:'Intraday (1m, 5m, 15m, 30m)',tc_tf_card1_p:'Pour les traders de news et les scalpers r\u00e9agissant aux publications \u00e9conomiques, d\u00e9clarations de banques centrales ou \u00e9v\u00e9nements g\u00e9opolitiques. Le graphique 1 minute capture le spike imm\u00e9diat\u00a0; le 15 minutes montre la structure de suivi.',
+    tc_tf_card2_h:'Swing (1H, 4H, Journalier)',tc_tf_card2_p:'Pour les swing traders tenant des positions de quelques heures \u00e0 quelques jours bas\u00e9s sur des th\u00e8mes macro, des catalyseurs de r\u00e9sultats ou des cassures techniques. Les graphiques 4H et journalier d\u00e9finissent le contexte de tendance dans lequel les \u00e9v\u00e9nements de news se d\u00e9roulent.',
+    tc_tf_card3_h:'Position (Hebdomadaire, Mensuel)',tc_tf_card3_p:'Pour les gestionnaires de portefeuilles et les traders macro \u00e9valuant les structures de tendance \u00e0 long terme, les niveaux de support et de r\u00e9sistance pluriannuels, et le contexte s\u00e9culaire plus large du march\u00e9.',
+    tc_hiw_title:'Graphiques et News \u2014 Un Workflow Unifi\u00e9',
+    tc_step1_h:'Ouvrir le Panneau de Graphiques',tc_step1_p:'Le panneau de graphiques TradingView est accessible depuis la barre lat\u00e9rale TNT sur les plans Basic et Pro. S\u00e9lectionnez votre instrument et p\u00e9riode \u2014 le graphique se charge instantan\u00e9ment. Le fil d\u2019actualit\u00e9 en direct reste visible \u00e0 c\u00f4t\u00e9\u00a0; pas de fen\u00eatres s\u00e9par\u00e9es, pas de second \u00e9cran.',
+    tc_step2_h:'Les News Arrivent \u2014 Voyez-les Instantan\u00e9ment',tc_step2_p:'Quand un titre qui fait bouger le march\u00e9 arrive \u2014 un CPI, une d\u00e9claration de banque centrale, un titre g\u00e9opolitique \u2014 vous voyez l\u2019actualit\u00e9 br\u00fclante et la r\u00e9ponse en chandelier simultan\u00e9ment. Le squawk box lit le titre \u00e0 voix haute pour que vous n\u2019ayez m\u00eame pas besoin de regarder le fil.',
+    tc_step3_h:'Analysez et D\u00e9cidez Sans Changer',tc_step3_p:'Tracez des niveaux, changez de p\u00e9riode, v\u00e9rifiez la structure 4H \u2014 tout en gardant le fil d\u2019actualit\u00e9 actif. Quand l\u2019analyse graphique et le contexte news vivent dans la m\u00eame vue, vous prenez de meilleures d\u00e9cisions de trading plus rapidement. C\u2019est l\u2019avantage de workflow que les traders professionnels utilisent Bloomberg pour obtenir \u2014 \u00e0 une fraction du co\u00fbt.',
+    tc_cmp_label:'Comparaison',tc_cmp_title:'Graphiques TNT vs. Plateformes Ind\u00e9pendantes',
+    tc_cmp_feature:'Fonctionnalit\u00e9',tc_cmp_row1:'Graphiques TradingView',tc_cmp_row2:'Tous les instruments principaux',tc_cmp_row3:'Toutes les p\u00e9riodes',tc_cmp_row4:'Fil d\u2019actualit\u00e9 int\u00e9gr\u00e9 en direct',tc_cmp_row5:'Alertes audio squawk en direct',tc_cmp_row6:'Calendrier \u00e9conomique',tc_cmp_row7:'Disponible sur plan gratuit',tc_cmp_price:'Prix (mensuel)',
+    tc_faq_title:'Graphiques de Trading \u2014 Questions Fr\u00e9quentes',
+    tc_faq1_q:'TradingView est-il gratuit\u00a0?',tc_faq1_a:'TradingView propose un plan gratuit avec des fonctionnalit\u00e9s limit\u00e9es sur sa propre plateforme. Dans Trading News Terminal, les graphiques TradingView sont int\u00e9gr\u00e9s et disponibles sur les plans Basic (gratuit) et Pro \u2014 pour acc\u00e9der \u00e0 l\u2019interface de charting de r\u00e9f\u00e9rence de TradingView sans avoir besoin d\u2019un abonnement s\u00e9par\u00e9. Les fonctions avanc\u00e9es comme les panneaux multiples et les indicateurs personnalis\u00e9s peuvent n\u00e9cessiter un compte TradingView, mais les graphiques de base fonctionnent imm\u00e9diatement.',
+    tc_faq2_q:'Quels graphiques inclut Trading News Terminal\u00a0?',tc_faq2_a:'TNT inclut des graphiques TradingView pour toutes les paires forex principales (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD et crois\u00e9es), les principales crypto (BTC, ETH, XRP, SOL, BNB), les indices mondiaux (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), les mati\u00e8res premi\u00e8res (Or, Argent, WTI, Brent, Gaz Naturel, Bl\u00e9, Ma\u00efs, Caf\u00e9) et les obligations (US 10Y, Bund Allemand). Tous les instruments supportent toutes les p\u00e9riodes de 1 minute \u00e0 mensuel.',
+    tc_faq3_q:'Puis-je utiliser les graphiques TradingView gratuitement\u00a0?',tc_faq3_a:'Oui. Les graphiques TradingView dans Trading News Terminal sont disponibles sur le plan Basic gratuit sans carte de cr\u00e9dit. Vous avez un acc\u00e8s complet au panneau de graphiques pour tous les instruments couverts sur toutes les p\u00e9riodes. Le plan Basic inclut \u00e9galement le fil d\u2019actualit\u00e9 en direct et le calendrier \u00e9conomique, en faisant un kit d\u2019outils de trading vraiment utile \u2014 pas une d\u00e9mo \u00e9pur\u00e9e pour vous pousser \u00e0 mettre \u00e0 niveau.',
+    tc_faq4_q:'Quelle est la meilleure plateforme de graphiques pour le forex\u00a0?',tc_faq4_a:'TradingView est largement consid\u00e9r\u00e9 comme la meilleure plateforme de charting web pour les traders forex. Elle offre des graphiques en chandeliers et en barres propres et rapides, une biblioth\u00e8que compl\u00e8te d\u2019indicateurs (RSI, MACD, Bandes de Bollinger, etc.), des outils de trac\u00e9 et une analyse multi-p\u00e9riodes \u2014 le tout dans un navigateur sans t\u00e9l\u00e9chargement. Trading News Terminal int\u00e8gre les graphiques TradingView directement aux c\u00f4t\u00e9s du fil d\u2019actualit\u00e9 en direct.',
+    tc_faq5_q:'Comment lire les graphiques en chandeliers\u00a0?',tc_faq5_a:'Un chandelier repr\u00e9sente l\u2019action des prix sur une p\u00e9riode donn\u00e9e. Le corps montre les prix d\u2019ouverture et de cl\u00f4ture \u2014 un corps vert ou blanc signifie que la cl\u00f4ture \u00e9tait sup\u00e9rieure \u00e0 l\u2019ouverture (bougie haussière)\u00a0; un corps rouge ou noir signifie que la cl\u00f4ture \u00e9tait inf\u00e9rieure (bougie baissière). Les m\u00e8ches (lignes fines au-dessus et en dessous du corps) indiquent le plus haut et le plus bas de la p\u00e9riode. Les patterns cl\u00e9s \u2014 Doji, Marteau, \u00c9toile Filante, Englobante Haussière, \u00c9toile du Matin \u2014 donnent des signaux sur les inversions ou continuations potentielles.',
+    tc_explore_label:'Explorer',
+    tc_cta_h2:'Ouvrez Votre Terminal Gratuit \u2014 Graphiques Inclus',
+    tc_cta_p:'Graphiques TradingView, fil d\u2019actualit\u00e9 en direct et calendrier \u00e9conomique. Gratuit \u00e0 vie sur le plan Basic. Pas de carte de cr\u00e9dit, pas d\u2019engagement.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Confidentialit\u00e9</a> \u00b7 <a href="/terms">CGU</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  de:{
+    try_btn:'Kostenlos Testen \u2192',trial_btn:'Kostenlose Testphase',free_btn:'Terminal \u00d6ffnen',tagline:'Echtzeit-Marktintelligenz',active:'DE',
+    how_title:'So funktioniert es',faq_title:'H\u00e4ufige Fragen',explore_title:'Weitere Funktionen',cta_free:'Kostenlos Starten',
+    tc_hero_badge:'Kostenlos auf Basic & Pro',
+    tc_hero_h1:'<span>Live-Trading-Charts</span> \u2014<br>TradingView in Ihrem Terminal integriert',
+    tc_hero_p:'Branchenf\u00fchrende TradingView-Charts direkt neben Ihrem Live-Newsfeed eingebettet. Forex, Krypto, Indizes, Rohstoffe und Anleihen \u2014 alle Zeitrahmen, null Tab-Wechsel. Schneller reagieren.',
+    tc_stat1:'Asset-Klassen',tc_stat2:'Instrumente',tc_stat3:'Zeitrahmen',tc_stat4:'Basic-Plan',tc_stat5:'Tab-Wechsel',
+    tc_adv_label:'Der Hauptvorteil',tc_adv_title:'Charts neben News \u2014 Warum das alles ver\u00e4ndert',
+    tc_adv_highlight:'Jeder Trader kennt das Problem: <strong>News kommen in einem Tab, der Chart ist in einem anderen.</strong> Bis Sie wechseln, ist der Spike bereits 20 Pips weit. TNT l\u00f6st das, indem TradingView-Charts direkt in dieselbe Oberfl\u00e4che wie der Live-Newsfeed eingebettet werden \u2014 sodass Sie Preisbewegung und Katalysator gleichzeitig, in Echtzeit, ohne die H\u00e4nde zu bewegen, sehen.',
+    tc_card1_h:'Vor der Masse reagieren',tc_card1_p:'Wenn eine kursbewegende Schlagzeile f\u00e4llt, ist die Kerzenreaktion in derselben Ansicht sichtbar \u2014 kein Wechseln, keine Verz\u00f6gerung. Die gesparten Sekunden sind oft der Unterschied zwischen dem Einstieg am Spike-Ursprung und dem Hinterherlaufen eines bereits gelaufenen Moves.',
+    tc_card2_h:'Den Katalysator best\u00e4tigen',tc_card2_p:'Mit Chart und News nebeneinander k\u00f6nnen Sie sofort best\u00e4tigen, ob eine Preisbewegung nachrichtengetrieben oder technisch ist. Ist dieser EUR/USD-Spike eine echte fundamentale Bewegung oder nur Stop-Hunting? Die Antwort ist ein Blick entfernt, wenn Charts und News integriert sind.',
+    tc_card3_h:'Null Workflow-Reibung',tc_card3_p:'Professionelle Trader optimieren jede Sekunde ihres Workflows. Die Eliminierung des TradingView-Tab-Wechsels entfernt eine kleine, aber konstante Reibungsquelle \u2014 und wenn sie \u00fcber Hunderte von News-Ereignissen pro Sitzung akkumuliert, ist der Effizienzgewinn substanziell.',
+    tc_card4_h:'Branchenf\u00fchrendes Charting',tc_card4_p:'TradingView ist die meistgenutzte Web-Charting-Plattform unter Privat- und Profi-Tradern weltweit. Durch direkte Einbettung gibt TNT Ihnen das Charting-Tool, das Sie bereits kennen und vertrauen \u2014 nur in einem besseren Workflow-Kontext.',
+    tc_preview_label:'Live-Vorschau',tc_preview_title:'Chart + News \u2014 Nebeneinander',
+    tc_preview_sub:'Das ist das TNT-Layout: TradingView-Chart links, Live-Newsfeed rechts. News bricht, Sie sehen die Kerze entstehen und die Schlagzeile gleichzeitig.',
+    tc_preview_note:'Illustratives Layout. Live-Daten flie\u00dfen kontinuierlich im echten Terminal.',
+    tc_instr_label:'Instrumente',tc_instr_title:'Jeder Markt den Sie handeln \u2014 Ein Chart-Panel',
+    tc_instr_sub:'TNT deckt alle wichtigen Forex-Paare, Krypto, globale Indizes, Rohstoffe und Anleihen ab. Wechseln Sie mit einem Klick zwischen Instrumenten \u2014 der Newsfeed filtert automatisch.',
+    tc_instr_forex:'Forex \u2014 Haupt- & Kreuzpaare',tc_instr_crypto:'Krypto',tc_instr_indices:'Globale Indizes',tc_instr_comm:'Rohstoffe',tc_instr_bonds:'Anleihen',
+    tc_tf_label:'Zeitrahmen',tc_tf_title:'Alle Zeitrahmen \u2014 Scalp bis Position',
+    tc_tf_sub:'Ob Sie News-Spikes auf dem 1-Minuten-Chart scalpen oder eine Swing-Position auf dem T\u00e4glichen verwalten \u2014 die TradingView-Integration von TNT unterst\u00fctzt jeden ben\u00f6tigten Zeitrahmen.',
+    tc_tf_card1_h:'Intraday (1m, 5m, 15m, 30m)',tc_tf_card1_p:'F\u00fcr News-Trader und Scalper, die auf Wirtschaftsver\u00f6ffentlichungen, Zentralbank-Statements oder geopolitische Ereignisse reagieren. Der 1-Minuten-Chart erfasst den sofortigen Spike; der 15-Minuten zeigt die Follow-through-Struktur.',
+    tc_tf_card2_h:'Swing (1H, 4H, T\u00e4glich)',tc_tf_card2_p:'F\u00fcr Swing-Trader, die Positionen stundenweise bis tagelange halten, basierend auf Makro-Themen, Ergebnis-Katalysatoren oder technischen Ausbr\u00fcchen. Die 4H- und T\u00e4glich-Charts definieren den Trendkontext, in dem sich News-Ereignisse abspielen.',
+    tc_tf_card3_h:'Position (W\u00f6chentlich, Monatlich)',tc_tf_card3_p:'F\u00fcr Portfolio-Manager und Makro-Trader, die langfristige Trendstrukturen, mehrj\u00e4hrige Unterst\u00fctzungs- und Widerstandsniveaus sowie das breitere s\u00e4kulare Marktumfeld bewerten.',
+    tc_hiw_title:'Charts und News \u2014 Ein einheitlicher Workflow',
+    tc_step1_h:'Das Chart-Panel \u00f6ffnen',tc_step1_p:'Das TradingView-Chart-Panel ist \u00fcber die TNT-Seitenleiste auf Basic- und Pro-Pl\u00e4nen zug\u00e4nglich. Instrument und Zeitrahmen w\u00e4hlen \u2014 der Chart l\u00e4dt sofort. Der Live-Newsfeed bleibt daneben sichtbar; keine separaten Fenster, kein zweiter Monitor erforderlich.',
+    tc_step2_h:'News bricht \u2014 Sofort sehen',tc_step2_p:'Wenn eine kursbewegende Schlagzeile eintrifft \u2014 ein CPI-Bericht, ein Zentralbank-Statement, eine geopolitische Schlagzeile \u2014 sehen Sie das Breaking-News-Element und die Kerzenreaktion gleichzeitig. Die Squawk-Box liest die Schlagzeile laut vor, sodass Sie nicht einmal auf den Feed schauen m\u00fcssen.',
+    tc_step3_h:'Analysieren und entscheiden ohne Wechseln',tc_step3_p:'Niveaus zeichnen, Zeitrahmen wechseln, die 4H-Struktur pr\u00fcfen \u2014 alles w\u00e4hrend der Newsfeed aktualisiert. Wenn Chart-Analyse und News-Kontext in derselben Ansicht leben, treffen Sie bessere, schnellere Handelsentscheidungen. Das ist der Workflow-Vorteil, den professionelle Trader mit Bloomberg erzielen \u2014 zu einem Bruchteil der Kosten.',
+    tc_cmp_label:'Vergleich',tc_cmp_title:'TNT-Charts vs. Eigenst\u00e4ndige Plattformen',
+    tc_cmp_feature:'Funktion',tc_cmp_row1:'TradingView-Charts',tc_cmp_row2:'Alle wichtigen Instrumente',tc_cmp_row3:'Alle Zeitrahmen',tc_cmp_row4:'Integrierter Live-Newsfeed',tc_cmp_row5:'Live-Squawk-Audioalarme',tc_cmp_row6:'Wirtschaftskalender',tc_cmp_row7:'Im kostenlosen Plan verf\u00fcgbar',tc_cmp_price:'Preis (monatlich)',
+    tc_faq_title:'Trading-Charts \u2014 H\u00e4ufige Fragen',
+    tc_faq1_q:'Ist TradingView kostenlos?',tc_faq1_a:'TradingView bietet einen kostenlosen Plan mit eingeschr\u00e4nkten Funktionen auf seiner eigenen Plattform. Innerhalb von Trading News Terminal sind TradingView-Charts eingebettet und auf den Basic- (kostenlos) und Pro-Pl\u00e4nen verf\u00fcgbar \u2014 f\u00fcr vollst\u00e4ndigen Zugang zur branchenf\u00fchrenden Chart-Oberfl\u00e4che ohne separates TradingView-Abonnement. Erweiterte Funktionen wie mehrere Chart-Panels und benutzerdefinierte Indikatoren k\u00f6nnen ein TradingView-Konto erfordern, aber die Kern-Charts funktionieren sofort.',
+    tc_faq2_q:'Welche Charts enth\u00e4lt Trading News Terminal?',tc_faq2_a:'TNT enth\u00e4lt TradingView-Charts f\u00fcr alle wichtigen Forex-Paare (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD und Kreuzpaare), Haupt-Kryptow\u00e4hrungen (BTC, ETH, XRP, SOL, BNB), globale Indizes (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), Rohstoffe (Gold, Silber, WTI, Brent, Erdgas, Weizen, Mais, Kaffee) und Anleihen (US 10J, Deutscher Bund). Alle Instrumente unterst\u00fctzen alle Zeitrahmen von 1 Minute bis monatlich.',
+    tc_faq3_q:'Kann ich TradingView-Charts kostenlos nutzen?',tc_faq3_a:'Ja. TradingView-Charts in Trading News Terminal sind im kostenlosen Basic-Plan ohne Kreditkarte verf\u00fcgbar. Sie haben vollst\u00e4ndigen Zugang zum Chart-Panel f\u00fcr alle abgedeckten Instrumente \u00fcber alle Zeitrahmen. Der Basic-Plan enth\u00e4lt auch den Live-Newsfeed und den Wirtschaftskalender, was ihn zu einem wirklich n\u00fctzlichen kostenlosen Trading-Toolkit macht \u2014 nicht einer abgespeckten Demo zum Upgrade-Dr\u00e4ngen.',
+    tc_faq4_q:'Was ist die beste Chart-Plattform f\u00fcr Forex?',tc_faq4_a:'TradingView gilt weithin als die beste webbasierte Charting-Plattform f\u00fcr Forex-Trader. Es bietet klare, schnelle Candlestick- und Balkencharts, eine umfassende Indikator-Bibliothek (RSI, MACD, Bollinger B\u00e4nder, etc.), Zeichenwerkzeuge und Multi-Zeitrahmen-Analyse \u2014 alles in einem Browser ohne Download. Trading News Terminal bettet TradingView-Charts direkt neben dem Live-Newsfeed ein.',
+    tc_faq5_q:'Wie lese ich Candlestick-Charts?',tc_faq5_a:'Ein Candlestick repr\u00e4sentiert die Preisbewegung \u00fcber einen Zeitraum. Der K\u00f6rper zeigt Er\u00f6ffnungs- und Schlusskurse \u2014 ein gr\u00fcner oder wei\u00dfer K\u00f6rper bedeutet, dass der Schlusskurs h\u00f6her als der Er\u00f6ffnungskurs war (bullisch); ein roter oder schwarzer K\u00f6rper bedeutet, der Schlusskurs war niedriger (b\u00e4risch). Die Dochte (d\u00fcnne Linien \u00fcber und unter dem K\u00f6rper) zeigen Hoch und Tief der Periode. Schl\u00fcsselmuster \u2014 Doji, Hammer, Shooting Star, Bullish Engulfing, Morning Star \u2014 geben Tradern Signale \u00fcber potenzielle Umkehrungen oder Fortsetzungen.',
+    tc_explore_label:'Entdecken',
+    tc_cta_h2:'Terminal Kostenlos \u00d6ffnen \u2014 Charts Inklusive',
+    tc_cta_p:'TradingView-Charts, Live-Newsfeed und Wirtschaftskalender. Kostenlos f\u00fcr immer im Basic-Plan. Keine Kreditkarte, keine Verpflichtung.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Datenschutz</a> \u00b7 <a href="/terms">AGB</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' },
+  it:{
+    try_btn:'Prova Gratuita \u2192',trial_btn:'Inizia la Prova Gratuita',free_btn:'Apri il Terminal',tagline:'Intelligenza di Mercato in Tempo Reale',active:'IT',
+    how_title:'Come funziona',faq_title:'Domande Frequenti',explore_title:'Esplora Funzionalit\u00e0',cta_free:'Inizia Gratis',
+    tc_hero_badge:'Gratuito su Basic & Pro',
+    tc_hero_h1:'<span>Grafici di Trading in Diretta</span> \u2014<br>TradingView Integrato nel Tuo Terminal',
+    tc_hero_p:'Grafici TradingView di riferimento incorporati direttamente accanto al tuo feed notizie live. Forex, crypto, indici, materie prime e obbligazioni \u2014 tutti i timeframe, zero cambi di tab. Reagisci pi\u00f9 velocemente.',
+    tc_stat1:'Classi di Asset',tc_stat2:'Strumenti',tc_stat3:'Timeframe',tc_stat4:'Piano Basic',tc_stat5:'Cambi di Tab',
+    tc_adv_label:'Il Vantaggio Chiave',tc_adv_title:'Grafici Accanto alle Notizie \u2014 Perch\u00e9 Cambia Tutto',
+    tc_adv_highlight:'Ogni trader conosce il problema: <strong>le notizie arrivano in un tab, il grafico \u00e8 in un altro.</strong> Quando cambi, lo spike ha gi\u00e0 fatto 20 pips. TNT risolve questo incorporando i grafici TradingView direttamente nella stessa interfaccia del feed notizie live \u2014 cos\u00ec vedi l\u2019azione del prezzo e il catalizzatore simultaneamente, in tempo reale, senza muovere le mani.',
+    tc_card1_h:'Reagisci Prima della Folla',tc_card1_p:'Quando un titolo che muove il mercato arriva, la risposta della candela \u00e8 visibile nella stessa vista \u2014 nessun cambio, nessun ritardo. I secondi risparmiati sono spesso la differenza tra entrare all\u2019origine dello spike e inseguire un movimento gi\u00e0 avanzato.',
+    tc_card2_h:'Conferma il Catalizzatore',tc_card2_p:'Con grafico e notizie fianco a fianco, puoi confermare istantaneamente se un movimento di prezzo \u00e8 guidato dalle notizie o tecnico. Quello spike su EUR/USD \u00e8 un vero movimento fondamentale o solo stop-hunting? La risposta \u00e8 a uno sguardo di distanza quando grafici e notizie sono integrati.',
+    tc_card3_h:'Zero Attrito nel Workflow',tc_card3_p:'I trader professionisti ottimizzano ogni secondo del loro workflow. Eliminare il cambio di tab di TradingView rimuove una piccola ma costante fonte di attrito \u2014 e quando si accumula su centinaia di eventi di notizie per sessione, il guadagno di efficienza \u00e8 sostanziale.',
+    tc_card4_h:'Charting di Riferimento del Settore',tc_card4_p:'TradingView \u00e8 la piattaforma di charting web pi\u00f9 utilizzata tra trader retail e professionisti a livello globale. Incorporandola direttamente, TNT ti d\u00e0 lo strumento di charting che gi\u00e0 conosci e di cui ti fidi \u2014 solo in un contesto di workflow migliore.',
+    tc_preview_label:'Anteprima Live',tc_preview_title:'Grafico + Notizie \u2014 Fianco a Fianco',
+    tc_preview_sub:'Questo \u00e8 il layout TNT: grafico TradingView a sinistra, feed notizie live a destra. Le notizie arrivano, vedi la candela formarsi e il titolo simultaneamente.',
+    tc_preview_note:'Layout illustrativo. I dati live scorrono continuamente nel terminal reale.',
+    tc_instr_label:'Strumenti',tc_instr_title:'Ogni Mercato che Tradi \u2014 Un Pannello Grafici',
+    tc_instr_sub:'TNT copre tutte le principali coppie forex, crypto, indici globali, materie prime e obbligazioni. Passa tra strumenti con un clic \u2014 il feed notizie filtra automaticamente.',
+    tc_instr_forex:'Forex \u2014 Coppie Principali & Incrociate',tc_instr_crypto:'Crypto',tc_instr_indices:'Indici Globali',tc_instr_comm:'Materie Prime',tc_instr_bonds:'Obbligazioni',
+    tc_tf_label:'Timeframe',tc_tf_title:'Tutti i Timeframe \u2014 Scalp a Posizione',
+    tc_tf_sub:'Che tu stia facendo scalping di spike di notizie sul grafico a 1 minuto o gestendo una posizione swing sul giornaliero, l\u2019integrazione TradingView di TNT supporta ogni timeframe di cui hai bisogno.',
+    tc_tf_card1_h:'Intraday (1m, 5m, 15m, 30m)',tc_tf_card1_p:'Per trader di notizie e scalper che reagiscono a pubblicazioni economiche, dichiarazioni di banche centrali o eventi geopolitici. Il grafico a 1 minuto cattura lo spike immediato; quello a 15 minuti mostra la struttura di follow-through.',
+    tc_tf_card2_h:'Swing (1H, 4H, Giornaliero)',tc_tf_card2_p:'Per swing trader che tengono posizioni da ore a giorni basate su temi macro, catalizzatori di utili o breakout tecnici. I grafici 4H e giornaliero definiscono il contesto di trend in cui gli eventi di notizie si sviluppano.',
+    tc_tf_card3_h:'Posizione (Settimanale, Mensile)',tc_tf_card3_p:'Per gestori di portafoglio e trader macro che valutano strutture di trend a lungo termine, livelli di supporto e resistenza pluriennali, e il pi\u00f9 ampio contesto secolare del mercato.',
+    tc_hiw_title:'Grafici e Notizie \u2014 Un Workflow Unificato',
+    tc_step1_h:'Apri il Pannello Grafici',tc_step1_p:'Il pannello grafici TradingView \u00e8 accessibile dalla barra laterale TNT su entrambi i piani Basic e Pro. Seleziona il tuo strumento e timeframe \u2014 il grafico si carica istantaneamente. Il feed notizie live rimane visibile accanto; nessuna finestra separata, nessun secondo monitor necessario.',
+    tc_step2_h:'Notizie Arrivano \u2014 Vedi Istantaneamente',tc_step2_p:'Quando arriva un titolo che muove il mercato \u2014 un CPI, una dichiarazione di banca centrale, un titolo geopolitico \u2014 vedi la notizia di ultima ora e la risposta della candela simultaneamente. Lo squawk box legge il titolo ad alta voce cos\u00ec non hai nemmeno bisogno di guardare il feed.',
+    tc_step3_h:'Analizza e Decidi Senza Cambiare',tc_step3_p:'Traccia livelli, cambia timeframe, controlla la struttura 4H \u2014 tutto mentre il feed notizie continua ad aggiornarsi. Quando analisi grafica e contesto notizie vivono nella stessa vista, prendi decisioni di trading migliori e pi\u00f9 veloci. Questo \u00e8 il vantaggio di workflow che i trader professionisti usano Bloomberg per ottenere \u2014 a una frazione del costo.',
+    tc_cmp_label:'Confronto',tc_cmp_title:'Grafici TNT vs. Piattaforme Standalone',
+    tc_cmp_feature:'Funzionalit\u00e0',tc_cmp_row1:'Grafici TradingView',tc_cmp_row2:'Tutti gli strumenti principali',tc_cmp_row3:'Tutti i timeframe',tc_cmp_row4:'Feed notizie live integrato',tc_cmp_row5:'Avvisi audio squawk live',tc_cmp_row6:'Calendario economico',tc_cmp_row7:'Disponibile sul piano gratuito',tc_cmp_price:'Prezzo (mensile)',
+    tc_faq_title:'Grafici di Trading \u2014 Domande Frequenti',
+    tc_faq1_q:'TradingView \u00e8 gratuito?',tc_faq1_a:'TradingView offre un piano gratuito con funzioni limitate sulla propria piattaforma. All\u2019interno di Trading News Terminal, i grafici TradingView sono incorporati e disponibili sui piani Basic (gratuito) e Pro \u2014 per accesso completo all\u2019interfaccia di charting di riferimento di TradingView senza bisogno di un abbonamento separato. Le funzioni avanzate come pannelli multipli e indicatori personalizzati possono richiedere un account TradingView, ma i grafici di base funzionano immediatamente.',
+    tc_faq2_q:'Che grafici include Trading News Terminal?',tc_faq2_a:'TNT include grafici TradingView per tutte le principali coppie forex (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD, USD/CHF, NZD/USD e coppie incrociate), principali criptovalute (BTC, ETH, XRP, SOL, BNB), indici globali (S&P 500, NASDAQ, DAX, FTSE 100, Nikkei 225, CAC 40), materie prime (Oro, Argento, WTI, Brent, Gas Naturale, Grano, Mais, Caff\u00e8) e obbligazioni (US 10Y Treasury, Bund Tedesco). Tutti gli strumenti supportano ogni timeframe da 1 minuto a mensile.',
+    tc_faq3_q:'Posso usare i grafici TradingView gratuitamente?',tc_faq3_a:'S\u00ec. I grafici TradingView in Trading News Terminal sono disponibili sul piano Basic gratuito senza carta di credito. Hai pieno accesso al pannello grafici per tutti gli strumenti coperti su tutti i timeframe. Il piano Basic include anche il feed notizie live e il calendario economico, rendendolo un toolkit di trading genuinamente utile \u2014 non una demo ridotta progettata per spingerti verso un aggiornamento.',
+    tc_faq4_q:'Qual \u00e8 la migliore piattaforma di grafici per il forex?',tc_faq4_a:'TradingView \u00e8 ampiamente considerato come la migliore piattaforma di charting web per i trader forex. Offre grafici a candele e a barre puliti e veloci, una libreria completa di indicatori (RSI, MACD, Bande di Bollinger, ecc.), strumenti di disegno e analisi multi-timeframe \u2014 tutto in un browser senza download. Trading News Terminal incorpora i grafici TradingView direttamente accanto al feed notizie live.',
+    tc_faq5_q:'Come leggo i grafici a candele?',tc_faq5_a:'Una candela rappresenta l\u2019azione del prezzo su un determinato periodo di tempo. Il corpo mostra i prezzi di apertura e chiusura \u2014 un corpo verde o bianco significa che la chiusura era superiore all\u2019apertura (candela rialzista); un corpo rosso o nero significa che la chiusura era inferiore (candela ribassista). Le ombre (linee sottili sopra e sotto il corpo) mostrano il massimo e il minimo del periodo. Pattern chiave \u2014 Doji, Martello, Shooting Star, Bullish Engulfing, Morning Star \u2014 danno ai trader segnali su potenziali inversioni o continuazioni.',
+    tc_explore_label:'Esplora',
+    tc_cta_h2:'Apri il Tuo Terminal Gratuito \u2014 Grafici Inclusi',
+    tc_cta_p:'Grafici TradingView, feed notizie live e calendario economico. Gratuito per sempre sul piano Basic. Nessuna carta di credito, nessun impegno.',
+    footer_copy:'\u00a9 2026 Trading News Terminal \u00b7 <a href="/privacy">Privacy</a> \u00b7 <a href="/terms">Termini</a> \u00b7 <a href="https://www.tradingnewsterminal.com">tradingnewsterminal.com</a>' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='trading-charts';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

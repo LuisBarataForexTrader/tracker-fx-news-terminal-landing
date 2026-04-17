@@ -5,26 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ── Primary SEO ── -->
-<title>Trading News Terminal — Free Real-Time Forex &amp; Financial News | Bloomberg Alternative</title>
-<meta name="description" content="Professional real-time financial news terminal for forex, crypto and macro traders. Live news feed, economic calendar with live releases, squawk box, live financial TV &amp; TradingView charts — free to start. The affordable Bloomberg alternative.">
+<title>Trading News Terminal — Real-Time Financial News</title>
+<meta name="description" content="Real-time news terminal for active traders. Live forex news feed, economic calendar, squawk box, TradingView charts &amp; live financial TV. Free to start.">
 <meta name="keywords" content="real-time financial news terminal, forex news feed, trading news terminal, economic calendar live, free bloomberg alternative, forex news live, financial news trader, squawk box online, market moving news, live trading news, financial juice alternative, forex economic calendar, crypto news live, commodity news, macro news feed, forex terminal free">
 <meta name="author" content="Trading News Terminal">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="google-site-verification" content="24taSmSdA2Wk7xXlpjkx_1-dfVN8ii0u0gvhDeczRrk">
 <link rel="canonical" href="https://www.tradingnewsterminal.com/">
 
-<!-- ── Favicons ── -->
+<!-- ── Favicons — 192/512 explicitly declared so Google SERP picks the large
+     icon instead of scaling the .ico (Google favicon requires ≥48×48 source). -->
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0c0f">
 
 <!-- ── Open Graph ── -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.tradingnewsterminal.com/">
-<meta property="og:title" content="Trading News Terminal — Free Real-Time Forex &amp; Financial News">
+<meta property="og:title" content="Trading News Terminal — Real-Time Financial News">
 <meta property="og:description" content="Professional real-time financial news terminal. Live forex news, economic calendar releases, squawk box, TradingView charts and live TV — all in one interface. Free to start.">
 <meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -1759,6 +1762,20 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 </footer>
 
 <script>
+// ─── Affiliate Ref Tracking ───────────────────────────────────────
+(function() {
+  var _ref = (new URLSearchParams(location.search).get('ref') || '').toUpperCase();
+  if (_ref) {
+    try {
+      var _exp = new Date(); _exp.setDate(_exp.getDate() + 30);
+      document.cookie = 'aff_ref=' + _ref + ';expires=' + _exp.toUTCString() + ';path=/;SameSite=Lax';
+      localStorage.setItem('aff_ref', _ref);
+      // Track click on backend (fire-and-forget)
+      fetch('https://trading-news-terminal-backend-production.up.railway.app/affiliates/click?code=' + _ref, { method: 'POST' }).catch(function(){});
+    } catch(e) {}
+  }
+})();
+
 // ─── Landing Page Translation System ─────────────────────────────
 let _landingLang = localStorage.getItem('tnt_lang') || 'en';
 

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Forex News Feed — Live Currency Market News</title>
+  <meta name="description" content="Live forex news from 100+ institutional sources. Zero-delay alerts for EUR/USD, GBP/USD, JPY &amp; gold. Filter by currency, impact and source type.">
+  <link rel="canonical" href="https://www.tradingnewsterminal.com/forex-news-feed">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+  <meta property="og:title" content="Real-Time Forex News Feed — Live Currency Market News">
+  <meta property="og:description" content="Live forex news from 100+ institutional sources. Zero-delay alerts for EUR/USD, GBP/USD, JPY &amp; gold. Filter by currency, impact and source type.">
+  <meta property="og:url" content="https://www.tradingnewsterminal.com/forex-news-feed">
+  <meta property="og:image" content="https://www.tradingnewsterminal.com/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real-Time Forex News Feed — Live Currency Market News">
+  <meta name="twitter:description" content="Live real-time forex news feed aggregating hundreds of institutional sources. Zero-delay breaking news for EUR/USD, GBP/USD, JPY & more.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Trading News Terminal",
+        "url": "https://www.tradingnewsterminal.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "Real-time forex news feed aggregating hundreds of institutional sources with AI-powered impact classification — zero-delay breaking news for active currency traders.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Basic",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "description": "Free tier: 2-minute delayed forex news feed with impact classification."
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "40",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "billingDuration": "P1M"
+            },
+            "description": "Zero-delay real-time forex news, squawk box, live TV — full professional terminal."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the best real-time forex news source?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The best real-time forex news sources aggregate multiple institutional feeds simultaneously. Trading News Terminal pulls from hundreds of sources including Reuters, Bloomberg, ForexLive, FXStreet, and central bank communications — applying AI classification to surface the highest-impact headlines first."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I get live forex news?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can access live forex news through Trading News Terminal's free Basic plan (2-minute delay) or Pro plan (zero delay). Simply create a free account at tradingnewsterminal.com — no credit card required. The Pro plan at €40/month delivers news the instant it hits institutional wire services."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a free forex news feed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Trading News Terminal's Basic plan is permanently free and includes access to the forex news feed with a 2-minute delay, AI impact classification (HIGH/MEDIUM/LOW), and asset tagging. It's ideal for swing traders and investors who don't need sub-second execution. The Pro plan removes the delay for €40/month."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What news moves the forex market?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The forex market moves most sharply on: central bank rate decisions (Fed, ECB, BOE, BOJ), Non-Farm Payrolls, CPI inflation data, GDP releases, retail sales, PMI surveys, and geopolitical developments. Trading News Terminal tags every headline with impact level and affected currency pairs so you never miss a market-moving event."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How fast is the Trading News Terminal forex news feed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pro subscribers receive news with effectively zero delay — headlines appear within seconds of hitting the institutional wire. Basic subscribers see news with a 2-minute delay. The feed is updated continuously 24/5 during market hours and covers weekend crypto and Asian session news."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0c0f;
+      --bg2: #0d1117;
+      --card: #111827;
+      --border: #1e2a3a;
+      --accent: #00d4ff;
+      --accent2: #0099bb;
+      --text: #e0e8f0;
+      --muted: #8899aa;
+      --green: #00c853;
+      --red: #ff3d57;
+      --yellow: #ffc107;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,12,15,0.97);
+      border-bottom: 1px solid #1e2a3a;
+      padding: 0 24px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-icon { width:32px; height:32px; border:1.5px solid #00d4ff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .nav-logo-icon::before { content:''; width:10px; height:10px; background:#00d4ff; animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    .nav-logo-text { font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; line-height:1.3; color:#e0e8f0; }
+    .nav-logo-text span { color:#00d4ff; }
+    .nav-logo-sub { font-size:9px; color:#556677; letter-spacing:0.1em; text-transform:uppercase; }
+    .btn { display: inline-block; padding: 9px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.15s, transform 0.15s; border: none; text-decoration: none; }
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .hero { padding: 72px 0 56px; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-badge { display: inline-block; background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.03em; }
+    .hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 8px; }
+    .price-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .price-note strong { color: var(--text); }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-size: clamp(22px, 3.5vw, 32px); font-weight: 700; margin-bottom: 16px; }
+    .section-intro { color: var(--muted); font-size: 17px; margin-bottom: 40px; max-width: 700px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent2); }
+    .card-icon { font-size: 28px; margin-bottom: 14px; }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { background: var(--card); color: var(--text); font-weight: 700; padding: 14px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+    th.accent-col { color: var(--accent); }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: var(--red); }
+    td:first-child { color: var(--text); font-weight: 500; }
+    .impact-high { color: var(--red); font-weight: 700; font-size: 12px; background: rgba(255,61,87,0.1); padding: 2px 8px; border-radius: 4px; }
+    .impact-med { color: var(--yellow); font-weight: 700; font-size: 12px; background: rgba(255,193,7,0.1); padding: 2px 8px; border-radius: 4px; }
+    .impact-low { color: var(--muted); font-weight: 700; font-size: 12px; background: rgba(136,153,170,0.1); padding: 2px 8px; border-radius: 4px; }
+    .news-demo { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .news-demo-header { background: var(--bg2); padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
+    .news-demo-title { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+    .news-item { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; }
+    .news-item:last-child { border-bottom: none; }
+    .news-time { font-size: 12px; color: var(--muted); min-width: 50px; font-family: monospace; }
+    .news-text { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
+    .news-tag { font-size: 11px; color: var(--accent); background: rgba(0,212,255,0.1); padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+    .steps { display: grid; gap: 24px; }
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num { min-width: 40px; height: 40px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--accent); font-size: 16px; }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .step-body p { color: var(--muted); font-size: 15px; }
+    .faq { display: grid; gap: 16px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .faq-item p { font-size: 15px; color: var(--muted); line-height: 1.65; }
+    .explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .explore-link { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; color: var(--text); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .explore-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .explore-link .arrow { color: var(--accent); font-size: 16px; }
+    .footer-cta { padding: 72px 0; text-align: center; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, var(--bg) 0%, rgba(0,212,255,0.03) 100%); }
+    .footer-cta h2 { font-size: clamp(24px, 4vw, 38px); margin-bottom: 16px; }
+    .footer-cta p { color: var(--muted); font-size: 17px; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    @media (max-width: 600px) { .hero { padding: 48px 0 40px; } .hero-ctas { flex-direction: column; align-items: center; } .btn-lg { width: 100%; max-width: 320px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=header" class="nav-logo" data-seo-track="forex-news-feed">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text">Trading <span>News</span> Terminal</div>
+      <div class="nav-logo-sub" data-i18n="tagline">Real-time Market Intelligence</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="position:relative;" id="langPicker">
+      <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:6px;padding:7px 10px;background:#111827;border:1px solid #1e2a3a;color:#e0e8f0;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:3px;">
+        <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN" style="vertical-align:middle;"> <span data-i18n="active">EN</span>
+      </button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#111827;border:1px solid #1e2a3a;border-radius:4px;min-width:130px;z-index:200;overflow:hidden;">
+        <a href="#" data-lang="en" onclick="setLang('en');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#00d4ff;font-size:12px;text-decoration:none;background:rgba(0,212,255,0.08);">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN"> English ✓
+        </a>
+        <a href="#" data-lang="pt" onclick="setLang('pt');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT"> Português
+        </a>
+        <a href="#" data-lang="es" onclick="setLang('es');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES"> Español
+        </a>
+        <a href="#" data-lang="fr" onclick="setLang('fr');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR"> Français
+        </a>
+        <a href="#" data-lang="de" onclick="setLang('de');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE"> Deutsch
+        </a>
+        <a href="#" data-lang="it" onclick="setLang('it');return false;" style="display:flex;align-items:center;gap:8px;padding:9px 14px;color:#8899aa;font-size:12px;text-decoration:none;">
+          <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT"> Italiano
+        </a>
+      </div>
+    </div>
+    <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=header" class="btn btn-primary" data-seo-track="forex-news-feed"><span data-i18n="try_btn">Try Free →</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge" data-i18n="hero.badge">Live Forex News Feed</div>
+    <h1 data-i18n-html="hero.h1">Real-Time <span>Forex News Feed</span> for Active Currency Traders</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Hundreds of institutional sources. AI-classified impact levels. Zero-delay breaking headlines on EUR/USD, GBP/USD, USD/JPY, XAU/USD and every major currency pair — the moment they hit the wire.</p>
+    <div class="hero-ctas">
+      <a href="https://www.tradingnewsterminal.com/login?plan=trial&utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=hero" class="btn btn-primary btn-lg" data-seo-track="forex-news-feed"><span data-i18n="trial_btn">Start Free Trial</span></a>
+      <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=hero" class="btn btn-outline btn-lg" data-seo-track="forex-news-feed"><span data-i18n="free_btn">Open Free Terminal</span></a>
+    </div>
+    <p class="price-note" data-i18n-html="hero.price_note">Basic plan <strong>always free</strong> (2-min delay) · Pro zero-delay at <strong>€40/month</strong></p>
+  </div>
+</section>
+
+<section style="padding:40px 0 48px;border-bottom:1px solid #1e2a3a;">
+  <div class="container">
+    <div class="section-label" data-i18n="preview.label">Live Terminal Preview</div>
+    <h2 style="margin-bottom:24px;" data-i18n="preview.h2">Forex News Feed — Live</h2>
+    <div style="background:#0d1117;border:1px solid #1e2a3a;border-radius:10px;overflow:hidden;font-family:monospace;font-size:13px;">
+      <div style="background:#111827;padding:10px 16px;border-bottom:1px solid #1e2a3a;display:flex;align-items:center;gap:8px;">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff3d57;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffc107;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#00c853;display:inline-block;"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:#00c853;display:inline-block;margin-left:12px;animation:pulse 2s ease-in-out infinite;"></span>
+        <span style="color:#556677;font-size:11px;letter-spacing:0.08em;">LIVE FEED — PRO · ZERO DELAY</span>
+      </div>
+      <div style="padding:4px 0;">
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-left:3px solid #ff3d57;margin:4px 8px;background:rgba(255,61,87,0.05);border-radius:0 4px 4px 0;">
+          <span style="color:#ff3d57;font-weight:700;white-space:nowrap;">🔴 HIGH</span>
+          <span style="color:#556677;white-space:nowrap;">09:42:31</span>
+          <span style="color:#8899aa;white-space:nowrap;">Reuters —</span>
+          <span style="color:#e0e8f0;">Fed raises rates by 25bps, signals pause in hiking cycle ahead</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-left:3px solid #ffc107;margin:4px 8px;background:rgba(255,193,7,0.04);border-radius:0 4px 4px 0;">
+          <span style="color:#ffc107;font-weight:700;white-space:nowrap;">🟡 MED&nbsp;</span>
+          <span style="color:#556677;white-space:nowrap;">09:38:14</span>
+          <span style="color:#8899aa;white-space:nowrap;">FXStreet —</span>
+          <span style="color:#e0e8f0;">ECB's Lagarde: gradual approach to rate cuts remains appropriate</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-left:3px solid #ff3d57;margin:4px 8px;background:rgba(255,61,87,0.05);border-radius:0 4px 4px 0;">
+          <span style="color:#ff3d57;font-weight:700;white-space:nowrap;">🔴 HIGH</span>
+          <span style="color:#556677;white-space:nowrap;">09:31:02</span>
+          <span style="color:#8899aa;white-space:nowrap;">Bloomberg —</span>
+          <span style="color:#e0e8f0;">UK CPI YoY 3.2% vs forecast 3.0% — inflation beats, GBP surges</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-left:3px solid #ffc107;margin:4px 8px;background:rgba(255,193,7,0.04);border-radius:0 4px 4px 0;">
+          <span style="color:#ffc107;font-weight:700;white-space:nowrap;">🟡 MED&nbsp;</span>
+          <span style="color:#556677;white-space:nowrap;">09:27:55</span>
+          <span style="color:#8899aa;white-space:nowrap;">ForexLive —</span>
+          <span style="color:#e0e8f0;">BOJ considering adjusting yield curve control at next meeting</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 16px;border-left:3px solid #1e2a3a;margin:4px 8px;border-radius:0 4px 4px 0;">
+          <span style="color:#556677;font-weight:700;white-space:nowrap;">⚪ LOW&nbsp;</span>
+          <span style="color:#556677;white-space:nowrap;">09:22:10</span>
+          <span style="color:#8899aa;white-space:nowrap;">Reuters —</span>
+          <span style="color:#556677;">Japan Tankan manufacturing confidence steady at +12 in Q1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="demo.label">Live Preview</div>
+    <h2 data-i18n="demo.h2">What the Forex News Feed Looks Like</h2>
+    <p class="section-intro" data-i18n="demo.intro">Every headline is tagged with impact level, time, and affected currency pair — so you can filter and act instantly without reading every story.</p>
+    <div class="news-demo">
+      <div class="news-demo-header">
+        <div class="live-dot"></div>
+        <span class="news-demo-title">Live Forex News — Pro Feed</span>
+      </div>
+      <div class="news-item">
+        <span class="news-time">08:31:04</span>
+        <span class="impact-high">HIGH</span>
+        <span class="news-text">Fed's Powell: "We are not in a hurry to adjust the policy rate" — FOMC maintains cautious tone on rate path</span>
+        <span class="news-tag">USD</span>
+      </div>
+      <div class="news-item">
+        <span class="news-time">08:29:47</span>
+        <span class="impact-high">HIGH</span>
+        <span class="news-text">UK CPI YoY actual 3.2% vs forecast 3.0% — inflation beats, GBP surges</span>
+        <span class="news-tag">GBP</span>
+      </div>
+      <div class="news-item">
+        <span class="news-time">08:27:12</span>
+        <span class="impact-med">MED</span>
+        <span class="news-text">ECB's Lagarde: gradual approach to rate cuts remains appropriate given services inflation stickiness</span>
+        <span class="news-tag">EUR</span>
+      </div>
+      <div class="news-item">
+        <span class="news-time">08:24:55</span>
+        <span class="impact-low">LOW</span>
+        <span class="news-text">Japan's Tankan survey shows manufacturing confidence steady at +12 in Q1 2025</span>
+        <span class="news-tag">JPY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="how_title">How It Works</div>
+    <h2 data-i18n="how.h2">From News Wire to Your Screen in Real Time</h2>
+    <p class="section-intro" data-i18n="how.intro">Trading News Terminal's forex news feed is built on a multi-source RSS aggregation engine with AI-powered classification — purpose-built for speed and signal clarity.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 data-i18n="step1.h3">Multi-source aggregation</h3>
+          <p data-i18n="step1.p">The feed continuously monitors hundreds of institutional news sources — including Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, central bank press release feeds, and government statistical agencies. Every source is checked multiple times per minute for new headlines.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3 data-i18n="step2.h3">AI impact classification</h3>
+          <p data-i18n="step2.p">Each headline is automatically scored as HIGH, MEDIUM, or LOW impact using natural language processing trained on market-moving events. HIGH impact stories — rate decisions, NFP, CPI — are surfaced first and trigger additional alerts including audio squawk on Pro plans.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3 data-i18n="step3.h3">Asset tagging and zero-delay delivery</h3>
+          <p data-i18n="step3.p">Every headline is tagged with the relevant currency pairs, asset classes (FX, equities, commodities, crypto), and economies affected. Pro subscribers receive headlines with zero delay — the same speed as institutional terminals. Basic subscribers see news with a 2-minute delay.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="feat.label">Feature Breakdown</div>
+    <h2 data-i18n="feat.h2">Forex News Feed — What You Get</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-i18n="card1.h3">Zero-Delay Breaking News</h3>
+        <p data-i18n="card1.p">Pro subscribers receive headlines within seconds of publication on the institutional wire — no artificial delays, no throttling during high-volatility events.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3 data-i18n="card2.h3">Impact Classification</h3>
+        <p data-i18n="card2.p">Every story rated HIGH, MEDIUM, or LOW based on market-moving potential. Filter your feed to show only what matters — cut the noise, keep the signal.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏷️</div>
+        <h3 data-i18n="card3.h3">Currency Pair Tagging</h3>
+        <p data-i18n="card3.p">Headlines tagged by affected pair: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU, and more. Focus your feed on the pairs you actually trade.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h3 data-i18n="card4.h3">Global Source Coverage</h3>
+        <p data-i18n="card4.p">Reuters, Bloomberg, ForexLive, FXStreet, central banks, treasury departments, statistical agencies — hundreds of sources monitored around the clock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="plans.label">Plan Comparison</div>
+    <h2 data-i18n="plans.h2">Basic vs Pro — Forex News Feed Features</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="th.feature">Feature</th>
+            <th class="accent-col" data-i18n="th.basic">Basic (Free)</th>
+            <th class="accent-col" data-i18n="th.pro">Pro (€40/month)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="row.feedaccess">Forex news feed access</td>
+            <td class="check" data-i18n="row.yes2min">✓ Yes (2-min delay)</td>
+            <td class="check" data-i18n="row.yeszero">✓ Yes (zero delay)</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.speed">News delivery speed</td>
+            <td data-i18n="row.delay2min">2-minute delay</td>
+            <td class="check" data-i18n="row.instant">✓ Instant / zero delay</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.aiclass">AI impact classification (HIGH/MED/LOW)</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.pairtag">Currency pair tagging</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.filter">Impact filter (show only HIGH)</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.squawk">Squawk box (audio read-aloud)</td>
+            <td class="cross">✗</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.calendar">Economic calendar with beat/miss</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.tv">Live financial TV (7 channels)</td>
+            <td class="cross">✗</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+          <tr>
+            <td data-i18n="row.tradingview">TradingView chart integration</td>
+            <td class="check">✓ Yes</td>
+            <td class="check">✓ Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="faq_title">Frequently Asked Questions</div>
+    <h2 data-i18n="faq.h2">Real-Time Forex News Feed — Common Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3 data-i18n="faq1.q">What is the best real-time forex news source?</h3>
+        <p data-i18n="faq1.a">The best real-time forex news sources aggregate from multiple institutional feeds simultaneously rather than relying on a single publication. Trading News Terminal monitors hundreds of sources including Reuters, Bloomberg wire, ForexLive, FXStreet, and official central bank communications — running AI classification on every headline to surface the most market-relevant stories first. For active currency traders, this multi-source approach provides significantly better coverage than any single news outlet.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq2.q">How do I get live forex news?</h3>
+        <p data-i18n="faq2.a">Creating a free account at Trading News Terminal takes under 60 seconds and requires no credit card. The Basic plan provides the full forex news feed with a 2-minute delay — more than sufficient for swing traders and position traders. For scalpers, day traders, or anyone trading economic data releases, the Pro plan at €40/month removes all delays and delivers zero-latency headlines with squawk box audio alerts.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq3.q">Is there a free forex news feed?</h3>
+        <p data-i18n="faq3.a">Yes. Trading News Terminal's Basic plan is permanently free and includes access to the forex news feed with a 2-minute delay. You also get AI impact classification (HIGH/MEDIUM/LOW), currency pair tagging, the live economic calendar, and TradingView chart integration — all at no cost. The Pro plan at €40/month upgrades to zero-delay delivery and adds the squawk box and live TV.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq4.q">What news moves the forex market?</h3>
+        <p data-i18n="faq4.a">Forex markets react most sharply to: central bank rate decisions and forward guidance (Fed, ECB, Bank of England, Bank of Japan, RBA, SNB), Non-Farm Payrolls, CPI and PPI inflation data, GDP releases, retail sales figures, PMI surveys, trade balance data, and major geopolitical events. Trading News Terminal classifies all of these as HIGH impact events and delivers them with priority placement, audio alerts via squawk, and instant injection into the economic calendar.</p>
+      </div>
+      <div class="faq-item">
+        <h3 data-i18n="faq5.q">How fast is the Trading News Terminal news feed?</h3>
+        <p data-i18n="faq5.a">Pro subscribers receive forex news with effectively zero delay — headlines typically appear within 3–10 seconds of publication on the source wire, depending on the source's update frequency. During high-volatility events such as NFP or Fed announcements, the feed remains fully operational. Basic subscribers see a consistent 2-minute delay regardless of market conditions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label" data-i18n="explore_title">Explore Other Features</div>
+    <h2 data-i18n="explore.h2">Everything in the Trading News Terminal</h2>
+    <div class="explore-grid">
+      <a href="/bloomberg-alternative" class="explore-link"><span class="arrow">→</span> Bloomberg Alternative</a>
+      <a href="/forex-news-feed" class="explore-link"><span class="arrow">→</span> Forex News Feed</a>
+      <a href="/economic-calendar" class="explore-link"><span class="arrow">→</span> Economic Calendar</a>
+      <a href="/squawk-box" class="explore-link"><span class="arrow">→</span> Live Squawk Box</a>
+      <a href="/live-financial-tv" class="explore-link"><span class="arrow">→</span> Live Financial TV</a>
+      <a href="/market-screener" class="explore-link"><span class="arrow">→</span> Market Screener</a>
+      <a href="/central-banks-tracker" class="explore-link"><span class="arrow">→</span> Central Banks Tracker</a>
+      <a href="/macro-bonds-hub" class="explore-link"><span class="arrow">→</span> Macro &amp; Bonds Hub</a>
+      <a href="/earnings-calendar" class="explore-link"><span class="arrow">→</span> Earnings Calendar</a>
+      <a href="/trading-charts" class="explore-link"><span class="arrow">→</span> Trading Charts</a>
+    </div>
+  </div>
+</section>
+
+<div class="footer-cta">
+  <div class="container">
+    <h2 data-i18n="cta.h2">Never Miss a Market-Moving Headline Again</h2>
+    <p data-i18n="cta.p">Get a real-time forex news feed built for active currency traders — aggregated from hundreds of sources, classified by impact, tagged by pair. Free to start.</p>
+    <a href="https://www.tradingnewsterminal.com/signup?utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=bottom" class="btn btn-primary btn-lg" data-seo-track="forex-news-feed"><span data-i18n="cta_free">Start Free — No Card Required</span></a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p data-i18n="footer.copy">© 2026 Trading News Terminal · Real-Time Forex News Feed</p>
+    <div class="footer-links">
+      <a href="https://www.tradingnewsterminal.com/?utm_source=seo&utm_medium=organic&utm_campaign=forex-news-feed&utm_content=footer" data-seo-track="forex-news-feed">tradingnewsterminal.com</a>
+      <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="/terms" data-i18n="footer.terms">Terms of Service</a>
+      <a href="/login" data-i18n="footer.signin">Sign In</a>
+      <a href="/signup" data-i18n="footer.signup">Sign Up</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var _tnt={
+  en:{
+    tagline:'Real-time Market Intelligence',active:'EN',try_btn:'Try Free \u2192',trial_btn:'Start Free Trial',free_btn:'Open Free Terminal',
+    how_title:'How It Works',faq_title:'Frequently Asked Questions',explore_title:'Explore Other Features',cta_free:'Start Free \u2014 No Card Required',
+    'hero.badge':'Live Forex News Feed',
+    'hero.h1':'Real-Time <span>Forex News Feed</span> for Active Currency Traders',
+    'hero.sub':'Hundreds of institutional sources. AI-classified impact levels. Zero-delay breaking headlines on EUR/USD, GBP/USD, USD/JPY, XAU/USD and every major currency pair \u2014 the moment they hit the wire.',
+    'hero.price_note':'Basic plan <strong>always free</strong> (2-min delay) \u00b7 Pro zero-delay at <strong>\u20ac40/month</strong>',
+    'preview.label':'Live Terminal Preview','preview.h2':'Forex News Feed \u2014 Live',
+    'demo.label':'Live Preview','demo.h2':'What the Forex News Feed Looks Like',
+    'demo.intro':'Every headline is tagged with impact level, time, and affected currency pair \u2014 so you can filter and act instantly without reading every story.',
+    'how.h2':'From News Wire to Your Screen in Real Time',
+    'how.intro':'Trading News Terminal\u2019s forex news feed is built on a multi-source RSS aggregation engine with AI-powered classification \u2014 purpose-built for speed and signal clarity.',
+    'step1.h3':'Multi-source aggregation',
+    'step1.p':'The feed continuously monitors hundreds of institutional news sources \u2014 including Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, central bank press release feeds, and government statistical agencies. Every source is checked multiple times per minute for new headlines.',
+    'step2.h3':'AI impact classification',
+    'step2.p':'Each headline is automatically scored as HIGH, MEDIUM, or LOW impact using natural language processing trained on market-moving events. HIGH impact stories \u2014 rate decisions, NFP, CPI \u2014 are surfaced first and trigger additional alerts including audio squawk on Pro plans.',
+    'step3.h3':'Asset tagging and zero-delay delivery',
+    'step3.p':'Every headline is tagged with the relevant currency pairs, asset classes (FX, equities, commodities, crypto), and economies affected. Pro subscribers receive headlines with zero delay \u2014 the same speed as institutional terminals. Basic subscribers see news with a 2-minute delay.',
+    'feat.label':'Feature Breakdown','feat.h2':'Forex News Feed \u2014 What You Get',
+    'card1.h3':'Zero-Delay Breaking News',
+    'card1.p':'Pro subscribers receive headlines within seconds of publication on the institutional wire \u2014 no artificial delays, no throttling during high-volatility events.',
+    'card2.h3':'Impact Classification',
+    'card2.p':'Every story rated HIGH, MEDIUM, or LOW based on market-moving potential. Filter your feed to show only what matters \u2014 cut the noise, keep the signal.',
+    'card3.h3':'Currency Pair Tagging',
+    'card3.p':'Headlines tagged by affected pair: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU, and more. Focus your feed on the pairs you actually trade.',
+    'card4.h3':'Global Source Coverage',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, central banks, treasury departments, statistical agencies \u2014 hundreds of sources monitored around the clock.',
+    'plans.label':'Plan Comparison','plans.h2':'Basic vs Pro \u2014 Forex News Feed Features',
+    'th.feature':'Feature','th.basic':'Basic (Free)','th.pro':'Pro (\u20ac40/month)',
+    'row.feedaccess':'Forex news feed access','row.yes2min':'\u2713 Yes (2-min delay)','row.yeszero':'\u2713 Yes (zero delay)',
+    'row.speed':'News delivery speed','row.delay2min':'2-minute delay','row.instant':'\u2713 Instant / zero delay',
+    'row.aiclass':'AI impact classification (HIGH/MED/LOW)','row.pairtag':'Currency pair tagging',
+    'row.filter':'Impact filter (show only HIGH)','row.squawk':'Squawk box (audio read-aloud)',
+    'row.calendar':'Economic calendar with beat/miss','row.tv':'Live financial TV (7 channels)',
+    'row.tradingview':'TradingView chart integration',
+    'faq.h2':'Real-Time Forex News Feed \u2014 Common Questions',
+    'faq1.q':'What is the best real-time forex news source?',
+    'faq1.a':'The best real-time forex news sources aggregate from multiple institutional feeds simultaneously rather than relying on a single publication. Trading News Terminal monitors hundreds of sources including Reuters, Bloomberg wire, ForexLive, FXStreet, and official central bank communications \u2014 running AI classification on every headline to surface the most market-relevant stories first. For active currency traders, this multi-source approach provides significantly better coverage than any single news outlet.',
+    'faq2.q':'How do I get live forex news?',
+    'faq2.a':'Creating a free account at Trading News Terminal takes under 60 seconds and requires no credit card. The Basic plan provides the full forex news feed with a 2-minute delay \u2014 more than sufficient for swing traders and position traders. For scalpers, day traders, or anyone trading economic data releases, the Pro plan at \u20ac40/month removes all delays and delivers zero-latency headlines with squawk box audio alerts.',
+    'faq3.q':'Is there a free forex news feed?',
+    'faq3.a':'Yes. Trading News Terminal\u2019s Basic plan is permanently free and includes access to the forex news feed with a 2-minute delay. You also get AI impact classification (HIGH/MEDIUM/LOW), currency pair tagging, the live economic calendar, and TradingView chart integration \u2014 all at no cost. The Pro plan at \u20ac40/month upgrades to zero-delay delivery and adds the squawk box and live TV.',
+    'faq4.q':'What news moves the forex market?',
+    'faq4.a':'Forex markets react most sharply to: central bank rate decisions and forward guidance (Fed, ECB, Bank of England, Bank of Japan, RBA, SNB), Non-Farm Payrolls, CPI and PPI inflation data, GDP releases, retail sales figures, PMI surveys, trade balance data, and major geopolitical events. Trading News Terminal classifies all of these as HIGH impact events and delivers them with priority placement, audio alerts via squawk, and instant injection into the economic calendar.',
+    'faq5.q':'How fast is the Trading News Terminal news feed?',
+    'faq5.a':'Pro subscribers receive forex news with effectively zero delay \u2014 headlines typically appear within 3\u201310 seconds of publication on the source wire, depending on the source\u2019s update frequency. During high-volatility events such as NFP or Fed announcements, the feed remains fully operational. Basic subscribers see a consistent 2-minute delay regardless of market conditions.',
+    'explore.h2':'Everything in the Trading News Terminal',
+    'cta.h2':'Never Miss a Market-Moving Headline Again',
+    'cta.p':'Get a real-time forex news feed built for active currency traders \u2014 aggregated from hundreds of sources, classified by impact, tagged by pair. Free to start.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Real-Time Forex News Feed',
+    'footer.privacy':'Privacy Policy','footer.terms':'Terms of Service','footer.signin':'Sign In','footer.signup':'Sign Up' },
+  pt:{
+    tagline:'Intelig\u00eancia de Mercado em Tempo Real',active:'PT',try_btn:'Experimentar Gr\u00e1tis \u2192',trial_btn:'Iniciar Trial Gr\u00e1tis',free_btn:'Abrir Terminal Gr\u00e1tis',
+    how_title:'Como Funciona',faq_title:'Perguntas Frequentes',explore_title:'Explorar Funcionalidades',cta_free:'Come\u00e7ar Gr\u00e1tis \u2014 Sem Cart\u00e3o',
+    'hero.badge':'Feed de Not\u00edcias Forex ao Vivo',
+    'hero.h1':'Feed de <span>Not\u00edcias Forex</span> em Tempo Real para Traders Ativos',
+    'hero.sub':'Centenas de fontes institucionais. N\u00edveis de impacto classificados por IA. Not\u00edcias urgentes sem atraso em EUR/USD, GBP/USD, USD/JPY, XAU/USD e todos os principais pares de divisas \u2014 no momento em que chegam ao wire.',
+    'hero.price_note':'Plano B\u00e1sico <strong>sempre gratuito</strong> (atraso de 2 min) \u00b7 Pro sem atraso a <strong>\u20ac40/m\u00eas</strong>',
+    'preview.label':'Pr\u00e9-visualiza\u00e7\u00e3o do Terminal','preview.h2':'Feed de Not\u00edcias Forex \u2014 Ao Vivo',
+    'demo.label':'Pr\u00e9-visualiza\u00e7\u00e3o','demo.h2':'Como \u00e9 o Feed de Not\u00edcias Forex',
+    'demo.intro':'Cada t\u00edtulo \u00e9 etiquetado com n\u00edvel de impacto, hora e par de divisas afetado \u2014 para que possa filtrar e agir instantaneamente sem ler cada not\u00edcia.',
+    'how.h2':'Do Wire Not\u00edcias ao Seu Ecr\u00e3 em Tempo Real',
+    'how.intro':'O feed de not\u00edcias forex do Trading News Terminal assenta num motor de agrega\u00e7\u00e3o RSS multi-fonte com classifica\u00e7\u00e3o por IA \u2014 desenvolvido especificamente para velocidade e clareza de sinal.',
+    'step1.h3':'Agrega\u00e7\u00e3o multi-fonte',
+    'step1.p':'O feed monitoriza continuamente centenas de fontes institucionais \u2014 incluindo Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, feeds de press releases de bancos centrais e ag\u00eancias estat\u00edsticas governamentais. Cada fonte \u00e9 verificada v\u00e1rias vezes por minuto em busca de novos t\u00edtulos.',
+    'step2.h3':'Classifica\u00e7\u00e3o de impacto por IA',
+    'step2.p':'Cada t\u00edtulo \u00e9 automaticamente classificado como impacto ALTO, M\u00c9DIO ou BAIXO utilizando processamento de linguagem natural treinado em eventos que movem o mercado. Not\u00edcias de alto impacto \u2014 decis\u00f5es de taxas, NFP, IPC \u2014 aparecem em primeiro lugar e ativam alertas adicionais incluindo squawk de \u00e1udio nos planos Pro.',
+    'step3.h3':'Etiquetagem de ativos e entrega sem atraso',
+    'step3.p':'Cada t\u00edtulo \u00e9 etiquetado com os pares de divisas relevantes, classes de ativos (FX, a\u00e7\u00f5es, commodities, cripto) e economias afetadas. Os subscritores Pro recebem t\u00edtulos sem atraso \u2014 a mesma velocidade dos terminais institucionais. Os subscritores B\u00e1sicos v\u00eaem not\u00edcias com um atraso de 2 minutos.',
+    'feat.label':'Funcionalidades','feat.h2':'Feed de Not\u00edcias Forex \u2014 O Que Inclui',
+    'card1.h3':'Not\u00edcias Urgentes Sem Atraso',
+    'card1.p':'Os subscritores Pro recebem t\u00edtulos em segundos ap\u00f3s a publica\u00e7\u00e3o no wire institucional \u2014 sem atrasos artificiais, sem limita\u00e7\u00f5es durante eventos de alta volatilidade.',
+    'card2.h3':'Classifica\u00e7\u00e3o de Impacto',
+    'card2.p':'Cada not\u00edcia classificada como ALTO, M\u00c9DIO ou BAIXO com base no potencial de mover o mercado. Filtre o seu feed para mostrar apenas o que importa \u2014 elimine o ru\u00eddo, preserve o sinal.',
+    'card3.h3':'Etiquetagem de Pares de Divisas',
+    'card3.p':'T\u00edtulos etiquetados por par afetado: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU e mais. Concentre o seu feed nos pares que realmente negoceia.',
+    'card4.h3':'Cobertura Global de Fontes',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, bancos centrais, tesouros, ag\u00eancias estat\u00edsticas \u2014 centenas de fontes monitorizadas 24 horas por dia.',
+    'plans.label':'Compara\u00e7\u00e3o de Planos','plans.h2':'B\u00e1sico vs Pro \u2014 Funcionalidades do Feed Forex',
+    'th.feature':'Funcionalidade','th.basic':'B\u00e1sico (Gr\u00e1tis)','th.pro':'Pro (\u20ac40/m\u00eas)',
+    'row.feedaccess':'Acesso ao feed de not\u00edcias forex','row.yes2min':'\u2713 Sim (atraso 2 min)','row.yeszero':'\u2713 Sim (sem atraso)',
+    'row.speed':'Velocidade de entrega de not\u00edcias','row.delay2min':'Atraso de 2 minutos','row.instant':'\u2713 Instant\u00e2neo / sem atraso',
+    'row.aiclass':'Classifica\u00e7\u00e3o de impacto por IA (ALTO/M\u00c9D/BAIXO)','row.pairtag':'Etiquetagem de pares de divisas',
+    'row.filter':'Filtro de impacto (mostrar apenas ALTO)','row.squawk':'Squawk box (\u00e1udio em voz alta)',
+    'row.calendar':'Calend\u00e1rio econ\u00f3mico com beat/miss','row.tv':'TV financeira ao vivo (7 canais)',
+    'row.tradingview':'Integra\u00e7\u00e3o de gr\u00e1ficos TradingView',
+    'faq.h2':'Feed de Not\u00edcias Forex em Tempo Real \u2014 Perguntas Frequentes',
+    'faq1.q':'Qual \u00e9 a melhor fonte de not\u00edcias forex em tempo real?',
+    'faq1.a':'As melhores fontes de not\u00edcias forex em tempo real agregam v\u00e1rios feeds institucionais simultaneamente em vez de dependerem de uma \u00fanica publica\u00e7\u00e3o. O Trading News Terminal monitoriza centenas de fontes, incluindo Reuters, wire Bloomberg, ForexLive, FXStreet e comunica\u00e7\u00f5es oficiais de bancos centrais \u2014 aplicando classifica\u00e7\u00e3o IA a cada t\u00edtulo para destacar as not\u00edcias mais relevantes para o mercado. Para traders ativos de divisas, esta abordagem multi-fonte oferece uma cobertura significativamente melhor do que qualquer \u00f3rg\u00e3o de not\u00edcias individual.',
+    'faq2.q':'Como posso obter not\u00edcias forex ao vivo?',
+    'faq2.a':'Criar uma conta gratuita no Trading News Terminal demora menos de 60 segundos e n\u00e3o requer cart\u00e3o de cr\u00e9dito. O plano B\u00e1sico oferece o feed completo de not\u00edcias forex com um atraso de 2 minutos \u2014 mais do que suficiente para swing traders e traders de posi\u00e7\u00e3o. Para scalpers, day traders ou qualquer pessoa que negocie releases de dados econ\u00f3micos, o plano Pro a \u20ac40/m\u00eas elimina todos os atrasos e entrega t\u00edtulos com lat\u00eancia zero e alertas de \u00e1udio via squawk box.',
+    'faq3.q':'Existe um feed de not\u00edcias forex gratuito?',
+    'faq3.a':'Sim. O plano B\u00e1sico do Trading News Terminal \u00e9 permanentemente gratuito e inclui acesso ao feed de not\u00edcias forex com um atraso de 2 minutos. Tamb\u00e9m tem classifica\u00e7\u00e3o de impacto por IA (ALTO/M\u00c9DIO/BAIXO), etiquetagem de pares de divisas, o calend\u00e1rio econ\u00f3mico ao vivo e integra\u00e7\u00e3o de gr\u00e1ficos TradingView \u2014 tudo sem custo. O plano Pro a \u20ac40/m\u00eas atualiza para entrega sem atraso e adiciona o squawk box e TV ao vivo.',
+    'faq4.q':'Que not\u00edcias movem o mercado forex?',
+    'faq4.a':'Os mercados forex reagem mais fortemente a: decis\u00f5es de taxas dos bancos centrais e orienta\u00e7\u00f5es (Fed, BCE, Banco de Inglaterra, Banco do Jap\u00e3o, RBA, SNB), Non-Farm Payrolls, dados de infla\u00e7\u00e3o CPI e PPI, publica\u00e7\u00f5es de PIB, vendas a retalho, inqu\u00e9ritos PMI, dados de balan\u00e7a comercial e eventos geopol\u00edticos importantes. O Trading News Terminal classifica todos estes como eventos de alto impacto e entrega-os com posicionamento priorit\u00e1rio, alertas de \u00e1udio via squawk e inje\u00e7\u00e3o instant\u00e2nea no calend\u00e1rio econ\u00f3mico.',
+    'faq5.q':'Qu\u00e3o r\u00e1pido \u00e9 o feed de not\u00edcias do Trading News Terminal?',
+    'faq5.a':'Os subscritores Pro recebem not\u00edcias forex com atraso efetivamente zero \u2014 os t\u00edtulos aparecem tipicamente 3 a 10 segundos ap\u00f3s a publica\u00e7\u00e3o no wire da fonte, dependendo da frequ\u00eancia de atualiza\u00e7\u00e3o da fonte. Durante eventos de alta volatilidade como NFP ou an\u00fancios do Fed, o feed permanece totalmente operacional. Os subscritores B\u00e1sicos v\u00eaem um atraso constante de 2 minutos independentemente das condi\u00e7\u00f5es de mercado.',
+    'explore.h2':'Tudo no Trading News Terminal',
+    'cta.h2':'N\u00e3o Perca Mais Nenhum T\u00edtulo que Move o Mercado',
+    'cta.p':'Obtenha um feed de not\u00edcias forex em tempo real desenvolvido para traders ativos de divisas \u2014 agregado de centenas de fontes, classificado por impacto, etiquetado por par. Gr\u00e1tis para come\u00e7ar.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Feed de Not\u00edcias Forex em Tempo Real',
+    'footer.privacy':'Pol\u00edtica de Privacidade','footer.terms':'Termos de Servi\u00e7o','footer.signin':'Entrar','footer.signup':'Registar' },
+  es:{
+    tagline:'Inteligencia de Mercado en Tiempo Real',active:'ES',try_btn:'Probar Gratis \u2192',trial_btn:'Iniciar Prueba Gratis',free_btn:'Abrir Terminal Gratis',
+    how_title:'C\u00f3mo Funciona',faq_title:'Preguntas Frecuentes',explore_title:'Explorar Caracter\u00edsticas',cta_free:'Empezar Gratis \u2014 Sin Tarjeta',
+    'hero.badge':'Feed de Noticias Forex en Vivo',
+    'hero.h1':'Feed de <span>Noticias Forex</span> en Tiempo Real para Traders Activos',
+    'hero.sub':'Cientos de fuentes institucionales. Niveles de impacto clasificados por IA. Titulares urgentes sin retraso en EUR/USD, GBP/USD, USD/JPY, XAU/USD y todos los principales pares de divisas \u2014 en el momento en que llegan al wire.',
+    'hero.price_note':'Plan B\u00e1sico <strong>siempre gratuito</strong> (retraso 2 min) \u00b7 Pro sin retraso a <strong>\u20ac40/mes</strong>',
+    'preview.label':'Vista Previa del Terminal','preview.h2':'Feed de Noticias Forex \u2014 En Vivo',
+    'demo.label':'Vista Previa','demo.h2':'C\u00f3mo es el Feed de Noticias Forex',
+    'demo.intro':'Cada titular va etiquetado con nivel de impacto, hora y par de divisas afectado \u2014 para que puedas filtrar y actuar al instante sin leer cada noticia.',
+    'how.h2':'Del Wire de Noticias a Tu Pantalla en Tiempo Real',
+    'how.intro':'El feed de noticias forex de Trading News Terminal se basa en un motor de agregaci\u00f3n RSS multi-fuente con clasificaci\u00f3n por IA \u2014 dise\u00f1ado espec\u00edficamente para velocidad y claridad de se\u00f1al.',
+    'step1.h3':'Agregaci\u00f3n multi-fuente',
+    'step1.p':'El feed monitorea continuamente cientos de fuentes institucionales \u2014 incluyendo Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, feeds de comunicados de bancos centrales y agencias estad\u00edsticas gubernamentales. Cada fuente se verifica varias veces por minuto en busca de nuevos titulares.',
+    'step2.h3':'Clasificaci\u00f3n de impacto por IA',
+    'step2.p':'Cada titular se califica autom\u00e1ticamente como impacto ALTO, MEDIO o BAJO mediante procesamiento de lenguaje natural entrenado con eventos que mueven el mercado. Las noticias de alto impacto \u2014 decisiones de tasas, NFP, IPC \u2014 aparecen primero y activan alertas adicionales incluido el squawk de audio en los planes Pro.',
+    'step3.h3':'Etiquetado de activos y entrega sin retraso',
+    'step3.p':'Cada titular va etiquetado con los pares de divisas relevantes, clases de activos (FX, acciones, materias primas, cripto) y econom\u00edas afectadas. Los suscriptores Pro reciben titulares sin retraso \u2014 la misma velocidad que los terminales institucionales. Los suscriptores B\u00e1sicos ven noticias con un retraso de 2 minutos.',
+    'feat.label':'Caracter\u00edsticas','feat.h2':'Feed de Noticias Forex \u2014 Qu\u00e9 Incluye',
+    'card1.h3':'Noticias Urgentes Sin Retraso',
+    'card1.p':'Los suscriptores Pro reciben titulares segundos despu\u00e9s de su publicaci\u00f3n en el wire institucional \u2014 sin retrasos artificiales ni limitaciones durante eventos de alta volatilidad.',
+    'card2.h3':'Clasificaci\u00f3n de Impacto',
+    'card2.p':'Cada noticia calificada como ALTO, MEDIO o BAJO seg\u00fan su potencial de mover el mercado. Filtra tu feed para mostrar solo lo que importa \u2014 elimina el ruido, conserva la se\u00f1al.',
+    'card3.h3':'Etiquetado de Pares de Divisas',
+    'card3.p':'Titulares etiquetados por par afectado: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU y m\u00e1s. Concentra tu feed en los pares que realmente operas.',
+    'card4.h3':'Cobertura Global de Fuentes',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, bancos centrales, tesoros, agencias estad\u00edsticas \u2014 cientos de fuentes monitoreadas las 24 horas.',
+    'plans.label':'Comparaci\u00f3n de Planes','plans.h2':'B\u00e1sico vs Pro \u2014 Caracter\u00edsticas del Feed Forex',
+    'th.feature':'Caracter\u00edstica','th.basic':'B\u00e1sico (Gratis)','th.pro':'Pro (\u20ac40/mes)',
+    'row.feedaccess':'Acceso al feed de noticias forex','row.yes2min':'\u2713 S\u00ed (retraso 2 min)','row.yeszero':'\u2713 S\u00ed (sin retraso)',
+    'row.speed':'Velocidad de entrega de noticias','row.delay2min':'Retraso de 2 minutos','row.instant':'\u2713 Instant\u00e1neo / sin retraso',
+    'row.aiclass':'Clasificaci\u00f3n de impacto por IA (ALTO/MEDIO/BAJO)','row.pairtag':'Etiquetado de pares de divisas',
+    'row.filter':'Filtro de impacto (mostrar solo ALTO)','row.squawk':'Squawk box (audio en voz alta)',
+    'row.calendar':'Calendario econ\u00f3mico con beat/miss','row.tv':'TV financiera en vivo (7 canales)',
+    'row.tradingview':'Integraci\u00f3n de gr\u00e1ficos TradingView',
+    'faq.h2':'Feed de Noticias Forex en Tiempo Real \u2014 Preguntas Frecuentes',
+    'faq1.q':'\u00bfCu\u00e1l es la mejor fuente de noticias forex en tiempo real?',
+    'faq1.a':'Las mejores fuentes de noticias forex en tiempo real agregan m\u00faltiples feeds institucionales simult\u00e1neamente en lugar de depender de una sola publicaci\u00f3n. Trading News Terminal monitorea cientos de fuentes incluyendo Reuters, wire Bloomberg, ForexLive, FXStreet y comunicaciones oficiales de bancos centrales \u2014 aplicando clasificaci\u00f3n IA a cada titular para destacar las noticias m\u00e1s relevantes para el mercado. Para traders activos de divisas, este enfoque multi-fuente ofrece una cobertura significativamente mejor que cualquier medio de noticias individual.',
+    'faq2.q':'\u00bfC\u00f3mo obtengo noticias forex en vivo?',
+    'faq2.a':'Crear una cuenta gratuita en Trading News Terminal tarda menos de 60 segundos y no requiere tarjeta de cr\u00e9dito. El plan B\u00e1sico proporciona el feed completo de noticias forex con un retraso de 2 minutos \u2014 m\u00e1s que suficiente para swing traders y traders de posici\u00f3n. Para scalpers, day traders o cualquiera que opere con publicaciones de datos econ\u00f3micos, el plan Pro a \u20ac40/mes elimina todos los retrasos y entrega titulares con latencia cero y alertas de audio del squawk box.',
+    'faq3.q':'\u00bfExiste un feed de noticias forex gratuito?',
+    'faq3.a':'S\u00ed. El plan B\u00e1sico de Trading News Terminal es permanentemente gratuito e incluye acceso al feed de noticias forex con un retraso de 2 minutos. Tambi\u00e9n obtienes clasificaci\u00f3n de impacto por IA (ALTO/MEDIO/BAJO), etiquetado de pares de divisas, el calendario econ\u00f3mico en vivo e integraci\u00f3n de gr\u00e1ficos TradingView \u2014 todo sin coste. El plan Pro a \u20ac40/mes actualiza a entrega sin retraso y a\u00f1ade el squawk box y TV en vivo.',
+    'faq4.q':'\u00bfQu\u00e9 noticias mueven el mercado forex?',
+    'faq4.a':'Los mercados forex reaccionan m\u00e1s bruscamente a: decisiones de tasas de los bancos centrales y orientaciones (Fed, BCE, Banco de Inglaterra, Banco de Jap\u00f3n, RBA, SNB), Non-Farm Payrolls, datos de inflaci\u00f3n IPC y IPP, publicaciones de PIB, ventas minoristas, encuestas PMI, datos de balanza comercial y eventos geopoliticos importantes. Trading News Terminal clasifica todos estos como eventos de alto impacto y los entrega con posicionamiento prioritario, alertas de audio v\u00eda squawk e inyecci\u00f3n instant\u00e1nea en el calendario econ\u00f3mico.',
+    'faq5.q':'\u00bfQu\u00e9 tan r\u00e1pido es el feed de noticias de Trading News Terminal?',
+    'faq5.a':'Los suscriptores Pro reciben noticias forex con pr\u00e1cticamente cero retraso \u2014 los titulares suelen aparecer entre 3 y 10 segundos despu\u00e9s de la publicaci\u00f3n en el wire de la fuente, dependiendo de la frecuencia de actualizaci\u00f3n de la fuente. Durante eventos de alta volatilidad como NFP o anuncios del Fed, el feed permanece completamente operativo. Los suscriptores B\u00e1sicos ven un retraso constante de 2 minutos independientemente de las condiciones del mercado.',
+    'explore.h2':'Todo en el Trading News Terminal',
+    'cta.h2':'Nunca Vuelvas a Perderte un Titular que Mueve el Mercado',
+    'cta.p':'Obt\u00e9n un feed de noticias forex en tiempo real dise\u00f1ado para traders activos de divisas \u2014 agregado de cientos de fuentes, clasificado por impacto, etiquetado por par. Gratis para empezar.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Feed de Noticias Forex en Tiempo Real',
+    'footer.privacy':'Pol\u00edtica de Privacidad','footer.terms':'T\u00e9rminos de Servicio','footer.signin':'Iniciar Sesi\u00f3n','footer.signup':'Registrarse' },
+  fr:{
+    tagline:'Intelligence March\u00e9 en Temps R\u00e9el',active:'FR',try_btn:'Essai Gratuit \u2192',trial_btn:'D\u00e9marrer l\u2019Essai Gratuit',free_btn:'Ouvrir le Terminal Gratuit',
+    how_title:'Comment \u00e7a marche',faq_title:'Questions Fr\u00e9quentes',explore_title:'Explorer les Fonctionnalit\u00e9s',cta_free:'Commencer Gratuitement',
+    'hero.badge':'Fil d\u2019Actualit\u00e9s Forex en Direct',
+    'hero.h1':'Fil d\u2019<span>Actualit\u00e9s Forex</span> en Temps R\u00e9el pour Traders Actifs',
+    'hero.sub':'Des centaines de sources institutionnelles. Niveaux d\u2019impact class\u00e9s par IA. Titres urgents sans d\u00e9lai sur EUR/USD, GBP/USD, USD/JPY, XAU/USD et toutes les principales paires de devises \u2014 d\u00e8s qu\u2019ils arrivent sur le fil.',
+    'hero.price_note':'Plan Basique <strong>toujours gratuit</strong> (d\u00e9lai 2 min) \u00b7 Pro sans d\u00e9lai \u00e0 <strong>\u20ac40/mois</strong>',
+    'preview.label':'Aper\u00e7u du Terminal','preview.h2':'Fil d\u2019Actualit\u00e9s Forex \u2014 En Direct',
+    'demo.label':'Aper\u00e7u','demo.h2':'Comment se pr\u00e9sente le Fil d\u2019Actualit\u00e9s Forex',
+    'demo.intro':'Chaque titre est \u00e9tiquet\u00e9 avec le niveau d\u2019impact, l\u2019heure et la paire de devises affect\u00e9e \u2014 pour filtrer et agir instantan\u00e9ment sans lire chaque article.',
+    'how.h2':'Du Fil d\u2019Agence \u00e0 Votre \u00c9cran en Temps R\u00e9el',
+    'how.intro':'Le fil d\u2019actualit\u00e9s forex de Trading News Terminal repose sur un moteur d\u2019agr\u00e9gation RSS multi-sources avec classification par IA \u2014 con\u00e7u sp\u00e9cifiquement pour la vitesse et la clart\u00e9 du signal.',
+    'step1.h3':'Agr\u00e9gation multi-sources',
+    'step1.p':'Le fil surveille en continu des centaines de sources institutionnelles \u2014 dont Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, les flux de communiqu\u00e9s des banques centrales et les agences statistiques gouvernementales. Chaque source est v\u00e9rifi\u00e9e plusieurs fois par minute pour de nouveaux titres.',
+    'step2.h3':'Classification d\u2019impact par IA',
+    'step2.p':'Chaque titre est automatiquement not\u00e9 FORT, MOYEN ou FAIBLE impact gr\u00e2ce au traitement du langage naturel entra\u00een\u00e9 sur des \u00e9v\u00e9nements marquants. Les articles \u00e0 fort impact \u2014 d\u00e9cisions de taux, NFP, IPC \u2014 apparaissent en premier et d\u00e9clenchent des alertes suppl\u00e9mentaires dont le squawk audio sur les plans Pro.',
+    'step3.h3':'\u00c9tiquetage des actifs et livraison sans d\u00e9lai',
+    'step3.p':'Chaque titre est \u00e9tiquet\u00e9 avec les paires de devises pertinentes, classes d\u2019actifs (FX, actions, mati\u00e8res premi\u00e8res, crypto) et \u00e9conomies affect\u00e9es. Les abonn\u00e9s Pro re\u00e7oivent les titres sans d\u00e9lai \u2014 la m\u00eame vitesse que les terminaux institutionnels. Les abonn\u00e9s Basiques voient les actualit\u00e9s avec un d\u00e9lai de 2 minutes.',
+    'feat.label':'Fonctionnalit\u00e9s','feat.h2':'Fil d\u2019Actualit\u00e9s Forex \u2014 Ce Que Vous Obtenez',
+    'card1.h3':'Actualit\u00e9s Urgentes Sans D\u00e9lai',
+    'card1.p':'Les abonn\u00e9s Pro re\u00e7oivent les titres en quelques secondes apr\u00e8s leur publication sur le fil institutionnel \u2014 sans d\u00e9lais artificiels ni limitations lors d\u2019\u00e9v\u00e9nements \u00e0 forte volatilit\u00e9.',
+    'card2.h3':'Classification d\u2019Impact',
+    'card2.p':'Chaque article not\u00e9 FORT, MOYEN ou FAIBLE selon son potentiel \u00e0 faire bouger le march\u00e9. Filtrez votre fil pour n\u2019afficher que ce qui compte \u2014 \u00e9liminez le bruit, gardez le signal.',
+    'card3.h3':'\u00c9tiquetage des Paires de Devises',
+    'card3.p':'Titres \u00e9tiquet\u00e9s par paire affect\u00e9e\u00a0: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU et plus. Concentrez votre fil sur les paires que vous tradez r\u00e9ellement.',
+    'card4.h3':'Couverture Mondiale des Sources',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, banques centrales, tr\u00e9sors, agences statistiques \u2014 des centaines de sources surveill\u00e9es 24h/24.',
+    'plans.label':'Comparaison des Plans','plans.h2':'Basique vs Pro \u2014 Fonctionnalit\u00e9s du Fil Forex',
+    'th.feature':'Fonctionnalit\u00e9','th.basic':'Basique (Gratuit)','th.pro':'Pro (\u20ac40/mois)',
+    'row.feedaccess':'Acc\u00e8s au fil d\u2019actualit\u00e9s forex','row.yes2min':'\u2713 Oui (d\u00e9lai 2 min)','row.yeszero':'\u2713 Oui (sans d\u00e9lai)',
+    'row.speed':'Vitesse de livraison des actualit\u00e9s','row.delay2min':'D\u00e9lai de 2 minutes','row.instant':'\u2713 Instantan\u00e9 / sans d\u00e9lai',
+    'row.aiclass':'Classification d\u2019impact par IA (FORT/MOY/FAIBLE)','row.pairtag':'\u00c9tiquetage des paires de devises',
+    'row.filter':'Filtre d\u2019impact (afficher uniquement FORT)','row.squawk':'Squawk box (lecture audio \u00e0 voix haute)',
+    'row.calendar':'Calendrier \u00e9conomique avec beat/miss','row.tv':'TV financi\u00e8re en direct (7 cha\u00eenes)',
+    'row.tradingview':'Int\u00e9gration des graphiques TradingView',
+    'faq.h2':'Fil d\u2019Actualit\u00e9s Forex en Temps R\u00e9el \u2014 Questions Fr\u00e9quentes',
+    'faq1.q':'Quelle est la meilleure source d\u2019actualit\u00e9s forex en temps r\u00e9el\u00a0?',
+    'faq1.a':'Les meilleures sources d\u2019actualit\u00e9s forex en temps r\u00e9el agr\u00e8gent plusieurs flux institutionnels simultan\u00e9ment plut\u00f4t que de se fier \u00e0 une seule publication. Trading News Terminal surveille des centaines de sources dont Reuters, le fil Bloomberg, ForexLive, FXStreet et les communications officielles des banques centrales \u2014 appliquant une classification IA \u00e0 chaque titre pour mettre en avant les informations les plus pertinentes pour le march\u00e9. Pour les traders de devises actifs, cette approche multi-sources offre une couverture nettement sup\u00e9rieure \u00e0 tout m\u00e9dia d\u2019information individuel.',
+    'faq2.q':'Comment acc\u00e9der aux actualit\u00e9s forex en direct\u00a0?',
+    'faq2.a':'Cr\u00e9er un compte gratuit sur Trading News Terminal prend moins de 60 secondes et ne n\u00e9cessite aucune carte bancaire. Le plan Basique fournit le fil complet d\u2019actualit\u00e9s forex avec un d\u00e9lai de 2 minutes \u2014 largement suffisant pour les swing traders et traders de position. Pour les scalpers, day traders ou toute personne tradant les publications de donn\u00e9es \u00e9conomiques, le plan Pro \u00e0 \u20ac40/mois supprime tous les d\u00e9lais et livre des titres \u00e0 latence z\u00e9ro avec alertes audio du squawk box.',
+    'faq3.q':'Existe-t-il un fil d\u2019actualit\u00e9s forex gratuit\u00a0?',
+    'faq3.a':'Oui. Le plan Basique de Trading News Terminal est en permanence gratuit et inclut l\u2019acc\u00e8s au fil d\u2019actualit\u00e9s forex avec un d\u00e9lai de 2 minutes. Vous b\u00e9n\u00e9ficiez aussi de la classification d\u2019impact par IA (FORT/MOYEN/FAIBLE), de l\u2019\u00e9tiquetage des paires de devises, du calendrier \u00e9conomique en direct et de l\u2019int\u00e9gration des graphiques TradingView \u2014 le tout sans frais. Le plan Pro \u00e0 \u20ac40/mois passe \u00e0 la livraison sans d\u00e9lai et ajoute le squawk box et la TV en direct.',
+    'faq4.q':'Quelles actualit\u00e9s font bouger le march\u00e9 forex\u00a0?',
+    'faq4.a':'Les march\u00e9s forex r\u00e9agissent le plus vivement aux\u00a0: d\u00e9cisions de taux des banques centrales et orientations (Fed, BCE, Banque d\u2019Angleterre, Banque du Japon, RBA, SNB), Non-Farm Payrolls, donn\u00e9es d\u2019inflation IPC et IPP, publications du PIB, ventes au d\u00e9tail, enqu\u00eates PMI, donn\u00e9es de balance commerciale et \u00e9v\u00e9nements g\u00e9opolitiques majeurs. Trading News Terminal classe tous ces \u00e9v\u00e9nements comme \u00e0 fort impact et les livre en position prioritaire, avec alertes audio via squawk et injection instantan\u00e9e dans le calendrier \u00e9conomique.',
+    'faq5.q':'Quelle est la rapidit\u00e9 du fil d\u2019actualit\u00e9s de Trading News Terminal\u00a0?',
+    'faq5.a':'Les abonn\u00e9s Pro re\u00e7oivent les actualit\u00e9s forex avec pratiquement z\u00e9ro d\u00e9lai \u2014 les titres apparaissent g\u00e9n\u00e9ralement 3 \u00e0 10 secondes apr\u00e8s leur publication sur le fil source, selon la fr\u00e9quence de mise \u00e0 jour de la source. Pendant les \u00e9v\u00e9nements \u00e0 forte volatilit\u00e9 tels que le NFP ou les annonces du Fed, le fil reste pleinement op\u00e9rationnel. Les abonn\u00e9s Basiques voient un d\u00e9lai constant de 2 minutes quelles que soient les conditions de march\u00e9.',
+    'explore.h2':'Tout dans le Trading News Terminal',
+    'cta.h2':'Ne Ratez Plus Jamais un Titre qui Fait Bouger le March\u00e9',
+    'cta.p':'Acc\u00e9dez \u00e0 un fil d\u2019actualit\u00e9s forex en temps r\u00e9el con\u00e7u pour les traders de devises actifs \u2014 agr\u00e9g\u00e9 de centaines de sources, class\u00e9 par impact, \u00e9tiquet\u00e9 par paire. Gratuit pour commencer.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Fil d\u2019Actualit\u00e9s Forex en Temps R\u00e9el',
+    'footer.privacy':'Politique de Confidentialit\u00e9','footer.terms':'Conditions d\u2019Utilisation','footer.signin':'Se Connecter','footer.signup':'S\u2019inscrire' },
+  de:{
+    tagline:'Echtzeit-Marktintelligenz',active:'DE',try_btn:'Kostenlos Testen \u2192',trial_btn:'Kostenlose Testphase',free_btn:'Terminal \u00d6ffnen',
+    how_title:'So funktioniert es',faq_title:'H\u00e4ufige Fragen',explore_title:'Weitere Funktionen',cta_free:'Kostenlos Starten',
+    'hero.badge':'Live Forex-Nachrichten-Feed',
+    'hero.h1':'<span>Forex-Nachrichten-Feed</span> in Echtzeit f\u00fcr Aktive W\u00e4hrungsh\u00e4ndler',
+    'hero.sub':'Hunderte institutioneller Quellen. KI-klassifizierte Impact-Stufen. Verz\u00f6gerungsfreie Breaking News zu EUR/USD, GBP/USD, USD/JPY, XAU/USD und allen wichtigen W\u00e4hrungspaaren \u2014 in dem Moment, in dem sie den Wire erreichen.',
+    'hero.price_note':'Basic-Plan <strong>immer kostenlos</strong> (2-Min.-Verz\u00f6gerung) \u00b7 Pro ohne Verz\u00f6gerung f\u00fcr <strong>\u20ac40/Monat</strong>',
+    'preview.label':'Terminal-Vorschau','preview.h2':'Forex-Nachrichten-Feed \u2014 Live',
+    'demo.label':'Vorschau','demo.h2':'So sieht der Forex-Nachrichten-Feed aus',
+    'demo.intro':'Jede Schlagzeile ist mit Impact-Stufe, Uhrzeit und betroffenem W\u00e4hrungspaar getaggt \u2014 zum sofortigen Filtern und Handeln ohne jede Meldung zu lesen.',
+    'how.h2':'Vom Nachrichten-Wire zu Ihrem Bildschirm in Echtzeit',
+    'how.intro':'Der Forex-Nachrichten-Feed von Trading News Terminal basiert auf einer Multi-Quellen-RSS-Aggregations-Engine mit KI-gesteuerte Klassifizierung \u2014 entwickelt f\u00fcr maximale Geschwindigkeit und Signalklarheit.',
+    'step1.h3':'Multi-Quellen-Aggregation',
+    'step1.p':'Der Feed \u00fcberwacht kontinuierlich Hunderte institutioneller Nachrichtenquellen \u2014 darunter Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, Pressemitteilungs-Feeds der Zentralbanken und staatliche Statistik\u00e4mter. Jede Quelle wird mehrmals pro Minute auf neue Schlagzeilen gepr\u00fcft.',
+    'step2.h3':'KI-Impact-Klassifizierung',
+    'step2.p':'Jede Schlagzeile wird automatisch als HOHER, MITTLERER oder NIEDRIGER Impact eingestuft \u2014 mittels Natural Language Processing, das auf marktbewegende Ereignisse trainiert wurde. Meldungen mit hohem Impact \u2014 Zinsentscheidungen, NFP, VPI \u2014 erscheinen zuerst und l\u00f6sen zus\u00e4tzliche Alerts aus, einschlie\u00dflich Audio-Squawk in Pro-Pl\u00e4nen.',
+    'step3.h3':'Asset-Tagging und verz\u00f6gerungsfreie Lieferung',
+    'step3.p':'Jede Schlagzeile wird mit den relevanten W\u00e4hrungspaaren, Anlageklassen (FX, Aktien, Rohstoffe, Krypto) und betroffenen Volkswirtschaften getaggt. Pro-Abonnenten erhalten Schlagzeilen ohne Verz\u00f6gerung \u2014 mit der gleichen Geschwindigkeit wie institutionelle Terminals. Basic-Abonnenten sehen Nachrichten mit einer 2-Minuten-Verz\u00f6gerung.',
+    'feat.label':'Funktionen','feat.h2':'Forex-Nachrichten-Feed \u2014 Was Sie Erhalten',
+    'card1.h3':'Breaking News Ohne Verz\u00f6gerung',
+    'card1.p':'Pro-Abonnenten erhalten Schlagzeilen Sekunden nach der Ver\u00f6ffentlichung auf dem institutionellen Wire \u2014 keine k\u00fcnstlichen Verz\u00f6gerungen, keine Drosselung bei Hochvolatilit\u00e4tsereignissen.',
+    'card2.h3':'Impact-Klassifizierung',
+    'card2.p':'Jede Meldung als HOCH, MITTEL oder NIEDRIG bewertet nach marktbewegendem Potenzial. Filtern Sie Ihren Feed, um nur das Wesentliche anzuzeigen \u2014 Rauschen herausfiltern, Signal behalten.',
+    'card3.h3':'W\u00e4hrungspaar-Tagging',
+    'card3.p':'Schlagzeilen getaggt nach betroffenem Paar: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU und mehr. Konzentrieren Sie Ihren Feed auf die Paare, die Sie tats\u00e4chlich handeln.',
+    'card4.h3':'Globale Quellenabdeckung',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, Zentralbanken, Finanzministerien, Statistik\u00e4mter \u2014 Hunderte von Quellen rund um die Uhr \u00fcberwacht.',
+    'plans.label':'Planvergleich','plans.h2':'Basic vs. Pro \u2014 Forex-Nachrichten-Feed-Funktionen',
+    'th.feature':'Funktion','th.basic':'Basic (Kostenlos)','th.pro':'Pro (\u20ac40/Mo.)',
+    'row.feedaccess':'Zugang zum Forex-Nachrichten-Feed','row.yes2min':'\u2713 Ja (2-Min.-Verz\u00f6gerung)','row.yeszero':'\u2713 Ja (ohne Verz\u00f6gerung)',
+    'row.speed':'Nachrichtenliefergeschwindigkeit','row.delay2min':'2-Minuten-Verz\u00f6gerung','row.instant':'\u2713 Sofort / ohne Verz\u00f6gerung',
+    'row.aiclass':'KI-Impact-Klassifizierung (HOCH/MITTEL/NIEDRIG)','row.pairtag':'W\u00e4hrungspaar-Tagging',
+    'row.filter':'Impact-Filter (nur HOCH anzeigen)','row.squawk':'Squawk Box (Audio-Vorlesefunktion)',
+    'row.calendar':'Wirtschaftskalender mit Beat/Miss','row.tv':'Live-Finanz-TV (7 Kan\u00e4le)',
+    'row.tradingview':'TradingView-Chartintegration',
+    'faq.h2':'Forex-Nachrichten-Feed in Echtzeit \u2014 H\u00e4ufige Fragen',
+    'faq1.q':'Was ist die beste Echtzeit-Forex-Nachrichtenquelle?',
+    'faq1.a':'Die besten Echtzeit-Forex-Nachrichtenquellen aggregieren mehrere institutionelle Feeds gleichzeitig, statt sich auf eine einzelne Publikation zu verlassen. Trading News Terminal \u00fcberwacht Hunderte von Quellen, darunter Reuters, Bloomberg-Wire, ForexLive, FXStreet und offizielle Zentralbankkommunikationen \u2014 und wendet KI-Klassifizierung auf jede Schlagzeile an, um die marktrelevantesten Meldungen zuerst anzuzeigen. F\u00fcr aktive W\u00e4hrungsh\u00e4ndler bietet dieser Multi-Quellen-Ansatz eine deutlich bessere Abdeckung als jedes einzelne Nachrichtenmedium.',
+    'faq2.q':'Wie erhalte ich Live-Forex-Nachrichten?',
+    'faq2.a':'Ein kostenloses Konto bei Trading News Terminal zu erstellen dauert unter 60 Sekunden und erfordert keine Kreditkarte. Der Basic-Plan liefert den vollst\u00e4ndigen Forex-Nachrichten-Feed mit 2-Minuten-Verz\u00f6gerung \u2014 mehr als ausreichend f\u00fcr Swing-Trader und Positionsh\u00e4ndler. F\u00fcr Scalper, Day-Trader oder alle, die Wirtschaftsdatenver\u00f6ffentlichungen handeln, beseitigt der Pro-Plan f\u00fcr \u20ac40/Monat alle Verz\u00f6gerungen und liefert Schlagzeilen mit Nulllatenz sowie Audio-Alerts \u00fcber die Squawk Box.',
+    'faq3.q':'Gibt es einen kostenlosen Forex-Nachrichten-Feed?',
+    'faq3.a':'Ja. Der Basic-Plan von Trading News Terminal ist dauerhaft kostenlos und beinhaltet Zugang zum Forex-Nachrichten-Feed mit 2-Minuten-Verz\u00f6gerung. Sie erhalten auch KI-Impact-Klassifizierung (HOCH/MITTEL/NIEDRIG), W\u00e4hrungspaar-Tagging, den Live-Wirtschaftskalender und TradingView-Chartintegration \u2014 alles kostenfrei. Der Pro-Plan f\u00fcr \u20ac40/Monat aktualisiert auf verz\u00f6gerungsfreie Lieferung und erg\u00e4nzt die Squawk Box und Live-TV.',
+    'faq4.q':'Welche Nachrichten bewegen den Forex-Markt?',
+    'faq4.a':'Forex-M\u00e4rkte reagieren am st\u00e4rksten auf: Zinsentscheidungen der Zentralbanken und Leitlinien (Fed, EZB, Bank of England, Bank of Japan, RBA, SNB), Non-Farm Payrolls, VPI- und PPI-Inflationsdaten, BIP-Ver\u00f6ffentlichungen, Einzelhandelsumsatzdaten, PMI-Umfragen, Handelsbilanzd-aten und gro\u00dfe geopolitische Ereignisse. Trading News Terminal klassifiziert all diese als Ereignisse mit hohem Impact und liefert sie mit Priorit\u00e4tsplatzierung, Audio-Alerts \u00fcber Squawk und sofortiger Aufnahme in den Wirtschaftskalender.',
+    'faq5.q':'Wie schnell ist der Nachrichten-Feed von Trading News Terminal?',
+    'faq5.a':'Pro-Abonnenten erhalten Forex-Nachrichten mit effektiv null Verz\u00f6gerung \u2014 Schlagzeilen erscheinen typischerweise 3\u201310 Sekunden nach Ver\u00f6ffentlichung auf dem Quell-Wire, abh\u00e4ngig von der Aktualisierungsh\u00e4ufigkeit der Quelle. Bei Hochvolatilit\u00e4tsereignissen wie NFP oder Fed-Ankuendigungen bleibt der Feed vollst\u00e4ndig betriebsbereit. Basic-Abonnenten sehen eine konstante 2-Minuten-Verz\u00f6gerung unabh\u00e4ngig von den Marktbedingungen.',
+    'explore.h2':'Alles im Trading News Terminal',
+    'cta.h2':'Verpassen Sie Nie Wieder eine Marktbewegende Schlagzeile',
+    'cta.p':'Nutzen Sie einen Forex-Nachrichten-Feed in Echtzeit f\u00fcr aktive W\u00e4hrungsh\u00e4ndler \u2014 aus Hunderten von Quellen aggregiert, nach Impact klassifiziert, nach Paar getaggt. Kostenlos starten.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Forex-Nachrichten-Feed in Echtzeit',
+    'footer.privacy':'Datenschutzrichtlinie','footer.terms':'Nutzungsbedingungen','footer.signin':'Anmelden','footer.signup':'Registrieren' },
+  it:{
+    tagline:'Intelligenza di Mercato in Tempo Reale',active:'IT',try_btn:'Prova Gratuita \u2192',trial_btn:'Inizia la Prova Gratuita',free_btn:'Apri il Terminal',
+    how_title:'Come funziona',faq_title:'Domande Frequenti',explore_title:'Esplora Funzionalit\u00e0',cta_free:'Inizia Gratis',
+    'hero.badge':'Feed Notizie Forex in Diretta',
+    'hero.h1':'<span>Feed Notizie Forex</span> in Tempo Reale per Trader Attivi',
+    'hero.sub':'Centinaia di fonti istituzionali. Livelli di impatto classificati dall\u2019IA. Titoli urgenti senza ritardo su EUR/USD, GBP/USD, USD/JPY, XAU/USD e tutte le principali coppie di valute \u2014 nel momento in cui arrivano sul wire.',
+    'hero.price_note':'Piano Base <strong>sempre gratuito</strong> (ritardo 2 min) \u00b7 Pro senza ritardo a <strong>\u20ac40/mese</strong>',
+    'preview.label':'Anteprima del Terminal','preview.h2':'Feed Notizie Forex \u2014 In Diretta',
+    'demo.label':'Anteprima','demo.h2':'Come appare il Feed Notizie Forex',
+    'demo.intro':'Ogni titolo \u00e8 taggato con livello di impatto, orario e coppia di valute interessata \u2014 per filtrare e agire istantaneamente senza leggere ogni notizia.',
+    'how.h2':'Dal Wire di Notizie al Tuo Schermo in Tempo Reale',
+    'how.intro':'Il feed notizie forex di Trading News Terminal si basa su un motore di aggregazione RSS multi-fonte con classificazione potenziata dall\u2019IA \u2014 progettato appositamente per velocit\u00e0 e chiarezza del segnale.',
+    'step1.h3':'Aggregazione multi-fonte',
+    'step1.p':'Il feed monitora continuamente centinaia di fonti istituzionali \u2014 tra cui Reuters, Bloomberg, ForexLive, FXStreet, Investing.com, feed di comunicati delle banche centrali e agenzie statistiche governative. Ogni fonte viene verificata pi\u00f9 volte al minuto per nuovi titoli.',
+    'step2.h3':'Classificazione impatto AI',
+    'step2.p':'Ogni titolo viene automaticamente classificato come impatto ALTO, MEDIO o BASSO tramite elaborazione del linguaggio naturale addestrata su eventi che muovono il mercato. Le notizie ad alto impatto \u2014 decisioni sui tassi, NFP, IPC \u2014 appaiono per prime e attivano avvisi aggiuntivi incluso lo squawk audio nei piani Pro.',
+    'step3.h3':'Tagging asset e consegna senza ritardo',
+    'step3.p':'Ogni titolo \u00e8 taggato con le coppie di valute rilevanti, classi di asset (FX, azioni, materie prime, crypto) e economie interessate. Gli abbonati Pro ricevono i titoli senza ritardo \u2014 alla stessa velocit\u00e0 dei terminal istituzionali. Gli abbonati Base vedono le notizie con un ritardo di 2 minuti.',
+    'feat.label':'Funzionalit\u00e0','feat.h2':'Feed Notizie Forex \u2014 Cosa Ottieni',
+    'card1.h3':'Notizie Urgenti Senza Ritardo',
+    'card1.p':'Gli abbonati Pro ricevono i titoli in pochi secondi dalla pubblicazione sul wire istituzionale \u2014 nessun ritardo artificiale, nessuna limitazione durante eventi ad alta volatilit\u00e0.',
+    'card2.h3':'Classificazione Impatto',
+    'card2.p':'Ogni notizia valutata come ALTO, MEDIO o BASSO in base al potenziale di muovere il mercato. Filtra il tuo feed per mostrare solo ci\u00f2 che conta \u2014 elimina il rumore, mantieni il segnale.',
+    'card3.h3':'Tagging Coppie di Valute',
+    'card3.p':'Titoli taggati per coppia interessata: EUR, USD, GBP, JPY, AUD, CAD, CHF, NZD, XAU e altro. Concentra il tuo feed sulle coppie che realmente negozi.',
+    'card4.h3':'Copertura Globale delle Fonti',
+    'card4.p':'Reuters, Bloomberg, ForexLive, FXStreet, banche centrali, ministeri del tesoro, agenzie statistiche \u2014 centinaia di fonti monitorate 24 ore su 24.',
+    'plans.label':'Confronto Piani','plans.h2':'Base vs Pro \u2014 Funzionalit\u00e0 Feed Notizie Forex',
+    'th.feature':'Funzionalit\u00e0','th.basic':'Base (Gratis)','th.pro':'Pro (\u20ac40/mese)',
+    'row.feedaccess':'Accesso al feed notizie forex','row.yes2min':'\u2713 S\u00ec (ritardo 2 min)','row.yeszero':'\u2713 S\u00ec (senza ritardo)',
+    'row.speed':'Velocit\u00e0 di consegna notizie','row.delay2min':'Ritardo di 2 minuti','row.instant':'\u2713 Istantaneo / senza ritardo',
+    'row.aiclass':'Classificazione impatto AI (ALTO/MED/BASSO)','row.pairtag':'Tagging coppie di valute',
+    'row.filter':'Filtro impatto (mostra solo ALTO)','row.squawk':'Squawk box (lettura audio ad alta voce)',
+    'row.calendar':'Calendario economico con beat/miss','row.tv':'TV finanziaria in diretta (7 canali)',
+    'row.tradingview':'Integrazione grafici TradingView',
+    'faq.h2':'Feed Notizie Forex in Tempo Reale \u2014 Domande Frequenti',
+    'faq1.q':'Qual \u00e8 la migliore fonte di notizie forex in tempo reale?',
+    'faq1.a':'Le migliori fonti di notizie forex in tempo reale aggregano pi\u00f9 feed istituzionali contemporaneamente piuttosto che fare affidamento su una singola pubblicazione. Trading News Terminal monitora centinaia di fonti tra cui Reuters, wire Bloomberg, ForexLive, FXStreet e comunicazioni ufficiali delle banche centrali \u2014 applicando classificazione AI a ogni titolo per mettere in evidenza le notizie pi\u00f9 rilevanti per il mercato. Per i trader di valute attivi, questo approccio multi-fonte offre una copertura significativamente migliore rispetto a qualsiasi singolo organo di stampa.',
+    'faq2.q':'Come ottengo notizie forex in tempo reale?',
+    'faq2.a':'Creare un account gratuito su Trading News Terminal richiede meno di 60 secondi e non richiede carta di credito. Il piano Base fornisce il feed completo di notizie forex con un ritardo di 2 minuti \u2014 pi\u00f9 che sufficiente per swing trader e trader di posizione. Per scalper, day trader o chiunque operi su pubblicazioni di dati economici, il piano Pro a \u20ac40/mese elimina tutti i ritardi e consegna titoli a latenza zero con avvisi audio dello squawk box.',
+    'faq3.q':'Esiste un feed di notizie forex gratuito?',
+    'faq3.a':'S\u00ec. Il piano Base di Trading News Terminal \u00e8 sempre gratuito e include l\u2019accesso al feed notizie forex con un ritardo di 2 minuti. Ottieni anche la classificazione impatto AI (ALTO/MEDIO/BASSO), il tagging delle coppie di valute, il calendario economico in diretta e l\u2019integrazione dei grafici TradingView \u2014 tutto senza costi. Il piano Pro a \u20ac40/mese aggiorna alla consegna senza ritardo e aggiunge lo squawk box e la TV in diretta.',
+    'faq4.q':'Quali notizie muovono il mercato forex?',
+    'faq4.a':'I mercati forex reagiscono pi\u00f9 bruscamente a: decisioni sui tassi delle banche centrali e orientamenti futuri (Fed, BCE, Banca d\u2019Inghilterra, Banca del Giappone, RBA, SNB), Non-Farm Payrolls, dati di inflazione IPC e IPP, pubblicazioni del PIL, vendite al dettaglio, sondaggi PMI, dati sulla bilancia commerciale e grandi eventi geopolitici. Trading News Terminal classifica tutti questi come eventi ad alto impatto e li consegna con posizionamento prioritario, avvisi audio via squawk e iniezione immediata nel calendario economico.',
+    'faq5.q':'Quanto \u00e8 veloce il feed notizie di Trading News Terminal?',
+    'faq5.a':'Gli abbonati Pro ricevono notizie forex con ritardo praticamente zero \u2014 i titoli appaiono tipicamente entro 3-10 secondi dalla pubblicazione sul wire della fonte, a seconda della frequenza di aggiornamento della fonte. Durante eventi ad alta volatilit\u00e0 come NFP o annunci del Fed, il feed rimane pienamente operativo. Gli abbonati Base vedono un ritardo costante di 2 minuti indipendentemente dalle condizioni di mercato.',
+    'explore.h2':'Tutto nel Trading News Terminal',
+    'cta.h2':'Non Perdere Mai Pi\u00f9 un Titolo che Muove il Mercato',
+    'cta.p':'Ottieni un feed notizie forex in tempo reale costruito per trader di valute attivi \u2014 aggregato da centinaia di fonti, classificato per impatto, taggato per coppia. Gratuito per iniziare.',
+    'footer.copy':'\u00a9 2026 Trading News Terminal \u00b7 Feed Notizie Forex in Tempo Reale',
+    'footer.privacy':'Informativa sulla Privacy','footer.terms':'Termini di Servizio','footer.signin':'Accedi','footer.signup':'Registrati' } }; function _applyLang(l){
+  var t=_tnt[l]||_tnt.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-html');
+    if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+  var flags={en:'1f1ec-1f1e7',pt:'1f1f5-1f1f9',es:'1f1ea-1f1f8',fr:'1f1eb-1f1f7',de:'1f1e9-1f1ea',it:'1f1ee-1f1f9'};
+  var btn=document.querySelector('#langPicker>button');
+  if(btn)btn.innerHTML='<img src="https://twemoji.maxcdn.com/v/latest/svg/'+flags[l]+'.svg" width="16" height="16" style="vertical-align:middle;"> '+t['active'];
+  document.querySelectorAll('#langMenu a').forEach(function(a){
+    a.style.color=a.getAttribute('data-lang')===l?'#00d4ff':'#8899aa';
+    a.style.background=a.getAttribute('data-lang')===l?'rgba(0,212,255,0.08)':'';
+  });
+  try{history.replaceState(null,'',location.pathname+'?lang='+l);}catch(e){}
+  localStorage.setItem('tnt_lang',l);
+}
+function setLang(l){document.getElementById('langMenu').style.display='none';_applyLang(l);}
+(function(){
+  var p=new URLSearchParams(location.search).get('lang')||localStorage.getItem('tnt_lang')||'en';
+  if(p!=='en')_applyLang(p);
+})();
+// ── SEO Tracking ─────────────────────────────────────────────────────────────
+(function(){
+  var BE='https://trading-news-terminal-backend-production.up.railway.app', PAGE='forex-news-feed';
+  // Visit
+  fetch(BE+'/admin/track/seo?event=visit&page='+PAGE,{method:'POST'}).catch(function(){});
+  // Click tracking on all data-seo-track CTAs
+  document.querySelectorAll('[data-seo-track]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var href=el.getAttribute('href')||'';
+      var pos='';
+      var m=href.match(/utm_content=([^&]+)/);
+      if(m)pos=m[1];
+      fetch(BE+'/admin/track/seo?event=click&page='+PAGE+'&position='+pos,{method:'POST'}).catch(function(){});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

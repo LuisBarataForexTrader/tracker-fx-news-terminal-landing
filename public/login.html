@@ -8,6 +8,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0c0f">
 <meta name="robots" content="noindex">
@@ -758,6 +760,17 @@ const APP_URL = 'https://app.tradingnewsterminal.com';
 
 let _lastUnverifiedEmail = '';
 
+// ── AFFILIATE REF TRACKING ───────────────────────────────────────────────────
+(function() {
+  var _p = new URLSearchParams(location.search);
+  var _ref = (_p.get('ref') || '').toUpperCase();
+  if (_ref) {
+    var _exp = new Date(); _exp.setDate(_exp.getDate() + 30);
+    document.cookie = 'aff_ref=' + _ref + ';expires=' + _exp.toUTCString() + ';path=/;SameSite=Lax';
+    localStorage.setItem('aff_ref', _ref);
+  }
+})();
+
 // ── PRO FLOW DETECTION ──────────────────────────────────────────────────────
 const _params = new URLSearchParams(location.search);
 const PRO_FROM_URL   = _params.get('plan') === 'pro';
@@ -841,10 +854,13 @@ async function _redirectToCheckout(token) {
   showMsg(_tl('msg.checkout.redirecting'), 'success');
   try {
     const isTrial = TRIAL_FROM_URL || localStorage.getItem('pendingTrial') === '1';
+    const affRef = localStorage.getItem('aff_ref') || '';
+    const checkoutBody = isTrial ? { trial: true } : {};
+    if (affRef && !isTrial) checkoutBody.aff_ref = affRef;
     const r = await fetch(BACKEND + '/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify(isTrial ? { trial: true } : {})
+      body: JSON.stringify(checkoutBody)
     });
     const data = await r.json();
     if (r.ok && data.url) {
