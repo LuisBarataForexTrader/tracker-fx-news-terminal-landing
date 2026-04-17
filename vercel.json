@@ -9,7 +9,10 @@
     { "source": "/privacy.html",        "destination": "/privacy",        "permanent": true },
     { "source": "/reset-password.html", "destination": "/reset-password", "permanent": true },
     { "source": "/verify-email.html",   "destination": "/verify-email",   "permanent": true },
-    { "source": "/admin.html",          "destination": "/admin",          "permanent": true }
+    { "source": "/admin.html",          "destination": "/admin",          "permanent": true },
+    { "source": "/affiliates.html",     "destination": "/affiliates",     "permanent": true },
+    { "source": "/afiliates",           "destination": "/affiliates",     "permanent": true },
+    { "source": "/afiliates.html",      "destination": "/affiliates",     "permanent": true }
   ],
   "rewrites": [
     { "source": "/login",          "destination": "/login.html" },
@@ -19,7 +22,19 @@
     { "source": "/privacy",        "destination": "/privacy.html" },
     { "source": "/reset-password", "destination": "/reset-password.html" },
     { "source": "/verify-email",   "destination": "/verify-email.html" },
-    { "source": "/admin",          "destination": "/admin.html" }
+    { "source": "/admin",          "destination": "/admin.html" },
+    { "source": "/bloomberg-alternative",  "destination": "/bloomberg-alternative.html" },
+    { "source": "/forex-news-feed",        "destination": "/forex-news-feed.html" },
+    { "source": "/economic-calendar",      "destination": "/economic-calendar.html" },
+    { "source": "/squawk-box",             "destination": "/squawk-box.html" },
+    { "source": "/live-financial-tv",      "destination": "/live-financial-tv.html" },
+    { "source": "/market-screener",        "destination": "/market-screener.html" },
+    { "source": "/central-banks-tracker",  "destination": "/central-banks-tracker.html" },
+    { "source": "/macro-bonds-hub",        "destination": "/macro-bonds-hub.html" },
+    { "source": "/earnings-calendar",      "destination": "/earnings-calendar.html" },
+    { "source": "/trading-charts",         "destination": "/trading-charts.html" },
+    { "source": "/affiliates",            "destination": "/affiliates.html" },
+    { "source": "/news-example",          "destination": "/news-example.html" }
   ],
   "headers": [
     {
