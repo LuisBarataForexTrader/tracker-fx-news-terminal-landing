@@ -3,3 +3,4 @@ Allow: /
 Disallow: /admin.html
 
 Sitemap: https://www.tradingnewsterminal.com/sitemap.xml
+Sitemap: https://www.tradingnewsterminal.com/sitemap-news.xml

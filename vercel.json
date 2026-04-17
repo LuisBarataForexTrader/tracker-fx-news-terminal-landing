@@ -34,7 +34,15 @@
     { "source": "/earnings-calendar",      "destination": "/earnings-calendar.html" },
     { "source": "/trading-charts",         "destination": "/trading-charts.html" },
     { "source": "/affiliates",            "destination": "/affiliates.html" },
-    { "source": "/news-example",          "destination": "/news-example.html" }
+    { "source": "/news-example",          "destination": "/news-example.html" },
+    {
+      "source": "/news/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/news/:year/:month/:day/:slug"
+    },
+    {
+      "source": "/sitemap-news.xml",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/sitemap-news.xml"
+    }
   ],
   "headers": [
     {
