@@ -651,7 +651,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 /* ── PHOTO SECTION ── */
 .photo-strip { position:relative; height:320px; overflow:hidden; }
 .photo-strip img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:brightness(0.55) saturate(0.9); }
-.photo-strip-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(10,12,15,0.55) 0%, rgba(10,12,15,0.1) 40%, rgba(10,12,15,0.1) 60%, rgba(10,12,15,0.7) 100%); }
+.photo-strip-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(10,12,15,0.85) 0%, rgba(10,12,15,0.65) 40%, rgba(10,12,15,0.65) 60%, rgba(10,12,15,0.9) 100%); }
 .photo-strip-content { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; text-align:center; padding:24px; }
 .photo-strip-content h3 { font-size:clamp(22px,3vw,36px); font-weight:800; text-shadow:0 2px 12px rgba(0,0,0,0.8); }
 .photo-strip-content p { font-size:15px; color:var(--text-dim); max-width:500px; line-height:1.6; text-shadow:0 1px 6px rgba(0,0,0,0.8); }
@@ -1055,7 +1055,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
       <div class="feature-card" role="listitem">
         <div class="feature-icon" aria-hidden="true" style="background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.25);">📲</div>
         <h3 class="feature-title" data-i18n="fc15.title">Telegram Mobile Alerts</h3>
-        <p class="feature-desc" data-i18n="fc15.desc">Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Connect in seconds, choose which assets to follow (EUR, USD, GOLD, OIL…) and set a daily limit to avoid notification fatigue. Never miss a market-moving headline again.</p>
+        <p class="feature-desc" data-i18n="fc15.desc">Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Pro users receive alerts in real-time with a choice of up to 100 per day. Basic users get the same alerts with a short delay. Never miss a market-moving headline again.</p>
         <span class="feature-tag tag-pro" data-i18n="tag.pro_only">Pro Only</span>
       </div>
     </div>
@@ -1726,7 +1726,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p3">Central Banks Tracker · Sentiment</li>
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
-          <li data-i18n="cta.p6">Telegram mobile alerts · Asset filters</li>
+          <li data-i18n="cta.p6">Telegram mobile alerts · Up to 100/day</li>
         </ul>
         <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
@@ -1854,6 +1854,7 @@ const _LS = {
     'hero.trust1':'Free account in 30 seconds','hero.trust2':'No credit card required',
     'hero.trust3':'Economic calendar with live releases','hero.trust4':'TradingView charts included',
     'hero.trust5':'Live squawk on Pro',
+    'hero.telegram':'Join our free Telegram channel — breaking news on your phone',
     'ticker.realtime':'Real-Time Zero-Delay News Feed','ticker.squawk':'Live Squawk Box','ticker.telegram':'Telegram Mobile Alerts',
     'ticker.sentiment':'Market Sentiment Analysis','ticker.tv':'7 Live Financial TV Channels',
     'ticker.centralbanks':'Central Banks Tracker','ticker.earnings':'Earnings Calendar',
@@ -1961,7 +1962,7 @@ const _LS = {
     'fc14.title':'AI News Analysis',
     'fc14.desc':'One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.',
     'fc15.title':'Telegram Mobile Alerts',
-    'fc15.desc':'Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Connect in seconds, choose which assets to follow (EUR, USD, GOLD, OIL…) and set a daily limit to avoid notification fatigue. Never miss a market-moving headline again.',
+    'fc15.desc':'Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Pro users receive alerts in real-time with a choice of up to 100 per day. Basic users get the same alerts with a short delay. Never miss a market-moving headline again.',
     'ai.eyebrow':'AI News Analysis',
     'ai.h2':'Reads the article.<br>Tells you what moves.',
     'ai.sub':'Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.',
@@ -2033,7 +2034,7 @@ const _LS = {
     'cta.p3':'Central Banks Tracker · Sentiment',
     'cta.p4':'Market Screener — 6 asset classes',
     'cta.p5':'Live Squawk · 7 TV channels · Ad-free',
-    'cta.p6':'Telegram mobile alerts · Asset filters',
+    'cta.p6':'Telegram mobile alerts · Up to 100/day',
     'cta.note':'Works in Chrome, Firefox, Safari, Edge · No installation required',
     'footer.brand_tagline':'Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.',
     'footer.col_product':'Product','footer.open_terminal':'Open Terminal',
@@ -2070,6 +2071,7 @@ const _LS = {
     'hero.trust1':'Conta grátis em 30 segundos','hero.trust2':'Sem cartão de crédito',
     'hero.trust3':'Calendário económico com releases ao vivo','hero.trust4':'Gráficos TradingView incluídos',
     'hero.trust5':'Squawk ao vivo no Pro',
+    'hero.telegram':'Junta-te ao nosso canal Telegram grátis — notícias a quebrar no teu telemóvel',
     'ticker.realtime':'Feed de Notícias em Tempo Real','ticker.squawk':'Squawk Box Ao Vivo','ticker.telegram':'Alertas Telegram no Telemóvel',
     'ticker.sentiment':'Análise de Sentimento de Mercado','ticker.tv':'7 Canais de TV Financeira',
     'ticker.centralbanks':'Tracker de Bancos Centrais','ticker.earnings':'Calendário de Resultados',
@@ -2177,7 +2179,7 @@ const _LS = {
     'fc14.title':'Análise AI de Notícias',
     'fc14.desc':'Um clique em qualquer notícia desencadeia uma análise completa por IA: lê o artigo completo, identifica quais os ativos afetados (bullish / bearish / neutro), avalia o nível de confiança e assinala os níveis de preço a observar. Feito para ser rápido — resultados em menos de 5 segundos.',
     'fc15.title':'Alertas Telegram no Telemóvel',
-    'fc15.desc':'Recebe alertas de notícias de impacto ALTO diretamente no teu telemóvel via Telegram — mesmo quando o terminal está fechado. Liga em segundos, escolhe quais os ativos a seguir (EUR, USD, GOLD, OIL…) e define um limite diário para evitar excesso de notificações.',
+    'fc15.desc':'Recebe alertas de notícias de impacto ALTO diretamente no teu telemóvel via Telegram — mesmo quando o terminal está fechado. Utilizadores Pro recebem alertas em tempo real com escolha até 100 por dia. Utilizadores Basic recebem os mesmos alertas com um pequeno atraso. Nunca percas uma notícia que move os mercados.',
     'ai.eyebrow':'Análise AI de Notícias',
     'ai.h2':'Lê o artigo.<br>Diz-te o que move.',
     'ai.sub':'Clica ✦ AI em qualquer notícia e obtém uma análise estruturada completa em menos de 5 segundos — impacto por ativo, nível de confiança e níveis de preço a observar.',
@@ -2286,6 +2288,7 @@ const _LS = {
     'hero.trust1':'Cuenta gratis en 30 segundos','hero.trust2':'Sin tarjeta de crédito',
     'hero.trust3':'Calendario económico con publicaciones en vivo','hero.trust4':'Gráficos TradingView incluidos',
     'hero.trust5':'Squawk en vivo en Pro',
+    'hero.telegram':'Únete a nuestro canal de Telegram gratuito — noticias de última hora en tu móvil',
     'ticker.realtime':'Feed de Noticias en Tiempo Real','ticker.squawk':'Squawk Box en Vivo','ticker.telegram':'Alertas Telegram en Móvil',
     'ticker.sentiment':'Análisis de Sentimiento de Mercado','ticker.tv':'7 Canales de TV Financiera',
     'ticker.centralbanks':'Tracker de Bancos Centrales','ticker.earnings':'Calendario de Resultados',
@@ -2388,7 +2391,7 @@ const _LS = {
     'sfc3.desc':'Filtra por sector, capitalización, señal, RSI, P/E, beta y más. Las acciones tienen 4 vistas: General, Rendimiento, Valoración y Dividendos. Todas las columnas son ordenables.',
     'fc14.title':'Análisis AI de Noticias',
     'fc15.title':'Alertas Telegram en Móvil',
-    'fc15.desc':'Recibe alertas de noticias de alto impacto directamente en tu móvil vía Telegram — incluso con el terminal cerrado. Conéctate en segundos, elige los activos a seguir (EUR, USD, GOLD, OIL…) y establece un límite diario para evitar el exceso de notificaciones.',
+    'fc15.desc':'Recibe alertas de noticias de alto impacto directamente en tu móvil vía Telegram — incluso con el terminal cerrado. Los usuarios Pro reciben alertas en tiempo real con hasta 100 por día a elegir. Los usuarios Basic reciben las mismas alertas con un breve retraso. Nunca pierdas una noticia que mueva los mercados.',
     'fc14.desc':'Un clic en cualquier titular activa un análisis completo de IA: lee el artículo completo, identifica los activos afectados (alcista / bajista / neutral), evalúa el nivel de confianza y señala los niveles de precio a vigilar. Resultados en menos de 5 segundos.',
     'ai.eyebrow':'Análisis AI de Noticias',
     'ai.h2':'Lee el artículo.<br>Te dice qué mueve.',
@@ -2489,6 +2492,7 @@ const _LS = {
     'hero.trust1':'Compte gratuit en 30 secondes','hero.trust2':'Sans carte de crédit',
     'hero.trust3':'Calendrier économique avec publications en direct','hero.trust4':'Graphiques TradingView inclus',
     'hero.trust5':'Squawk en direct sur Pro',
+    'hero.telegram':'Rejoignez notre canal Telegram gratuit — actualités en direct sur votre téléphone',
     'ticker.realtime':'Flux d\'Actualités en Temps Réel','ticker.squawk':'Squawk Box en Direct','ticker.telegram':'Alertes Telegram sur Mobile',
     'ticker.sentiment':'Analyse du Sentiment de Marché','ticker.tv':'7 Chaînes TV Financières',
     'ticker.centralbanks':'Suivi des Banques Centrales','ticker.earnings':'Calendrier des Résultats',
@@ -2591,7 +2595,7 @@ const _LS = {
     'sfc3.desc':'Filtrez par secteur, capitalisation, signal, RSI, P/E, beta et plus. Les actions offrent 4 vues : Aperçu, Performance, Valorisation et Dividendes. Chaque colonne est triable.',
     'fc14.title':'Analyse AI des Actualités',
     'fc15.title':'Alertes Telegram sur Mobile',
-    'fc15.desc':'Recevez des alertes d\'actualités à fort impact directement sur votre téléphone via Telegram — même lorsque le terminal est fermé. Connectez-vous en quelques secondes, choisissez les actifs à suivre (EUR, USD, GOLD, OIL…) et définissez une limite quotidienne pour éviter la surcharge de notifications.',
+    'fc15.desc':'Recevez des alertes d\'actualités à fort impact directement sur votre téléphone via Telegram — même lorsque le terminal est fermé. Les utilisateurs Pro reçoivent les alertes en temps réel avec un choix jusqu\'à 100 par jour. Les utilisateurs Basic reçoivent les mêmes alertes avec un léger délai. Ne manquez jamais une actualité qui fait bouger les marchés.',
     'fc14.desc':'Un clic sur n\'importe quel titre déclenche une analyse IA complète : lit l\'article complet, identifie les actifs affectés (haussier / baissier / neutre), évalue le niveau de confiance et signale les niveaux de prix à surveiller. Résultats en moins de 5 secondes.',
     'ai.eyebrow':'Analyse AI des Actualités',
     'ai.h2':'Lit l\'article.<br>Vous dit ce qui bouge.',
@@ -2692,6 +2696,7 @@ const _LS = {
     'hero.trust1':'Kostenloses Konto in 30 Sekunden','hero.trust2':'Keine Kreditkarte erforderlich',
     'hero.trust3':'Wirtschaftskalender mit Live-Veröffentlichungen','hero.trust4':'TradingView-Charts inklusive',
     'hero.trust5':'Live-Squawk auf Pro',
+    'hero.telegram':'Abonniere unseren kostenlosen Telegram-Kanal — Eilmeldungen auf deinem Handy',
     'ticker.realtime':'Echtzeit-Nachrichtenfeed ohne Verzögerung','ticker.squawk':'Live-Squawk-Box','ticker.telegram':'Telegram-Mobilbenachrichtigungen',
     'ticker.sentiment':'Marktsentiment-Analyse','ticker.tv':'7 Live-Finanz-TV-Kanäle',
     'ticker.centralbanks':'Zentralbank-Tracker','ticker.earnings':'Ergebniskalender',
@@ -2794,7 +2799,7 @@ const _LS = {
     'sfc3.desc':'Filtere nach Sektor, Marktkapitalisierung, Signal, RSI, KGV, Beta und mehr. Aktien bieten 4 Ansichten: Übersicht, Performance, Bewertung und Dividenden. Alle Spalten sortierbar.',
     'fc14.title':'KI-Nachrichtenanalyse',
     'fc15.title':'Telegram-Mobilbenachrichtigungen',
-    'fc15.desc':'Erhalten Sie sofortige Nachrichten mit HOHER Auswirkung direkt auf Ihr Handy über Telegram — auch wenn das Terminal geschlossen ist. Verbinden Sie sich in Sekunden, wählen Sie die zu verfolgenden Assets (EUR, USD, GOLD, ÖL…) und legen Sie ein tägliches Limit fest.',
+    'fc15.desc':'Erhalten Sie sofortige Nachrichten mit HOHER Auswirkung direkt auf Ihr Handy über Telegram — auch wenn das Terminal geschlossen ist. Pro-Nutzer erhalten Benachrichtigungen in Echtzeit mit bis zu 100 pro Tag. Basic-Nutzer erhalten dieselben Benachrichtigungen mit kurzer Verzögerung. Verpassen Sie nie wieder eine marktbewegende Nachricht.',
     'fc14.desc':'Ein Klick auf eine Schlagzeile startet eine vollständige KI-Analyse: liest den kompletten Artikel, identifiziert betroffene Assets (bullish / bearish / neutral), bewertet das Konfidenzniveau und markiert wichtige Preisniveaus. Ergebnisse in unter 5 Sekunden.',
     'ai.eyebrow':'KI-Nachrichtenanalyse',
     'ai.h2':'Liest den Artikel.<br>Sagt was sich bewegt.',
@@ -2895,6 +2900,7 @@ const _LS = {
     'hero.trust1':'Account gratuito in 30 secondi','hero.trust2':'Nessuna carta di credito richiesta',
     'hero.trust3':'Calendario economico con pubblicazioni in diretta','hero.trust4':'Grafici TradingView inclusi',
     'hero.trust5':'Squawk in diretta su Pro',
+    'hero.telegram':'Unisciti al nostro canale Telegram gratuito — ultime notizie sul tuo telefono',
     'ticker.realtime':'Feed di Notizie in Tempo Reale','ticker.squawk':'Squawk Box in Diretta','ticker.telegram':'Avvisi Telegram su Mobile',
     'ticker.sentiment':'Analisi del Sentiment di Mercato','ticker.tv':'7 Canali TV Finanziaria',
     'ticker.centralbanks':'Tracker Banche Centrali','ticker.earnings':'Calendario Utili',
@@ -2997,7 +3003,7 @@ const _LS = {
     'sfc3.desc':'Filtra per settore, capitalizzazione, segnale, RSI, P/E, beta e altro. Le azioni offrono 4 viste: Panoramica, Performance, Valutazione e Dividendi. Ogni colonna è ordinabile.',
     'fc14.title':'Analisi AI delle Notizie',
     'fc15.title':'Avvisi Telegram su Mobile',
-    'fc15.desc':'Ricevi avvisi di notizie ad ALTO impatto direttamente sul tuo telefono via Telegram — anche quando il terminale è chiuso. Collegati in pochi secondi, scegli gli asset da seguire (EUR, USD, GOLD, OIL…) e imposta un limite giornaliero per evitare il sovraccarico di notifiche.',
+    'fc15.desc':'Ricevi avvisi di notizie ad ALTO impatto direttamente sul tuo telefono via Telegram — anche quando il terminale è chiuso. Gli utenti Pro ricevono avvisi in tempo reale fino a 100 al giorno. Gli utenti Basic ricevono gli stessi avvisi con un breve ritardo. Non perdere mai una notizia che muove i mercati.',
     'fc14.desc':'Un clic su qualsiasi titolo avvia un\'analisi AI completa: legge l\'articolo completo, identifica gli asset interessati (rialzista / ribassista / neutro), valuta il livello di confidenza e segnala i livelli di prezzo chiave. Risultati in meno di 5 secondi.',
     'ai.eyebrow':'Analisi AI delle Notizie',
     'ai.h2':'Legge l\'articolo.<br>Ti dice cosa si muove.',
