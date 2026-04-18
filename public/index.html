@@ -850,10 +850,12 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   </div>
 
   <!-- Telegram channel CTA — equal top/bottom spacing, squared corners.
-       Always-visible orientation below explains how logged-in users get
-       faster alerts via the app. -->
+       Smart routing: mobile gets the native-app deep-link (t.me/...)
+       which auto-opens the app, desktop gets Telegram Web directly
+       (which lets users subscribe without installing anything). -->
   <div style="margin:40px auto 16px;display:flex;justify-content:center;position:relative;z-index:5;">
-    <a href="https://t.me/s/tradingnewsterminal" target="_blank" rel="noopener"
+    <a href="https://t.me/tradingnewsterminal" target="_blank" rel="noopener"
+       onclick="var ua=navigator.userAgent||'';if(!/Android|iPhone|iPad|iPod|Mobile/i.test(ua)){this.href='https://web.telegram.org/k/#@tradingnewsterminal';}"
        style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#0088cc;border:2px solid #0088cc;border-radius:4px;color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.01em;text-decoration:none;box-shadow:0 6px 20px rgba(0,136,204,0.35);transition:transform .12s ease, box-shadow .12s ease;cursor:pointer;"
        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 10px 24px rgba(0,136,204,0.55)'"
        onmouseout="this.style.transform='none';this.style.boxShadow='0 6px 20px rgba(0,136,204,0.35)'"
