@@ -841,7 +841,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
 
   <!-- Trust marks first (compact), Telegram CTA below — avoids the CTA
        crowding the checkmarks and gives the Telegram pill its own air -->
-  <div class="hero-trust" style="margin-top:22px;margin-bottom:20px;">
+  <div class="hero-trust" style="margin-top:22px;margin-bottom:0;">
     <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust1">Free account in 30 seconds</span></div>
     <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust2">No credit card required</span></div>
     <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust3">Economic calendar with live releases</span></div>
@@ -849,12 +849,13 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <div class="hero-trust-item"><span class="check">✓</span> <span data-i18n="hero.trust5">Live squawk on Pro</span></div>
   </div>
 
-  <!-- Telegram channel CTA — placed at higher z-index so it sits above the
-       mockup element and stays fully clickable; solid background for
-       readability instead of transparency. -->
-  <div style="margin:0 auto 48px;display:flex;justify-content:center;position:relative;z-index:5;">
-    <a href="https://t.me/tradingnewsterminal" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#0088cc;border:2px solid #0088cc;border-radius:999px;color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.01em;text-decoration:none;box-shadow:0 6px 20px rgba(0,136,204,0.35);transition:transform .12s ease, box-shadow .12s ease;cursor:pointer;"
+  <!-- Telegram channel CTA — equal top/bottom spacing (40px), squared 4px
+       corners to match the 3 plan CTAs. Uses /s/ preview URL so desktop
+       browsers land on Telegram's channel preview (with recent posts)
+       instead of a blocked deep-link page that never opens Telegram. -->
+  <div style="margin:40px auto;display:flex;justify-content:center;position:relative;z-index:5;">
+    <a href="https://t.me/s/tradingnewsterminal" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#0088cc;border:2px solid #0088cc;border-radius:4px;color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.01em;text-decoration:none;box-shadow:0 6px 20px rgba(0,136,204,0.35);transition:transform .12s ease, box-shadow .12s ease;cursor:pointer;"
        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 10px 24px rgba(0,136,204,0.55)'"
        onmouseout="this.style.transform='none';this.style.boxShadow='0 6px 20px rgba(0,136,204,0.35)'"
        data-i18n="hero.telegram">
