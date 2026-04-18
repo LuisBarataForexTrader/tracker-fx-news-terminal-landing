@@ -839,14 +839,16 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <a href="/login?plan=trial" class="btn-trial" data-i18n="hero.btn_explore">Start 7-Day Free Trial</a>
   </div>
 
-  <!-- Telegram channel CTA — social proof + one-click subscription. -->
-  <div style="margin-top:28px;display:flex;justify-content:center;">
+  <!-- Telegram channel CTA — placed at higher z-index so it sits above the
+       mockup element and stays fully clickable; solid background for
+       readability instead of transparency. -->
+  <div style="margin:28px auto 0;display:flex;justify-content:center;position:relative;z-index:5;">
     <a href="https://t.me/tradingnewsterminal" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:10px;padding:10px 22px;background:rgba(0,136,204,0.08);border:1px solid rgba(0,136,204,0.35);border-radius:999px;color:#4cc8ff;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s ease;"
-       onmouseover="this.style.background='rgba(0,136,204,0.14)';this.style.borderColor='rgba(0,136,204,0.55)'"
-       onmouseout="this.style.background='rgba(0,136,204,0.08)';this.style.borderColor='rgba(0,136,204,0.35)'"
+       style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#0088cc;border:2px solid #0088cc;border-radius:999px;color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.01em;text-decoration:none;box-shadow:0 6px 20px rgba(0,136,204,0.35);transition:transform .12s ease, box-shadow .12s ease;cursor:pointer;"
+       onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 10px 24px rgba(0,136,204,0.55)'"
+       onmouseout="this.style.transform='none';this.style.boxShadow='0 6px 20px rgba(0,136,204,0.35)'"
        data-i18n="hero.telegram">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12C24 5.373 18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.259-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.245-1.349-.374-1.297-.789.027-.216.325-.437.894-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.14.12.098.153.23.168.32.017.093.037.304.02.469z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12C24 5.373 18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.259-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.245-1.349-.374-1.297-.789.027-.216.325-.437.894-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.14.12.098.153.23.168.32.017.093.037.304.02.469z"/></svg>
       Join our free Telegram channel — breaking news on your phone
     </a>
   </div>
@@ -1726,7 +1728,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
           <li data-i18n="cta.p3">Central Banks Tracker · Sentiment</li>
           <li data-i18n="cta.p4">Market Screener — 6 asset classes</li>
           <li data-i18n="cta.p5">Live Squawk · 7 TV channels · Ad-free</li>
-          <li data-i18n="cta.p6">Telegram mobile alerts · Up to 100/day</li>
+          <li data-i18n="cta.p6">Telegram mobile alerts</li>
         </ul>
         <a href="/login?plan=pro" class="btn-pro" data-i18n="plan.pro_btn">Get Pro Access →</a>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center" data-i18n="pricing.trial_note">€40/month + VAT · Cancel anytime</div>
@@ -1962,7 +1964,7 @@ const _LS = {
     'fc14.title':'AI News Analysis',
     'fc14.desc':'One click on any headline triggers a full AI analysis: reads the complete article, identifies which assets are affected (bullish / bearish / neutral), rates the confidence level and flags key price levels to watch. Built for speed — results in under 5 seconds.',
     'fc15.title':'Telegram Mobile Alerts',
-    'fc15.desc':'Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Pro users receive alerts in real-time with a choice of up to 100 per day. Basic users get the same alerts with a short delay. Never miss a market-moving headline again.',
+    'fc15.desc':'Get instant HIGH impact news alerts directly on your phone via Telegram — even when the terminal is closed. Pro users receive alerts in real-time. Basic users get the same alerts with a short delay. Never miss a market-moving headline again.',
     'ai.eyebrow':'AI News Analysis',
     'ai.h2':'Reads the article.<br>Tells you what moves.',
     'ai.sub':'Click ✦ AI on any headline and get a full structured analysis in under 5 seconds — market impact per asset, confidence rating and key price levels. No more guessing which pair to watch.',
@@ -2034,7 +2036,7 @@ const _LS = {
     'cta.p3':'Central Banks Tracker · Sentiment',
     'cta.p4':'Market Screener — 6 asset classes',
     'cta.p5':'Live Squawk · 7 TV channels · Ad-free',
-    'cta.p6':'Telegram mobile alerts · Up to 100/day',
+    'cta.p6':'Telegram mobile alerts',
     'cta.note':'Works in Chrome, Firefox, Safari, Edge · No installation required',
     'footer.brand_tagline':'Professional real-time financial news terminal for forex, crypto and macro traders. Live economic calendar, squawk box, TradingView charts and live TV in one place.',
     'footer.col_product':'Product','footer.open_terminal':'Open Terminal',
@@ -2179,7 +2181,7 @@ const _LS = {
     'fc14.title':'Análise AI de Notícias',
     'fc14.desc':'Um clique em qualquer notícia desencadeia uma análise completa por IA: lê o artigo completo, identifica quais os ativos afetados (bullish / bearish / neutro), avalia o nível de confiança e assinala os níveis de preço a observar. Feito para ser rápido — resultados em menos de 5 segundos.',
     'fc15.title':'Alertas Telegram no Telemóvel',
-    'fc15.desc':'Recebe alertas de notícias de impacto ALTO diretamente no teu telemóvel via Telegram — mesmo quando o terminal está fechado. Utilizadores Pro recebem alertas em tempo real com escolha até 100 por dia. Utilizadores Basic recebem os mesmos alertas com um pequeno atraso. Nunca percas uma notícia que move os mercados.',
+    'fc15.desc':'Recebe alertas de notícias de impacto ALTO diretamente no teu telemóvel via Telegram — mesmo quando o terminal está fechado. Utilizadores Pro recebem alertas em tempo real. Utilizadores Basic recebem os mesmos alertas com um pequeno atraso. Nunca percas uma notícia que move os mercados.',
     'ai.eyebrow':'Análise AI de Notícias',
     'ai.h2':'Lê o artigo.<br>Diz-te o que move.',
     'ai.sub':'Clica ✦ AI em qualquer notícia e obtém uma análise estruturada completa em menos de 5 segundos — impacto por ativo, nível de confiança e níveis de preço a observar.',
@@ -2391,7 +2393,7 @@ const _LS = {
     'sfc3.desc':'Filtra por sector, capitalización, señal, RSI, P/E, beta y más. Las acciones tienen 4 vistas: General, Rendimiento, Valoración y Dividendos. Todas las columnas son ordenables.',
     'fc14.title':'Análisis AI de Noticias',
     'fc15.title':'Alertas Telegram en Móvil',
-    'fc15.desc':'Recibe alertas de noticias de alto impacto directamente en tu móvil vía Telegram — incluso con el terminal cerrado. Los usuarios Pro reciben alertas en tiempo real con hasta 100 por día a elegir. Los usuarios Basic reciben las mismas alertas con un breve retraso. Nunca pierdas una noticia que mueva los mercados.',
+    'fc15.desc':'Recibe alertas de noticias de alto impacto directamente en tu móvil vía Telegram — incluso con el terminal cerrado. Los usuarios Pro reciben alertas en tiempo real. Los usuarios Basic reciben las mismas alertas con un breve retraso. Nunca pierdas una noticia que mueva los mercados.',
     'fc14.desc':'Un clic en cualquier titular activa un análisis completo de IA: lee el artículo completo, identifica los activos afectados (alcista / bajista / neutral), evalúa el nivel de confianza y señala los niveles de precio a vigilar. Resultados en menos de 5 segundos.',
     'ai.eyebrow':'Análisis AI de Noticias',
     'ai.h2':'Lee el artículo.<br>Te dice qué mueve.',
@@ -2595,7 +2597,7 @@ const _LS = {
     'sfc3.desc':'Filtrez par secteur, capitalisation, signal, RSI, P/E, beta et plus. Les actions offrent 4 vues : Aperçu, Performance, Valorisation et Dividendes. Chaque colonne est triable.',
     'fc14.title':'Analyse AI des Actualités',
     'fc15.title':'Alertes Telegram sur Mobile',
-    'fc15.desc':'Recevez des alertes d\'actualités à fort impact directement sur votre téléphone via Telegram — même lorsque le terminal est fermé. Les utilisateurs Pro reçoivent les alertes en temps réel avec un choix jusqu\'à 100 par jour. Les utilisateurs Basic reçoivent les mêmes alertes avec un léger délai. Ne manquez jamais une actualité qui fait bouger les marchés.',
+    'fc15.desc':'Recevez des alertes d\'actualités à fort impact directement sur votre téléphone via Telegram — même lorsque le terminal est fermé. Les utilisateurs Pro reçoivent les alertes en temps réel. Les utilisateurs Basic reçoivent les mêmes alertes avec un léger délai. Ne manquez jamais une actualité qui fait bouger les marchés.',
     'fc14.desc':'Un clic sur n\'importe quel titre déclenche une analyse IA complète : lit l\'article complet, identifie les actifs affectés (haussier / baissier / neutre), évalue le niveau de confiance et signale les niveaux de prix à surveiller. Résultats en moins de 5 secondes.',
     'ai.eyebrow':'Analyse AI des Actualités',
     'ai.h2':'Lit l\'article.<br>Vous dit ce qui bouge.',
@@ -2799,7 +2801,7 @@ const _LS = {
     'sfc3.desc':'Filtere nach Sektor, Marktkapitalisierung, Signal, RSI, KGV, Beta und mehr. Aktien bieten 4 Ansichten: Übersicht, Performance, Bewertung und Dividenden. Alle Spalten sortierbar.',
     'fc14.title':'KI-Nachrichtenanalyse',
     'fc15.title':'Telegram-Mobilbenachrichtigungen',
-    'fc15.desc':'Erhalten Sie sofortige Nachrichten mit HOHER Auswirkung direkt auf Ihr Handy über Telegram — auch wenn das Terminal geschlossen ist. Pro-Nutzer erhalten Benachrichtigungen in Echtzeit mit bis zu 100 pro Tag. Basic-Nutzer erhalten dieselben Benachrichtigungen mit kurzer Verzögerung. Verpassen Sie nie wieder eine marktbewegende Nachricht.',
+    'fc15.desc':'Erhalten Sie sofortige Nachrichten mit HOHER Auswirkung direkt auf Ihr Handy über Telegram — auch wenn das Terminal geschlossen ist. Pro-Nutzer erhalten Benachrichtigungen in Echtzeit. Basic-Nutzer erhalten dieselben Benachrichtigungen mit kurzer Verzögerung. Verpassen Sie nie wieder eine marktbewegende Nachricht.',
     'fc14.desc':'Ein Klick auf eine Schlagzeile startet eine vollständige KI-Analyse: liest den kompletten Artikel, identifiziert betroffene Assets (bullish / bearish / neutral), bewertet das Konfidenzniveau und markiert wichtige Preisniveaus. Ergebnisse in unter 5 Sekunden.',
     'ai.eyebrow':'KI-Nachrichtenanalyse',
     'ai.h2':'Liest den Artikel.<br>Sagt was sich bewegt.',
@@ -3003,7 +3005,7 @@ const _LS = {
     'sfc3.desc':'Filtra per settore, capitalizzazione, segnale, RSI, P/E, beta e altro. Le azioni offrono 4 viste: Panoramica, Performance, Valutazione e Dividendi. Ogni colonna è ordinabile.',
     'fc14.title':'Analisi AI delle Notizie',
     'fc15.title':'Avvisi Telegram su Mobile',
-    'fc15.desc':'Ricevi avvisi di notizie ad ALTO impatto direttamente sul tuo telefono via Telegram — anche quando il terminale è chiuso. Gli utenti Pro ricevono avvisi in tempo reale fino a 100 al giorno. Gli utenti Basic ricevono gli stessi avvisi con un breve ritardo. Non perdere mai una notizia che muove i mercati.',
+    'fc15.desc':'Ricevi avvisi di notizie ad ALTO impatto direttamente sul tuo telefono via Telegram — anche quando il terminale è chiuso. Gli utenti Pro ricevono avvisi in tempo reale. Gli utenti Basic ricevono gli stessi avvisi con un breve ritardo. Non perdere mai una notizia che muove i mercati.',
     'fc14.desc':'Un clic su qualsiasi titolo avvia un\'analisi AI completa: legge l\'articolo completo, identifica gli asset interessati (rialzista / ribassista / neutro), valuta il livello di confidenza e segnala i livelli di prezzo chiave. Risultati in meno di 5 secondi.',
     'ai.eyebrow':'Analisi AI delle Notizie',
     'ai.h2':'Legge l\'articolo.<br>Ti dice cosa si muove.',
