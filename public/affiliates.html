@@ -709,7 +709,7 @@ document.getElementById('aff-form').addEventListener('submit', async e => {
     const res = await fetch(BE + '/affiliates/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, notes: notes || null })
+      body: JSON.stringify({ name, email, notes: notes || null, lang: detectLang() })
     });
     const data = await res.json();
     if (res.ok) {
