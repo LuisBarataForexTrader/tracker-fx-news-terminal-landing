@@ -257,6 +257,7 @@ footer{padding:40px 32px;border-top:1px solid var(--border);display:flex;align-i
     <a href="#tiers" class="nav-link">Tiers</a>
     <a href="#calculator" class="nav-link">Calculator</a>
     <a href="#apply" class="nav-cta">Apply Now</a>
+    <button data-lang-btn onclick="toggleLang()" style="background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:4px;font-family:var(--mono)">PT</button>
   </div>
 </nav>
 
@@ -731,6 +732,138 @@ document.getElementById('aff-form').addEventListener('submit', async e => {
     btn.textContent = 'Submit Application →';
   }
 });
+
+// ── i18n (EN + PT) — auto-detects from navigator.language, manual toggle via nav ──
+const TR = {
+  // Navigation
+  "Home": "Início",
+  "Tiers": "Níveis",
+  "Calculator": "Calculadora",
+  "Apply Now": "Candidatar",
+  // Hero
+  "Affiliate Program": "Programa de Afiliados",
+  "Earn Commissions": "Ganha Comissões",
+  "Refer traders to TNT Pro. Earn up to 30% commission on annual subscriptions — with recurring income at Tier 3. No cap, no expiry.": "Refere traders ao TNT Pro. Ganha até 30% de comissão em subscrições anuais — com rendimento recorrente no Tier 3. Sem tecto, sem expirar.",
+  "Apply in 60 seconds": "Candidata-te em 60s",
+  "View tier benefits": "Ver benefícios por tier",
+  "Annual plan value": "Valor do plano anual",
+  "Max commission": "Comissão máxima",
+  "Cookie window": "Janela de cookie",
+  // Tiers section
+  "Three tiers. One goal: reward loyalty.": "Três níveis. Um objectivo: recompensar lealdade.",
+  "Everyone starts at Tier 1 (20% on first annual). As your conversions grow, you automatically level up. Tier 3 unlocks 10% recurring commissions on renewals.": "Todos começam no Tier 1 (20% na primeira anualidade). Conforme as tuas conversões crescem, subes de nível automaticamente. Tier 3 desbloqueia 10% de comissões recorrentes em renovações.",
+  "0-9 clients": "0-9 clientes",
+  "10-49 clients": "10-49 clientes",
+  "50+ clients": "50+ clientes",
+  "Commission on first annual": "Comissão na primeira anualidade",
+  "Commission on renewals": "Comissão em renovações",
+  "€72 per client": "€72 por cliente",
+  "€108 per client": "€108 por cliente",
+  "€36 per client /yr": "€36 por cliente/ano",
+  "Real-time dashboard — clicks, leads, conversions": "Dashboard em tempo real — cliques, leads, conversões",
+  "Bank transfer or Stripe payout": "Transferência bancária ou payout Stripe",
+  "30-day cookie attribution": "Atribuição por cookie de 30 dias",
+  "Everything in Tier 1": "Tudo do Tier 1",
+  "Exclusive 20% discount coupon for your community": "Cupom de desconto 20% exclusivo para a tua comunidade",
+  "Priority email support": "Suporte por email prioritário",
+  "Everything in Tier 1 & 2": "Tudo dos Tiers 1 & 2",
+  "10% recurring on renewals for life": "10% recorrente em renovações vitalícias",
+  "Dedicated landing page at tradingnewsterminal.com/you": "Landing page dedicada em tradingnewsterminal.com/tu",
+  "Dedicated landing page": "Landing page dedicada",
+  "Community discount coupon (20%)": "Cupom de desconto comunidade (20%)",
+  // Calculator
+  "Earnings Calculator": "Calculadora de Rendimentos",
+  "Configure your scenario": "Configura o teu cenário",
+  "Adjust the sliders to estimate your monthly and annual income.": "Ajusta os sliders para estimar o teu rendimento mensal e anual.",
+  "Paying clients / month": "Clientes pagantes / mês",
+  "Commission rate": "Taxa de comissão",
+  "Months simulated": "Meses simulados",
+  "Projected earnings": "Rendimento projectado",
+  "Cumulative earnings over time": "Rendimento acumulado ao longo do tempo",
+  "Total clients": "Total de clientes",
+  "Your tier": "O teu tier",
+  "Per month (avg)": "Por mês (média)",
+  "over 12 months": "em 12 meses",
+  // Apply form
+  "Apply as an affiliate": "Candidata-te como afiliado",
+  "Fill out the form below. Applications are reviewed within 1–2 business days. Free to join, no commitment.": "Preenche o formulário abaixo. Candidaturas são revistas em 1-2 dias úteis. Gratuito, sem compromisso.",
+  "Full Name *": "Nome completo *",
+  "Email Address *": "Endereço de email *",
+  "About you": "Sobre ti",
+  "Tell us about your audience, your platforms, your trading niche (optional)": "Fala-nos da tua audiência, plataformas, nicho de trading (opcional)",
+  "Submit Application →": "Submeter candidatura →",
+  "Submitting…": "A submeter…",
+  "Applications are reviewed within 1–2 business days. Free to join — no commitment, no fees. You'll receive your unique link and dashboard access upon approval.": "Candidaturas são revistas em 1-2 dias úteis. Gratuito — sem compromisso, sem taxas. Recebes o teu link único e acesso ao dashboard após aprovação.",
+  "✓ Application received! We'll review it and contact you within 1–2 business days.": "✓ Candidatura recebida! Vamos rever e contactar-te em 1-2 dias úteis.",
+  "Something went wrong. Please try again.": "Algo correu mal. Tenta novamente.",
+  "Connection error. Please try again.": "Erro de conexão. Tenta novamente.",
+  // FAQ
+  "Common questions": "Perguntas frequentes",
+  "What counts as a 'client'?": "O que conta como 'cliente'?",
+  "A client is someone who purchases an annual TNT Pro subscription (€360 + VAT) via your link. Simply registering without paying counts as a lead, not a client.": "Um cliente é alguém que adquire uma subscrição anual TNT Pro (€360 + IVA) via o teu link. Registar-se sem pagar conta como lead, não cliente.",
+  "Do monthly subscriptions earn commission?": "Subscrições mensais geram comissão?",
+  "Only annual plans generate commission. Monthly subscriptions (€40/mo) are not eligible \u2014 this keeps the programme focused on quality leads.": "Apenas planos anuais geram comissão. Subscrições mensais (€40/mês) não são elegíveis — isto mantém o programa focado em leads de qualidade.",
+  "How is attribution tracked?": "Como é feito o tracking da atribuição?",
+  "Every click is tracked for 30 days. When someone subscribes annually through your link, you're credited automatically.": "Cada clique é rastreado por 30 dias. Quando alguém subscreve a plano anual através do teu link, ficas automaticamente creditado.",
+  "When do I get paid?": "Quando recebo o pagamento?",
+  "Commissions become payable once your pending balance reaches €100. Request a payout from the dashboard — we process within 5 business days via bank transfer or Stripe.": "Comissões ficam disponíveis para pagamento quando o saldo pendente atinge €100. Pede payout no dashboard — processamos em 5 dias úteis via transferência bancária ou Stripe.",
+  "What's the Tier 2 coupon?": "O que é o cupom do Tier 2?",
+  "At Tier 2 you receive a personal Stripe coupon giving your audience 20% off their first annual subscription. Share it publicly \u2014 it helps you convert leads into clients faster.": "No Tier 2 recebes um cupom Stripe pessoal que dá 20% de desconto à tua audiência na primeira subscrição anual. Partilha-o — ajuda a converter leads em clientes mais rápido.",
+  // Final CTA
+  "Ready to start earning?": "Pronto para começar a ganhar?",
+  "Join dozens of traders already sharing TNT with their communities. Apply now — 2 minutes, no fees.": "Junta-te a dezenas de traders que já partilham TNT com as suas comunidades. Candidata-te agora — 2 minutos, sem taxas.",
+  // Footer
+  "Terms": "Termos",
+  "Privacy": "Privacidade",
+  "Contact": "Contacto",
+  "© 2026 Trading News Terminal. All rights reserved.": "© 2026 Trading News Terminal. Todos os direitos reservados.",
+  "© 2026 Trading News Terminal. All rights reserved. Affiliate programme subject to terms.": "© 2026 Trading News Terminal. Todos os direitos reservados. Programa de afiliados sujeito aos termos.",
+  "Real-time Market Intelligence": "Inteligência de Mercado em Tempo Real",
+};
+
+function detectLang() {
+  try {
+    const saved = localStorage.getItem('tnt_aff_lang');
+    if (saved === 'pt' || saved === 'en') return saved;
+  } catch {}
+  const nav = (navigator.language || 'en').toLowerCase();
+  return nav.startsWith('pt') ? 'pt' : 'en';
+}
+
+function applyLang(lang) {
+  if (lang !== 'pt') return;   // default EN \u2014 no translation needed
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => (n.parentElement && !['SCRIPT','STYLE'].includes(n.parentElement.tagName))
+                      ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+  });
+  const nodes = []; let n;
+  while ((n = walker.nextNode())) nodes.push(n);
+  nodes.forEach(n => {
+    const raw = n.nodeValue;
+    const trimmed = raw.trim();
+    if (trimmed && TR[trimmed]) {
+      n.nodeValue = raw.replace(trimmed, TR[trimmed]);
+    }
+  });
+  // Translate placeholders + titles
+  document.querySelectorAll('[placeholder]').forEach(el => {
+    if (TR[el.placeholder]) el.placeholder = TR[el.placeholder];
+  });
+  document.querySelectorAll('[data-lang-btn]').forEach(el => {
+    el.textContent = lang === 'pt' ? 'EN' : 'PT';
+  });
+  try { document.title = 'Programa de Afiliados \u2014 Trading News Terminal'; } catch {}
+}
+
+function toggleLang() {
+  const cur = detectLang();
+  const next = cur === 'pt' ? 'en' : 'pt';
+  try { localStorage.setItem('tnt_aff_lang', next); } catch {}
+  location.reload();
+}
+
+// Apply on DOM ready
+applyLang(detectLang());
 
 // ── COUNTER ANIMATION ─────────────────────────────────────────────
 function animateCount(el, target, prefix = '', suffix = '') {
