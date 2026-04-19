@@ -48,6 +48,22 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 /* AMBIENT GLOW */
 .glow-orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
 
+/* ── LANG PICKER (mirrors main landing) ── */
+.lang-picker{position:relative;}
+.lang-cur{display:flex;align-items:center;gap:6px;padding:7px 10px;background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .15s;}
+.lang-cur:hover{background:rgba(255,255,255,0.06);border-color:var(--accent);}
+.lang-flag{line-height:1;display:inline-flex;align-items:center;}
+.lang-flag img.emoji,.lang-flag img{width:16px;height:16px;vertical-align:middle;}
+.lang-opt-flag img{width:18px;height:18px;vertical-align:middle;}
+.lang-code{line-height:1;}
+.lang-caret{font-size:9px;opacity:0.7;line-height:1;}
+.lang-menu{position:absolute;top:calc(100% + 4px);right:0;background:#0a0e15;border:1px solid var(--border);border-radius:6px;padding:4px;z-index:9999;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,0.7);}
+.lang-menu[hidden]{display:none;}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;background:transparent;border:none;color:var(--text);font-family:var(--font);font-size:12px;font-weight:500;text-align:left;cursor:pointer;border-radius:4px;transition:background .1s;}
+.lang-opt:hover{background:rgba(0,212,255,0.08);}
+.lang-opt.active{background:rgba(0,212,255,0.18);color:var(--accent);}
+.lang-opt-flag{line-height:1;}
+
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(7,9,16,0.85);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
 .nav-brand{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;line-height:1.3}
@@ -257,7 +273,21 @@ footer{padding:40px 32px;border-top:1px solid var(--border);display:flex;align-i
     <a href="#tiers" class="nav-link">Tiers</a>
     <a href="#calculator" class="nav-link">Calculator</a>
     <a href="#apply" class="nav-cta">Apply Now</a>
-    <button data-lang-btn onclick="toggleLang()" style="background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:4px;font-family:var(--mono)">PT</button>
+    <div class="lang-picker" id="affLangPicker">
+      <button class="lang-cur" onclick="toggleAffLangMenu(event)" title="Language">
+        <span class="lang-flag" id="affLangFlag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" alt="EN"></span>
+        <span class="lang-code" id="affLangCode">EN</span>
+        <span class="lang-caret">▾</span>
+      </button>
+      <div class="lang-menu" id="affLangMenu" hidden>
+        <button class="lang-opt" data-lang="en" onclick="setAffLang('en')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" alt="EN"></span><span>English</span></button>
+        <button class="lang-opt" data-lang="pt" onclick="setAffLang('pt')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" alt="PT"></span><span>Português</span></button>
+        <button class="lang-opt" data-lang="es" onclick="setAffLang('es')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" alt="ES"></span><span>Español</span></button>
+        <button class="lang-opt" data-lang="fr" onclick="setAffLang('fr')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" alt="FR"></span><span>Français</span></button>
+        <button class="lang-opt" data-lang="de" onclick="setAffLang('de')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" alt="DE"></span><span>Deutsch</span></button>
+        <button class="lang-opt" data-lang="it" onclick="setAffLang('it')"><span class="lang-opt-flag"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" alt="IT"></span><span>Italiano</span></button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -821,17 +851,32 @@ const TR = {
   "Real-time Market Intelligence": "Inteligência de Mercado em Tempo Real",
 };
 
+const LANG_META = {
+  en: { code: 'EN', label: 'English',    flag: '1f1ec-1f1e7' },
+  pt: { code: 'PT', label: 'Português',  flag: '1f1f5-1f1f9' },
+  es: { code: 'ES', label: 'Español',    flag: '1f1ea-1f1f8' },
+  fr: { code: 'FR', label: 'Français',   flag: '1f1eb-1f1f7' },
+  de: { code: 'DE', label: 'Deutsch',    flag: '1f1e9-1f1ea' },
+  it: { code: 'IT', label: 'Italiano',   flag: '1f1ee-1f1f9' },
+};
+
 function detectLang() {
   try {
     const saved = localStorage.getItem('tnt_aff_lang');
-    if (saved === 'pt' || saved === 'en') return saved;
+    if (saved && LANG_META[saved]) return saved;
   } catch {}
-  const nav = (navigator.language || 'en').toLowerCase();
-  return nav.startsWith('pt') ? 'pt' : 'en';
+  const nav = (navigator.language || 'en').toLowerCase().slice(0,2);
+  return LANG_META[nav] ? nav : 'en';
 }
 
 function applyLang(lang) {
-  if (lang !== 'pt') return;   // default EN \u2014 no translation needed
+  // Only 'pt' currently has a full translation table; others fall back to EN.
+  // Extend TR with es/fr/de/it variants later to localise fully.
+  if (lang !== 'pt') {
+    // Still update UI indicator so user sees which flag is selected
+    _updateLangIndicator(lang);
+    return;
+  }
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode: n => (n.parentElement && !['SCRIPT','STYLE'].includes(n.parentElement.tagName))
                       ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
@@ -845,22 +890,42 @@ function applyLang(lang) {
       n.nodeValue = raw.replace(trimmed, TR[trimmed]);
     }
   });
-  // Translate placeholders + titles
   document.querySelectorAll('[placeholder]').forEach(el => {
     if (TR[el.placeholder]) el.placeholder = TR[el.placeholder];
   });
-  document.querySelectorAll('[data-lang-btn]').forEach(el => {
-    el.textContent = lang === 'pt' ? 'EN' : 'PT';
-  });
   try { document.title = 'Programa de Afiliados \u2014 Trading News Terminal'; } catch {}
+  _updateLangIndicator(lang);
 }
 
-function toggleLang() {
-  const cur = detectLang();
-  const next = cur === 'pt' ? 'en' : 'pt';
-  try { localStorage.setItem('tnt_aff_lang', next); } catch {}
+function _updateLangIndicator(lang) {
+  const meta = LANG_META[lang] || LANG_META.en;
+  const codeEl = document.getElementById('affLangCode');
+  const flagEl = document.getElementById('affLangFlag');
+  if (codeEl) codeEl.textContent = meta.code;
+  if (flagEl) flagEl.innerHTML = `<img src="https://twemoji.maxcdn.com/v/latest/svg/${meta.flag}.svg" alt="${meta.code}">`;
+  document.querySelectorAll('.lang-opt').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+function toggleAffLangMenu(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('affLangMenu');
+  if (menu) menu.hidden = !menu.hidden;
+}
+
+function setAffLang(lang) {
+  if (!LANG_META[lang]) return;
+  try { localStorage.setItem('tnt_aff_lang', lang); } catch {}
   location.reload();
 }
+
+// Close menu on outside click
+document.addEventListener('click', e => {
+  const picker = document.getElementById('affLangPicker');
+  const menu = document.getElementById('affLangMenu');
+  if (picker && menu && !picker.contains(e.target)) menu.hidden = true;
+});
 
 // Apply on DOM ready
 applyLang(detectLang());
