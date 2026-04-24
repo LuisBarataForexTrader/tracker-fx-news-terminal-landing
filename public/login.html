@@ -907,13 +907,11 @@ let _ppToken = null;
 
 function _showPlanPicker(token) {
   _ppToken = token;
-  // Hide all forms, show picker
-  document.getElementById('form-login').style.display = 'none';
-  document.getElementById('form-signup').style.display = 'none';
   const tabsEl = document.querySelector('.auth-tabs');
   if (tabsEl) tabsEl.style.display = 'none';
+  const boxEl = document.querySelector('.auth-box');
+  if (boxEl) boxEl.style.display = 'none';
   document.getElementById('plan-picker').classList.add('visible');
-  document.getElementById('msg').style.display = 'none';
 }
 
 async function _pickPlan(type) {
