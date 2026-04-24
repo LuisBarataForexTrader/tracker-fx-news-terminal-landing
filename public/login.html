@@ -266,8 +266,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
 .pp-sub{font-size:12px;color:#7a9ab0;margin-bottom:8px;}
 .pp-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all .22s ease;display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;}
 .pp-card:hover{border-color:rgba(0,212,255,0.6);background:rgba(0,212,255,0.07);transform:translateY(-1px);box-shadow:0 0 24px rgba(0,212,255,0.18),0 0 60px rgba(0,212,255,0.08),inset 0 1px 0 rgba(0,212,255,0.15);}
-.pp-card.featured{border-color:#a78bfa;background:rgba(124,58,237,0.12);}
+.pp-card.selected{border-color:rgba(0,212,255,0.8);background:rgba(0,212,255,0.1);box-shadow:0 0 32px rgba(0,212,255,0.25),0 0 80px rgba(0,212,255,0.1),inset 0 1px 0 rgba(0,212,255,0.2);}
+.pp-card.featured{border-color:rgba(167,139,250,0.35);background:rgba(124,58,237,0.08);}
 .pp-card.featured:hover{border-color:#c4b5fd;background:rgba(124,58,237,0.18);box-shadow:0 0 24px rgba(167,139,250,0.25),0 0 60px rgba(167,139,250,0.12),inset 0 1px 0 rgba(167,139,250,0.2);}
+.pp-card.featured.selected{border-color:#c4b5fd;background:rgba(124,58,237,0.2);box-shadow:0 0 32px rgba(167,139,250,0.3),0 0 80px rgba(167,139,250,0.15),inset 0 1px 0 rgba(167,139,250,0.25);}
 .pp-card-left{display:flex;flex-direction:column;gap:3px;}
 .pp-card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7a9ab0;}
 .pp-card.featured .pp-card-label{color:#c4b5fd;}
@@ -481,7 +483,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
         <div id="plan-picker">
           <div class="pp-title">Choose your plan</div>
           <div class="pp-sub">Full Pro access · Cancel anytime</div>
-          <div class="pp-card" onclick="_pickPlan('monthly')">
+          <div class="pp-card" onclick="_pickPlan('monthly',this)">
             <div class="pp-card-left">
               <div class="pp-card-label">Monthly</div>
               <div class="pp-card-name">Pro Monthly</div>
@@ -491,7 +493,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
               <div class="pp-card-amount">€40<span>/mo</span></div>
             </div>
           </div>
-          <div class="pp-card featured" onclick="_pickPlan('annual')">
+          <div class="pp-card featured" onclick="_pickPlan('annual',this)">
             <div class="pp-card-left">
               <div class="pp-card-badge">Best Value</div>
               <div class="pp-card-label">Annual</div>
@@ -914,8 +916,10 @@ function _showPlanPicker(token) {
   document.getElementById('plan-picker').classList.add('visible');
 }
 
-async function _pickPlan(type) {
+async function _pickPlan(type, el) {
   if (!_ppToken) return;
+  document.querySelectorAll('.pp-card').forEach(c => c.classList.remove('selected'));
+  if (el) el.closest('.pp-card').classList.add('selected');
   document.getElementById('pp-loading').style.display = 'block';
   document.querySelectorAll('.pp-card').forEach(c => c.style.pointerEvents = 'none');
   const isTrial = type === 'trial';
