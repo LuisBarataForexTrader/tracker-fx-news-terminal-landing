@@ -299,7 +299,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
           <div class="panel-feature-icon">📰</div>
           <div class="panel-feature-content">
             <div class="panel-feature-name">News Feed</div>
-            <div class="panel-feature-sub">Hundreds of sources, 2-min delay on Basic</div>
+            <div class="panel-feature-sub">Hundreds of sources, delayed on Basic</div>
           </div>
         </li>
         <li class="panel-feature">
@@ -484,7 +484,7 @@ const _AUTH_STR = {
     'panel.badge.basic':'Free Access · No Credit Card','panel.title.basic':'Your edge in<br><span>financial markets.</span>',
     'panel.desc.basic':'Real-time news, live economic calendar, TradingView charts and more — all in one terminal built for active traders.',
     'panel.stat.price.label.basic':'Basic plan forever','panel.stat.time.label':'To create account','panel.stat.coverage.label':'Market coverage',
-    'feat.news.name':'News Feed','feat.news.sub.basic':'Hundreds of sources, 2-min delay on Basic',
+    'feat.news.name':'News Feed','feat.news.sub.basic':'Hundreds of sources, delayed on Basic',
     'feat.cal.name':'Economic Calendar','feat.cal.sub':'Live releases with impact ratings',
     'feat.charts.name':'TradingView Charts','feat.charts.sub':'Full charting suite, all asset classes',
     'feat.multi.name':'Multilingual','feat.multi.sub':'Switch language instantly',
@@ -529,7 +529,7 @@ const _AUTH_STR = {
     'panel.badge.basic':'Acesso Gratuito · Sem Cartão','panel.title.basic':'A tua vantagem nos<br><span>mercados financeiros.</span>',
     'panel.desc.basic':'Notícias em tempo real, calendário económico, gráficos TradingView e muito mais — tudo num terminal para traders ativos.',
     'panel.stat.price.label.basic':'Plano Basic para sempre','panel.stat.time.label':'Para criar conta','panel.stat.coverage.label':'Cobertura de mercado',
-    'feat.news.name':'Feed de Notícias','feat.news.sub.basic':'Centenas de fontes, 2 min de atraso no Basic',
+    'feat.news.name':'Feed de Notícias','feat.news.sub.basic':'Centenas de fontes, com atraso no Basic',
     'feat.cal.name':'Calendário Económico','feat.cal.sub':'Dados ao vivo com classificação de impacto',
     'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas as classes de ativos',
     'feat.multi.name':'Multilingue','feat.multi.sub':'Troca de idioma instantânea',
@@ -574,7 +574,7 @@ const _AUTH_STR = {
     'panel.badge.basic':'Acceso Gratuito · Sin Tarjeta','panel.title.basic':'Tu ventaja en los<br><span>mercados financieros.</span>',
     'panel.desc.basic':'Noticias en tiempo real, calendario económico en directo, gráficos TradingView y más — todo en un terminal para traders activos.',
     'panel.stat.price.label.basic':'Plan básico para siempre','panel.stat.time.label':'Para crear cuenta','panel.stat.coverage.label':'Cobertura de mercado',
-    'feat.news.name':'Feed de Noticias','feat.news.sub.basic':'Cientos de fuentes, 2 min de retraso en Basic',
+    'feat.news.name':'Feed de Noticias','feat.news.sub.basic':'Cientos de fuentes, con retraso en Basic',
     'feat.cal.name':'Calendario Económico','feat.cal.sub':'Datos en directo con calificaciones de impacto',
     'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa de gráficos, todas las clases de activos',
     'feat.multi.name':'Multilingüe','feat.multi.sub':'Cambio de idioma instantáneo',
@@ -619,7 +619,7 @@ const _AUTH_STR = {
     'panel.badge.basic':'Accès Gratuit · Sans Carte','panel.title.basic':'Votre avantage sur<br><span>les marchés financiers.</span>',
     'panel.desc.basic':'Actualités en temps réel, calendrier économique, graphiques TradingView et plus — tout dans un terminal pour traders actifs.',
     'panel.stat.price.label.basic':'Plan basique à vie','panel.stat.time.label':'Pour créer un compte','panel.stat.coverage.label':'Couverture des marchés',
-    'feat.news.name':'Flux d\'actualités','feat.news.sub.basic':'Des centaines de sources, 2 min de délai en Basic',
+    'feat.news.name':'Flux d\'actualités','feat.news.sub.basic':'Des centaines de sources, avec délai en Basic',
     'feat.cal.name':'Calendrier Économique','feat.cal.sub':'Publications en direct avec notes d\'impact',
     'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite de graphiques complète, toutes classes d\'actifs',
     'feat.multi.name':'Multilingue','feat.multi.sub':'Changez de langue instantanément',
@@ -709,7 +709,7 @@ const _AUTH_STR = {
     'panel.badge.basic':'Accesso Gratuito · Nessuna Carta','panel.title.basic':'Il tuo vantaggio nei<br><span>mercati finanziari.</span>',
     'panel.desc.basic':'Notizie in tempo reale, calendario economico in diretta, grafici TradingView e altro — tutto in un terminal per trader attivi.',
     'panel.stat.price.label.basic':'Piano Base per sempre','panel.stat.time.label':'Per creare account','panel.stat.coverage.label':'Copertura di mercato',
-    'feat.news.name':'Feed di Notizie','feat.news.sub.basic':'Centinaia di fonti, 2 min di ritardo su Basic',
+    'feat.news.name':'Feed di Notizie','feat.news.sub.basic':'Centinaia di fonti, con ritardo su Basic',
     'feat.cal.name':'Calendario Economico','feat.cal.sub':'Dati in diretta con valutazioni di impatto',
     'feat.charts.name':'TradingView Charts','feat.charts.sub':'Suite completa di grafici, tutte le classi di asset',
     'feat.multi.name':'Multilingue','feat.multi.sub':'Cambia lingua istantaneamente',
@@ -768,6 +768,8 @@ let _lastUnverifiedEmail = '';
     var _exp = new Date(); _exp.setDate(_exp.getDate() + 30);
     document.cookie = 'aff_ref=' + _ref + ';expires=' + _exp.toUTCString() + ';path=/;SameSite=Lax';
     localStorage.setItem('aff_ref', _ref);
+    // Fire click tracking (in case user landed directly on /login?ref=CODE)
+    fetch('https://trading-news-terminal-backend-production.up.railway.app/affiliates/click?code=' + _ref, { method: 'POST' }).catch(function(){});
   }
 })();
 
@@ -872,7 +874,9 @@ async function _redirectToCheckout(token) {
       setTimeout(() => {
         localStorage.removeItem('pendingPro');
         localStorage.removeItem('pendingTrial');
-        window.location.href = APP_URL + '#token=' + encodeURIComponent(token);
+        const _affR = (localStorage.getItem('aff_ref') || '').toUpperCase();
+        const _affSuffix = _affR ? '&ref=' + encodeURIComponent(_affR) : '';
+        window.location.href = APP_URL + '#token=' + encodeURIComponent(token) + _affSuffix;
       }, 2500);
     }
   } catch(err) {
@@ -944,14 +948,23 @@ async function handleLogin(e) {
       return;
     }
     const alreadyPro = ['pro','trial'].includes(data.plan);
-    if (PRO_CHECKOUT && !alreadyPro) {
+    // If no plan was requested in the current URL, clear any stale pending flags
+    // that might have been left over from a previous browser session. Without this,
+    // a user switching accounts would be unexpectedly redirected to trial checkout.
+    if (!PRO_FROM_URL && !TRIAL_FROM_URL) {
+      localStorage.removeItem('pendingPro');
+      localStorage.removeItem('pendingTrial');
+    }
+    if (PRO_CHECKOUT && !alreadyPro && (PRO_FROM_URL || TRIAL_FROM_URL)) {
       await _redirectToCheckout(data.token);
     } else {
-      localStorage.removeItem('pendingPro'); // clear any stale pro-flow flag
+      localStorage.removeItem('pendingPro');
       localStorage.removeItem('pendingTrial');
       showMsg(_tl('msg.welcome.back'), 'success');
       const user = encodeURIComponent(JSON.stringify({id:data.id, email:data.email, name:data.name, plan:data.plan}));
-      setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user; }, 800);
+      const _affR2 = (localStorage.getItem('aff_ref') || '').toUpperCase();
+      const _affSuffix2 = _affR2 ? '&ref=' + encodeURIComponent(_affR2) : '';
+      setTimeout(() => { window.location.href = APP_URL + '#token=' + encodeURIComponent(data.token) + '&user=' + user + _affSuffix2; }, 800);
     }
   } catch(err) {
     showMsg(_tl('msg.connection.error'), 'error');
