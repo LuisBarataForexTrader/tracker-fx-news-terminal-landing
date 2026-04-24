@@ -259,6 +259,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
   .panel-features{grid-template-columns:1fr;}
   .form-wrap{max-width:100%;}
 }
+/* ── Plan picker ───────────────────────────────────── */
+#plan-picker{display:none;flex-direction:column;gap:14px;width:100%;}
+#plan-picker.visible{display:flex;}
+.pp-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;}
+.pp-sub{font-size:12px;color:#7a9ab0;margin-bottom:8px;}
+.pp-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.pp-card:hover{border-color:var(--panel-accent);background:rgba(0,212,255,0.06);transform:translateY(-1px);}
+.pp-card.featured{border-color:#a78bfa;background:rgba(124,58,237,0.12);}
+.pp-card.featured:hover{background:rgba(124,58,237,0.2);}
+.pp-card-left{display:flex;flex-direction:column;gap:3px;}
+.pp-card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7a9ab0;}
+.pp-card.featured .pp-card-label{color:#c4b5fd;}
+.pp-card-name{font-size:15px;font-weight:800;color:#fff;}
+.pp-card-desc{font-size:11px;color:#7a9ab0;margin-top:1px;}
+.pp-card-price{text-align:right;flex-shrink:0;}
+.pp-card-amount{font-size:20px;font-weight:800;color:#fff;}
+.pp-card-amount span{font-size:12px;font-weight:500;color:#7a9ab0;}
+.pp-card-save{font-size:10px;color:#a78bfa;font-weight:700;margin-top:2px;}
+.pp-card-badge{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#a78bfa;color:#fff;padding:2px 7px;border-radius:2px;margin-bottom:6px;display:inline-block;}
+.pp-loading{text-align:center;font-size:12px;color:#7a9ab0;padding:10px 0;}
 </style>
 </head>
 <body>
@@ -455,6 +475,35 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font
             </div>
             <button type="submit" class="btn-submit" id="btn-signup">Create Free Account</button>
           </form>
+        </div>
+
+        <!-- PLAN PICKER (shown after auth in trial flow) -->
+        <div id="plan-picker">
+          <div class="pp-title">Choose your plan</div>
+          <div class="pp-sub">Full Pro access · Cancel anytime</div>
+          <div class="pp-card" onclick="_pickPlan('monthly')">
+            <div class="pp-card-left">
+              <div class="pp-card-label">Monthly</div>
+              <div class="pp-card-name">Pro Monthly</div>
+              <div class="pp-card-desc">Billed monthly · Cancel anytime</div>
+            </div>
+            <div class="pp-card-price">
+              <div class="pp-card-amount">€40<span>/mo</span></div>
+            </div>
+          </div>
+          <div class="pp-card featured" onclick="_pickPlan('annual')">
+            <div class="pp-card-left">
+              <div class="pp-card-badge">Best Value</div>
+              <div class="pp-card-label">Annual</div>
+              <div class="pp-card-name">Pro Annual</div>
+              <div class="pp-card-desc">€360/year · Save €120 vs monthly</div>
+            </div>
+            <div class="pp-card-price">
+              <div class="pp-card-amount">€30<span>/mo</span></div>
+              <div class="pp-card-save">25% off</div>
+            </div>
+          </div>
+          <div id="pp-loading" class="pp-loading" style="display:none">Redirecting to Stripe…</div>
         </div>
 
         <div class="auth-footer-note">
@@ -851,6 +900,33 @@ function _initProFlow() {
   document.getElementById('signup-benefits').innerHTML = _buildProBenefitsHTML();
 }
 
+// ── Plan picker ──────────────────────────────────────────────────────────────
+const MONTHLY_PRICE_ID = 'price_1THo43PgXWxcInoUGZJGT1Ti';
+const ANNUAL_PRICE_ID  = 'price_1THo41PgXWxcInoUF3o6fKDh';
+let _ppToken = null;
+
+function _showPlanPicker(token) {
+  _ppToken = token;
+  // Hide all forms, show picker
+  document.getElementById('form-login').style.display = 'none';
+  document.getElementById('form-signup').style.display = 'none';
+  const tabsEl = document.querySelector('.auth-tabs');
+  if (tabsEl) tabsEl.style.display = 'none';
+  document.getElementById('plan-picker').classList.add('visible');
+  document.getElementById('msg').style.display = 'none';
+}
+
+async function _pickPlan(type) {
+  if (!_ppToken) return;
+  document.getElementById('pp-loading').style.display = 'block';
+  document.querySelectorAll('.pp-card').forEach(c => c.style.pointerEvents = 'none');
+  const isTrial = type === 'trial';
+  const priceId = type === 'annual' ? ANNUAL_PRICE_ID : (type === 'monthly' ? MONTHLY_PRICE_ID : null);
+  await _redirectToCheckout(_ppToken, isTrial, priceId);
+  document.getElementById('pp-loading').style.display = 'none';
+  document.querySelectorAll('.pp-card').forEach(c => c.style.pointerEvents = '');
+}
+
 // ── Browser fingerprint (lightweight, for trial abuse detection) ─────────────
 async function _getTrialFingerprint() {
   try {
@@ -876,12 +952,15 @@ async function _getTrialFingerprint() {
 }
 
 // ── STRIPE REDIRECT ─────────────────────────────────────────────────────────
-async function _redirectToCheckout(token) {
+async function _redirectToCheckout(token, isTrial, priceId) {
+  // isTrial / priceId can be passed explicitly (from plan picker)
+  // or inferred from URL/localStorage (legacy direct flow)
+  if (isTrial === undefined) isTrial = TRIAL_FROM_URL || localStorage.getItem('pendingTrial') === '1';
   showMsg(_tl('msg.checkout.redirecting'), 'success');
   try {
-    const isTrial = TRIAL_FROM_URL || localStorage.getItem('pendingTrial') === '1';
     const affRef = localStorage.getItem('aff_ref') || '';
     const checkoutBody = isTrial ? { trial: true } : {};
+    if (priceId) checkoutBody.price_id = priceId;
     if (affRef && !isTrial) checkoutBody.aff_ref = affRef;
     const headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
     if (isTrial) {
@@ -980,12 +1059,17 @@ async function handleLogin(e) {
     // If no plan was requested in the current URL, clear any stale pending flags
     // that might have been left over from a previous browser session. Without this,
     // a user switching accounts would be unexpectedly redirected to trial checkout.
+    const hasPendingTrial = localStorage.getItem('pendingTrial') === '1';
     if (!PRO_FROM_URL && !TRIAL_FROM_URL) {
       localStorage.removeItem('pendingPro');
       localStorage.removeItem('pendingTrial');
     }
-    if (PRO_CHECKOUT && !alreadyPro && (PRO_FROM_URL || TRIAL_FROM_URL)) {
-      await _redirectToCheckout(data.token);
+    if ((TRIAL_FROM_URL || hasPendingTrial) && !alreadyPro) {
+      // Show plan picker so user can choose Trial / Monthly / Annual
+      localStorage.removeItem('pendingTrial');
+      _showPlanPicker(data.token);
+    } else if (PRO_CHECKOUT && !alreadyPro && PRO_FROM_URL) {
+      await _redirectToCheckout(data.token, false, null);
     } else {
       localStorage.removeItem('pendingPro');
       localStorage.removeItem('pendingTrial');
