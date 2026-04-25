@@ -1,53 +1,349 @@
 {
   "outputDirectory": "public",
-  "alias": ["tradingnewsterminal.com", "www.tradingnewsterminal.com"],
+  "alias": [
+    "tradingnewsterminal.com",
+    "www.tradingnewsterminal.com"
+  ],
   "redirects": [
-    { "source": "/login.html",          "destination": "/login",          "permanent": true },
-    { "source": "/signin.html",         "destination": "/signin",         "permanent": true },
-    { "source": "/signup.html",         "destination": "/signup",         "permanent": true },
-    { "source": "/terms.html",          "destination": "/terms",          "permanent": true },
-    { "source": "/privacy.html",        "destination": "/privacy",        "permanent": true },
-    { "source": "/reset-password.html", "destination": "/reset-password", "permanent": true },
-    { "source": "/verify-email.html",   "destination": "/verify-email",   "permanent": true },
-    { "source": "/admin.html",          "destination": "/admin",          "permanent": true },
-    { "source": "/affiliates.html",     "destination": "/affiliates",     "permanent": true },
-    { "source": "/afiliates",           "destination": "/affiliates",     "permanent": true },
-    { "source": "/afiliates.html",      "destination": "/affiliates",     "permanent": true }
+    {
+      "source": "/login.html",
+      "destination": "/login",
+      "permanent": true
+    },
+    {
+      "source": "/signin.html",
+      "destination": "/signin",
+      "permanent": true
+    },
+    {
+      "source": "/signup.html",
+      "destination": "/signup",
+      "permanent": true
+    },
+    {
+      "source": "/terms.html",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/reset-password.html",
+      "destination": "/reset-password",
+      "permanent": true
+    },
+    {
+      "source": "/verify-email.html",
+      "destination": "/verify-email",
+      "permanent": true
+    },
+    {
+      "source": "/admin.html",
+      "destination": "/admin",
+      "permanent": true
+    },
+    {
+      "source": "/affiliates.html",
+      "destination": "/affiliates",
+      "permanent": true
+    },
+    {
+      "source": "/afiliates",
+      "destination": "/affiliates",
+      "permanent": true
+    },
+    {
+      "source": "/afiliates.html",
+      "destination": "/affiliates",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/login",          "destination": "/login.html" },
-    { "source": "/signup",         "destination": "/login.html" },
-    { "source": "/signin",         "destination": "/signin.html" },
-    { "source": "/terms",          "destination": "/terms.html" },
-    { "source": "/privacy",        "destination": "/privacy.html" },
-    { "source": "/reset-password", "destination": "/reset-password.html" },
-    { "source": "/verify-email",   "destination": "/verify-email.html" },
-    { "source": "/admin",          "destination": "/admin.html" },
-    { "source": "/bloomberg-alternative",  "destination": "/bloomberg-alternative.html" },
-    { "source": "/forex-news-feed",        "destination": "/forex-news-feed.html" },
-    { "source": "/economic-calendar",      "destination": "/economic-calendar.html" },
-    { "source": "/squawk-box",             "destination": "/squawk-box.html" },
-    { "source": "/live-financial-tv",      "destination": "/live-financial-tv.html" },
-    { "source": "/market-screener",        "destination": "/market-screener.html" },
-    { "source": "/central-banks-tracker",  "destination": "/central-banks-tracker.html" },
-    { "source": "/macro-bonds-hub",        "destination": "/macro-bonds-hub.html" },
-    { "source": "/earnings-calendar",      "destination": "/earnings-calendar.html" },
-    { "source": "/trading-charts",         "destination": "/trading-charts.html" },
-    { "source": "/affiliates",            "destination": "/affiliates.html" },
-    { "source": "/news-example",          "destination": "/news-example.html" },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/signin",
+      "destination": "/signin.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/reset-password",
+      "destination": "/reset-password.html"
+    },
+    {
+      "source": "/verify-email",
+      "destination": "/verify-email.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/bloomberg-alternative",
+      "destination": "/bloomberg-alternative.html"
+    },
+    {
+      "source": "/forex-news-feed",
+      "destination": "/forex-news-feed.html"
+    },
+    {
+      "source": "/economic-calendar",
+      "destination": "/economic-calendar.html"
+    },
+    {
+      "source": "/squawk-box",
+      "destination": "/squawk-box.html"
+    },
+    {
+      "source": "/live-financial-tv",
+      "destination": "/live-financial-tv.html"
+    },
+    {
+      "source": "/market-screener",
+      "destination": "/market-screener.html"
+    },
+    {
+      "source": "/central-banks-tracker",
+      "destination": "/central-banks-tracker.html"
+    },
+    {
+      "source": "/macro-bonds-hub",
+      "destination": "/macro-bonds-hub.html"
+    },
+    {
+      "source": "/earnings-calendar",
+      "destination": "/earnings-calendar.html"
+    },
+    {
+      "source": "/trading-charts",
+      "destination": "/trading-charts.html"
+    },
+    {
+      "source": "/affiliates",
+      "destination": "/affiliates.html"
+    },
+    {
+      "source": "/affiliates/verify",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/affiliates/verify"
+    },
+    {
+      "source": "/news-example",
+      "destination": "/news-example.html"
+    },
+    {
+      "source": "/reuters-eikon-alternative",
+      "destination": "/reuters-eikon-alternative.html"
+    },
+    {
+      "source": "/refinitiv-workspace-alternative",
+      "destination": "/refinitiv-workspace-alternative.html"
+    },
+    {
+      "source": "/benzinga-pro-alternative",
+      "destination": "/benzinga-pro-alternative.html"
+    },
+    {
+      "source": "/fxstreet-alternative",
+      "destination": "/fxstreet-alternative.html"
+    },
+    {
+      "source": "/forexlive-alternative",
+      "destination": "/forexlive-alternative.html"
+    },
+    {
+      "source": "/investing-com-alternative",
+      "destination": "/investing-com-alternative.html"
+    },
+    {
+      "source": "/finviz-alternative",
+      "destination": "/finviz-alternative.html"
+    },
+    {
+      "source": "/tradingview-news-alternative",
+      "destination": "/tradingview-news-alternative.html"
+    },
+    {
+      "source": "/seeking-alpha-alternative",
+      "destination": "/seeking-alpha-alternative.html"
+    },
+    {
+      "source": "/marketwatch-alternative",
+      "destination": "/marketwatch-alternative.html"
+    },
+    {
+      "source": "/stock-market-news-feed",
+      "destination": "/stock-market-news-feed.html"
+    },
+    {
+      "source": "/crypto-news-feed",
+      "destination": "/crypto-news-feed.html"
+    },
+    {
+      "source": "/commodities-news-feed",
+      "destination": "/commodities-news-feed.html"
+    },
+    {
+      "source": "/futures-news-feed",
+      "destination": "/futures-news-feed.html"
+    },
+    {
+      "source": "/oil-news-alerts",
+      "destination": "/oil-news-alerts.html"
+    },
+    {
+      "source": "/gold-news-alerts",
+      "destination": "/gold-news-alerts.html"
+    },
+    {
+      "source": "/bitcoin-news-alerts",
+      "destination": "/bitcoin-news-alerts.html"
+    },
+    {
+      "source": "/bonds-news-feed",
+      "destination": "/bonds-news-feed.html"
+    },
+    {
+      "source": "/fed-rate-decision-news",
+      "destination": "/fed-rate-decision-news.html"
+    },
+    {
+      "source": "/ecb-rate-decision-news",
+      "destination": "/ecb-rate-decision-news.html"
+    },
+    {
+      "source": "/nfp-news-feed",
+      "destination": "/nfp-news-feed.html"
+    },
+    {
+      "source": "/cpi-release-news",
+      "destination": "/cpi-release-news.html"
+    },
+    {
+      "source": "/fomc-minutes-live",
+      "destination": "/fomc-minutes-live.html"
+    },
+    {
+      "source": "/earnings-season-news",
+      "destination": "/earnings-season-news.html"
+    },
+    {
+      "source": "/day-trading-news-feed",
+      "destination": "/day-trading-news-feed.html"
+    },
+    {
+      "source": "/scalping-news-feed",
+      "destination": "/scalping-news-feed.html"
+    },
+    {
+      "source": "/swing-trading-news",
+      "destination": "/swing-trading-news.html"
+    },
+    {
+      "source": "/options-trading-news",
+      "destination": "/options-trading-news.html"
+    },
+    {
+      "source": "/prop-trading-news-feed",
+      "destination": "/prop-trading-news-feed.html"
+    },
+    {
+      "source": "/macro-trading-news",
+      "destination": "/macro-trading-news.html"
+    },
+    {
+      "source": "/financial-news-api",
+      "destination": "/financial-news-api.html"
+    },
+    {
+      "source": "/stock-news-telegram-bot",
+      "destination": "/stock-news-telegram-bot.html"
+    },
+    {
+      "source": "/market-sentiment-tool",
+      "destination": "/market-sentiment-tool.html"
+    },
+    {
+      "source": "/news-alerts-keyword",
+      "destination": "/news-alerts-keyword.html"
+    },
+    {
+      "source": "/realtime-market-data",
+      "destination": "/realtime-market-data.html"
+    },
+    {
+      "source": "/us-stock-market-news",
+      "destination": "/us-stock-market-news.html"
+    },
+    {
+      "source": "/uk-financial-news",
+      "destination": "/uk-financial-news.html"
+    },
+    {
+      "source": "/european-markets-news",
+      "destination": "/european-markets-news.html"
+    },
+    {
+      "source": "/asian-markets-news",
+      "destination": "/asian-markets-news.html"
+    },
+    {
+      "source": "/emerging-markets-news",
+      "destination": "/emerging-markets-news.html"
+    },
     {
       "source": "/news/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug",
       "destination": "https://trading-news-terminal-backend-production.up.railway.app/news/:year/:month/:day/:slug"
     },
     {
+      "source": "/news/asset/:asset",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/news/asset/:asset"
+    },
+    {
       "source": "/sitemap-news.xml",
       "destination": "https://trading-news-terminal-backend-production.up.railway.app/sitemap-news.xml"
+    },
+    {
+      "source": "/blog/sitemap.xml",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/blog/sitemap.xml"
+    },
+    {
+      "source": "/blog/rss.xml",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/blog/rss.xml"
+    },
+    {
+      "source": "/blog/:category/:slug",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/blog/:category/:slug"
+    },
+    {
+      "source": "/blog",
+      "destination": "https://trading-news-terminal-backend-production.up.railway.app/blog"
     }
   ],
   "headers": [
     {
       "source": "/(.*).html",
-      "headers": [{ "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        }
+      ]
     }
   ]
 }
