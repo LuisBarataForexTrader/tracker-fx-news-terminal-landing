@@ -321,6 +321,26 @@ nav {
 .nav-pro-cta:hover { box-shadow:0 0 28px rgba(124,58,237,0.5); transform:translateY(-1px); }
 .nav-mobile-cta { display:none; }
 
+/* ── HAMBURGER / MOBILE MENU ── */
+.nav-hamburger { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:8px; color:var(--text); flex-shrink:0; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:currentColor; border-radius:1px; transition:transform .25s, opacity .25s; }
+.nav-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity:0; }
+.nav-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display:none; position:fixed; inset:0; top:68px; background:#060810; z-index:8900; overflow-y:auto; padding:20px 20px 40px; flex-direction:column; gap:2px; border-top:1px solid var(--border); }
+.mobile-menu.open { display:flex; }
+.mobile-menu a { display:block; padding:14px 16px; color:var(--text-dim); font-size:15px; font-weight:500; letter-spacing:0.03em; text-decoration:none; border-radius:6px; transition:background .15s, color .15s; }
+.mobile-menu a:hover { background:#111827; color:var(--text); }
+.mm-divider { height:1px; background:var(--border); margin:10px 0; }
+.mm-cta-row { display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.mm-cta { display:block; padding:14px; background:var(--accent); color:#000; font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; border-radius:3px; text-align:center; text-decoration:none; }
+.mm-pro-cta { display:block; padding:14px; background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; border-radius:3px; text-align:center; text-decoration:none; }
+.mm-login { display:block; padding:14px; border:1px solid var(--border2); color:var(--text-dim); font-size:13px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; border-radius:3px; text-align:center; text-decoration:none; }
+.mm-lang-row { display:flex; flex-wrap:wrap; gap:8px; padding:14px 16px 4px; }
+.mm-lang-row button { padding:7px 12px; background:#111827; border:1px solid var(--border); border-radius:4px; color:var(--text-dim); font-size:12px; cursor:pointer; display:flex; align-items:center; gap:6px; font-family:var(--font); transition:border-color .15s, color .15s; }
+.mm-lang-row button.active { border-color:var(--accent); color:var(--accent); }
+@media(max-width:900px) { .nav-hamburger { display:flex; } }
+
 /* ── HERO ── */
 .hero {
   min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -731,7 +751,7 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
   .plan-card { padding:32px 20px; }
   .plan-price { font-size:42px; }
   .nav-btn-launch { display:none; }
-  .nav-mobile-cta { display:flex; }
+  .nav-mobile-cta { display:none; }
   .cta-section { padding:72px 16px; }
   .cta-card { padding:28px 22px; }
   .contact-section { padding:72px 16px; }
@@ -813,8 +833,36 @@ footer { background:var(--bg2); border-top:1px solid var(--border); padding:64px
     <a href="/signup" class="nav-cta nav-btn-launch" data-i18n="nav.launch_free">Launch Free →</a>
     <a href="/login?plan=pro" class="nav-pro-cta" data-i18n="nav.get_pro">Get Pro</a>
   </div>
-  <a href="/signup" class="nav-mobile-cta nav-cta" data-i18n="nav.launch">Launch →</a>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" data-i18n="nav.features" onclick="closeMobileMenu()">Features</a>
+  <a href="#charts" data-i18n="nav.charts" onclick="closeMobileMenu()">Charts</a>
+  <a href="#pricing" data-i18n="nav.pricing" onclick="closeMobileMenu()">Pricing</a>
+  <a href="#compare" data-i18n="nav.compare" onclick="closeMobileMenu()">Compare</a>
+  <a href="#faq" data-i18n="nav.faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" data-i18n="nav.contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="/affiliates" data-i18n="nav.affiliates" target="_blank" rel="noopener" onclick="closeMobileMenu()">Affiliates</a>
+  <div class="mm-divider"></div>
+  <div class="mm-lang-row" id="mmLangRow">
+    <button onclick="setLandingLang('en');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg" width="16" height="16" alt="EN">EN</button>
+    <button onclick="setLandingLang('pt');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1f9.svg" width="16" height="16" alt="PT">PT</button>
+    <button onclick="setLandingLang('es');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ea-1f1f8.svg" width="16" height="16" alt="ES">ES</button>
+    <button onclick="setLandingLang('fr');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1eb-1f1f7.svg" width="16" height="16" alt="FR">FR</button>
+    <button onclick="setLandingLang('de');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1e9-1f1ea.svg" width="16" height="16" alt="DE">DE</button>
+    <button onclick="setLandingLang('it');updateMMLang()"><img src="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f9.svg" width="16" height="16" alt="IT">IT</button>
+  </div>
+  <div class="mm-divider"></div>
+  <div class="mm-cta-row">
+    <a href="/signup" class="mm-cta" data-i18n="nav.launch_free">Launch Free →</a>
+    <a href="/login?plan=pro" class="mm-pro-cta" data-i18n="nav.get_pro">Get Pro</a>
+    <a href="/signin" class="mm-login" data-i18n="nav.signin">Sign In ↗</a>
+  </div>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero" aria-label="Hero — Real-Time Financial News Terminal">
@@ -3187,6 +3235,27 @@ function _updateLandingLangUI(l) {
   if (c) c.textContent = meta.code;
   document.querySelectorAll('#landingLangMenu .lang-opt').forEach(b => {
     b.classList.toggle('active', b.getAttribute('data-lang') === l);
+  });
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.getElementById('navHamburger');
+  const open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  if (open) updateMMLang();
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function updateMMLang() {
+  const cur = _landingLang || 'en';
+  document.querySelectorAll('#mmLangRow button').forEach(function(b) {
+    const lang = b.getAttribute('onclick').match(/setLandingLang\('(\w+)'\)/)?.[1];
+    b.classList.toggle('active', lang === cur);
   });
 }
 
